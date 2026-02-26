@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="QA Academy Quick Reference Guide">
+    <title>Quick Reference | QA Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            body { font-size: 11pt; }
+            .page-break { page-break-after: always; }
+        }
+        
+        @media (max-width: 768px) {
+            .ref-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .full-width {
+                grid-column: span 1 !important;
+            }
+            .ref-header h1 {
+                font-size: 1.5rem !important;
+            }
+            .quick-ref {
+                padding: 1rem !important;
+            }
+            .ref-item {
+                padding: 0.75rem !important;
+            }
+            .ref-item code {
+                font-size: 0.7rem !important;
+            }
+        }
+        
+        .quick-ref {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            padding-top: 1rem;
+        }
+        .ref-header {
+            text-align: center;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .ref-header h1 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+        .ref-header p {
+            color: var(--gray-600);
+        }
+        .ref-section {
+            margin-bottom: 2rem;
+        }
+        .ref-section h2 {
+            background: var(--accent);
+            color: var(--primary-dark);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        .ref-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .ref-item {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+        .ref-item h3 {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        .ref-item code {
+            display: block;
+            background: var(--code-bg);
+            color: var(--code-string);
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+        }
+        .ref-item p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+        .full-width {
+            grid-column: span 2;
+        }
+        .print-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: var(--accent);
+            color: var(--primary-dark);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 100;
+        }
+        .print-btn:hover {
+            background: var(--accent-hover);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header no-print" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav-brand">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor">
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link">Tutorials</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span><span></span><span></span>
+                </div>
+                
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    <div style="padding-top: 70px;"></div>
+    
+    <button class="print-btn no-print" onclick="window.print()">
+        🖨️ Print / Save as PDF
+    </button>
+
+    <div class="quick-ref">
+        <div class="ref-header">
+            <h1>🚀 LoadMagic.AI Quick Reference</h1>
+            <p>Essential commands, shortcuts, and tips • Created by Philip Odzor</p>
+        </div>
+
+        <!-- Getting Started -->
+        <div class="ref-section">
+            <h2>🚀 Getting Started</h2>
+            <div class="ref-grid">
+                <div class="ref-item">
+                    <h3>Sign Up</h3>
+                    <code>https://loadmagic.ai → Try FREE</code>
+                    <p>Create account, verify email, start testing</p>
+                </div>
+                <div class="ref-item">
+                    <h3>Access Studio</h3>
+                    <code>https://studio.loadmagic.ai</code>
+                    <p>Main dashboard for all operations</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recording HAR -->
+        <div class="ref-section">
+            <h2>📹 Recording HAR Files</h2>
+            <div class="ref-grid">
+                <div class="ref-item">
+                    <h3>Chrome DevTools</h3>
+                    <code>F12 → Network → Record → Save as HAR</code>
+                    <p>Preserve log for complete capture</p>
+                </div>
+                <div class="ref-item">
+                    <h3>Best Practices</h3>
+                    <code>Login → Browse → Action → Logout</code>
+                    <p>Record realistic user flows</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CLI Commands -->
+        <div class="ref-section">
+            <h2>💻 CLI Commands</h2>
+            <div class="ref-grid">
+                <div class="ref-item">
+                    <h3>Install CLI</h3>
+                    <code>npm install -g @loadmagic/cli</code>
+                    <p>Global installation</p>
+                </div>
+                <div class="ref-item">
+                    <h3>Login</h3>
+                    <code>loadmagic login</code>
+                    <p>Authenticate with credentials</p>
+                </div>
+                <div class="ref-item">
+                    <h3>Run Test</h3>
+                    <code>loadmagic run script.locust</code>
+                    <p>Execute load test</p>
+                </div>
+                <div class="ref-item">
+                    <h3>Check Status</h3>
+                    <code>loadmagic status</code>
+                    <p>View connection status</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Locust Basics -->
+        <div class="ref-section">
+            <h2>🐍 Locust Script Template</h2>
+            <div class="ref-grid">
+                <div class="ref-item full-width">
+                    <h3>Basic Locust Script</h3>
+                    <code>from locust import HttpUser, task, between
+
+class APITestUser(HttpUser):
+    wait_time = between(1, 3)
+    
+    def on_start(self):
+        # Login once per user
+        self.client.post("/api/login", 
+                        json={"user": "test"})
+    
+    @task(3)
+    def get_data(self):
+        self.client.get("/api/data")
+    
+    @task(1)
+    def post_action(self):
+        self.client.post("/api/action", 
+                        json={"action": "test"})</code>
+                    <p>Replace endpoints with your API paths</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Environment Variables -->
+        <div class="ref-section">
+            <h2>⚙️ Environment Variables</h2>
+            <div class="ref-grid">
+                <div class="ref-item">
+                    <h3>Linux/macOS</h3>
+                    <code>export LOADMAGIC_API_KEY="your-key"
+export LOADMAGIC_REGION="us-east-1"</code>
+                    <p>Add to ~/.bashrc or ~/.zshrc</p>
+                </div>
+                <div class="ref-item">
+                    <h3>Windows</h3>
+                    <code>$env:LOADMAGIC_API_KEY = "your-key"
+$env:LOADMAGIC_REGION = "us-east-1"</code>
+                    <p>PowerShell commands</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="ref-section">
+            <h2>🔧 Troubleshooting</h2>
+            <div class="ref-grid">
+                <div class="ref-item">
+                    <h3>API Key Issues</h3>
+                    <code>loadmagic config set api-key KEY</code>
+                    <p>Reset or verify your API key</p>
+                </div>
+                <div class="ref-item">
+                    <h3>Java Not Found</h3>
+                    <code>export JAVA_HOME=/path/to/java</code>
+                    <p>Set JAVA_HOME for JMeter</p>
+                </div>
+                <div class="ref-item">
+                    <h3>Port Conflict</h3>
+                    <code>jmeter -Dserver.rmi.localport=4445</code>
+                    <p>Change default port if 4444 is busy</p>
+                </div>
+                <div class="ref-item">
+                    <h3>Clear Cache</h3>
+                    <code>loadmagic clean --all</code>
+                    <p>Reset all cached data</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keyboard Shortcuts -->
+        <div class="ref-section">
+            <h2>⌨️ Keyboard Shortcuts (Studio)</h2>
+            <div class="ref-grid">
+                <div class="ref-item">
+                    <h3>Save Script</h3>
+                    <code>Ctrl + S / Cmd + S</code>
+                </div>
+                <div class="ref-item">
+                    <h3>Run Test</h3>
+                    <code>Ctrl + Enter / Cmd + Enter</code>
+                </div>
+                <div class="ref-item">
+                    <h3>Stop Test</h3>
+                    <code>Ctrl + . / Cmd + .</code>
+                </div>
+                <div class="ref-item">
+                    <h3>Toggle Console</h3>
+                    <code>Ctrl + ` / Cmd + `</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources -->
+        <div class="ref-section">
+            <h2>🔗 Quick Links</h2>
+            <div class="ref-grid">
+                <div class="ref-item full-width">
+                    <h3>Official Resources</h3>
+                    <code>
+📖 Docs: https://loadmagic.ai/blog.html
+🧮 Calculator: https://loadmagic.ai/quickdiag.html  
+🌐 Demo: https://public.loadmagic.ai
+📧 Support: https://loadmagic.ai
+📧 Contact Me: odzorp3@gmail.com
+                    </code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; padding-top: 2rem; border-top: 2px solid var(--gray-200); margin-top: 2rem;">
+            <p style="color: var(--gray-500); font-size: 0.85rem;">
+                © 2026 Philip Odzor | 
+                <a href="tutorials.html" style="color: var(--accent);">More Tutorials</a> |
+                <a href="contact.html" style="color: var(--accent);">Contact</a>
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer no-print">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">QA Academy</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="tutorials.html">Tutorials</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
+            </div>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

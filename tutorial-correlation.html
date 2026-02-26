@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Correlation Engine Tutorial - Learn dynamic value handling">
+    <title>Correlation Engine | Philip Odzor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .quiz-container {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--gray-200);
+        }
+        .quiz-question {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-primary);
+        }
+        .quiz-option:hover {
+            border-color: var(--accent);
+        }
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        .quiz-option.incorrect {
+            border-color: var(--error);
+            background: rgba(239, 68, 68, 0.1);
+        }
+        .quiz-result {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .quiz-result.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav-brand">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor">
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span><span></span><span></span>
+                </div>
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Correlation Engine</h1>
+            <p>Master dynamic value correlation and self-healing</p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+        <div class="container">
+            <div class="content">
+                <p><strong>Duration:</strong> 40 minutes | <strong>Level:</strong> Intermediate | <strong>Framework:</strong> LoadMagic.AI</p>
+                
+                <h2>What You'll Learn</h2>
+                <ul>
+                    <li>Understanding dynamic values in load testing</li>
+                    <li>How the Correlation Engine identifies dynamic data</li>
+                    <li>Using regex for value extraction</li>
+                    <li>Self-healing pipeline and automated fixes</li>
+                </ul>
+                
+                <h2>What Are Dynamic Values?</h2>
+                <p>Dynamic values are data that changes with each request or session. They include:</p>
+                
+                <ul>
+                    <li><strong>Session Tokens:</strong> Authentication tokens that expire</li>
+                    <li><strong>CSRF Tokens:</strong> Security tokens for form submissions</li>
+                    <li><strong>Session IDs:</strong> Unique identifiers for each user session</li>
+                    <li><strong>Timestamps:</strong> Time-sensitive data in requests</li>
+                    <li><strong>User IDs:</strong> Dynamic identifiers created on-the-fly</li>
+                </ul>
+                
+                <h2>The Problem</h2>
+                <pre class="code-block"><code># Traditional approach - Manual correlation
+# Step 1: Extract session token from login response
+session_token = response.json()["session_token"]
+
+# Step 2: Use it in subsequent requests
+headers = {"Authorization": f"Bearer {session_token}"}
+response = requests.get("/api/data", headers=headers)</code></pre>
+                
+                <h2>The Solution: AI-Powered Correlation</h2>
+                <pre class="code-block"><code># LoadMagic.AI automatically identifies and correlates
+class APITestUser(HttpUser):
+    wait_time = between(1, 3)
+    
+    # LoadMagic automatically:
+    # 1. Identifies dynamic values (tokens, IDs)
+    # 2. Creates extraction patterns
+    # 3. Correlates across requests
+    
+    def on_start(self):
+        response = self.client.post("/api/login", json={
+            "username": "test",
+            "password": "test123"
+        })
+        # Auto-extracted: session_token, user_id, csrf_token</code></pre>
+                
+                <h2>How the Correlation Engine Works</h2>
+                
+                <h3>Step 1: Dynamic Value Detection</h3>
+                <pre class="code-block"><code># The engine analyzes responses for patterns:
+response_body = {
+    "session_token": "eyJhbGciOiJIUzI1NiIs...",
+    "user_id": "12345-ABCDE",
+    "csrf_token": "a1b2c3d4e5f6",
+    "timestamp": 1706745600000
+}
+
+# Identifies these as dynamic values that need correlation</code></pre>
+                
+                <h3>Step 2: Pattern Generation</h3>
+                <pre class="code-block"><code># Generates regex patterns for extraction:
+patterns = {
+    "session_token": r'"session_token"\s*:\s*"([^"]+)"',
+    "user_id": r'"user_id"\s*:\s*"([^"]+)"',
+    "csrf_token": r'"csrf_token"\s*:\s*"([^"]+)"'
+}</code></pre>
+                
+                <h3>Step 3: Request Correlation</h3>
+                <pre class="code-block"><code># Applies correlations to subsequent requests:
+def get_user_profile(self):
+    self.client.get(
+        "/api/user/profile",
+        headers={
+            "Authorization": f"Bearer {self.session_token}",
+            "X-CSRF-Token": self.csrf_token
+        },
+        params={"user_id": self.user_id}
+    )</code></pre>
+                
+                <h2>Self-Healing Pipeline</h2>
+                <p>One of LoadMagic.AI's most powerful features is the self-healing pipeline. When your application changes, the AI automatically adapts:</p>
+                
+                <pre class="code-block"><code># Self-healing example:
+# Before app change: {"token": "abc123"}
+# After app change:  {"access_token": {"value": "xyz789"}}
+
+# The AI detects the change and automatically:
+# 1. Identifies new JSON structure
+# 2. Updates extraction patterns
+# 3. Validates the fix works
+# 4. Updates your script automatically</code></pre>
+                
+                <h2>Common Correlation Scenarios</h2>
+                
+                <h3>1. JWT Token Correlation</h3>
+                <pre class="code-block"><code># JWT tokens often look like:
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+# Pattern: Extract from Authorization header
+regex = r'Bearer\s+([A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+)'</code></pre>
+                
+                <h3>2. ViewState/EventValidation (.NET)</h3>
+                <pre class="code-block"><code># .NET applications use ViewState
+regex = r'id="__VIEWSTATE"\s+value="([^"]+)"'
+regex = r'id="__EVENTVALIDATION"\s+value="([^"]+)"'</code></pre>
+                
+                <h3>3. Dynamic URLs</h3>
+                <pre class="code-block"><code># Some apps embed data in URLs
+# /api/items/12345/details -> /api/items/67890/details
+regex = r'/api/items/(\d+)/details'</code></pre>
+                
+                <!-- Quiz -->
+                <h2>Knowledge Check</h2>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">1. What is the main purpose of the Correlation Engine?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">To increase test speed</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">To automatically extract and reuse dynamic values</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">To generate test data</div>
+                    </div>
+                    <div class="quiz-result" id="result1"></div>
+                </div>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">2. What is self-healing in LoadMagic.AI?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Automatic test execution</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Self-generating test scripts</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">Automatically fixing scripts when the app changes</div>
+                    </div>
+                    <div class="quiz-result" id="result2"></div>
+                </div>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">3. Which of these is a dynamic value that needs correlation?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Static API endpoint URL</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">Session token from login response</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Fixed username in test data</div>
+                    </div>
+                    <div class="quiz-result" id="result3"></div>
+                </div>
+                
+                <!-- Navigation -->
+                <div style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
+                    <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
+                    <a href="tutorial-cicd.html" class="btn btn-primary">Next: CI/CD Integration →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">QA Academy</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="tutorials.html">Tutorials</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
+            </div>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function checkAnswer(element, isCorrect) {
+            const parent = element.parentElement;
+            const result = parent.nextElementSibling;
+            
+            parent.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+            });
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+                result.className = 'quiz-result show';
+                result.innerHTML = '✓ Correct! Well done!';
+            } else {
+                element.classList.add('incorrect');
+                result.className = 'quiz-result show';
+                result.innerHTML = '✗ Not quite. Try again!';
+            }
+        }
+    </script>
+</body>
+</html>

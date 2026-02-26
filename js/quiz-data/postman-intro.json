@@ -1,0 +1,286 @@
+{
+  "tutorialId": "postman-intro",
+  "title": "Postman API Testing Quiz",
+  "description": "Test your knowledge of Postman for API testing",
+  "settings": {
+    "totalQuestions": 20,
+    "timeLimit": 600,
+    "shuffleQuestions": true,
+    "showExplanations": true,
+    "passingScore": 70
+  },
+  "questions": [
+    {
+      "id": 1,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "What is Postman primarily used for?",
+      "options": [
+        {"id": "a", "text": "Database management"},
+        {"id": "b", "text": "API development and testing"},
+        {"id": "c", "text": "Image editing"},
+        {"id": "d", "text": "Web hosting"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Postman is primarily an API development and testing tool. It allows you to send HTTP requests, test APIs, and automate API testing."
+    },
+    {
+      "id": 2,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "Which HTTP methods does Postman support?",
+      "options": [
+        {"id": "a", "text": "GET only"},
+        {"id": "b", "text": "GET, POST, PUT, DELETE"},
+        {"id": "c", "text": "All standard HTTP methods (GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS)"},
+        {"id": "d", "text": "Only GET and POST"}
+      ],
+      "correctAnswer": "c",
+      "explanation": "Postman supports all standard HTTP methods including GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS for API testing."
+    },
+    {
+      "id": 3,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "Postman can be used to test both REST and SOAP APIs.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "Postman supports multiple API types including REST, SOAP, GraphQL, and WebSocket, making it versatile for different API architectures."
+    },
+    {
+      "id": 4,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "What is a Postman Collection?",
+      "options": [
+        {"id": "a", "text": "A type of API"},
+        {"id": "b", "text": "A group of related API requests that can be organized and run together"},
+        {"id": "c", "text": "A testing framework"},
+        {"id": "d", "text": "A code snippet"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "A Collection is a group of related API requests organized in folders. Collections can be run as a suite and shared with team members."
+    },
+    {
+      "id": 5,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "What are Postman Environments used for?",
+      "options": [
+        {"id": "a", "text": "To store test data"},
+        {"id": "b", "text": "To store variables that can change between environments (dev, staging, prod)"},
+        {"id": "c", "text": "To run tests in parallel"},
+        {"id": "d", "text": "To generate API documentation"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Environments allow you to store variables like URLs, API keys, and credentials that change between environments, making it easy to switch between dev, staging, and production."
+    },
+    {
+      "id": 6,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is the purpose of Pre-request Scripts in Postman?",
+      "options": [
+        {"id": "a", "text": "To validate response data"},
+        {"id": "b", "text": "To execute code before the request runs (e.g., generating dynamic data)"},
+        {"id": "c", "text": "To set up test environment"},
+        {"id": "d", "text": "To create documentation"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Pre-request scripts run before the HTTP request is sent. They're used for generating dynamic values, setting timestamps, or modifying request headers programmatically."
+    },
+    {
+      "id": 7,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What are Test Scripts in Postman used for?",
+      "options": [
+        {"id": "a", "text": "To prepare data before requests"},
+        {"id": "b", "text": "To validate response data and status codes after a request"},
+        {"id": "c", "text": "To generate random data"},
+        {"id": "d", "text": "To create new APIs"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Test scripts run after the response is received. They're used to validate status codes, response body, headers, and perform assertions on the API response."
+    },
+    {
+      "id": 8,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "pm.response.json() is used to parse JSON responses in Postman tests.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "pm.response.json() parses the response body as JSON and returns a JavaScript object that can be used for assertions in test scripts."
+    },
+    {
+      "id": 9,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What does the status code 201 indicate?",
+      "options": [
+        {"id": "a", "text": "Success"},
+        {"id": "b", "text": "Created - Resource successfully created"},
+        {"id": "c", "text": "Bad Request"},
+        {"id": "d", "text": "Unauthorized"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "HTTP 201 Created indicates that the request was successful and a new resource was created on the server. It's typically returned after POST or PUT requests."
+    },
+    {
+      "id": 10,
+      "type": "scenario",
+      "difficulty": "medium",
+      "question": "You need to test that an API returns a user with ID 1 and status 'active'. Which Postman test would you write?",
+      "options": [
+        {"id": "a", "text": "pm.test(\"Check user\", () => { pm.expect(pm.response.json().id).to.equal(1); });"},
+        {"id": "b", "text": "pm.test(\"Check user\", () => { const jsonData = pm.response.json(); pm.expect(jsonData.id).to.eql(1); pm.expect(jsonData.status).to.eql(\"active\"); });"},
+        {"id": "c", "text": "console.log(pm.response);"},
+        {"id": "d", "text": "pm.sendRequest()"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "In Postman test scripts, parse the JSON response and use Chai assertions (pm.expect().to.eql()) to validate the id and status values match expected values."
+    },
+    {
+      "id": 11,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is Newman in Postman?",
+      "options": [
+        {"id": "a", "text": "A type of API"},
+        {"id": "b", "text": "Command-line collection runner for automating Postman tests"},
+        {"id": "c", "text": "A testing framework"},
+        {"id": "d", "text": "A browser extension"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Newman is a command-line tool that runs Postman collections from the terminal. It's essential for integrating API tests into CI/CD pipelines."
+    },
+    {
+      "id": 12,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "Postman supports authentication methods like Basic Auth, Bearer Token, and OAuth 2.0.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "Postman provides built-in support for various authentication types including Basic Auth, Bearer Token, OAuth 1.0, OAuth 2.0, API Key, and more."
+    },
+    {
+      "id": 13,
+      "type": "multiple-choice",
+      "difficulty": "hard",
+      "question": "How do you access a variable in Postman using the pm object?",
+      "options": [
+        {"id": "a", "text": "variable.get('name')"},
+        {"id": "b", "text": "pm.environment.get('name') or pm.variables.get('name')"},
+        {"id": "c", "text": "getVar('name')"},
+        {"id": "d", "text": "process.env.name"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Use pm.environment.get() for environment variables or pm.variables.get() for global variables. The syntax {{variable}} can also be used directly in requests."
+    },
+    {
+      "id": 14,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is the purpose of the 'pm.expect()' function in Postman?",
+      "options": [
+        {"id": "a", "text": "To send HTTP requests"},
+        {"id": "b", "text": "To write assertions in tests"},
+        {"id": "c", "text": "To log test results"},
+        {"id": "d", "text": "To create collections"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "pm.expect() is part of the Chai assertion library in Postman. It's used to write assertions in test scripts to validate expected values against actual results."
+    },
+    {
+      "id": 15,
+      "type": "code-prediction",
+      "difficulty": "hard",
+      "question": "What will this Postman test check?\n\npm.test(\"Status code is 200\", () => {\n  pm.response.to.have.status(200);\n});",
+      "options": [
+        {"id": "a", "text": "The response time is 200ms"},
+        {"id": "b", "text": "The HTTP status code is 200 (OK)"},
+        {"id": "c", "text": "The response has 200 characters"},
+        {"id": "d", "text": "This will error"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "pm.response.to.have.status(200) is a Postman assertion that checks if the HTTP response status code is 200, indicating a successful request."
+    },
+    {
+      "id": 16,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is the correct way to add a header in Postman?",
+      "options": [
+        {"id": "a", "text": "Using the Headers tab in the request builder"},
+        {"id": "b", "text": "Using pre-request script only"},
+        {"id": "c", "text": "Headers cannot be added manually"},
+        {"id": "d", "text": "Only through environment variables"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "Headers are added in the Headers tab of the request builder. You can also set common headers like Content-Type, Authorization, etc. in the 'Auth' tab."
+    },
+    {
+      "id": 17,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "Postman can generate API documentation from your collections.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "Postman can automatically generate beautiful, shareable API documentation from your collections, including request details, examples, and responses."
+    },
+    {
+      "id": 18,
+      "type": "multiple-choice",
+      "difficulty": "hard",
+      "question": "What does the status code 404 indicate?",
+      "options": [
+        {"id": "a", "text": "Success"},
+        {"id": "b", "text": "Server error"},
+        {"id": "c", "text": "Not Found - The requested resource doesn't exist"},
+        {"id": "d", "text": "Unauthorized"}
+      ],
+      "correctAnswer": "c",
+      "explanation": "HTTP 404 Not Found indicates that the server cannot find the requested resource. The URL or resource may have been removed or doesn't exist."
+    },
+    {
+      "id": 19,
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "You need to chain requests - use the token from a login response in subsequent requests. How do you do this in Postman?",
+      "options": [
+        {"id": "a", "text": "Copy and paste the token manually"},
+        {"id": "b", "text": "Use a test script to save the token to a variable: pm.environment.set('token', pm.response.json().token)"},
+        {"id": "c", "text": "This is not possible in Postman"},
+        {"id": "d", "text": "Use pre-request script only"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "In the login request's test script, extract the token from the response and save it to an environment variable using pm.environment.set(). Subsequent requests can then use {{token}}."
+    },
+    {
+      "id": 20,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is the purpose of 'Cookies' tab in Postman?",
+      "options": [
+        {"id": "a", "text": "To bake cookies"},
+        {"id": "b", "text": "To view and manage cookies sent with the request and response"},
+        {"id": "c", "text": "To store test data"},
+        {"id": "d", "text": "To generate random data"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "The Cookies tab shows cookies sent with the request and received in the response. You can also manually add cookies for testing session-based APIs."
+    }
+  ]
+}

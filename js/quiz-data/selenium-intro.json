@@ -1,0 +1,286 @@
+{
+  "tutorialId": "selenium-intro",
+  "title": "Selenium WebDriver Quiz",
+  "description": "Test your knowledge of Selenium WebDriver fundamentals",
+  "settings": {
+    "totalQuestions": 20,
+    "timeLimit": 600,
+    "shuffleQuestions": true,
+    "showExplanations": true,
+    "passingScore": 70
+  },
+  "questions": [
+    {
+      "id": 1,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "What is Selenium WebDriver?",
+      "options": [
+        {"id": "a", "text": "A programming language"},
+        {"id": "b", "text": "A browser automation tool that provides a programming interface"},
+        {"id": "c", "text": "A test framework"},
+        {"id": "d", "text": "A bug tracking system"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Selenium WebDriver is a browser automation tool that provides a programming interface for controlling browsers. It's the core component of Selenium."
+    },
+    {
+      "id": 2,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "Which organization maintains Selenium?",
+      "options": [
+        {"id": "a", "text": "Google"},
+        {"id": "b", "text": "Microsoft"},
+        {"id": "c", "text": "Selenium Project (open source)"},
+        {"id": "d", "text": "Meta"}
+      ],
+      "correctAnswer": "c",
+      "explanation": "Selenium is an open-source project maintained by the Selenium Project, a community of developers and contributors. It's not owned by any company."
+    },
+    {
+      "id": 3,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "Selenium WebDriver requires browser drivers (like chromedriver) to interact with browsers.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "WebDriver uses browser-specific drivers (chromedriver for Chrome, geckodriver for Firefox, etc.) that act as a bridge between the test script and the browser."
+    },
+    {
+      "id": 4,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "Which languages does Selenium WebDriver support?",
+      "options": [
+        {"id": "a", "text": "Java only"},
+        {"id": "b", "text": "JavaScript only"},
+        {"id": "c", "text": "Java, Python, C#, Ruby, JavaScript, and Kotlin"},
+        {"id": "d", "text": "Only Python and Java"}
+      ],
+      "correctAnswer": "c",
+      "explanation": "Selenium WebDriver supports multiple programming languages: Java, Python, C#, Ruby, JavaScript, and Kotlin, making it accessible to diverse development teams."
+    },
+    {
+      "id": 5,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "What is the correct order to start browser automation in Selenium?",
+      "options": [
+        {"id": "a", "text": "Create driver → Open URL → Find element → Perform action"},
+        {"id": "b", "text": "Open URL → Create driver → Find element → Perform action"},
+        {"id": "c", "text": "Find element → Create driver → Open URL → Perform action"},
+        {"id": "d", "text": "Import Selenium → Run tests"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "The typical Selenium workflow is: 1) Create the WebDriver instance, 2) Navigate to URL, 3) Find the element, 4) Perform action (click, type, etc.)"
+    },
+    {
+      "id": 6,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "Which interface represents a WebElement in Selenium?",
+      "options": [
+        {"id": "a", "text": "WebDriver"},
+        {"id": "b", "text": "WebElement"},
+        {"id": "c", "text": "By"},
+        {"id": "d", "text": "DesiredCapabilities"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "The WebElement interface in Selenium represents an HTML element. It provides methods like click(), sendKeys(), getText(), etc."
+    },
+    {
+      "id": 7,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "Which locator strategy is generally fastest and most reliable in Selenium?",
+      "options": [
+        {"id": "a", "text": "XPath"},
+        {"id": "b", "text": "CSS Selector"},
+        {"id": "c", "text": "Link text"},
+        {"id": "d", "text": "ID"}
+      ],
+      "correctAnswer": "d",
+      "explanation": "ID locators are generally fastest because browsers optimize ID lookups. CSS selectors are the second fastest and more flexible than XPath."
+    },
+    {
+      "id": 8,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "Selenium WebDriver can only automate web browsers, not mobile apps.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "With Appium (built on Selenium), you can automate mobile apps (native, hybrid, mobile web) on iOS and Android using the WebDriver protocol."
+    },
+    {
+      "id": 9,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is implicit waiting in Selenium?",
+      "options": [
+        {"id": "a", "text": "Waiting for a specific element to appear"},
+        {"id": "b", "text": "Setting a global timeout for element searches"},
+        {"id": "c", "text": "Waiting for page to load completely"},
+        {"id": "d", "text": "Waiting for JavaScript to execute"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Implicit waiting sets a global timeout that applies to all element searches. If an element isn't found immediately, Selenium will poll the DOM for the specified time."
+    },
+    {
+      "id": 10,
+      "type": "scenario",
+      "difficulty": "medium",
+      "question": "You need to select an option from a dropdown. Which Selenium method should you use?",
+      "options": [
+        {"id": "a", "text": "driver.findElement().select()"},
+        {"id": "b", "text": "new Select(driver.findElement()).selectByVisibleText()"},
+        {"id": "c", "text": "driver.click()"},
+        {"id": "d", "text": "driver.sendKeys()"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "For standard HTML <select> elements, use the Select class. Methods include selectByVisibleText(), selectByValue(), and selectByIndex()."
+    },
+    {
+      "id": 11,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is the difference between findElement() and findElements()?",
+      "options": [
+        {"id": "a", "text": "They are exactly the same"},
+        {"id": "b", "text": "findElement returns one element, findElements returns a list"},
+        {"id": "c", "text": "findElement is faster"},
+        {"id": "d", "text": "findElements is deprecated"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "findElement() returns a single WebElement (or throws NoSuchElementException), while findElements() returns a List of all matching WebElements."
+    },
+    {
+      "id": 12,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "Explicit waits in Selenium allow you to wait for specific conditions.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "Explicit waits (WebDriverWait) allow you to wait for specific conditions (like element visibility, clickability, etc.) before proceeding with test steps."
+    },
+    {
+      "id": 13,
+      "type": "multiple-choice",
+      "difficulty": "hard",
+      "question": "Which is NOT a recommended practice in Selenium WebDriver?",
+      "options": [
+        {"id": "a", "text": "Using explicit waits instead of Thread.sleep()"},
+        {"id": "b", "text": "Using unique IDs for elements when available"},
+        {"id": "c", "text": "Using absolute XPath"},
+        {"id": "d", "text": "Page Object Model pattern"}
+      ],
+      "correctAnswer": "c",
+      "explanation": "Avoid absolute XPath as they're fragile and break easily with UI changes. Use relative XPath, CSS selectors, or IDs instead."
+    },
+    {
+      "id": 14,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What does the 'driver.quit()' method do?",
+      "options": [
+        {"id": "a", "text": "Closes the current window"},
+        {"id": "b", "text": "Closes all windows and ends the WebDriver session"},
+        {"id": "c", "text": "Refreshes the page"},
+        {"id": "d", "text": "Minimizes the browser"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "driver.quit() closes all browser windows and ends the WebDriver session, while driver.close() only closes the current window."
+    },
+    {
+      "id": 15,
+      "type": "code-prediction",
+      "difficulty": "hard",
+      "question": "What will this Selenium code do?\n\ndriver.navigate().to(\"https://example.com\");\ndriver.findElement(By.name(\"q\")).sendKeys(\"Selenium\");\ndriver.findElement(By.name(\"q\")).submit();",
+      "options": [
+        {"id": "a", "text": "Only navigate to the URL"},
+        {"id": "b", "text": "Navigate, type 'Selenium' in search box, and submit the form"},
+        {"id": "c", "text": "This code will error"},
+        {"id": "d", "text": "Only type in the search box"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "This code navigates to Google, finds the search box by name 'q', types 'Selenium', and submits the form (which triggers the search)."
+    },
+    {
+      "id": 16,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is the purpose of DesiredCapabilities in Selenium?",
+      "options": [
+        {"id": "a", "text": "To define test assertions"},
+        {"id": "b", "text": "To configure browser settings (headless, window size, etc.)"},
+        {"id": "c", "text": "To create test reports"},
+        {"id": "d", "text": "To manage test data"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "DesiredCapabilities (or Options in newer Selenium versions) are used to configure browser settings like headless mode, window size, download paths, etc."
+    },
+    {
+      "id": 17,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "Selenium Grid allows you to run tests in parallel on multiple machines.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "Selenium Grid allows distributed test execution across multiple machines. It has a hub that distributes tests to nodes with different browsers and platforms."
+    },
+    {
+      "id": 18,
+      "type": "multiple-choice",
+      "difficulty": "hard",
+      "question": "What is the Page Object Model (POM) design pattern in Selenium?",
+      "options": [
+        {"id": "a", "text": "A way to create web pages"},
+        {"id": "b", "text": "A design pattern that creates an object repository for web elements"},
+        {"id": "c", "text": "A test framework"},
+        {"id": "d", "text": "A reporting tool"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Page Object Model creates an object repository for web elements. Each page is represented as a class with methods that encapsulate element interactions, improving test maintenance."
+    },
+    {
+      "id": 19,
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "A page has a button that takes 10 seconds to become clickable after page load. How should you handle this in Selenium?",
+      "options": [
+        {"id": "a", "text": "Use Thread.sleep(10000)"},
+        {"id": "b", "text": "Use WebDriverWait with expected condition elementToBeClickable"},
+        {"id": "c", "text": "Use implicit wait"},
+        {"id": "d": "text": "Skip testing this button"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Use explicit wait with expected condition elementToBeClickable. This waits specifically for the button to become clickable, avoiding unnecessary waiting."
+    },
+    {
+      "id": 20,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "Which exception is thrown when an element is not found in Selenium?",
+      "options": [
+        {"id": "a", "text": "ElementNotFoundException"},
+        {"id": "b", "text": "NoSuchElementException"},
+        {"id": "c", "text": "ElementNotVisibleException"},
+        {"id": "d", "text": "TimeoutException"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "NoSuchElementException is thrown when findElement() cannot locate the element within the specified timeout period."
+    }
+  ]
+}

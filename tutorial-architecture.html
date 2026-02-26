@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="System Architecture Tutorial - Learn LoadMagic.AI">
+    <title>System Architecture | Philip Odzor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .diagram-container {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+        .diagram-box {
+            display: inline-block;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 0.5rem;
+            font-weight: 500;
+        }
+        .layer-client { background: var(--accent); color: var(--primary-dark); border: 2px solid var(--accent-hover); }
+        .layer-gateway { background: var(--warning); color: var(--primary-dark); border: 2px solid var(--warning); }
+        .layer-core { background: var(--success); color: var(--primary-dark); border: 2px solid var(--success); }
+        .layer-data { background: var(--code-keyword); color: var(--primary-dark); border: 2px solid var(--code-keyword); }
+        
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .component-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .component-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .component-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .tech-tag {
+            display: inline-block;
+            background: var(--bg-tertiary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin: 4px;
+            color: var(--text-secondary);
+        }
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+        .flow-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .flow-step {
+            background: var(--bg-primary);
+            border: 2px solid var(--accent);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+            min-width: 150px;
+            color: var(--text-primary);
+        }
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        .architecture-diagram {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 2rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        .architecture-diagram .title { color: var(--accent-light); font-weight: bold; }
+        .architecture-diagram .box { 
+            background: var(--gray-700); 
+            padding: 4px 8px; 
+            border-radius: 4px; 
+            margin: 2px;
+            display: inline-block;
+        }
+        .architecture-diagram .box-client { background: #1e40af; }
+        .architecture-diagram .box-gateway { background: #b45309; }
+        .architecture-diagram .box-core { background: #047857; }
+        .architecture-diagram .box-data { background: #7e22ce; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav-brand">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor">
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span><span></span><span></span>
+                </div>
+                
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>System Architecture</h1>
+            <p>Understand how LoadMagic.AI works under the hood</p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+        <div class="container">
+            <div class="content">
+                <p><strong>Duration:</strong> 30 minutes | <strong>Level:</strong> Intermediate | <strong>Framework:</strong> LoadMagic.AI</p>
+                
+                <!-- What You'll Learn -->
+                <h2>What You'll Learn</h2>
+                <ul>
+                    <li>High-level architecture overview</li>
+                    <li>Client layer components</li>
+                    <li>API Gateway layer</li>
+                    <li>Core services architecture</li>
+                    <li>Data and storage layer</li>
+                </ul>
+                
+                <!-- Architecture Overview -->
+                <h2>High-Level Architecture</h2>
+                <p>LoadMagic.AI employs a modern, cloud-native architecture designed for scalability, reliability, and enterprise-grade security.</p>
+                
+                <div class="diagram-container">
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <span class="diagram-box layer-client">Client Layer</span>
+                    </div>
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <span class="diagram-box layer-gateway">API Gateway Layer</span>
+                    </div>
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <span class="diagram-box layer-core">Core Services Layer</span>
+                    </div>
+                    <div style="text-align: center;">
+                        <span class="diagram-box layer-data">Data & Storage Layer</span>
+                    </div>
+                </div>
+                
+                <!-- Client Layer -->
+                <h2>1. Client Layer</h2>
+                <p>The client layer provides multiple interfaces for interacting with LoadMagic.AI.</p>
+                
+                <div class="component-grid">
+                    <div class="component-card">
+                        <div class="component-icon">🌐</div>
+                        <h3>Web UI (Studio)</h3>
+                        <p>Browser-based interface for script creation and management.</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">Monaco Editor</span>
+                            <span class="tech-tag">WebSocket</span>
+                        </div>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">🐞</div>
+                        <h3>JMeter Plugin</h3>
+                        <p>Desktop plugin for local development and testing.</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Apache JMeter</span>
+                            <span class="tech-tag">Swing UI</span>
+                        </div>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">⚡</div>
+                        <h3>REST API</h3>
+                        <p>Programmatic access for automation and CI/CD.</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="tech-tag">OpenAPI</span>
+                            <span class="tech-tag">JSON</span>
+                            <span class="tech-tag">JWT Auth</span>
+                        </div>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">💻</div>
+                        <h3>CLI Tool</h3>
+                        <p>Command-line interface for power users.</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">npm</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- API Gateway -->
+                <h2>2. API Gateway Layer</h2>
+                <p>The gateway layer handles authentication, security, and request routing.</p>
+                
+                <div class="component-grid">
+                    <div class="component-card">
+                        <div class="component-icon">🔐</div>
+                        <h3>Authentication & Security</h3>
+                        <ul>
+                            <li>JWT token validation</li>
+                            <li>API key management</li>
+                            <li>SSO integration (SAML, OAuth)</li>
+                            <li>Role-based access control</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">🚦</div>
+                        <h3>Rate Limiting</h3>
+                        <ul>
+                            <li>Per-user throttling</li>
+                            <li>API quota management</li>
+                            <li>Usage tracking</li>
+                            <li>Burst handling</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">🛣️</div>
+                        <h3>Request Routing</h3>
+                        <ul>
+                            <li>Load balancing</li>
+                            <li>Service discovery</li>
+                            <li>Request transformation</li>
+                            <li>Health checking</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Core Services -->
+                <h2>3. Core Services Layer</h2>
+                <p>The heart of LoadMagic.AI where the magic happens.</p>
+                
+                <div class="component-grid">
+                    <div class="component-card">
+                        <div class="component-icon">📂</div>
+                        <h3>HAR Processing</h3>
+                        <p>Parses and analyzes HTTP traffic captured from browsers.</p>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">📜</div>
+                        <h3>Script Generation</h3>
+                        <p>AI-powered generation of JMeter and Locust scripts.</p>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">🔗</div>
+                        <h3>Correlation Engine</h3>
+                        <p>Automatic extraction and handling of dynamic values.</p>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">🤖</div>
+                        <h3>AI Agents</h3>
+                        <p>George, Rupert, Suzy, Carrie, and Quinn for automation.</p>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">📊</div>
+                        <h3>Results Visualizer</h3>
+                        <p>Interactive dashboards for test result analysis.</p>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">👥</div>
+                        <h3>User Management</h3>
+                        <p>Teams, projects, and collaboration features.</p>
+                    </div>
+                </div>
+                
+                <!-- Data Layer -->
+                <h2>4. Data & Storage Layer</h2>
+                <p>Persistent storage for all application data.</p>
+                
+                <div class="component-grid">
+                    <div class="component-card">
+                        <div class="component-icon">📄</div>
+                        <h3>Document Store</h3>
+                        <p>MongoDB for flexible document storage.</p>
+                        <ul style="margin-top: 1rem;">
+                            <li>User profiles</li>
+                            <li>Project configs</li>
+                            <li>Script versions</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">🧠</div>
+                        <h3>AI Model Storage</h3>
+                        <p>Vector and ML model storage.</p>
+                        <ul style="margin-top: 1rem;">
+                            <li>Trained models</li>
+                            <li>Embeddings</li>
+                            <li>Training data</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="component-card">
+                        <div class="component-icon">📈</div>
+                        <h3>Results Store</h3>
+                        <p>S3/GCS for large test result files.</p>
+                        <ul style="margin-top: 1rem;">
+                            <li>Test metrics</li>
+                            <li>Log files</li>
+                            <li>HAR archives</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Data Flow -->
+                <h2>Data Flow</h2>
+                <p>Here's how data flows through the system when you create a load test:</p>
+                
+                <div class="flow-diagram">
+                    <div class="flow-row">
+                        <div class="flow-step">1. Upload HAR File</div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step">2. API Gateway</div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step">3. HAR Processing</div>
+                    </div>
+                    <div class="flow-row">
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step">4. AI Agents</div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step">5. Script Generation</div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step">6. Results Store</div>
+                    </div>
+                </div>
+                
+                <!-- Interactive Element -->
+                <h2>Explore the Architecture</h2>
+                <div class="card" style="padding: 2rem;">
+                    <h3>Architecture Simulation</h3>
+                    <p>Click on each layer to learn more about its components:</p>
+                    
+                    <div style="margin-top: 1.5rem;">
+                        <details style="margin-bottom: 1rem;">
+                            <summary class="accordion-summary blue">
+                                🖥️ Client Layer - Click to expand
+                            </summary>
+                            <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px; margin-top: 0.5rem;">
+                                <p><strong>Web UI (Studio):</strong> The main interface where you upload HAR files, view results, and manage projects. Built with React and Monaco Editor.</p>
+                                <p><strong>JMeter Plugin:</strong> For teams preferring desktop tools, integrates directly with Apache JMeter.</p>
+                                <p><strong>REST API:</strong> Full programmatic access for automation and CI/CD integration.</p>
+                            </div>
+                        </details>
+                        
+                        <details style="margin-bottom: 1rem;">
+                            <summary class="accordion-summary yellow">
+                                🚪 API Gateway Layer - Click to expand
+                            </summary>
+                            <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px; margin-top: 0.5rem;">
+                                <p><strong>Authentication:</strong> Validates JWT tokens and API keys for every request.</p>
+                                <p><strong>Rate Limiting:</strong> Ensures fair usage and prevents abuse.</p>
+                                <p><strong>Routing:</strong> Directs requests to appropriate backend services.</p>
+                            </div>
+                        </details>
+                        
+                        <details style="margin-bottom: 1rem;">
+                            <summary class="accordion-summary green">
+                                ⚙️ Core Services Layer - Click to expand
+                            </summary>
+                            <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px; margin-top: 0.5rem;">
+                                <p><strong>HAR Processing:</strong> Parses HTTP traffic and extracts endpoints, headers, and payloads.</p>
+                                <p><strong>Script Generation:</strong> Creates optimized JMeter/Locust scripts using AI.</p>
+                                <p><strong>AI Agents:</strong> Five specialized agents handle different aspects of testing.</p>
+                            </div>
+                        </details>
+                        
+                        <details>
+                            <summary class="accordion-summary purple">
+                                💾 Data & Storage Layer - Click to expand
+                            </summary>
+                            <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px; margin-top: 0.5rem;">
+                                <p><strong>MongoDB:</strong> Stores user data, projects, and configurations.</p>
+                                <p><strong>S3/GCS:</strong> Stores large files like test results and HAR archives.</p>
+                                <p><strong>AI Storage:</strong> Dedicated storage for ML models and embeddings.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                
+                <!-- Next Steps -->
+                <h2>Next Steps</h2>
+                <p>Now that you understand the architecture, dive deeper into:</p>
+                <ul>
+                    <li><a href="tutorial-agents.html">AI Agents Deep Dive</a> - Meet your AI team</li>
+                    <li><a href="tutorial-correlation.html">Correlation Engine</a> - Master dynamic values</li>
+                    <li><a href="tutorial-quickstart.html">Quick Start</a> - Put it into practice</li>
+                </ul>
+                
+                <!-- Navigation -->
+                <div style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
+                    <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
+                    <a href="tutorial-agents.html" class="btn btn-primary">Next: AI Agents →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">QA Academy</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="tutorials.html">Tutorials</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
+            </div>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+{
+  "tutorialId": "cucumber-intro",
+  "title": "Cucumber & BDD Quiz",
+  "description": "Test your knowledge of Cucumber and Behavior-Driven Development",
+  "settings": {
+    "totalQuestions": 20,
+    "timeLimit": 600,
+    "shuffleQuestions": true,
+    "showExplanations": true,
+    "passingScore": 70
+  },
+  "questions": [
+    {
+      "id": 1,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "What is Cucumber primarily used for?",
+      "options": [
+        {"id": "a", "text": "Unit testing"},
+        {"id": "b", "text": "Behavior-Driven Development (BDD) testing"},
+        {"id": "c", "text": "Performance testing"},
+        {"id": "d", "text": "Security testing"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Cucumber is a BDD tool that allows you to write executable specifications in plain language (Gherkin) that anyone can understand."
+    },
+    {
+      "id": 2,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "What is the file extension for Gherkin feature files?",
+      "options": [
+        {"id": "a", ".java"},
+        {"id": "b", ".feature"},
+        {"id": "c", ".gherkin"},
+        {"id": "d", ".txt"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Gherkin feature files use the .feature extension. They contain the scenarios written in Gherkin syntax (Given-When-Then)."
+    },
+    {
+      "id": 3,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "Gherkin is a business-readable domain-specific language.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "Gherkin is designed to be readable by non-programmers. It uses plain English syntax with keywords like Given, When, Then to describe behavior."
+    },
+    {
+      "id": 4,
+      "type": "multiple-choiceifficulty": "easy",
+      "question",
+      "d": "Which keywords are the main building blocks of Gherkin scenarios?",
+      "options": [
+        {"id": "a", "text": "Describe, It, Test"},
+        {"id": "b", "text": "Given, When, Then, And, But"},
+        {"id": "c", "text": "Expect, Should, Must"},
+        {"id": "d", "text": "Feature, Scenario, Outline"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "The main Gherkin keywords are Given (precondition), When (action), Then (assertion), and And/But for adding more steps."
+    },
+    {
+      "id": 5,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "What does the 'Feature' keyword represent in a Gherkin file?",
+      "options": [
+        {"id": "a", "text": "A single test case"},
+        {"id": "b", "text": "A high-level description of a software feature"},
+        {"id": "c", "text": "A programming function"},
+        {"id": "d", "text": "A test suite"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "The Feature keyword provides a high-level description of a software feature. It groups related scenarios together and includes a narrative description."
+    },
+    {
+      "id": 6,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is a Step Definition in Cucumber?",
+      "options": [
+        {"id": "a", "text": "The Gherkin syntax itself"},
+        {"id": "b", "text": "Code that maps a Gherkin step to actual automation"},
+        {"id": "c", "text": "A test report"},
+        {"id": "d", "text": "A configuration file"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Step Definitions are code blocks (in Java, JavaScript, Ruby, etc.) that implement the automation for each Gherkin step. They connect plain text steps to executable code."
+    },
+    {
+      "id": 7,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is the purpose of the 'Background' section in a Gherkin feature file?",
+      "options": [
+        {"id": "a", "text": "To run tests in the background"},
+        {"id": "b", "text": "To define steps that run before each scenario"},
+        {"id": "c", "text": "To create test reports"},
+        {"id": "d", "text": "To configure Cucumber options"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Background allows you to define steps that run before every scenario in the feature file. It's useful for setting up common preconditions."
+    },
+    {
+      "id": 8,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "Scenario Outline in Cucumber allows data-driven testing.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "Scenario Outline uses Examples tables to run the same scenario with different sets of data, enabling data-driven testing in BDD."
+    },
+    {
+      "id": 9,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is the purpose of tags in Cucumber?",
+      "options": [
+        {"id": "a", "text": "To add metadata to code"},
+        {"id": "b", "text": "To organize and filter scenarios for execution"},
+        {"id": "c", "text": "To create test reports"},
+        {"id": "d", "text": "To define step definitions"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Tags (@tag) are labels used to organize scenarios. You can run specific tags using command line options, useful for filtering tests by type (e.g., @smoke, @regression)."
+    },
+    {
+      "id": 10,
+      "type": "scenario",
+      "difficulty": "medium",
+      "question": "Which Gherkin step is appropriate for asserting a result?",
+      "options": [
+        {"id": "a", "text": "Given"},
+        {"id": "b", "text": "When"},
+        {"id": "c", "text": "Then"},
+        {"id": "d", "text": "And"}
+      ],
+      "correctAnswer": "c",
+      "explanation": "The 'Then' step is used for assertions - it describes the expected outcome or result. For example: 'Then I should see the success message'."
+    },
+    {
+      "id": 11,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is the purpose of Hooks in Cucumber?",
+      "options": [
+        {"id": "a", "text": "To connect steps to code"},
+        {"id": "b", "text": "To run code before/after scenarios or steps"},
+        {"id": "c", "text": "To create test data"},
+        {"id": "d", "text": "To generate reports"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Hooks are blocks of code that run before or after scenarios or individual steps. Common hooks include @Before and @After for setup and teardown."
+    },
+    {
+      "id": 12,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "Cucumber supports multiple programming languages.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "Cucumber has implementations (called 'cukes') for many languages including Java (Cucumber-JVM), JavaScript (Cucumber.js), Ruby, Python, and .NET (SpecFlow)."
+    },
+    {
+      "id": 13,
+      "type": "multiple-choice",
+      "difficulty": "hard",
+      "question": "What is the purpose of 'Scenario Context' or 'World' in Cucumber?",
+      "options": [
+        "a", "text": "To define global variables"},
+        {"id": "b", "text": "To share state between step definitions within a scenario"},
+        {"id": "c", "text": "To create the feature file"},
+        {"id": "d", "text": "To run tests in parallel"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Scenario Context (or World in older Cucumber) allows step definitions to share state and data within a scenario. It's used for passing data between steps."
+    },
+    {
+      "id": 14,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What does the 'Examples' keyword define in a Scenario Outline?",
+      "options": [
+        {"id": "a", "text": "Test cases to skip"},
+        {"id": "b", "text": "A table of test data values to substitute in the scenario"},
+        {"id": "c", "text": "Expected results"},
+        {"id": "d", "text": "Step definitions"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Examples provides a table where each row represents a test case. The placeholder variables (<variable>) in the scenario are replaced with values from each row."
+    },
+    {
+      "id": 15,
+      "type": "code-prediction",
+      "difficulty": "hard",
+      "question": "What will this Gherkin code test?\n\nFeature: Login\n  Scenario: Successful login\n    Given I am on the login page\n    When I enter valid credentials\n    Then I should be logged in",
+      "options": [
+        {"id": "a", "text": "Only the login page load"},
+        {"id": "b", "text": "The entire login flow from page load to successful authentication"},
+        {"id": "c", "text": "This will error due to missing steps"},
+        {"id": "d", "text": "Only the credentials entry"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "This scenario tests the complete login flow: 1) Navigate to login page (Given), 2) Enter credentials (When), 3) Verify successful login (Then)."
+    },
+    {
+      "id": 16,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is the purpose of 'Data Tables' in Gherkin?",
+      "options": [
+        {"id": "a", "text": "To create test reports"},
+        {"id": "b", "text": "To pass structured data to step definitions"},
+        {"id": "c", "text": "To organize feature files"},
+        {"id": "d", "text": "To define test environment"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Data Tables allow you to pass structured data directly in the feature file. They're useful for testing scenarios with multiple sets of input data in a single step."
+    },
+    {
+      "id": 17,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "The 'And' keyword can be used after Given, When, or Then steps.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "'And' (and 'But') can be used after any step to add additional steps of the same type, making scenarios more readable."
+    },
+    {
+      "id": 18,
+      "type": "multiple-choice",
+      "difficulty": "hard",
+      "question": "What is the main benefit of BDD with Cucumber?",
+      "options": [
+        {"id": "a", "text": "Faster test execution"},
+        {"id": "b", "text": "Collaboration - non-technical stakeholders can understand and contribute to test specifications"},
+        {"id": "c", "text": "Better test coverage"},
+        {"id": "d", "text": "Automatic bug fixing"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "The main benefit of BDD/Cucumber is improved collaboration. Tests written in Gherkin (plain English) allow developers, QA, and business stakeholders to communicate effectively."
+    },
+    {
+      "id": 19,
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "You want to test login with invalid credentials 3 times. What Cucumber feature would you use?",
+      "options": [
+        {"id": "a", "text": "Regular Scenario with 3 steps"},
+        {"id": "b", "text": "Scenario Outline with Examples table containing 3 test cases"},
+        {"id": "c", "text": "Background"},
+        {"id": "d", "text": "Hooks"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Scenario Outline with an Examples table allows you to test the same scenario with different data. Create a table with 3 rows of invalid credentials to test each case."
+    },
+    {
+      "id": 20,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is the purpose of the Cucumber Reports plugin?",
+      "options": [
+        {"id": "a", "text": "To write step definitions"},
+        {"id": "b", "text": "To generate HTML reports showing test results and coverage"},
+        {"id": "c", "text": "To create feature files"},
+        {"id": "d", "text": "To manage test data"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Cucumber Reports (and similar plugins likeExtent Reports) generate visual HTML reports showing test results, execution time, and which scenarios passed or failed."
+    }
+  ]
+}

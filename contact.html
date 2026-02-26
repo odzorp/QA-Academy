@@ -17,7 +17,10 @@
             <nav class="nav">
                 <a href="index.html" class="nav-brand">
                     <img src="assets/images/profile.jpg" alt="Philip Odzor">
-                    <span>Philip Odzor</span>
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
                 </a>
                 <div class="nav-menu" id="navMenu">
                     <a href="index.html" class="nav-link">Home</a>
@@ -29,6 +32,8 @@
                 <div class="nav-toggle" id="navToggle">
                     <span></span><span></span><span></span>
                 </div>
+                
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
             </nav>
         </div>
     </header>
@@ -37,7 +42,7 @@
     <section class="page-header">
         <div class="container">
             <h1>Get In Touch</h1>
-            <p>Have questions about LoadMagic.AI or want to collaborate?</p>
+           <!-- <p>Have questions about LoadMagic.AI or want to collaborate?</p> -->
         </div>
     </section>
 
@@ -47,43 +52,45 @@
             <div class="contact-grid">
                 <div class="contact-info">
                     <h3>Let's Connect</h3>
-                    <p style="color: var(--gray-300); margin-bottom: var(--space-xl);">Feel free to reach out for questions, collaboration opportunities, or just to say hello!</p>
+                    <p style="color: var(--text-muted); margin-bottom: var(--space-xl);">Feel free to reach out for questions, collaboration opportunities, or just to say hello!</p>
                     
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div>
-                            <h4>Email</h4>
-                            <a href="mailto:philip.odzor@amalitech.com">philip.odzor@amalitech.com</a>
+                    <!-- Email Card -->
+                    <a href="mailto:odzorp3@gmail.com" class="contact-card">
+                        <div class="contact-card-icon">📧</div>
+                        <div class="contact-card-content">
+                            <span class="contact-card-label">Email</span>
+                            <span class="contact-card-value">odzorp3@gmail.com</span>
                         </div>
-                    </div>
+                        <span class="contact-card-action">Send →</span>
+                    </a>
                     
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div>
-                            <h4>Location</h4>
-                            <p>Takoradi, Ghana</p>
+                    <!-- LinkedIn Card -->
+                    <a href="https://linkedin.com/in/philip-odzor-w369" target="_blank" class="contact-card">
+                        <div class="contact-card-icon">💼</div>
+                        <div class="contact-card-content">
+                            <span class="contact-card-label">LinkedIn</span>
+                            <span class="contact-card-value">Philip Odzor</span>
                         </div>
-                    </div>
+                        <span class="contact-card-action">Connect →</span>
+                    </a>
                     
-                    <div class="contact-item">
-                        <div class="contact-icon">💼</div>
-                        <div>
-                            <h4>LinkedIn</h4>
-                            <a href="https://linkedin.com/in/philip-odzor-w369" target="_blank">linkedin.com/in/philip-odzor-w369</a>
+                    <!-- GitHub Card -->
+                    <a href="https://github.com/odzorp" target="_blank" class="contact-card">
+                        <div class="contact-card-icon">💻</div>
+                        <div class="contact-card-content">
+                            <span class="contact-card-label">GitHub</span>
+                            <span class="contact-card-value">@odzorp</span>
                         </div>
-                    </div>
+                        <span class="contact-card-action">Follow →</span>
+                    </a>
                     
-                    <div class="contact-item">
-                        <div class="contact-icon">💻</div>
-                        <div>
-                            <h4>GitHub</h4>
-                            <a href="https://github.com/odzorp" target="_blank">github.com/odzorp</a>
+                    <!-- Location Card -->
+                    <div class="contact-card">
+                        <div class="contact-card-icon">📍</div>
+                        <div class="contact-card-content">
+                            <span class="contact-card-label">Location</span>
+                            <span class="contact-card-value">Takoradi, Ghana</span>
                         </div>
-                    </div>
-                    
-                    <div class="social-links">
-                        <a href="https://linkedin.com/in/philip-odzor-w369" class="social-link" target="_blank" title="LinkedIn">in</a>
-                        <a href="https://github.com/odzorp" class="social-link" target="_blank" title="GitHub">gh</a>
                     </div>
                 </div>
                 
@@ -120,7 +127,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">Philip Odzor</div>
+                <div class="footer-brand">QA Academy</div>
                 <div class="footer-links">
                     <a href="index.html">Home</a>
                     <a href="about.html">About</a>
@@ -130,6 +137,15 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
+            </div>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
             </div>
         </div>
     </footer>

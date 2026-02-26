@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Enterprise Implementation Tutorial">
+    <title>Enterprise Implementation | Philip Odzor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .quiz-container { background: var(--bg-secondary); border-radius: 12px; padding: 2rem; margin: 2rem 0; border: 1px solid var(--gray-200); }
+        .quiz-question { font-weight: 600; font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-primary); }
+        .quiz-options { display: flex; flex-direction: column; gap: 0.75rem; }
+        .quiz-option { display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: var(--bg-primary); border: 2px solid var(--gray-200); border-radius: 8px; cursor: pointer; transition: all 0.2s; color: var(--text-primary); }
+        .quiz-option:hover { border-color: var(--accent); }
+        .quiz-option.correct { border-color: var(--success); background: rgba(16, 185, 129, 0.1); }
+        .quiz-option.incorrect { border-color: var(--danger); background: rgba(239, 68, 68, 0.1); }
+        .quiz-result { display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: 500; }
+        .quiz-result.show { display: block; }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav-brand">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor">
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Enterprise Implementation</h1>
+            <p>SSO, RBAC, and multi-tenant architecture</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="content">
+                <p><strong>Duration:</strong> 60 minutes | <strong>Level:</strong> Advanced | <strong>Framework:</strong> LoadMagic.AI</p>
+                
+                <h2>What You'll Learn</h2>
+                <ul>
+                    <li>Single Sign-On (SSO) configuration</li>
+                    <li>Role-Based Access Control (RBAC)</li>
+                    <li>Multi-tenant architecture</li>
+                    <li>Compliance and governance</li>
+                </ul>
+                
+                <h2>Single Sign-On (SSO)</h2>
+                <p>Integrate with your existing identity provider:</p>
+                <pre class="code-block"><code># SSO Configuration (loadmagic.yaml)
+sso:
+  enabled: true
+  provider: okta  # or azure_ad, google, onelogin
+  
+  okta:
+    domain: yourcompany.okta.com
+    client_id: ${OKTA_CLIENT_ID}
+    client_secret: ${OKTA_CLIENT_SECRET}
+    
+  mappings:
+    - role: admin
+      groups: ["loadmagic-admins"]
+    - role: tester
+      groups: ["loadmagic-testers"]</code></pre>
+                
+                <h2>Role-Based Access Control (RBAC)</h2>
+                <pre class="code-block"><code># RBAC Configuration
+rbac:
+  roles:
+    admin:
+      - "*"  # All permissions
+      
+    tester:
+      - "tests:read"
+      - "tests:write"
+      - "tests:run"
+      
+    viewer:
+      - "tests:read"
+      - "results:read"
+      
+  users:
+    - email: john@company.com
+      role: admin
+    - email: jane@company.com
+      role: tester</code></pre>
+                
+                <h2>Multi-Tenant Architecture</h2>
+                <pre class="code-block"><code># Multi-tenant configuration
+multi_tenant:
+  enabled: true
+  
+  isolation:
+    method: database  # or schema, container
+    
+  tenants:
+    - id: tenant1
+      name: Client A
+      storage_quota: 10GB
+      users_quota: 50
+      
+    - id: tenant2  
+      name: Client B
+      storage_quota: 50GB
+      users_quota: 200</code></pre>
+                
+                <h2>Compliance & Governance</h2>
+                <pre class="code-block"><code># Audit logging and compliance
+audit:
+  enabled: true
+  retention_days: 365
+  
+  events:
+    - user_login
+    - test_created
+    - test_modified
+    - test_deleted
+    - results_exported
+    
+  export:
+    format: json
+    destination: s3://audit-logs/
+    
+compliance:
+  gdpr: true
+  data_residency: eu-west-1
+  encryption_at_rest: true</code></pre>
+                
+                <h2>Knowledge Check</h2>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">1. What does SSO stand for?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Simple Sign On</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">Single Sign-On</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Secure Sign On</div>
+                    </div>
+                    <div class="quiz-result" id="result1"></div>
+                </div>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">2. What is RBAC?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">Role-Based Access Control</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Resource-Based Access Control</div>
+                    </div>
+                    <div class="quiz-result" id="result2"></div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
+                    <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
+                    <a href="tutorials.html" class="btn btn-primary">Back to All Tutorials →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">QA Academy</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a><a href="about.html">About</a>
+                    <a href="tutorials.html">Tutorials</a><a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
+            </div>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function checkAnswer(element, isCorrect) {
+            const parent = element.parentElement, result = parent.nextElementSibling;
+            parent.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            if (isCorrect) { element.classList.add('correct'); result.className = 'quiz-result show'; result.innerHTML = '✓ Correct! Well done!'; }
+            else { element.classList.add('incorrect'); result.className = 'quiz-result show'; result.innerHTML = '✗ Not quite. Try again!'; }
+        }
+    </script>
+</body>
+</html>

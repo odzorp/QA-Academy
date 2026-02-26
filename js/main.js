@@ -4,7 +4,39 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Navigation Toggle
+    // ===============================
+    // THEME TOGGLE FUNCTIONALITY
+    // ===============================
+    const themeToggle = document.getElementById('themeToggle');
+    
+    // Check for saved theme preference or default to light
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    if (themeToggle) {
+        // Update button icon based on current theme
+        updateThemeIcon(savedTheme);
+        
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+    }
+    
+    function updateThemeIcon(theme) {
+        if (themeToggle) {
+            themeToggle.innerHTML = theme === 'light' ? '🌙' : '☀️';
+            themeToggle.setAttribute('title', theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+        }
+    }
+    
+    // ===============================
+    // MOBILE NAVIGATION TOGGLE
+    // ===============================
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
     
@@ -37,7 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Header scroll effect
+    // ===============================
+    // HEADER SCROLL EFFECT
+    // ===============================
     const header = document.getElementById('header');
     if (header) {
         window.addEventListener('scroll', function() {
@@ -49,7 +83,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Smooth scroll for anchor links
+    // ===============================
+    // SMOOTH SCROLL FOR ANCHOR LINKS
+    // ===============================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
@@ -66,7 +102,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Add fade-in animation on scroll
+    // ===============================
+    // FADE-IN ANIMATION ON SCROLL
+    // DISABLED - Causing content to disappear
+    // ===============================
+    /*
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -75,32 +115,100 @@ document.addEventListener('DOMContentLoaded', function() {
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('animate-fadeIn');
+                entry.target.classList.add('animate-fade-in-up');
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
     
-    // Observe cards and sections
-    document.querySelectorAll('.card, .tutorial-card, .section').forEach(el => {
+    // Observe cards and sections with animation
+    document.querySelectorAll('.card, .tutorial-card, .section, .concept-card, .feature-card, .resource-card, .skill-group').forEach(el => {
+        // Skip quiz elements from animation
+        if (el.closest('.quiz-wrapper') || el.closest('#quiz-container') || el.id === 'quiz-container') {
+            return;
+        }
+        el.classList.add('animate-on-scroll');
         observer.observe(el);
     });
+    */
     
-    // Form validation and handling
+    // ===============================
+    // CODE COPY BUTTON FUNCTIONALITY
+    // ===============================
+    // Handle pre/code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+        createCopyButton(pre);
+    });
+    
+    // Handle .code-block elements
+    document.querySelectorAll('.code-block').forEach(block => {
+        createCopyButton(block);
+    });
+    
+    function createCopyButton(container) {
+        // Check if button already exists
+        if (container.querySelector('.copy-btn')) return;
+        
+        const button = document.createElement('button');
+        button.className = 'copy-btn';
+        button.innerHTML = '📋 Copy';
+        
+        container.style.position = 'relative';
+        container.appendChild(button);
+        
+        // Show button on hover
+        container.addEventListener('mouseenter', () => {
+            button.style.opacity = '1';
+        });
+        
+        container.addEventListener('mouseleave', () => {
+            button.style.opacity = '0.7';
+        });
+        
+        // Copy functionality
+        button.addEventListener('click', () => {
+            let textToCopy = '';
+            
+            // Try to get code content
+            const code = container.querySelector('code');
+            if (code) {
+                textToCopy = code.textContent;
+            } else {
+                textToCopy = container.textContent;
+            }
+            
+            // Remove button text from copy
+            textToCopy = textToCopy.replace('📋 Copy', '').replace('✓ Copied!', '').trim();
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                button.innerHTML = '✓ Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.innerHTML = '📋 Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                button.innerHTML = '✗ Error';
+            });
+        });
+    }
+    
+    // ===============================
+    // FORM VALIDATION
+    // ===============================
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form values
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
             
-            // Simple validation
             if (name && email && subject && message) {
-                // Show success message
                 alert(`Thank you, ${name}! Your message has been sent. I'll get back to you soon.`);
                 contactForm.reset();
             } else {
@@ -109,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Newsletter form (if exists)
+    // Newsletter form
     const newsletterForm = document.getElementById('newsletterForm');
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', function(e) {
@@ -122,52 +230,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Code copy button functionality
-    document.querySelectorAll('pre').forEach(pre => {
-        // Create copy button
-        const button = document.createElement('button');
-        button.className = 'copy-button';
-        button.innerHTML = '📋 Copy';
-        button.style.cssText = `
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 5px 10px;
-            font-size: 12px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s;
-        `;
-        
-        pre.style.position = 'relative';
-        pre.appendChild(button);
-        
-        pre.addEventListener('mouseenter', () => {
-            button.style.opacity = '1';
-        });
-        
-        pre.addEventListener('mouseleave', () => {
-            button.style.opacity = '0';
-        });
-        
-        button.addEventListener('click', () => {
-            const code = pre.querySelector('code');
-            const text = code ? code.textContent : pre.textContent;
-            
-            navigator.clipboard.writeText(text).then(() => {
-                button.innerHTML = '✓ Copied!';
-                setTimeout(() => {
-                    button.innerHTML = '📋 Copy';
-                }, 2000);
-            });
-        });
-    });
-    
-    // Active nav link highlighting
+    // ===============================
+    // ACTIVE NAV LINK HIGHLIGHTING
+    // ===============================
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('.nav-link').forEach(link => {
         const linkPage = link.getAttribute('href');
@@ -176,7 +241,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Console greeting
+    // ===============================
+    // CONSOLE GREETING
+    // ===============================
     console.log('%c👋 Hi! Thanks for checking out my portfolio.', 'color: #3b82f6; font-size: 14px; font-weight: bold;');
     console.log('%c📚 Learn more about LoadMagic.AI at the tutorials page!', 'color: #64748b; font-size: 12px;');
 });

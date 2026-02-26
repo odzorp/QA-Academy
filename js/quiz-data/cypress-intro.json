@@ -1,0 +1,286 @@
+{
+  "tutorialId": "cypress-intro",
+  "title": "Cypress Basics Quiz",
+  "description": "Test your knowledge of Cypress fundamentals",
+  "settings": {
+    "totalQuestions": 20,
+    "timeLimit": 600,
+    "shuffleQuestions": true,
+    "showExplanations": true,
+    "passingScore": 70
+  },
+  "questions": [
+    {
+      "id": 1,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "Which company developed Cypress?",
+      "options": [
+        {"id": "a", "text": "Google"},
+        {"id": "b", "text": "Microsoft"},
+        {"id": "c", "text": "Cypress.io"},
+        {"id": "d", "text": "Amazon"}
+      ],
+      "correctAnswer": "c",
+      "explanation": "Cypress was developed by Cypress.io (now just Cypress) and was first released in 2015. It's a JavaScript-centric testing framework."
+    },
+    {
+      "id": 2,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "What type of tests is Cypress primarily designed for?",
+      "options": [
+        {"id": "a", "text": "Unit tests"},
+        {"id": "b", "text": "End-to-end (E2E) tests"},
+        {"id": "c", "text": "Integration tests only"},
+        {"id": "d", "text": "Performance tests"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Cypress is primarily designed for end-to-end testing of web applications. It simulates real user interactions in a real browser."
+    },
+    {
+      "id": 3,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "Cypress runs tests in the same execution loop as the application.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "Unlike Selenium, Cypress runs in the same execution loop as the application, giving it access to everything in the browser and allowing for faster, more reliable tests."
+    },
+    {
+      "id": 4,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "Which language are Cypress tests written in?",
+      "options": [
+        {"id": "a", "text": "Python"},
+        {"id": "b", "text": "Java"},
+        {"id": "c", "text": "JavaScript/TypeScript"},
+        {"id": "d", "text": "C#"}
+      ],
+      "correctAnswer": "c",
+      "explanation": "Cypress tests are written entirely in JavaScript or TypeScript, allowing full access to JavaScript APIs and frameworks."
+    },
+    {
+      "id": 5,
+      "type": "multiple-choice",
+      "difficulty": "easy",
+      "question": "What is the command to open Cypress Test Runner?",
+      "options": [
+        {"id": "a", "text": "cypress run"},
+        {"id": "b", "text": "cypress open"},
+        {"id": "c", "text": "npm start cypress"},
+        {"id": "d", "text": "node cypress.js"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "The 'cypress open' command launches the Cypress Test Runner, which provides an interactive GUI for running and debugging tests."
+    },
+    {
+      "id": 6,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What does the 'cy' prefix represent in Cypress commands?",
+      "options": [
+        {"id": "a", "text": "A shortcut for 'Cypress'"},
+        {"id": "b", "text": "It's the Cypress namespace for all commands"},
+        {"id": "c", "text": "An abbreviation for 'cyclic'"},
+        {"id": "d", "text": "A jQuery reference"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "All Cypress commands are prefixed with 'cy', which is the Cypress namespace. This distinguishes Cypress commands from other JavaScript code."
+    },
+    {
+      "id": 7,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "Which command is used to select an element in Cypress?",
+      "options": [
+        {"id": "a", "text": "cy.get()"},
+        {"id": "b", "text": "cy.select()"},
+        {"id": "c", "text": "cy.find()"},
+        {"id": "d", "text": "cy.query()"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "cy.get() is the primary command for selecting elements in Cypress. It accepts CSS selectors and returns a chainable Cypress object."
+    },
+    {
+      "id": 8,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "Cypress automatically waits for elements to exist before performing actions.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "Cypress has automatic waiting built in. It automatically waits for elements to exist in the DOM and for animations to complete before performing actions."
+    },
+    {
+      "id": 9,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is the default command timeout in Cypress?",
+      "options": [
+        {"id": "a", "text": "5 seconds"},
+        {"id": "b", "text": "10 seconds"},
+        {"id": "c", "text": "4 seconds"},
+        {"id": "d", "text": "30 seconds"}
+      ],
+      "correctAnswer": "c",
+      "explanation": "The default timeout for most Cypress commands is 4 seconds. This can be configured globally or overridden per command using the timeout option."
+    },
+    {
+      "id": 10,
+      "type": "scenario",
+      "difficulty": "medium",
+      "question": "You need to test that clicking a 'Submit' button shows a success message. What Cypress code would you use?",
+      "options": [
+        {"id": "a", "text": "cy.click('button').should('contain', 'Success')"},
+        {"id": "b", "text": "cy.get('button').click().get('.success-message').should('be.visible')"},
+        {"id": "c", "text": "cy.get('button').click()\ncy.contains('Success')"},
+        {"id": "d", "text": "cy.submit()"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "In Cypress, you chain commands: click the button, then get the success message element, then assert it should be visible. Assertions are made with 'should' or 'expect'."
+    },
+    {
+      "id": 11,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "Which file contains the Cypress configuration?",
+      "options": [
+        {"id": "a", "text": "cypress.json (or cypress.config.js/ts)"},
+        {"id": "b", "text": ".cypressrc"},
+        {"id": "c", "text": "cypress.config.json"},
+        {"id": "d", "text": "config/cypress.js"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "In newer Cypress versions (10+), configuration is in cypress.config.js or cypress.config.ts. In older versions, it was cypress.json."
+    },
+    {
+      "id": 12,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "Cypress can test API endpoints directly without a browser.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "Cypress can make HTTP requests using cy.request() to test API endpoints directly, without needing to go through the browser UI."
+    },
+    {
+      "id": 13,
+      "type": "multiple-choice",
+      "difficulty": "hard",
+      "question": "What is the purpose of 'cy.intercept()'?",
+      "options": [
+        {"id": "a", "text": "To intercept user input"},
+        {"id": "b", "text": "To stub or spy on network requests"},
+        {"id": "c", "text": "To intercept console errors"},
+        {"id": "d", "text": "To intercept page navigation"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "cy.intercept() is used to intercept, stub, and spy on network requests and responses. It can mock API calls or monitor network traffic."
+    },
+    {
+      "id": 14,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What are Cypress 'hooks'?",
+      "options": [
+        {"id": "a", "text": "Test assertions"},
+        {"id": "b", "text": "before(), beforeEach(), after(), afterEach() methods for setup/teardown"},
+        {"id": "c", "text": "Custom Cypress commands"},
+        {"id": "d", "text": "API interceptors"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Hooks in Cypress are methods that run before or after tests: before(), beforeEach(), after(), and afterEach(). They help set up test conditions and clean up after tests."
+    },
+    {
+      "id": 15,
+      "type": "code-prediction",
+      "difficulty": "hard",
+      "question": "What does this Cypress code test?\n\ncy.get('#username').type('testuser');\ncy.get('#password').type('password123');\ncy.get('form').submit();",
+      "options": [
+        {"id": "a", "text": "It only types in username field"},
+        {"id": "b", "text": "It fills a login form and submits it"},
+        {"id": "c", "text": "It clicks the submit button"},
+        {"id": "d", "text": "This code will error"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "This code fills in a username and password field using type(), then submits the form using cy.get('form').submit(), which is equivalent to pressing enter on the form."
+    },
+    {
+      "id": 16,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "Which command is used to assert text content in Cypress?",
+      "options": [
+        {"id": "a", "text": "cy.contains()"},
+        {"id": "b", "text": "cy.should('contain', 'text')"},
+        {"id": "c", "text": "Both A and B"},
+        {"id": "d", "text": "cy.assert()"}
+      ],
+      "correctAnswer": "c",
+      "explanation": "Both cy.contains() and assertions with .should('contain', 'text') can be used to check text content. cy.contains() is often simpler for finding elements by text."
+    },
+    {
+      "id": 17,
+      "type": "true-false",
+      "difficulty": "easy",
+      "question": "Cypress supports multiple browsers including Chrome, Firefox, and Edge.",
+      "options": [
+        {"id": "a", "text": "True"},
+        {"id": "b", "text": "False"}
+      ],
+      "correctAnswer": "a",
+      "explanation": "Cypress supports multiple browsers including Chrome, Firefox, Edge, and WebKit (experimental). Run 'cypress open' to select a browser."
+    },
+    {
+      "id": 18,
+      "type": "multiple-choice",
+      "difficulty": "hard",
+      "question": "What is the purpose of Cypress 'fixtures'?",
+      "options": [
+        {"id": "a", "text": "To run tests in parallel"},
+        {"id": "b", "text": "To store and load external data for tests"},
+        {"id": "c", "text": "To configure test timeouts"},
+        {"id": "d", "text": "To create test reports"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Fixtures are used to store external pieces of data (like JSON files) that can be loaded into tests. They're useful for test data management and data-driven testing."
+    },
+    {
+      "id": 19,
+      "type": "scenario",
+      "difficulty": "hard",
+      "question": "You need to test that a loading spinner appears and then disappears after data loads. How would you test this?",
+      "options": [
+        {"id": "a", "text": "cy.get('.spinner').should('exist')"},
+        {"id": "b", "text": "cy.get('.spinner').should('be.visible').and('not.exist')"},
+        {"id": "c", "text": "cy.wait(5000)"},
+        {"id": "d", "text": "cy.get('.spinner').click()"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "You can chain Cypress assertions: first check the spinner is visible, then check it no longer exists after the data loads. Cypress will wait for the 'not.exist' condition."
+    },
+    {
+      "id": 20,
+      "type": "multiple-choice",
+      "difficulty": "medium",
+      "question": "What is the main limitation of Cypress compared to Selenium?",
+      "options": [
+        {"id": "a", "text": "Cypress is slower"},
+        {"id": "b", "text": "Cypress only works with JavaScript apps and cannot test iframes or cross-origin requests easily"},
+        {"id": "c", "text": "Cypress requires payment"},
+        {"id": "d", "text": "Cypress doesn't support assertions"}
+      ],
+      "correctAnswer": "b",
+      "explanation": "Cypress has some limitations: it only supports JavaScript/TypeScript, has difficulty with iframes, and cannot handle multi-tab or cross-origin requests easily due to its architecture."
+    }
+  ]
+}

@@ -17,7 +17,10 @@
             <nav class="nav">
                 <a href="index.html" class="nav-brand">
                     <img src="assets/images/profile.jpg" alt="Philip Odzor">
-                    <span>Philip Odzor</span>
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
                 </a>
                 <div class="nav-menu" id="navMenu">
                     <a href="index.html" class="nav-link">Home</a>
@@ -29,6 +32,8 @@
                 <div class="nav-toggle" id="navToggle">
                     <span></span><span></span><span></span>
                 </div>
+                
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
             </nav>
         </div>
     </header>
@@ -183,7 +188,7 @@ class APITestUser(HttpUser):
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">Philip Odzor</div>
+                <div class="footer-brand">QA Academy</div>
                 <div class="footer-links">
                     <a href="index.html">Home</a>
                     <a href="about.html">About</a>
@@ -193,6 +198,15 @@ class APITestUser(HttpUser):
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
+            </div>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
             </div>
         </div>
     </footer>

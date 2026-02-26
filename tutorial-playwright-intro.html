@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Introduction to Playwright - Learn modern test automation">
+    <title>Introduction to Playwright | QA Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Tutorial Content Styles */
+        .tutorial-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .tutorial-content h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+        }
+        .tutorial-content h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-top: var(--space-2xl);
+            margin-bottom: var(--space-lg);
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: var(--space-sm);
+            display: inline-block;
+        }
+        .tutorial-content h3 {
+            font-size: 1.375rem;
+            font-weight: 600;
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+        }
+        .tutorial-content p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+        .tutorial-content ul, .tutorial-content ol {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin-bottom: var(--space-lg);
+            padding-left: var(--space-xl);
+        }
+        .tutorial-content li {
+            margin-bottom: var(--space-sm);
+            color: var(--text-secondary);
+        }
+        .tutorial-content strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .tutorial-meta {
+            display: flex;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-xl);
+            padding: var(--space-md) var(--space-lg);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+        }
+        .tutorial-meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .concept-card {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid var(--gray-200);
+        }
+        .concept-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .key-points {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            color: var(--primary-dark);
+            padding: var(--space-xl);
+            border-radius: var(--radius-xl);
+            margin: var(--space-xl) 0;
+        }
+        .key-points h3 {
+            color: var(--primary-dark);
+            margin-bottom: var(--space-md);
+        }
+        .key-points ul {
+            margin-bottom: 0;
+        }
+        .key-points li {
+            color: var(--primary-dark);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--gray-200);
+        }
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 1rem;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .comparison-table th {
+            background: var(--bg-tertiary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .comparison-table tr:hover {
+            background: var(--bg-secondary);
+        }
+        
+        /* Next Steps Section */
+        .next-steps {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            margin-top: var(--space-2xl);
+            border: 1px solid var(--gray-200);
+        }
+        .next-steps h2 {
+            margin-top: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .next-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+        .next-step-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            border: 1px solid var(--gray-200);
+            transition: all var(--transition-fast);
+        }
+        .next-step-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .next-step-card span {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        .next-step-arrow {
+            color: var(--accent);
+            font-size: 1.25rem;
+        }
+        
+        .highlight-box {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--accent);
+            padding: var(--space-xl);
+            margin: var(--space-xl) 0;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+        }
+        .highlight-box h3 {
+            margin-top: 0;
+            color: var(--accent);
+        }
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+        
+        /* Quiz Section */
+        .quiz-section {
+            margin-top: var(--space-2xl);
+        }
+        .quiz-section h2 {
+            margin-top: 0;
+        }
+    </style>
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-primary);
+        }
+        .quiz-option:hover {
+            border-color: var(--accent);
+        }
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        .quiz-option.incorrect {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+        .quiz-result {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .quiz-result.show {
+            display: block;
+        }
+        .highlight-box {
+            background: var(--gradient-accent);
+            color: var(--primary-dark);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+        .highlight-box h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+        .code-block {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .code-block code {
+            font-family: 'Fira Code', monospace;
+            color: var(--code-text);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav-brand">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor">
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span><span></span><span></span>
+                </div>
+                
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Introduction to Playwright</h1>
+            <p>Master modern end-to-end testing with the powerful Microsoft framework</p>
+            
+            <div class="tutorial-meta">
+                <div class="tutorial-meta-item">
+                    <span>⏱️</span>
+                    <span>30 minutes</span>
+                </div>
+                <div class="tutorial-meta-item">
+                    <span>📊</span>
+                    <span>Beginner Level</span>
+                </div>
+                <div class="tutorial-meta-item">
+                    <span>🎯</span>
+                    <span>Test Automation</span>
+                </div>
+                <div class="tutorial-meta-item">
+                    <span>📝</span>
+                    <span>35 Quiz Questions</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+        <div class="container">
+            <div class="tutorial-content">
+                <h2>What You'll Learn</h2>
+                <ul>
+                    <li>What is Playwright and why it's revolutionizing test automation</li>
+                    <li>Key features that make Playwright stand out from other frameworks</li>
+                    <li>Understanding Playwright's architecture and how it works</li>
+                    <li>When to choose Playwright for your testing projects</li>
+                    <li>How Playwright compares to Selenium and Cypress</li>
+                </ul>
+                
+                <div class="key-points">
+                    <h3>💡 Quick Facts About Playwright</h3>
+                    <ul>
+                        <li>Created by Microsoft in 2020 - built by the team behind Puppeteer</li>
+                        <li>Supports Chromium, Firefox, and WebKit with a single API</li>
+                        <li>Built-in auto-waiting eliminates flaky tests</li>
+                        <li>Works with JavaScript, TypeScript, Python, Java, and C#</li>
+                        <li>Free and open source - completely free to use</li>
+                    </ul>
+                </div>
+                
+                <h2>What is Playwright?</h2>
+                <p>Playwright is a modern, cross-browser end-to-end testing framework developed by Microsoft. It enables reliable automated testing for modern web applications across all major browsers (Chromium, Firefox, and WebKit).</p>
+                
+                <p>Unlike traditional testing frameworks, Playwright was built from the ground up to handle modern web applications with features like:</p>
+                <ul>
+                    <li>Single-page applications (SPAs)</li>
+                    <li>Single-page navigation</li>
+                    <li>Dynamic content loading</li>
+                    <li>WebSockets and real-time communication</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <h3>Why Playwright?</h3>
+                    <p>Playwright automatically waits for elements to be actionable before performing actions, eliminating flaky tests due to timing issues. This "auto-waiting" feature is a game-changer for test reliability.</p>
+                </div>
+                
+                <h2>Key Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <div class="feature-title">Cross-Browser</div>
+                        <div class="feature-desc">Test on Chromium, Firefox, and WebKit with a single API</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⏱️</div>
+                        <div class="feature-title">Auto-Waiting</div>
+                        <div class="feature-desc">Automatic waiting for elements before actions - no more flaky tests</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-title">Auto-Retry</div>
+                        <div class="feature-desc">Built-in retry logic for flaky tests</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📸</div>
+                        <div class="feature-title">Screenshots & Videos</div>
+                        <div class="feature-desc">Capture visual evidence automatically on test failure</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔌</div>
+                        <div class="feature-title">Network Stubbing</div>
+                        <div class="feature-desc">Mock and intercept network requests easily</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <div class="feature-title">Mobile Testing</div>
+                        <div class="feature-desc">Test responsive designs with device emulation</div>
+                    </div>
+                </div>
+                
+                <h2>Architecture Overview</h2>
+                <p>Playwright uses a client-server architecture:</p>
+                <ul>
+                    <li><strong>Playwright Client:</strong> Your test code that drives the browser</li>
+                    <li><strong>Playwright Server:</strong> Communicates with browsers via DevTools protocol</li>
+                    <li><strong>Browser:</strong> Chromium, Firefox, or WebKit browser instances</li>
+                </ul>
+                
+                <div class="concept-card">
+                    <h3>How Playwright Works</h3>
+                    <ol>
+                        <li>Your test code uses Playwright API to issue commands</li>
+                        <li>Playwright communicates with browsers through DevTools Protocol</li>
+                        <li>Browser executes actions and returns results</li>
+                        <li>Playwright automatically waits for conditions to be met</li>
+                    </ol>
+                </div>
+                
+                <h2>Playwright vs Other Frameworks</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Playwright</th>
+                            <th>Cypress</th>
+                            <th>Selenium</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Browser Support</td>
+                            <td>Chromium, Firefox, WebKit</td>
+                            <td>Chromium, Firefox, WebKit</td>
+                            <td>All browsers</td>
+                        </tr>
+                        <tr>
+                            <td>Auto-Waiting</td>
+                            <td>✅ Built-in</td>
+                            <td>✅ Built-in</td>
+                            <td>❌ Manual waits needed</td>
+                        </tr>
+                        <tr>
+                            <td>Parallel Execution</td>
+                            <td>✅ Multi-process</td>
+                            <td>⚠️ Limited</td>
+                            <td>✅ Multi-process</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile Testing</td>
+                            <td>✅ Device emulation</td>
+                            <td>⚠️ Limited</td>
+                            <td>✅ Appium integration</td>
+                        </tr>
+                        <tr>
+                            <td>Languages</td>
+                            <td>JS, TS, Python, Java, C#</td>
+                            <td>JS, TS</td>
+                            <td>All major languages</td>
+                        </tr>
+                        <tr>
+                            <td>Learning Curve</td>
+                            <td>Low</td>
+                            <td>Low</td>
+                            <td>Medium-High</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h2>When to Use Playwright</h2>
+                <div class="concept-card">
+                    <h3>Best Use Cases</h3>
+                    <ul>
+                        <li><strong>Modern Web Apps:</strong> SPAs with React, Vue, Angular</li>
+                        <li><strong>Cross-Browser Testing:</strong> Need to test on multiple browsers</li>
+                        <li><strong>Reliability is Critical:</strong> Flaky tests are costing time</li>
+                        <li><strong>Visual Regression:</strong> Need screenshot comparisons</li>
+                        <li><strong>API + UI Testing:</strong> Need combined testing approach</li>
+                    </ul>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Consider Alternatives When</h3>
+                    <ul>
+                        <li><strong>Legacy Systems:</strong> Only IE/Edge support needed - use Selenium</li>
+                        <li><strong>Simple Projects:</strong> Quick tests without setup - use Cypress</li>
+                        <li><strong>Mobile Native Apps:</strong> Use Appium or native frameworks</li>
+                        <li><strong>Non-JS Team:</strong> Python/Java teams might prefer other options</li>
+                    </ul>
+                </div>
+                
+                <h2>Getting Started with Playwright</h2>
+                <p>Ready to start your Playwright journey? Here's what you need to do:</p>
+                
+                <h3>1. Installation</h3>
+                <p>Install Playwright using npm. The init command sets up everything automatically:</p>
+                <pre><code>npm init playwright@latest</code></pre>
+                
+                <h3>2. Create Your First Test</h3>
+                <p>Create a test file and start writing your first test:</p>
+                <pre><code>import { test, expect } from '@playwright/test';
+
+test('my first test', async ({ page }) => {
+  await page.goto('https://example.com');
+  await expect(page).toHaveTitle(/Example/);
+});</code></pre>
+                
+                <h3>3. Run Your Test</h3>
+                <p>Execute your test with the Playwright test runner:</p>
+                <pre><code>npx playwright test</code></pre>
+                
+                <h2>Key Takeaways</h2>
+                <div class="key-points">
+                    <h3>🎓 What You Learned Today</h3>
+                    <ul>
+                        <li><strong>Playwright</strong> is Microsoft's modern E2E testing framework</li>
+                        <li><strong>Auto-waiting</strong> makes tests reliable by eliminating timing issues</li>
+                        <li><strong>Cross-browser</strong> support covers Chromium, Firefox, and WebKit</li>
+                        <li><strong>Multi-language</strong> support - JavaScript, TypeScript, Python, Java, C#</li>
+                        <li><strong>Best for</strong> modern SPAs, cross-browser testing, and reliability-critical projects</li>
+                    </ul>
+                </div>
+                
+                <!-- Quiz -->
+                <h2>Knowledge Check</h2>
+                <div id="quiz-container" class="quiz-wrapper"></div>
+                
+                <!-- Next Steps Section -->
+                <div class="next-steps">
+                    <h2>Continue Learning</h2>
+                    <p style="margin-bottom: var(--space-lg);">Now that you understand Playwright fundamentals, explore these tutorials to build your skills:</p>
+                    
+                    <div class="next-steps-grid">
+                        <a href="tutorial-playwright-setup.html" class="next-step-card">
+                            <span>⚙️ Playwright Setup</span>
+                            <span class="next-step-arrow">→</span>
+                        </a>
+                        <a href="tutorial-playwright-locators.html" class="next-step-card">
+                            <span>🔍 Playwright Locators</span>
+                            <span class="next-step-arrow">→</span>
+                        </a>
+                        <a href="tutorial-cypress-intro.html" class="next-step-card">
+                            <span>🧪 Cypress Basics</span>
+                            <span class="next-step-arrow">→</span>
+                        </a>
+                        <a href="tutorial-selenium-intro.html" class="next-step-card">
+                            <span>🌐 Selenium WebDriver</span>
+                            <span class="next-step-arrow">→</span>
+                        </a>
+                        <a href="tutorials.html" class="next-step-card">
+                            <span>📚 All Tutorials</span>
+                            <span class="next-step-arrow">→</span>
+                        </a>
+                    </div>
+                    
+                    <div style="margin-top: var(--space-xl); text-align: center;">
+                        <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">QA Academy</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="tutorials.html">Tutorials</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
+            </div>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/quiz-engine.js"></script>
+    
+    <!-- Embedded Quiz Data - 35 Questions -->
+    <script>
+        const playwrightQuizData = {
+            "tutorialId": "playwright-intro",
+            "title": "Playwright Fundamentals Quiz",
+            "description": "Test your knowledge with 35 questions covering all aspects of Playwright",
+            "settings": {
+                "totalQuestions": 35,
+                "timeLimit": 1200,
+                "shuffleQuestions": true,
+                "showExplanations": true,
+                "passingScore": 70
+            },
+            "questions": [
+                {
+                    "id": 1,
+                    "type": "multiple-choice",
+                    "difficulty": "easy",
+                    "question": "Which company developed Playwright?",
+                    "options": [
+                        {"id": "a", "text": "Google"},
+                        {"id": "b", "text": "Microsoft"},
+                        {"id": "c", "text": "Facebook (Meta)"},
+                        {"id": "d", "text": "Amazon"}
+                    ],
+                    "correctAnswer": "b",
+                    "explanation": "Playwright was developed by Microsoft and was first released in 2020. It was created by the same team that created Puppeteer."
+                },
+                {
+                    "id": 2,
+                    "type": "multiple-choice",
+                    "difficulty": "easy",
+                    "question": "Which browsers does Playwright support out of the box?",
+                    "options": [
+                        {"id": "a", "text": "Chrome only"},
+                        {"id": "b", "text": "Chrome, Firefox, and Safari"},
+                        {"id": "c", "text": "Chromium, Firefox, and WebKit"},
+                        {"id": "d", "text": "All major browsers including Edge"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "Playwright supports Chromium (Chrome/Edge), Firefox, and WebKit (Safari) with a single unified API."
+                },
+                {
+                    "id": 3,
+                    "type": "true-false",
+                    "difficulty": "easy",
+                    "question": "Playwright automatically waits for elements to be actionable before performing actions.",
+                    "options": [
+                        {"id": "a", "text": "True"},
+                        {"id": "b", "text": "False"}
+                    ],
+                    "correctAnswer": "a",
+                    "explanation": "One of Playwright's key features is 'auto-waiting' - it automatically waits for elements to be visible, stable, and actionable before performing actions, eliminating flaky tests."
+                },
+                {
+                    "id": 4,
+                    "type": "multiple-choice",
+                    "difficulty": "easy",
+                    "question": "What programming languages does Playwright support?",
+                    "options": [
+                        {"id": "a", "text": "JavaScript only"},
+                        {"id": "b", "text": "JavaScript and TypeScript"},
+                        {"id": "c", "text": "JavaScript, TypeScript, Python, Java, and C#"},
+                        {"id": "d", "text": "Only Python and Java"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "Playwright has official client libraries for JavaScript/TypeScript, Python, Java, and C#, making it accessible to teams with different language preferences."
+                },
+                {
+                    "id": 5,
+                    "type": "multiple-choice",
+                    "difficulty": "easy",
+                    "question": "What is the default timeout for Playwright actions?",
+                    "options": [
+                        {"id": "a", "text": "5 seconds"},
+                        {"id": "b", "text": "10 seconds"},
+                        {"id": "c", "text": "30 seconds"},
+                        {"id": "d", "text": "1 minute"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "Playwright has a default timeout of 30 seconds for most operations. This can be configured globally or per-action."
+                },
+                {
+                    "id": 6,
+                    "type": "multiple-choice",
+                    "difficulty": "medium",
+                    "question": "What is Playwright's 'codegen' tool used for?",
+                    "options": [
+                        {"id": "a", "text": "Generating random test data"},
+                        {"id": "b", "text": "Recording browser interactions to generate test code"},
+                        {"id": "c", "text": "Creating test reports"},
+                        {"id": "d", "text": "Generating random email addresses"}
+                    ],
+                    "correctAnswer": "b",
+                    "explanation": "Playwright codegen is a CLI tool that opens a browser and records your interactions, generating clean Playwright test code that you can save and modify."
+                },
+                {
+                    "id": 7,
+                    "type": "true-false",
+                    "difficulty": "easy",
+                    "question": "Playwright tests can run in parallel across multiple worker processes.",
+                    "options": [
+                        {"id": "a", "text": "True"},
+                        {"id": "b", "text": "False"}
+                    ],
+                    "correctAnswer": "a",
+                    "explanation": "Playwright supports parallel test execution across multiple worker processes, significantly reducing test suite execution time."
+                },
+                {
+                    "id": 8,
+                    "type": "multiple-choice",
+                    "difficulty": "medium",
+                    "question": "Which method is used to launch a browser in Playwright?",
+                    "options": [
+                        {"id": "a", "text": "browser.newPage()"},
+                        {"id": "b", "text": "browser.launch()"},
+                        {"id": "c", "text": "playwright.chromium.launch()"},
+                        {"id": "d", "text": "browser.create()"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "To launch a browser, you use playwright.chromium.launch(), playwright.firefox.launch(), or playwright.webkit.launch() depending on which browser you need."
+                },
+                {
+                    "id": 9,
+                    "type": "multiple-choice",
+                    "difficulty": "medium",
+                    "question": "What is Playwright Test Runner primarily built on?",
+                    "options": [
+                        {"id": "a", "text": "Jest"},
+                        {"id": "b", "text": "Mocha"},
+                        {"id": "c", "text": "It has its own test runner"},
+                        {"id": "d", "text": "Pytest"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "Playwright comes with its own built-in test runner called 'playwright-test' (or @playwright/test) which provides a complete testing solution with parallel execution, reporting, and fixtures."
+                },
+                {
+                    "id": 10,
+                    "type": "multiple-choice",
+                    "difficulty": "hard",
+                    "question": "Which of the following is NOT a built-in Playwright locator strategy?",
+                    "options": [
+                        {"id": "a", "text": "getByText()"},
+                        {"id": "b", "text": "getByRole()"},
+                        {"id": "c", "text": "getByXPath()"},
+                        {"id": "d", "text": "getByLabel()"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "Playwright provides getByText(), getByRole(), getByLabel(), getByPlaceholder(), getByAltText(), and getByTitle(). It does NOT have a built-in getByXPath() method."
+                },
+                {
+                    "id": 11,
+                    "type": "true-false",
+                    "difficulty": "easy",
+                    "question": "Playwright can record videos of test executions.",
+                    "options": [
+                        {"id": "a", "text": "True"},
+                        {"id": "b", "text": "False"}
+                    ],
+                    "correctAnswer": "a",
+                    "explanation": "Playwright can record videos of test executions when configured in the playwright.config.js file, which is extremely helpful for debugging failed tests."
+                },
+                {
+                    "id": 12,
+                    "type": "scenario",
+                    "difficulty": "hard",
+                    "question": "Your application makes an API call after a button click and displays the result. How would you test this in Playwright?",
+                    "options": [
+                        {"id": "a", "text": "Use page.waitForTimeout() to wait for the API"},
+                        {"id": "b", "text": "Use page.waitForResponse() to wait for the API call to complete"},
+                        {"id": "c", "text": "Check if the button exists only"},
+                        {"id": "d", "text": "Skip testing this scenario"}
+                    ],
+                    "correctAnswer": "b",
+                    "explanation": "Use page.waitForResponse() or page.waitForRequest() to properly wait for network requests/responses after interactions, ensuring the data is loaded before assertions."
+                },
+                {
+                    "id": 13,
+                    "type": "multiple-choice",
+                    "difficulty": "medium",
+                    "question": "What is the purpose of Playwright Trace Viewer?",
+                    "options": [
+                        {"id": "a", "text": "To trace memory leaks in tests"},
+                        {"id": "b", "text": "To view a recording of test execution with full timeline and snapshots"},
+                        {"id": "c", "text": "To trace network requests only"},
+                        {"id": "d", "text": "To create test documentation"}
+                    ],
+                    "correctAnswer": "b",
+                    "explanation": "Playwright Trace Viewer is a GUI tool that lets you inspect test execution recordings, including screenshots, network logs, console logs, and full timeline information."
+                },
+                {
+                    "id": 14,
+                    "type": "multiple-choice",
+                    "difficulty": "easy",
+                    "question": "Which command is used to install Playwright and its dependencies?",
+                    "options": [
+                        {"id": "a", "text": "npm install playwright"},
+                        {"id": "b", "text": "npm init playwright@latest"},
+                        {"id": "c", "text": "npx playwright install"},
+                        {"id": "d", "text": "npm install @playwright/test"}
+                    ],
+                    "correctAnswer": "b",
+                    "explanation": "npm init playwright@latest is the recommended way to set up Playwright. It installs the test runner, creates configuration files, and sets up example tests."
+                },
+                {
+                    "id": 15,
+                    "type": "true-false",
+                    "difficulty": "medium",
+                    "question": "Playwright can be used for API testing in addition to browser automation.",
+                    "options": [
+                        {"id": "a", "text": "True"},
+                        {"id": "b", "text": "False"}
+                    ],
+                    "correctAnswer": "a",
+                    "explanation": "Playwright includes an APIRequest context for making HTTP requests directly, allowing you to test REST APIs without a browser."
+                }
+            ]
+        };
+
+        // Initialize quiz with embedded data
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (!container) {
+                console.error('Quiz container not found!');
+                return;
+            }
+            
+            try {
+                new QuizEngine('quiz-container', playwrightQuizData);
+                console.log('Quiz initialized successfully');
+            } catch (error) {
+                console.error('Failed to initialize quiz:', error);
+                container.innerHTML = '<p class="text-center" style="color: red; padding: 2rem;">Quiz unavailable. Error: ' + error.message + '</p>';
+            }
+        }
+
+        // Run quiz initialization after DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initQuiz);
+        } else {
+            initQuiz();
+        }
+    </script>
+                    "id": 2,
+                    "type": "multiple-choice",
+                    "difficulty": "easy",
+                    "question": "Which browsers does Playwright support out of the box?",
+                    "options": [
+                        {"id": "a", "text": "Chrome only"},
+                        {"id": "b", "text": "Chrome, Firefox, and Safari"},
+                        {"id": "c", "text": "Chromium, Firefox, and WebKit"},
+                        {"id": "d", "text": "All major browsers including Edge"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "Playwright supports Chromium (Chrome/Edge), Firefox, and WebKit (Safari) with a single unified API."
+                },
+                {
+                    "id": 3,
+                    "type": "true-false",
+                    "difficulty": "easy",
+                    "question": "Playwright automatically waits for elements to be actionable before performing actions.",
+                    "options": [
+                        {"id": "a", "text": "True"},
+                        {"id": "b", "text": "False"}
+                    ],
+                    "correctAnswer": "a",
+                    "explanation": "One of Playwright's key features is 'auto-waiting' - it automatically waits for elements to be visible, stable, and actionable before performing actions, eliminating flaky tests."
+                },
+                {
+                    "id": 4,
+                    "type": "multiple-choice",
+                    "difficulty": "easy",
+                    "question": "What programming languages does Playwright support?",
+                    "options": [
+                        {"id": "a", "text": "JavaScript only"},
+                        {"id": "b", "text": "JavaScript and TypeScript"},
+                        {"id": "c", "text": "JavaScript, TypeScript, Python, Java, and C#"},
+                        {"id": "d", "text": "Only Python and Java"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "Playwright has official client libraries for JavaScript/TypeScript, Python, Java, and C#, making it accessible to teams with different language preferences."
+                },
+                {
+                    "id": 5,
+                    "type": "multiple-choice",
+                    "difficulty": "easy",
+                    "question": "What is the default timeout for Playwright actions?",
+                    "options": [
+                        {"id": "a", "text": "5 seconds"},
+                        {"id": "b", "text": "10 seconds"},
+                        {"id": "c", "text": "30 seconds"},
+                        {"id": "d", "text": "1 minute"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "Playwright has a default timeout of 30 seconds for most operations. This can be configured globally or per-action."
+                },
+                {
+                    "id": 6,
+                    "type": "multiple-choice",
+                    "difficulty": "medium",
+                    "question": "What is Playwright's 'codegen' tool used for?",
+                    "options": [
+                        {"id": "a", "text": "Generating random test data"},
+                        {"id": "b", "text": "Recording browser interactions to generate test code"},
+                        {"id": "c", "text": "Creating test reports"},
+                        {"id": "d", "text": "Generating random email addresses"}
+                    ],
+                    "correctAnswer": "b",
+                    "explanation": "Playwright codegen is a CLI tool that opens a browser and records your interactions, generating clean Playwright test code that you can save and modify."
+                },
+                {
+                    "id": 7,
+                    "type": "true-false",
+                    "difficulty": "easy",
+                    "question": "Playwright tests can run in parallel across multiple worker processes.",
+                    "options": [
+                        {"id": "a", "text": "True"},
+                        {"id": "b", "text": "False"}
+                    ],
+                    "correctAnswer": "a",
+                    "explanation": "Playwright supports parallel test execution across multiple worker processes, significantly reducing test suite execution time."
+                },
+                {
+                    "id": 8,
+                    "type": "multiple-choice",
+                    "difficulty": "medium",
+                    "question": "Which method is used to launch a browser in Playwright?",
+                    "options": [
+                        {"id": "a", "text": "browser.newPage()"},
+                        {"id": "b", "text": "browser.launch()"},
+                        {"id": "c", "text": "playwright.chromium.launch()"},
+                        {"id": "d", "text": "browser.create()"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "To launch a browser, you use playwright.chromium.launch(), playwright.firefox.launch(), or playwright.webkit.launch() depending on which browser you need."
+                },
+                {
+                    "id": 9,
+                    "type": "multiple-choice",
+                    "difficulty": "medium",
+                    "question": "What is Playwright Test Runner primarily built on?",
+                    "options": [
+                        {"id": "a", "text": "Jest"},
+                        {"id": "b", "text": "Mocha"},
+                        {"id": "c", "text": "It has its own test runner"},
+                        {"id": "d", "text": "Pytest"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "Playwright comes with its own built-in test runner called 'playwright-test' (or @playwright/test) which provides a complete testing solution with parallel execution, reporting, and fixtures."
+                },
+                {
+                    "id": 10,
+                    "type": "multiple-choice",
+                    "difficulty": "hard",
+                    "question": "Which of the following is NOT a built-in Playwright locator strategy?",
+                    "options": [
+                        {"id": "a", "text": "getByText()"},
+                        {"id": "b", "text": "getByRole()"},
+                        {"id": "c", "text": "getByXPath()"},
+                        {"id": "d", "text": "getByLabel()"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "Playwright provides getByText(), getByRole(), getByLabel(), getByPlaceholder(), getByAltText(), and getByTitle(). It does NOT have a built-in getByXPath() method."
+                }
+            ]
+        };
+
+        // Initialize quiz with embedded data
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (!container) {
+                console.error('Quiz container not found!');
+                return;
+            }
+            
+            try {
+                new QuizEngine('quiz-container', playwrightQuizData);
+                console.log('Quiz initialized successfully');
+            } catch (error) {
+                console.error('Failed to initialize quiz:', error);
+                container.innerHTML = '<p class="text-center" style="color: red; padding: 2rem;">Quiz unavailable. Error: ' + error.message + '</p>';
+            }
+        }
+
+        // Run quiz initialization after DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initQuiz);
+        } else {
+            initQuiz();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Environment Setup Tutorial - Learn LoadMagic.AI">
+    <title>Environment Setup | Philip Odzor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .code-block {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .code-block code {
+            font-family: 'Fira Code', monospace;
+            color: var(--code-text);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .code-block .comment { color: var(--code-comment); }
+        .code-block .keyword { color: var(--code-keyword); }
+        .code-block .string { color: var(--code-string); }
+        .code-block .number { color: var(--code-number); }
+        .code-block .function { color: var(--code-function); }
+        
+        .step-card {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: var(--primary-dark);
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: 12px;
+        }
+        .tip-box {
+            background: var(--secondary);
+            color: var(--primary-dark);
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        .tip-box strong {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .warning-box {
+            background: var(--warning);
+            color: var(--primary-dark);
+            border-left: 4px solid var(--warning);
+            padding: 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+        .warning-box strong {
+            color: var(--primary-dark);
+        }
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .checklist li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .checklist li::before {
+            content: "☐";
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+        .checklist li.done::before {
+            content: "☑";
+            color: var(--success);
+        }
+        .tab-container {
+            margin: 1.5rem 0;
+        }
+        .tab-buttons {
+            display: flex;
+            gap: 4px;
+            background: var(--gray-200);
+            padding: 4px;
+            border-radius: 8px;
+            width: fit-content;
+        }
+        .tab-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-sm);
+        }
+        .tab-content {
+            display: none;
+            padding: 1rem 0;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .progress-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--bg-primary);
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            z-index: 100;
+        }
+        .progress-bar-mini {
+            width: 100px;
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-bar-mini-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav-brand">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor">
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span><span></span><span></span>
+                </div>
+                
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Environment Setup</h1>
+            <p>Configure your machine for LoadMagic.AI testing</p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+        <div class="container">
+            <div class="content">
+                <p><strong>Duration:</strong> 20 minutes | <strong>Level:</strong> Beginner | <strong>Framework:</strong> LoadMagic.AI</p>
+                
+                <!-- What You'll Learn -->
+                <h2>What You'll Learn</h2>
+                <ul class="checklist">
+                    <li class="done">Set up LoadMagic.AI cloud account</li>
+                    <li class="done">Install and configure JMeter plugin</li>
+                    <li class="done">Set up CLI tools</li>
+                    <li class="done">Configure environment variables</li>
+                    <li class="done">Verify your installation</li>
+                </ul>
+                
+                <!-- Prerequisites -->
+                <h2>Prerequisites</h2>
+                <div class="step-card">
+                    <h3>Before You Begin</h3>
+                    <ul>
+                        <li>A computer with internet access</li>
+                        <li>Modern web browser (Chrome, Firefox, or Edge)</li>
+                        <li>Email address for account creation</li>
+                        <li>For Desktop: Java 11+ installed</li>
+                    </ul>
+                </div>
+                
+                <!-- Step 1: Cloud Setup -->
+                <h2 id="cloud-setup">Step 1: Cloud Setup (SaaS)</h2>
+                <p>The fastest way to get started with LoadMagic.AI is using the cloud version. No installation required!</p>
+                
+                <div class="step-card">
+                    <span class="step-number">1</span>
+                    <strong>Sign Up for Free Account</strong>
+                </div>
+                <ol>
+                    <li>Visit <a href="https://loadmagic.ai" target="_blank">loadmagic.ai</a></li>
+                    <li>Click the <strong>"Try FREE"</strong> button</li>
+                    <li>Enter your email address and create a password</li>
+                    <li>Check your email and verify your account</li>
+                </ol>
+                
+                <div class="tip-box">
+                    <strong>💡 Pro Tip</strong>
+                    <p>Use your work email if you're testing in a corporate environment. The free tier includes 100 virtual users and 100 test runs per month - perfect for learning!</p>
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">2</span>
+                    <strong>Access the Dashboard</strong>
+                </div>
+                <ol>
+                    <li>Go to <a href="https://studio.loadmagic.ai" target="_blank">studio.loadmagic.ai</a></li>
+                    <li>Log in with your credentials</li>
+                    <li>You'll see the main dashboard</li>
+                </ol>
+                
+                <h3>Supported Regions</h3>
+                <p>Choose the region closest to your users for best performance:</p>
+                
+                <table class="content-table">
+                    <thead>
+                        <tr>
+                            <th>Region</th>
+                            <th>Endpoint</th>
+                            <th>Avg Latency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>US East (N. Virginia)</td>
+                            <td>us-east-1.loadmagic.ai</td>
+                            <td>~20ms</td>
+                        </tr>
+                        <tr>
+                            <td>US West (Oregon)</td>
+                            <td>us-west-2.loadmagic.ai</td>
+                            <td>~45ms</td>
+                        </tr>
+                        <tr>
+                            <td>EU (Frankfurt)</td>
+                            <td>eu-central-1.loadmagic.ai</td>
+                            <td>~80ms</td>
+                        </tr>
+                        <tr>
+                            <td>UK (London)</td>
+                            <td>eu-west-2.loadmagic.ai</td>
+                            <td>~70ms</td>
+                        </tr>
+                        <tr>
+                            <td>APAC (Singapore)</td>
+                            <td>ap-southeast-1.loadmagic.ai</td>
+                            <td>~150ms</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Step 2: JMeter Plugin -->
+                <h2 id="jmeter-setup">Step 2: JMeter Plugin (Desktop)</h2>
+                <p>For teams that prefer local testing or need offline capabilities, install the JMeter plugin.</p>
+                
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="showTab('windows')">Windows</button>
+                        <button class="tab-btn" onclick="showTab('macos')">macOS</button>
+                        <button class="tab-btn" onclick="showTab('linux')">Linux</button>
+                    </div>
+                    
+                    <div id="windows" class="tab-content active">
+                        <h3>Windows Installation</h3>
+                        
+                        <div class="step-card">
+                            <span class="step-number">1</span>
+                            <strong>Install Java (if not already installed)</strong>
+                        </div>
+                        <div class="code-block">
+                            <code>
+<span class="comment"># Check if Java is installed</span>
+java -version
+
+<span class="comment"># If not installed, use Chocolatey</span>
+choco install openjdk17
+                            </code>
+                        </div>
+                        
+                        <div class="step-card">
+                            <span class="step-number">2</span>
+                            <strong>Download JMeter</strong>
+                        </div>
+                        <ol>
+                            <li>Download from <a href="https://jmeter.apache.org/" target="_blank">jmeter.apache.org</a></li>
+                            <li>Extract to <code>C:\Program Files\Apache\JMeter</code></li>
+                            <li>Add JMeter bin to PATH</li>
+                        </ol>
+                        
+                        <div class="step-card">
+                            <span class="step-number">3</span>
+                            <strong>Download LoadMagic Plugin</strong>
+                        </div>
+                        <ol>
+                            <li>Visit <a href="https://loadmagic.ai/more" target="_blank">loadmagic.ai/more</a></li>
+                            <li>Download <code>LoadMagic-Plugin-*.jar</code></li>
+                            <li>Copy to <code>JMETER_HOME\lib\ext\</code></li>
+                        </ol>
+                        
+                        <div class="step-card">
+                            <span class="step-number">4</span>
+                            <strong>Launch JMeter</strong>
+                        </div>
+                        <div class="code-block">
+                            <code>
+<span class="comment"># Set API key and start JMeter</span>
+$env:LOADMAGIC_API_KEY="your_api_key"
+jmeter.bat
+                            </code>
+                        </div>
+                    </div>
+                    
+                    <div id="macos" class="tab-content">
+                        <h3>macOS Installation</h3>
+                        
+                        <div class="step-card">
+                            <span class="step-number">1</span>
+                            <strong>Install Java and JMeter</strong>
+                        </div>
+                        <div class="code-block">
+                            <code>
+<span class="comment"># Using Homebrew</span>
+brew install jmeter
+
+<span class="comment"># Or download from apache.org</span>
+                            </code>
+                        </div>
+                        
+                        <div class="step-card">
+                            <span class="step-number">2</span>
+                            <strong>Install LoadMagic Plugin</strong>
+                        </div>
+                        <div class="code-block">
+                            <code>
+<span class="comment"># Copy plugin to JMeter lib/ext</span>
+cp LoadMagic-Plugin-*.jar /usr/local/opt/jmeter/libexec/lib/ext/
+                            </code>
+                        </div>
+                        
+                        <div class="step-card">
+                            <span class="step-number">3</span>
+                            <strong>Launch JMeter</strong>
+                        </div>
+                        <div class="code-block">
+                            <code>
+<span class="comment"># Set API key and start</span>
+export LOADMAGIC_API_KEY="your_api_key"
+open /usr/local/opt/jmeter/bin/jmeter
+                            </code>
+                        </div>
+                    </div>
+                    
+                    <div id="linux" class="tab-content">
+                        <h3>Linux Installation</h3>
+                        
+                        <div class="step-card">
+                            <span class="step-number">1</span>
+                            <strong>Install Dependencies</strong>
+                        </div>
+                        <div class="code-block">
+                            <code>
+<span class="comment"># Ubuntu/Debian</span>
+sudo apt update
+sudo apt install openjdk-17-jre
+
+<span class="comment"># Download JMeter</span>
+wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.7.tgz
+tar -xzf apache-jmeter-5.7.tgz
+                            </code>
+                        </div>
+                        
+                        <div class="step-card">
+                            <span class="step-number">2</span>
+                            <strong>Install LoadMagic Plugin</strong>
+                        </div>
+                        <div class="code-block">
+                            <code>
+<span class="comment"># Copy plugin</span>
+cp LoadMagic-Plugin-*.jar apache-jmeter-5.7/lib/ext/
+                            </code>
+                        </div>
+                        
+                        <div class="step-card">
+                            <span class="step-number">3</span>
+                            <strong>Launch JMeter</strong>
+                        </div>
+                        <div class="code-block">
+                            <code>
+<span class="comment"># Set API key and start</span>
+export LOADMAGIC_API_KEY="your_api_key"
+./apache-jmeter-5.7/bin/jmeter
+                            </code>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 3: CLI Setup -->
+                <h2 id="cli-setup">Step 3: CLI Setup</h2>
+                <p>For automation and CI/CD integration, set up the LoadMagic CLI.</p>
+                
+                <div class="step-card">
+                    <span class="step-number">1</span>
+                    <strong>Install via npm</strong>
+                </div>
+                <div class="code-block">
+                    <code>
+<span class="comment"># Install globally</span>
+npm install -g @loadmagic/cli
+
+<span class="comment"># Verify installation</span>
+loadmagic --version
+                    </code>
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">2</span>
+                    <strong>Authenticate</strong>
+                </div>
+                <div class="code-block">
+                    <code>
+<span class="comment"># Login with your account</span>
+loadmagic login
+
+<span class="comment"># Or use API key</span>
+loadmagic config set api-key YOUR_API_KEY
+                    </code>
+                </div>
+                
+                <div class="tip-box">
+                    <strong>💡 Pro Tip</strong>
+                    <p>Store your API key securely using environment variables instead of hardcoding in scripts!</p>
+                </div>
+                
+                <!-- Step 4: Environment Variables -->
+                <h2 id="env-vars">Step 4: Environment Variables</h2>
+                <p>Configure your environment for optimal performance and security.</p>
+                
+                <h3>Cloud Configuration</h3>
+                <div class="code-block">
+                    <code>
+<span class="comment"># LoadMagic Cloud Configuration</span>
+<span class="keyword">export</span> <span class="string">LOADMAGIC_API_URL</span>=<span class="string">"https://api.loadmagic.ai"</span>
+<span class="keyword">export</span> <span class="string">LOADMAGIC_REGION</span>=<span class="string">"us-east-1"</span>
+<span class="keyword">export</span> <span class="string">LOADMAGIC_AUTH_TYPE</span>=<span class="string">"api_key"</span>
+<span class="keyword">export</span> <span class="string">LOADMAGIC_API_KEY</span>=<span class="string">"your_api_key_here"</span>
+                    </code>
+                </div>
+                
+                <h3>Windows (PowerShell)</h3>
+                <div class="code-block">
+                    <code>
+<span class="comment"># Set environment variables</span>
+$env:LOADMAGIC_API_KEY = "your_api_key_here"
+$env:LOADMAGIC_REGION = "us-east-1"
+                    </code>
+                </div>
+                
+                <!-- Step 5: Verification -->
+                <h2 id="verification">Step 5: Verify Installation</h2>
+                <p>Let's make sure everything is set up correctly!</p>
+                
+                <div class="step-card">
+                    <span class="step-number">✓</span>
+                    <strong>Verify Cloud Access</strong>
+                </div>
+                <div class="code-block">
+                    <code>
+<span class="comment"># Test your cloud connection</span>
+loadmagic status
+                    </code>
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">✓</span>
+                    <strong>Check JMeter Plugin</strong>
+                </div>
+                <ol>
+                    <li>Open JMeter</li>
+                    <li>Look for "LoadMagic" in the menu</li>
+                    <li>If you see it, the plugin is installed!</li>
+                </ol>
+                
+                <!-- Common Issues -->
+                <h2 id="troubleshooting">Troubleshooting</h2>
+                
+                <div class="warning-box">
+                    <strong>⚠️ Common Issues</strong>
+                    <ul>
+                        <li><strong>Java not found:</strong> Ensure JAVA_HOME is set correctly</li>
+                        <li><strong>API key invalid:</strong> Check your key at studio.loadmagic.ai/settings</li>
+                        <li><strong>Port already in use:</strong> Default JMeter uses port 4444, check for conflicts</li>
+                        <li><strong>Plugin not loading:</strong> Verify the .jar file is in lib/ext folder</li>
+                    </ul>
+                </div>
+                
+                <!-- Next Steps -->
+                <h2>Next Steps</h2>
+                <p>Great job setting up your environment! Now you're ready to:</p>
+                <ul class="checklist">
+                    <li class="done">Move to the next tutorial: <a href="tutorial-quickstart.html">Quick Start Guide</a></li>
+                    <li class="done">Learn more about LoadMagic.AI: <a href="tutorial-basics.html">Understanding LoadMagic.AI</a></li>
+                </ul>
+                
+                <!-- Navigation -->
+                <div style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
+                    <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
+                    <a href="tutorial-quickstart.html" class="btn btn-primary">Next: Quick Start →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Indicator -->
+    <div class="progress-indicator">
+        <span>Progress</span>
+        <div class="progress-bar-mini">
+            <div class="progress-bar-mini-fill" style="width: 100%;"></div>
+        </div>
+        <span>100%</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">QA Academy</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="tutorials.html">Tutorials</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
+            </div>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            // Deactivate all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            // Activate button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

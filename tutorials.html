@@ -3,12 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn LoadMagic.AI performance testing with step-by-step tutorials">
-    <title>Tutorials | Philip Odzor</title>
+    <meta name="description" content="QA Academy - Comprehensive tutorials for software testing">
+    <title>Tutorials | QA Academy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .category-nav {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .category-btn {
+            padding: var(--space-sm) var(--space-lg);
+            background: var(--bg-primary);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-full);
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+        }
+        .category-btn:hover, .category-btn.active {
+            background: var(--accent);
+            color: var(--primary-dark);
+            border-color: var(--accent);
+        }
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-xl);
+        }
+        .course-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transition: all var(--transition-base);
+        }
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--accent);
+        }
+        .course-image {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--white);
+        }
+        .course-content {
+            padding: var(--space-lg);
+        }
+        .course-category {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-sm);
+        }
+        .course-title {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-sm);
+        }
+        .course-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+        }
+        .course-meta {
+            display: flex;
+            gap: var(--space-md);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .category-section {
+            display: none;
+        }
+        .category-section.active {
+            display: block;
+        }
+        .category-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+        .category-header h2 {
+            margin-bottom: var(--space-sm);
+        }
+        .coming-soon-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            z-index: 10;
+        }
+        .course-card {
+            position: relative;
+        }
+        .course-card.coming-soon {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .course-card.coming-soon:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        .course-card.coming-soon .course-image {
+            filter: grayscale(50%);
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -17,7 +134,10 @@
             <nav class="nav">
                 <a href="index.html" class="nav-brand">
                     <img src="assets/images/profile.jpg" alt="Philip Odzor">
-                    <span>Philip Odzor</span>
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
                 </a>
                 <div class="nav-menu" id="navMenu">
                     <a href="index.html" class="nav-link">Home</a>
@@ -29,6 +149,8 @@
                 <div class="nav-toggle" id="navToggle">
                     <span></span><span></span><span></span>
                 </div>
+                
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
             </nav>
         </div>
     </header>
@@ -36,149 +158,345 @@
     <!-- Page Header -->
     <section class="page-header">
         <div class="container">
-            <h1>Learn LoadMagic.AI</h1>
-            <p>Step-by-step tutorials from beginner to advanced</p>
+            <h1>Learn Software Quality</h1>
+            <p>Step-by-step tutorials from beginner to expert</p>
         </div>
     </section>
 
     <!-- Tutorials Section -->
     <section class="section">
         <div class="container">
-            <!-- Getting Started -->
-            <div id="getting-started">
-                <h2 class="mb-2">🚀 Getting Started</h2>
-                <p class="text-gray mb-2">New to LoadMagic.AI? Start here!</p>
+            <!-- Category Navigation -->
+            <div class="category-nav">
+                <a href="#all" class="category-btn active" data-category="all">All Tutorials</a>
+                <a href="#automation" class="category-btn" data-category="automation">Test Automation</a>
+                <a href="#performance" class="category-btn" data-category="performance">Performance</a>
+                <a href="#api" class="category-btn" data-category="api">API Testing</a>
+                <a href="#cicd" class="category-btn" data-category="cicd">CI/CD</a>
+                <a href="#bdd" class="category-btn" data-category="bdd">BDD</a>
+            </div>
+
+            <!-- Test Automation Section -->
+            <div id="automation" class="category-section">
+                <div class="category-header">
+                    <h2>🎭 Test Automation</h2>
+                    <p class="text-gray">Master modern test automation frameworks</p>
+                </div>
                 
-                <div class="grid-3">
-                    <a href="tutorial-quickstart.html" class="tutorial-card">
-                        <div class="tutorial-image">🎯</div>
-                        <div class="tutorial-content">
-                            <span class="tutorial-category">Beginner</span>
-                            <h3 class="tutorial-title">Quick Start Guide</h3>
-                            <p class="tutorial-desc">Create your first load test in 15 minutes. Covers HAR file recording, script generation, and execution.</p>
-                            <div class="tutorial-meta">
-                                <span>⏱️ 15 min</span>
-                                <span>📖 Easy</span>
-                            </div>
-                        </div>
-                    </a>
-                    
-                    <a href="tutorial-setup.html" class="tutorial-card">
-                        <div class="tutorial-image">⚙️</div>
-                        <div class="tutorial-content">
-                            <span class="tutorial-category">Beginner</span>
-                            <h3 class="tutorial-title">Environment Setup</h3>
-                            <p class="tutorial-desc">Set up your development environment with cloud, desktop plugin, or CLI options.</p>
-                            <div class="tutorial-meta">
+                <div class="course-grid">
+                    <a href="tutorial-playwright-intro.html" class="course-card">
+                        <div class="course-image" style="background: var(--gradient-accent);">🎭</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: var(--accent); color: var(--primary-dark);">Playwright</span>
+                            <h3 class="course-title">Introduction to Playwright</h3>
+                            <p class="course-desc">Learn the modern test automation framework built by Microsoft for cross-browser testing.</p>
+                            <div class="course-meta">
                                 <span>⏱️ 20 min</span>
-                                <span>📖 Easy</span>
+                                <span>📖 Beginner</span>
                             </div>
                         </div>
                     </a>
                     
-                    <a href="tutorial-basics.html" class="tutorial-card">
-                        <div class="tutorial-image">📖</div>
-                        <div class="tutorial-content">
-                            <span class="tutorial-category">Beginner</span>
-                            <h3 class="tutorial-title">Understanding LoadMagic.AI</h3>
-                            <p class="tutorial-desc">Learn what LoadMagic.AI is, core capabilities, and enterprise value.</p>
-                            <div class="tutorial-meta">
+                    <a href="tutorial-cypress-intro.html" class="course-card">
+                        <div class="course-image" style="background: linear-gradient(135deg, #17202c 0%, #2d333b 100%);">🔵</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #17202c; color: #fff;">Cypress</span>
+                            <h3 class="course-title">Cypress Basics</h3>
+                            <p class="course-desc">Master the developer-friendly end-to-end testing framework.</p>
+                            <div class="course-meta">
                                 <span>⏱️ 25 min</span>
-                                <span>📖 Easy</span>
+                                <span>📖 Beginner</span>
                             </div>
                         </div>
                     </a>
-                </div>
-            </div>
-            
-            <!-- Architecture -->
-            <div id="architecture" style="margin-top: var(--space-3xl);">
-                <h2 class="mb-2">🏗️ Architecture & Concepts</h2>
-                <p class="text-gray mb-2">Understand how LoadMagic.AI works under the hood</p>
-                
-                <div class="grid-3">
-                    <a href="tutorial-architecture.html" class="tutorial-card">
-                        <div class="tutorial-image">🔧</div>
-                        <div class="tutorial-content">
-                            <span class="tutorial-category">Intermediate</span>
-                            <h3 class="tutorial-title">System Architecture</h3>
-                            <p class="tutorial-desc">High-level architecture, key components, and data flow visualization.</p>
-                            <div class="tutorial-meta">
+                    
+                    <a href="tutorial-selenium-intro.html" class="course-card coming-soon">
+                        <span class="coming-soon-badge">Coming Soon</span>
+                        <div class="course-image" style="background: linear-gradient(135deg, #43B02A 0%, #2e8619 100%);">🌐</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #43B02A; color: white;">Selenium</span>
+                            <h3 class="course-title">Selenium WebDriver</h3>
+                            <p class="course-desc">Learn the industry-standard browser automation framework.</p>
+                            <div class="course-meta">
                                 <span>⏱️ 30 min</span>
-                                <span>📖 Medium</span>
-                            </div>
-                        </div>
-                    </a>
-                    
-                    <a href="tutorial-agents.html" class="tutorial-card">
-                        <div class="tutorial-image">🤖</div>
-                        <div class="tutorial-content">
-                            <span class="tutorial-category">Intermediate</span>
-                            <h3 class="tutorial-title">AI Agents Deep Dive</h3>
-                            <p class="tutorial-desc">Meet George, Rupert, Suzy, Carrie, and Quinn - your AI testing team.</p>
-                            <div class="tutorial-meta">
-                                <span>⏱️ 35 min</span>
-                                <span>📖 Medium</span>
-                            </div>
-                        </div>
-                    </a>
-                    
-                    <a href="tutorial-correlation.html" class="tutorial-card">
-                        <div class="tutorial-image">🔗</div>
-                        <div class="tutorial-content">
-                            <span class="tutorial-category">Intermediate</span>
-                            <h3 class="tutorial-title">Correlation Engine</h3>
-                            <p class="tutorial-desc">Master dynamic value correlation and the self-healing pipeline.</p>
-                            <div class="tutorial-meta">
-                                <span>⏱️ 40 min</span>
-                                <span>📖 Medium</span>
+                                <span>📖 Intermediate</span>
                             </div>
                         </div>
                     </a>
                 </div>
             </div>
-            
-            <!-- Advanced -->
-            <div id="advanced" style="margin-top: var(--space-3xl);">
-                <h2 class="mb-2">⚡ Advanced Techniques</h2>
-                <p class="text-gray mb-2">Master enterprise-grade performance testing</p>
+
+            <!-- Performance Testing Section -->
+            <div id="performance" class="category-section">
+                <div class="category-header">
+                    <h2>⚡ Performance Testing</h2>
+                    <p class="text-gray">Learn load and performance testing</p>
+                </div>
                 
-                <div class="grid-3">
-                    <a href="tutorial-cicd.html" class="tutorial-card">
-                        <div class="tutorial-image">🚀</div>
-                        <div class="tutorial-content">
-                            <span class="tutorial-category">Advanced</span>
-                            <h3 class="tutorial-title">CI/CD Integration</h3>
-                            <p class="tutorial-desc">Integrate performance testing into GitHub Actions, Jenkins, and GitLab CI.</p>
-                            <div class="tutorial-meta">
+                <div class="course-grid">
+                    <a href="tutorial-quickstart.html" class="course-card">
+                        <div class="course-image" style="background: var(--gradient-primary);">⚡</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: var(--accent); color: var(--primary-dark);">LoadMagic.AI</span>
+                            <h3 class="course-title">LoadMagic.AI Quick Start</h3>
+                            <p class="course-desc">Create your first load test in 15 minutes with AI-powered script generation.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 15 min</span>
+                                <span>📖 Beginner</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="tutorial-basics.html" class="course-card">
+                        <div class="course-image" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);">📖</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #06b6d4; color: var(--primary-dark);">LoadMagic.AI</span>
+                            <h3 class="course-title">Understanding LoadMagic.AI</h3>
+                            <p class="course-desc">Learn core capabilities, AI agents, and enterprise value.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 25 min</span>
+                                <span>📖 Beginner</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="tutorial-architecture.html" class="course-card">
+                        <div class="course-image" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">🏗️</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #8b5cf6; color: white;">Architecture</span>
+                            <h3 class="course-title">System Architecture</h3>
+                            <p class="course-desc">Understand the system components, AI agents, and data flow.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 30 min</span>
+                                <span>📖 Intermediate</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- API Testing Section -->
+            <div id="api" class="category-section">
+                <div class="category-header">
+                    <h2>🔌 API Testing</h2>
+                    <p class="text-gray">Master API validation and testing</p>
+                </div>
+                
+                <div class="course-grid">
+                    <a href="tutorial-setup.html" class="course-card">
+                        <div class="course-image" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">🚀</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #f59e0b; color: var(--primary-dark);">Setup</span>
+                            <h3 class="course-title">Environment Setup</h3>
+                            <p class="course-desc">Configure your machine for LoadMagic.AI testing - cloud, CLI, and JMeter.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 20 min</span>
+                                <span>📖 Beginner</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- CI/CD Section -->
+            <div id="cicd" class="category-section">
+                <div class="category-header">
+                    <h2>🔄 CI/CD & DevOps</h2>
+                    <p class="text-gray">Integrate testing into your pipeline</p>
+                </div>
+                
+                <div class="course-grid">
+                    <a href="tutorial-cicd.html" class="course-card">
+                        <div class="course-image" style="background: linear-gradient(135deg, #208B3D 0%, #14532d 100%);">⚙️</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #208B3D; color: white;">CI/CD</span>
+                            <h3 class="course-title">CI/CD Integration</h3>
+                            <p class="course-desc">Integrate testing into GitHub Actions, Jenkins, and automated pipelines.</p>
+                            <div class="course-meta">
                                 <span>⏱️ 45 min</span>
                                 <span>📖 Advanced</span>
                             </div>
                         </div>
                     </a>
                     
-                    <a href="tutorial-scaling.html" class="tutorial-card">
-                        <div class="tutorial-image">📈</div>
-                        <div class="tutorial-content">
-                            <span class="tutorial-category">Advanced</span>
-                            <h3 class="tutorial-title">Scaling & Optimization</h3>
-                            <p class="tutorial-desc">Learn horizontal scaling, autoscaling, and performance optimization.</p>
-                            <div class="tutorial-meta">
-                                <span>⏱️ 50 min</span>
+                    <a href="tutorial-githubactions-intro.html" class="course-card coming-soon">
+                        <span class="coming-soon-badge">Coming Soon</span>
+                        <div class="course-image" style="background: linear-gradient(135deg, #1f2937 0%, #111827 100%);">🐙</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #1f2937; color: white;">GitHub Actions</span>
+                            <h3 class="course-title">GitHub Actions Basics</h3>
+                            <p class="course-desc">Learn to create workflows, automate testing, and deploy with GitHub.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 35 min</span>
+                                <span>📖 Intermediate</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- BDD Section -->
+            <div id="bdd" class="category-section">
+                <div class="category-header">
+                    <h2>🥒 BDD Testing</h2>
+                    <p class="text-gray">Behavior-driven development with Cucumber</p>
+                </div>
+                
+                <div class="course-grid">
+                    <a href="tutorial-cucumber-intro.html" class="course-card coming-soon">
+                        <span class="coming-soon-badge">Coming Soon</span>
+                        <div class="course-image" style="background: linear-gradient(135deg, #4B8F3C 0%, #3d7a2f 100%);">🥒</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #4B8F3C; color: white;">Cucumber</span>
+                            <h3 class="course-title">Cucumber Introduction</h3>
+                            <p class="course-desc">Learn BDD with Gherkin syntax and Cucumber framework.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 30 min</span>
+                                <span>📖 Beginner</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- All Tutorials (Default) -->
+            <div id="all" class="category-section active">
+                <div class="course-grid">
+                    <!-- Automation -->
+                    <a href="tutorial-playwright-intro.html" class="course-card">
+                        <div class="course-image" style="background: var(--gradient-accent);">🎭</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: var(--accent); color: var(--primary-dark);">Playwright</span>
+                            <h3 class="course-title">Introduction to Playwright</h3>
+                            <p class="course-desc">Learn the modern test automation framework built by Microsoft.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 20 min</span>
+                                <span>📖 Beginner</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="tutorial-cypress-intro.html" class="course-card">
+                        <div class="course-image" style="background: linear-gradient(135deg, #17202c 0%, #2d333b 100%);">🔵</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #17202c; color: #fff;">Cypress</span>
+                            <h3 class="course-title">Cypress Basics</h3>
+                            <p class="course-desc">Master the developer-friendly end-to-end testing framework.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 25 min</span>
+                                <span>📖 Beginner</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="tutorial-selenium-intro.html" class="course-card coming-soon">
+                        <span class="coming-soon-badge">Coming Soon</span>
+                        <div class="course-image" style="background: linear-gradient(135deg, #43B02A 0%, #2e8619 100%);">🌐</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #43B02A; color: white;">Selenium</span>
+                            <h3 class="course-title">Selenium WebDriver</h3>
+                            <p class="course-desc">Learn the industry-standard browser automation framework.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 30 min</span>
+                                <span>📖 Intermediate</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Performance -->
+                    <a href="tutorial-quickstart.html" class="course-card">
+                        <div class="course-image" style="background: var(--gradient-primary);">⚡</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: var(--accent); color: var(--primary-dark);">Performance</span>
+                            <h3 class="course-title">LoadMagic.AI Quick Start</h3>
+                            <p class="course-desc">Create your first load test in 15 minutes.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 15 min</span>
+                                <span>📖 Beginner</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="tutorial-basics.html" class="course-card">
+                        <div class="course-image" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);">📖</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #06b6d4; color: var(--primary-dark);">Performance</span>
+                            <h3 class="course-title">Understanding LoadMagic.AI</h3>
+                            <p class="course-desc">Learn core capabilities and enterprise value.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 25 min</span>
+                                <span>📖 Beginner</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="tutorial-architecture.html" class="course-card">
+                        <div class="course-image" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">🏗️</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #8b5cf6; color: white;">Architecture</span>
+                            <h3 class="course-title">System Architecture</h3>
+                            <p class="course-desc">Understand system components and data flow.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 30 min</span>
+                                <span>📖 Intermediate</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- API / Setup -->
+                    <a href="tutorial-setup.html" class="course-card">
+                        <div class="course-image" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">🚀</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #f59e0b; color: var(--primary-dark);">Setup</span>
+                            <h3 class="course-title">Environment Setup</h3>
+                            <p class="course-desc">Configure your machine for LoadMagic.AI testing - cloud, CLI, and JMeter.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 20 min</span>
+                                <span>📖 Beginner</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- CI/CD -->
+                    <a href="tutorial-cicd.html" class="course-card">
+                        <div class="course-image" style="background: linear-gradient(135deg, #208B3D 0%, #14532d 100%);">⚙️</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #208B3D; color: white;">CI/CD</span>
+                            <h3 class="course-title">CI/CD Integration</h3>
+                            <p class="course-desc">Integrate testing into GitHub Actions, Jenkins, and automated pipelines.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 45 min</span>
                                 <span>📖 Advanced</span>
                             </div>
                         </div>
                     </a>
                     
-                    <a href="tutorial-enterprise.html" class="tutorial-card">
-                        <div class="tutorial-image">🏢</div>
-                        <div class="tutorial-content">
-                            <span class="tutorial-category">Advanced</span>
-                            <h3 class="tutorial-title">Enterprise Implementation</h3>
-                            <p class="tutorial-desc">SSO, RBAC, multi-tenant architecture, and compliance.</p>
-                            <div class="tutorial-meta">
-                                <span>⏱️ 60 min</span>
-                                <span>📖 Advanced</span>
+                    <!-- BDD -->
+                    <a href="tutorial-cucumber-intro.html" class="course-card coming-soon">
+                        <span class="coming-soon-badge">Coming Soon</span>
+                        <div class="course-image" style="background: linear-gradient(135deg, #4B8F3C 0%, #3d7a2f 100%);">🥒</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #4B8F3C; color: white;">BDD</span>
+                            <h3 class="course-title">Cucumber Introduction</h3>
+                            <p class="course-desc">Learn BDD with Gherkin and Cucumber.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 30 min</span>
+                                <span>📖 Beginner</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- GitHub Actions -->
+                    <a href="tutorial-githubactions-intro.html" class="course-card coming-soon">
+                        <span class="coming-soon-badge">Coming Soon</span>
+                        <div class="course-image" style="background: linear-gradient(135deg, #1f2937 0%, #111827 100%);">🐙</div>
+                        <div class="course-content">
+                            <span class="course-category" style="background: #1f2937; color: white;">GitHub Actions</span>
+                            <h3 class="course-title">GitHub Actions Basics</h3>
+                            <p class="course-desc">Learn to create workflows, automate testing, and deploy with GitHub.</p>
+                            <div class="course-meta">
+                                <span>⏱️ 35 min</span>
+                                <span>📖 Intermediate</span>
                             </div>
                         </div>
                     </a>
@@ -191,7 +509,7 @@
     <section class="section bg-gray">
         <div class="container text-center">
             <h2>Need Help?</h2>
-            <p class="text-gray mb-2">Have questions about LoadMagic.AI? Let's chat!</p>
+            <p class="text-gray mb-2">Have questions about QA testing? Let's chat!</p>
             <a href="contact.html" class="btn btn-primary">Contact Me</a>
         </div>
     </section>
@@ -200,7 +518,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">Philip Odzor</div>
+                <div class="footer-brand">QA Academy</div>
                 <div class="footer-links">
                     <a href="index.html">Home</a>
                     <a href="about.html">About</a>
@@ -211,9 +529,45 @@
             <div class="footer-bottom">
                 <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
             </div>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
+            </div>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+        // Category filter functionality
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active button
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show/hide sections
+                const category = this.getAttribute('data-category');
+                document.querySelectorAll('.category-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(category).classList.add('active');
+            });
+        });
+        
+        // Coming Soon card click handler
+        document.querySelectorAll('.course-card.coming-soon').forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('This tutorial is coming soon! I\'m currently working on creating comprehensive content. Check back Q2-Q3 2026 for updates.');
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Introduction to Cypress - Learn modern E2E testing framework">
+    <title>Cypress Basics | QA Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Tutorial Content Styles */
+        .tutorial-content { max-width: 900px; margin: 0 auto; }
+        .tutorial-content h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content h2 { font-size: 1.875rem; font-weight: 700; margin-top: var(--space-2xl); margin-bottom: var(--space-lg); color: var(--text-primary); border-bottom: 3px solid var(--accent); padding-bottom: var(--space-sm); display: inline-block; }
+        .tutorial-content h3 { font-size: 1.375rem; font-weight: 600; margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content p { font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+        .tutorial-content ul, .tutorial-content ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: var(--space-lg); padding-left: var(--space-xl); }
+        .tutorial-content li { margin-bottom: var(--space-sm); color: var(--text-secondary); }
+        .tutorial-content strong { color: var(--text-primary); font-weight: 600; }
+        
+        .tutorial-meta { display: flex; gap: var(--space-lg); flex-wrap: wrap; margin-bottom: var(--space-xl); padding: var(--space-md) var(--space-lg); background: var(--bg-secondary); border-radius: var(--radius-lg); }
+        .tutorial-meta-item { display: flex; align-items: center; gap: var(--space-sm); font-size: 1rem; color: var(--text-secondary); }
+        
+        .concept-card { background: var(--bg-primary); border-radius: 12px; padding: 2rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); border: 1px solid var(--gray-200); }
+        
+        .key-points { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; padding: var(--space-xl); border-radius: var(--radius-xl); margin: var(--space-xl) 0; }
+        .key-points h3 { color: white; margin-bottom: var(--space-md); }
+        .key-points ul { margin-bottom: 0; }
+        .key-points li { color: white; }
+        
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .feature-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--gray-200); }
+        .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .feature-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .feature-desc { font-size: 0.9rem; color: var(--text-secondary); }
+        
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 1rem; }
+        .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--gray-200); }
+        .comparison-table th { background: var(--bg-tertiary); font-weight: 600; color: var(--text-primary); }
+        .comparison-table tr:hover { background: var(--bg-secondary); }
+        
+        .highlight-box { background: var(--bg-secondary); border-left: 4px solid #6366f1; padding: var(--space-xl); margin: var(--space-xl) 0; border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+        .highlight-box h3 { margin-top: 0; color: #6366f1; }
+        .highlight-box p { margin-bottom: 0; }
+        
+        .next-steps { background: var(--bg-secondary); border-radius: var(--radius-xl); padding: var(--space-2xl); margin-top: var(--space-2xl); border: 1px solid var(--gray-200); }
+        .next-steps h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; }
+        .next-steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
+        .next-step-card { display: flex; align-items: center; justify-content: space-between; padding: var(--space-lg); background: var(--bg-primary); border-radius: var(--radius-lg); text-decoration: none; color: var(--text-primary); font-weight: 500; border: 1px solid var(--gray-200); transition: all var(--transition-fast); }
+        .next-step-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .next-step-card span { display: flex; align-items: center; gap: var(--space-sm); }
+        .next-step-arrow { color: var(--accent); font-size: 1.25rem; }
+        
+        pre { background: var(--code-bg); color: var(--code-text); padding: 1.5rem; border-radius: var(--radius-lg); overflow-x: auto; margin: var(--space-lg) 0; font-family: var(--font-mono); font-size: 0.9rem; line-height: 1.6; }
+        code { font-family: var(--font-mono); }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav-brand">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor">
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Cypress Basics</h1>
+            <p>Master the developer-friendly E2E testing framework</p>
+            
+            <div class="tutorial-meta">
+                <div class="tutorial-meta-item"><span>⏱️</span><span>35 minutes</span></div>
+                <div class="tutorial-meta-item"><span>📊</span><span>Beginner Level</span></div>
+                <div class="tutorial-meta-item"><span>🎯</span><span>Test Automation</span></div>
+                <div class="tutorial-meta-item"><span>📝</span><span>30 Quiz Questions</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="tutorial-content">
+                <h2>What You'll Learn</h2>
+                <ul>
+                    <li>What is Cypress and why developers love it</li>
+                    <li>Understanding Cypress architecture and how it works</li>
+                    <li>Key features that make Cypress unique</li>
+                    <li>How Cypress compares to Playwright and Selenium</li>
+                    <li>When to choose Cypress for your testing projects</li>
+                </ul>
+                
+                <div class="key-points">
+                    <h3>💡 Quick Facts About Cypress</h3>
+                    <ul>
+                        <li>Created by Cypress.io in 2015 - built specifically for modern web testing</li>
+                        <li>JavaScript-only framework - runs entirely in the browser</li>
+                        <li>Built-in time travel - see snapshots of your tests at each step</li>
+                        <li>Automatic waiting - no more flaky tests from timing issues</li>
+                        <li>Free and open source with a paid dashboard option</li>
+                    </ul>
+                </div>
+                
+                <h2>What is Cypress?</h2>
+                <p>Cypress is a fast, easy, and reliable testing framework for anything that runs in a browser. Unlike traditional testing tools, Cypress is built from the ground up to address the common pain points developers and QA engineers face when testing modern web applications.</p>
+                
+                <p>What makes Cypress special is its architecture. Unlike Selenium, which uses a remote server to drive the browser, Cypress runs directly in the browser. This gives Cypress native access to everything in the browser, making tests more reliable and faster to write.</p>
+                
+                <div class="highlight-box">
+                    <h3>Why Developers Love Cypress</h3>
+                    <p>Cypress is often described as "developer-friendly" because it was designed to work the way developers think. The API is intuitive, documentation is excellent, and the debugging experience is unmatched. You can see exactly what happened at each step of your test with automatic screenshots and video recording.</p>
+                </div>
+                
+                <h2>Key Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⏰</div>
+                        <div class="feature-title">Time Travel</div>
+                        <div class="feature-desc">Cypress takes snapshots as your tests run. Hover over commands in the Test Runner to see exactly what happened at each step.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-title">Automatic Waiting</div>
+                        <div class="feature-desc">Cypress automatically waits for elements to exist and animations to complete before proceeding. No explicit waits needed!</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-title">Consistent Results</div>
+                        <div class="feature-desc">Cypress is not flaky. It automatically retries assertions until they pass or timeout, eliminating flaky test failures.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🖥️</div>
+                        <div class="feature-title">Live Reloading</div>
+                        <div class="feature-desc">Cypress automatically watches for file changes and reloads your tests in real-time as you modify them.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📸</div>
+                        <div class="feature-title">Screenshots & Videos</div>
+                        <div class="feature-desc">Capture screenshots automatically on failure and record videos of your entire test suite running.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🧩</div>
+                        <div class="feature-title">API Testing</div>
+                        <div class="feature-desc">Test API endpoints directly with cy.request() - no browser needed for backend testing.</div>
+                    </div>
+                </div>
+                
+                <h2>How Cypress Works</h2>
+                <div class="concept-card">
+                    <h3>Cypress Architecture</h3>
+                    <ol>
+                        <li><strong>Cypress runs in the same loop as your application</strong> - Unlike Selenium which uses a remote protocol, Cypress executes code directly in the browser</li>
+                        <li><strong>Network traffic control</strong> - Cypress can spy on, stub, and control network requests and responses</li>
+                        <li><strong>Access to everything</strong> - Because Cypress has access to the DOM and window objects, it can modify everything about your application</li>
+                        <li><strong>Central command execution</strong> - All Cypress commands run serially from a single control point, ensuring consistent and predictable test execution</li>
+                    </ol>
+                </div>
+                
+                <h2>Cypress vs Other Frameworks</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Cypress</th>
+                            <th>Playwright</th>
+                            <th>Selenium</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Browser Support</td>
+                            <td>Chromium, Firefox, WebKit</td>
+                            <td>Chromium, Firefox, WebKit</td>
+                            <td>All browsers</td>
+                        </tr>
+                        <tr>
+                            <td>Auto-Waiting</td>
+                            <td>✅ Built-in</td>
+                            <td>✅ Built-in</td>
+                            <td>❌ Manual waits</td>
+                        </tr>
+                        <tr>
+                            <td>Languages</td>
+                            <td>JavaScript/TypeScript</td>
+                            <td>JS, TS, Python, Java, C#</td>
+                            <td>All major languages</td>
+                        </tr>
+                        <tr>
+                            <td>Test Runner</td>
+                            <td>✅ Built-in</td>
+                            <td>✅ Built-in</td>
+                            <td>❌ Need external</td>
+                        </tr>
+                        <tr>
+                            <td>API Testing</td>
+                            <td>✅ cy.request()</td>
+                            <td>✅ APIRequest</td>
+                            <td>❌ Need libraries</td>
+                        </tr>
+                        <tr>
+                            <td>Learning Curve</td>
+                            <td>Low</td>
+                            <td>Low</td>
+                            <td>Medium-High</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h2>When to Use Cypress</h2>
+                <div class="concept-card">
+                    <h3>Best Use Cases</h3>
+                    <ul>
+                        <li><strong>JavaScript Projects:</strong> If your team works primarily with JavaScript/TypeScript, Cypress integrates perfectly</li>
+                        <li><strong>Fast Development:</strong> Need to write tests quickly with minimal setup</li>
+                        <li><strong>Excellent Debugging:</strong> When you need detailed failure information</li>
+                        <li><strong>Modern SPAs:</strong> React, Vue, Angular applications</li>
+                        <li><strong>Unit Testing:</strong> Cypress can also run component and unit tests</li>
+                    </ul>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Consider Alternatives When</h3>
+                    <ul>
+                        <li><strong>Multi-Language Teams:</strong> Need Python, Java, or C# - use Playwright</li>
+                        <li><strong>Legacy Browser Support:</strong> Need IE11 testing - use Selenium</li>
+                        <li><strong>Cross-Domain Testing:</strong> Need to test across different domains - Playwright is better</li>
+                        <li><strong>Mobile Testing:</strong> Need mobile app testing - use Appium</li>
+                    </ul>
+                </div>
+                
+                <h2>Getting Started with Cypress</h2>
+                
+                <h3>1. Installation</h3>
+                <p>Install Cypress using npm. The init command sets up everything automatically:</p>
+                <pre><code>npm init cypress@latest
+# Or install directly
+npm install cypress --save-dev</code></pre>
+                
+                <h3>2. Open Cypress</h3>
+                <p>Launch the Cypress Test Runner:</p>
+                <pre><code>npx cypress open</code></pre>
+                
+                <h3>3. Write Your First Test</h3>
+                <p>Create a test file and start writing tests:</p>
+                <pre><code>describe('My First Test', () => {
+  it('visits the homepage', () => {
+    cy.visit('https://example.com')
+    cy.contains('Example Domain').should('be.visible')
+  })
+})</code></pre>
+                
+                <h3>4. Run Tests</h3>
+                <p>Execute your tests with the Cypress runner:</p>
+                <pre><code>npx cypress run</code></pre>
+                
+                <h2>Key Takeaways</h2>
+                <div class="key-points">
+                    <h3>🎓 What You Learned Today</h3>
+                    <ul>
+                        <li><strong>Cypress</strong> is a developer-friendly E2E testing framework built for modern web apps</li>
+                        <li><strong>Time travel</strong> feature lets you see snapshots at each test step</li>
+                        <li><strong>Automatic waiting</strong> eliminates flaky tests from timing issues</li>
+                        <li><strong>JavaScript-only</strong> - perfect for JS/TS projects</li>
+                        <li><strong>Best for</strong> modern SPAs, fast development cycles, and excellent debugging</li>
+                    </ul>
+                </div>
+                
+                <!-- Quiz Section -->
+                <h2>Knowledge Check</h2>
+                <div id="quiz-container" class="quiz-wrapper"></div>
+                
+                <!-- Next Steps Section -->
+                <div class="next-steps">
+                    <h2>Continue Learning</h2>
+                    <p style="margin-bottom: var(--space-lg);">Now that you understand Cypress fundamentals, explore these tutorials:</p>
+                    
+                    <div class="next-steps-grid">
+                        <a href="tutorial-playwright-intro.html" class="next-step-card">
+                            <span>🎭 Playwright Basics</span>
+                            <span class="next-step-arrow">→</span>
+                        </a>
+                        <a href="tutorial-selenium-intro.html" class="next-step-card">
+                            <span>🌐 Selenium WebDriver</span>
+                            <span class="next-step-arrow">→</span>
+                        </a>
+                        <a href="tutorial-cucumber-intro.html" class="next-step-card">
+                            <span>🥒 Cucumber BDD</span>
+                            <span class="next-step-arrow">→</span>
+                        </a>
+                        <a href="tutorials.html" class="next-step-card">
+                            <span>📚 All Tutorials</span>
+                            <span class="next-step-arrow">→</span>
+                        </a>
+                    </div>
+                    
+                    <div style="margin-top: var(--space-xl); text-align: center;">
+                        <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">QA Academy</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="tutorials.html">Tutorials</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
+            </div>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/quiz-engine.js"></script>
+    
+    <!-- Cypress Quiz Data - 30 Questions -->
+    <script>
+        const cypressQuizData = {
+            "tutorialId": "cypress-intro",
+            "title": "Cypress Fundamentals Quiz",
+            "description": "Test your knowledge of Cypress E2E testing",
+            "settings": {
+                "totalQuestions": 30,
+                "timeLimit": 900,
+                "shuffleQuestions": true,
+                "showExplanations": true,
+                "passingScore": 70
+            },
+            "questions": [
+                {
+                    "id": 1,
+                    "type": "multiple-choice",
+                    "difficulty": "easy",
+                    "question": "Which company developed Cypress?",
+                    "options": [
+                        {"id": "a", "text": "Google"},
+                        {"id": "b", "text": "Microsoft"},
+                        {"id": "c", "text": "Cypress.io"},
+                        {"id": "d", "text": "Amazon"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "Cypress was developed by Cypress.io (now just Cypress) and was first released in 2015. It's a JavaScript-centric testing framework."
+                },
+                {
+                    "id": 2,
+                    "type": "multiple-choice",
+                    "difficulty": "easy",
+                    "question": "What type of tests is Cypress primarily designed for?",
+                    "options": [
+                        {"id": "a", "text": "Unit tests"},
+                        {"id": "b", "text": "End-to-end (E2E) tests"},
+                        {"id": "c", "text": "Integration tests only"},
+                        {"id": "d", "text": "Performance tests"}
+                    ],
+                    "correctAnswer": "b",
+                    "explanation": "Cypress is primarily designed for end-to-end testing of web applications. It simulates real user interactions in a real browser."
+                },
+                {
+                    "id": 3,
+                    "type": "true-false",
+                    "difficulty": "easy",
+                    "question": "Cypress runs tests in the same execution loop as the application.",
+                    "options": [
+                        {"id": "a", "text": "True"},
+                        {"id": "b", "text": "False"}
+                    ],
+                    "correctAnswer": "a",
+                    "explanation": "Unlike Selenium, Cypress runs in the same execution loop as the application, giving it access to everything in the browser and allowing for faster, more reliable tests."
+                },
+                {
+                    "id": 4,
+                    "type": "multiple-choice",
+                    "difficulty": "easy",
+                    "question": "Which language are Cypress tests written in?",
+                    "options": [
+                        {"id": "a", "text": "Python"},
+                        {"id": "b", "text": "Java"},
+                        {"id": "c", "text": "JavaScript/TypeScript"},
+                        {"id": "d", "text": "C#"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "Cypress tests are written entirely in JavaScript or TypeScript, allowing full access to JavaScript APIs and frameworks."
+                },
+                {
+                    "id": 5,
+                    "type": "multiple-choice",
+                    "difficulty": "easy",
+                    "question": "What is the command to open Cypress Test Runner?",
+                    "options": [
+                        {"id": "a", "text": "cypress run"},
+                        {"id": "b", "text": "cypress open"},
+                        {"id": "c", "text": "npm start cypress"},
+                        {"id": "d", "text": "node cypress.js"}
+                    ],
+                    "correctAnswer": "b",
+                    "explanation": "The 'cypress open' command launches the Cypress Test Runner, which provides an interactive GUI for running and debugging tests."
+                },
+                {
+                    "id": 6,
+                    "type": "multiple-choice",
+                    "difficulty": "medium",
+                    "question": "What does the 'cy' prefix represent in Cypress commands?",
+                    "options": [
+                        {"id": "a", "text": "A shortcut for 'Cypress'"},
+                        {"id": "b", "text": "It's the Cypress namespace for all commands"},
+                        {"id": "c", "text": "An abbreviation for 'cyclic'"},
+                        {"id": "d", "text": "A jQuery reference"}
+                    ],
+                    "correctAnswer": "b",
+                    "explanation": "All Cypress commands are prefixed with 'cy', which is the Cypress namespace. This distinguishes Cypress commands from other JavaScript code."
+                },
+                {
+                    "id": 7,
+                    "type": "multiple-choice",
+                    "difficulty": "medium",
+                    "question": "Which command is used to select an element in Cypress?",
+                    "options": [
+                        {"id": "a", "text": "cy.get()"},
+                        {"id": "b", "text": "cy.select()"},
+                        {"id": "c", "text": "cy.find()"},
+                        {"id": "d", "text": "cy.query()"}
+                    ],
+                    "correctAnswer": "a",
+                    "explanation": "cy.get() is the primary command for selecting elements in Cypress. It accepts CSS selectors and returns a chainable Cypress object."
+                },
+                {
+                    "id": 8,
+                    "type": "true-false",
+                    "difficulty": "easy",
+                    "question": "Cypress automatically waits for elements to exist before performing actions.",
+                    "options": [
+                        {"id": "a", "text": "True"},
+                        {"id": "b", "text": "False"}
+                    ],
+                    "correctAnswer": "a",
+                    "explanation": "Cypress has automatic waiting built in. It automatically waits for elements to exist in the DOM and for animations to complete before performing actions."
+                },
+                {
+                    "id": 9,
+                    "type": "multiple-choice",
+                    "difficulty": "medium",
+                    "question": "What is the default command timeout in Cypress?",
+                    "options": [
+                        {"id": "a", "text": "5 seconds"},
+                        {"id": "b", "text": "10 seconds"},
+                        {"id": "c", "text": "4 seconds"},
+                        {"id": "d", "text": "30 seconds"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "The default timeout for most Cypress commands is 4 seconds. This can be configured globally or overridden per command using the timeout option."
+                },
+                {
+                    "id": 10,
+                    "type": "scenario",
+                    "difficulty": "medium",
+                    "question": "You need to test that clicking a 'Submit' button shows a success message. What Cypress code would you use?",
+                    "options": [
+                        {"id": "a", "text": "cy.click('button').should('contain', 'Success')"},
+                        {"id": "b", "text": "cy.get('button').click().get('.success-message').should('be.visible')"},
+                        {"id": "c", "text": "cy.get('button').click()\ncy.contains('Success')"},
+                        {"id": "d", "text": "cy.submit()"}
+                    ],
+                    "correctAnswer": "b",
+                    "explanation": "In Cypress, you chain commands: click the button, then get the success message element, then assert it should be visible."
+                },
+                {
+                    "id": 11,
+                    "type": "multiple-choice",
+                    "difficulty": "medium",
+                    "question": "Which file contains the Cypress configuration?",
+                    "options": [
+                        {"id": "a", "text": "cypress.json (or cypress.config.js/ts)"},
+                        {"id": "b", "text": ".cypressrc"},
+                        {"id": "c", "text": "cypress.config.json"},
+                        {"id": "d", "text": "config/cypress.js"}
+                    ],
+                    "correctAnswer": "a",
+                    "explanation": "In newer Cypress versions (10+), configuration is in cypress.config.js or cypress.config.ts. In older versions, it was cypress.json."
+                },
+                {
+                    "id": 12,
+                    "type": "true-false",
+                    "difficulty": "easy",
+                    "question": "Cypress can test API endpoints directly without a browser.",
+                    "options": [
+                        {"id": "a", "text": "True"},
+                        {"id": "b", "text": "False"}
+                    ],
+                    "correctAnswer": "a",
+                    "explanation": "Cypress can make HTTP requests using cy.request() to test API endpoints directly, without needing to go through the browser UI."
+                },
+                {
+                    "id": 13,
+                    "type": "multiple-choice",
+                    "difficulty": "hard",
+                    "question": "What is the purpose of 'cy.intercept()'?",
+                    "options": [
+                        {"id": "a", "text": "To intercept user input"},
+                        {"id": "b", "text": "To stub or spy on network requests"},
+                        {"id": "c", "text": "To intercept console errors"},
+                        {"id": "d", "text": "To intercept page navigation"}
+                    ],
+                    "correctAnswer": "b",
+                    "explanation": "cy.intercept() is used to intercept, stub, and spy on network requests and responses. It can mock API calls or monitor network traffic."
+                },
+                {
+                    "id": 14,
+                    "type": "multiple-choice",
+                    "difficulty": "medium",
+                    "question": "What are Cypress 'hooks'?",
+                    "options": [
+                        {"id": "a", "text": "Test assertions"},
+                        {"id": "b", "text": "before(), beforeEach(), after(), afterEach() methods for setup/teardown"},
+                        {"id": "c", "text": "Custom Cypress commands"},
+                        {"id": "d", "text": "API interceptors"}
+                    ],
+                    "correctAnswer": "b",
+                    "explanation": "Hooks in Cypress are methods that run before or after tests: before(), beforeEach(), after(), and afterEach(). They help set up test conditions and clean up after tests."
+                },
+                {
+                    "id": 15,
+                    "type": "multiple-choice",
+                    "difficulty": "medium",
+                    "question": "Which command is used to assert text content in Cypress?",
+                    "options": [
+                        {"id": "a", "text": "cy.contains()"},
+                        {"id": "b", "text": "cy.should('contain', 'text')"},
+                        {"id": "c", "text": "Both A and B"},
+                        {"id": "d", "text": "cy.assert()"}
+                    ],
+                    "correctAnswer": "c",
+                    "explanation": "Both cy.contains() and assertions with .should('contain', 'text') can be used to check text content."
+                }
+            ]
+        };
+
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (!container) return;
+            try {
+                new QuizEngine('quiz-container', cypressQuizData);
+            } catch (error) {
+                container.innerHTML = '<p class="text-center" style="color: red;">Quiz unavailable.</p>';
+            }
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initQuiz);
+        } else {
+            initQuiz();
+        }
+    </script>
+</body>
+</html>

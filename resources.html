@@ -3,12 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Resources - Download LoadMagic.AI documentation">
-    <title>Resources | Philip Odzor</title>
+    <meta name="description" content="Resources - QA Academy Official Documentation & Tools">
+    <title>Resources | QA Academy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .ack-box {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .ack-box h2 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+        .ack-box p {
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.7;
+        }
+        .ack-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .ack-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--white);
+        }
+        .resource-section {
+            margin-bottom: 3rem;
+        }
+        .resource-section h2 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+        .section-icon {
+            font-size: 1.5rem;
+        }
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .resource-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .resource-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+        .resource-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .resource-icon {
+            font-size: 2.5rem;
+        }
+        .resource-badge {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-official {
+            background: var(--accent);
+            color: var(--primary-dark);
+        }
+        .badge-mine {
+            background: var(--success);
+            color: var(--primary-dark);
+        }
+        .resource-card h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+        .resource-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+        .resource-meta {
+            display: flex;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-weight: 500;
+            text-decoration: none;
+            transition: gap 0.2s;
+        }
+        .resource-link:hover {
+            gap: 12px;
+        }
+        .resource-link.external::after {
+            content: "↗";
+            font-size: 0.8rem;
+        }
+        .cta-box {
+            background: var(--gradient-accent);
+            color: var(--primary-dark);
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        .cta-box h3 {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .cta-box p {
+            opacity: 0.95;
+            max-width: 500px;
+            margin: 0 auto 1.5rem;
+        }
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .cta-buttons .btn {
+            padding: 12px 24px;
+        }
+        .btn-white {
+            background: var(--bg-primary);
+            color: var(--accent);
+        }
+        .btn-white:hover {
+            background: var(--bg-tertiary);
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -17,7 +176,10 @@
             <nav class="nav">
                 <a href="index.html" class="nav-brand">
                     <img src="assets/images/profile.jpg" alt="Philip Odzor">
-                    <span>Philip Odzor</span>
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
                 </a>
                 <div class="nav-menu" id="navMenu">
                     <a href="index.html" class="nav-link">Home</a>
@@ -29,6 +191,8 @@
                 <div class="nav-toggle" id="navToggle">
                     <span></span><span></span><span></span>
                 </div>
+                
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
             </nav>
         </div>
     </header>
@@ -37,107 +201,397 @@
     <section class="page-header">
         <div class="container">
             <h1>Resources</h1>
-            <p>Download documentation and access helpful links</p>
+            <p>Official documentation and tools for QA testing technologies</p>
         </div>
     </section>
 
-    <!-- Resources Section -->
+    <!-- Content -->
     <section class="section">
         <div class="container">
-            <h2 class="text-center mb-3">Documentation Downloads</h2>
-            <p class="text-center text-gray mb-2">Complete LoadMagic.AI documentation for offline reading</p>
-            
-            <div class="grid-3" style="max-width: 900px; margin: 0 auto;">
-                <div class="card text-center">
-                    <div style="font-size: 3rem; margin-bottom: var(--space-md);">📄</div>
-                    <h3>Full Documentation</h3>
-                    <p class="text-gray">Complete guide covering all topics from beginner to advanced.</p>
-                    <p class="text-accent" style="font-size: 0.875rem;">Coming Soon</p>
-                    <button class="btn btn-secondary btn-sm" disabled>Download PDF</button>
-                </div>
-                
-                <div class="card text-center">
-                    <div style="font-size: 3rem; margin-bottom: var(--space-md);">🎯</div>
-                    <h3>Quick Reference</h3>
-                    <p class="text-gray">One-page cheat sheet with essential commands and tips.</p>
-                    <p class="text-accent" style="font-size: 0.875rem;">Coming Soon</p>
-                    <button class="btn btn-secondary btn-sm" disabled>Download PDF</button>
-                </div>
-                
-                <div class="card text-center">
-                    <div style="font-size: 3rem; margin-bottom: var(--space-md);">🔧</div>
-                    <h3>Code Examples</h3>
-                    <p class="text-gray">Ready-to-use scripts and templates for your projects.</p>
-                    <p class="text-accent" style="font-size: 0.875rem;">Coming Soon</p>
-                    <button class="btn btn-secondary btn-sm" disabled>Download</button>
+            <!-- Welcome Box -->
+            <div class="ack-box">
+                <h2>Welcome to QA Academy Resources</h2>
+                <p>This portfolio provides comprehensive resources for learning <strong>software testing and QA automation</strong>. 
+                From Playwright to Cypress, Selenium to API testing, I've curated official documentation and tools to help you master each technology.</p>
+                <div class="ack-badges">
+                    <span class="ack-badge">Playwright</span>
+                    <span class="ack-badge">Cypress</span>
+                    <span class="ack-badge">Selenium</span>
+                    <span class="ack-badge">API Testing</span>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- External Links Section -->
-    <section class="section bg-gray">
-        <div class="container">
-            <h2 class="text-center mb-3">External Resources</h2>
-            <p class="text-center text-gray mb-2">Helpful links to official LoadMagic.AI and related tools</p>
-            
-            <div style="max-width: 800px; margin: 0 auto;">
-                <div class="card mb-2">
-                    <h3>Official LoadMagic.AI</h3>
-                    <p class="text-gray">The official LoadMagic.AI website for more information and documentation.</p>
-                    <a href="https://loadmagic.ai" target="_blank" class="btn btn-primary btn-sm">Visit Website →</a>
-                </div>
+            <!-- Test Automation Resources -->
+            <div class="resource-section">
+                <h2><span class="section-icon">⚭</span> Test Automation</h2>
+                <p class="text-gray mb-2">Master modern web automation frameworks for E2E testing.</p>
                 
-                <div class="card mb-2">
-                    <h3>Apache JMeter</h3>
-                    <p class="text-gray">Open-source load testing tool that LoadMagic.AI enhances with AI capabilities.</p>
-                    <a href="https://jmeter.apache.org" target="_blank" class="btn btn-primary btn-sm">Visit Website →</a>
-                </div>
-                
-                <div class="card mb-2">
-                    <h3>Locust</h3>
-                    <p class="text-gray">Python-based load testing framework supported by LoadMagic.AI.</p>
-                    <a href="https://locust.io" target="_blank" class="btn btn-primary btn-sm">Visit Website →</a>
-                </div>
-                
-                <div class="card mb-2">
-                    <h3>Postman</h3>
-                    <p class="text-gray">API testing tool for validating endpoints before load testing.</p>
-                    <a href="https://postman.com" target="_blank" class="btn btn-primary btn-sm">Visit Website →</a>
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">🎭</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>Playwright</h3>
+                        <p>Cross-browser automation for modern web apps. Fast, reliable E2E testing with auto-wait.</p>
+                        <div class="resource-meta">
+                            <span>Microsoft</span>
+                            <span>TypeScript/JS/Python/Java</span>
+                        </div>
+                        <a href="https://playwright.dev/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">🧪</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>Cypress</h3>
+                        <p>Fast, easy and reliable testing for anything that runs in a browser. Modern testing framework.</p>
+                        <div class="resource-meta">
+                            <span>Cypress.io</span>
+                            <span>JavaScript</span>
+                        </div>
+                        <a href="https://docs.cypress.io/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">🌐</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>Selenium WebDriver</h3>
+                        <p>The industry standard for browser automation. Supports all major browsers and languages.</p>
+                        <div class="resource-meta">
+                            <span>Selenium HQ</span>
+                            <span>Java/Python/JS/C#</span>
+                        </div>
+                        <a href="https://www.selenium.dev/documentation/webdriver/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">🚀</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>WebdriverIO</h3>
+                        <p>Next-gen browser and mobile automation test framework for Node.js.</p>
+                        <div class="resource-meta">
+                            <span>WebdriverIO</span>
+                            <span>JavaScript/TypeScript</span>
+                        </div>
+                        <a href="https://webdriver.io/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Tools Section -->
-    <section class="section">
-        <div class="container">
-            <h2 class="text-center mb-3">Recommended Tools</h2>
-            <p class="text-center text-gray mb-2">Tools I use for performance testing</p>
-            
-            <div class="grid-4" style="max-width: 1000px; margin: 0 auto;">
-                <div class="card text-center">
-                    <div style="font-size: 2rem; margin-bottom: var(--space-sm);">⚡</div>
-                    <h4>LoadMagic.AI</h4>
-                    <p class="text-gray" style="font-size: 0.875rem;">AI-powered performance testing</p>
-                </div>
+            <!-- API Testing Resources -->
+            <div class="resource-section">
+                <h2><span class="section-icon">🔌</span> API Testing</h2>
+                <p class="text-gray mb-2">Tools and frameworks for REST API testing and validation.</p>
                 
-                <div class="card text-center">
-                    <div style="font-size: 2rem; margin-bottom: var(--space-sm);">🔨</div>
-                    <h4>JMeter</h4>
-                    <p class="text-gray" style="font-size: 0.875rem;">Open-source load testing</p>
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">📬</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>Postman</h3>
+                        <p>API platform for building and testing APIs. Collections, environments, and automation.</p>
+                        <div class="resource-meta">
+                            <span>Postman</span>
+                            <span>Free & Paid</span>
+                        </div>
+                        <a href="https://learning.postman.com/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">☕</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>REST Assured</h3>
+                        <p>Java DSL for easy testing of REST services. Integrate with JUnit/TestNG.</p>
+                        <div class="resource-meta">
+                            <span>REST Assured</span>
+                            <span>Java</span>
+                        </div>
+                        <a href="https://rest-assured.io/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">🧼</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>SoapUI</h3>
+                        <p>Comprehensive API testing tool for REST and SOAP APIs. Functional and security testing.</p>
+                        <div class="resource-meta">
+                            <span>SmartBear</span>
+                            <span>Free & Paid</span>
+                        </div>
+                        <a href="https://www.soapui.org/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">⬛</span>
+                            <span class="resource-badge badge-official">CLI</span>
+                        </div>
+                        <h3>Newman</h3>
+                        <p>Command-line collection runner for Postman. Run collections in CI/CD pipelines.</p>
+                        <div class="resource-meta">
+                            <span>Postman</span>
+                            <span>Node.js</span>
+                        </div>
+                        <a href="https://learning.postman.com/docs/collections/using-newman-cli/command-line-integration-with-newman/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Performance Testing Resources -->
+            <div class="resource-section">
+                <h2><span class="section-icon">📊</span> Performance Testing</h2>
+                <p class="text-gray mb-2">Load testing and performance monitoring tools.</p>
                 
-                <div class="card text-center">
-                    <div style="font-size: 2rem; margin-bottom: var(--space-sm);">🐍</div>
-                    <h4>Locust</h4>
-                    <p class="text-gray" style="font-size: 0.875rem;">Python-based testing</p>
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">⚡</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>Apache JMeter</h3>
+                        <p>Open-source load testing tool. Functional behavior testing, stress testing, and more.</p>
+                        <div class="resource-meta">
+                            <span>Apache</span>
+                            <span>Free</span>
+                        </div>
+                        <a href="https://jmeter.apache.org/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">🦗</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>Locust</h3>
+                        <p>Open-source load testing tool. Write tests in Python, distributed testing support.</p>
+                        <div class="resource-meta">
+                            <span>Locust</span>
+                            <span>Python</span>
+                        </div>
+                        <a href="https://locust.io/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">🤖</span>
+                            <span class="resource-badge badge-official">AI-Powered</span>
+                        </div>
+                        <h3>LoadMagic.AI</h3>
+                        <p>AI-powered performance testing. Auto-generates JMeter scripts from HAR recordings.</p>
+                        <div class="resource-meta">
+                            <span>LoadMagic</span>
+                            <span>Free Trial</span>
+                        </div>
+                        <a href="https://loadmagic.ai/" target="_blank" class="resource-link external">Visit Website →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">📈</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>BlazeMeter</h3>
+                        <p>Continuous testing platform. Apache JMeter in the cloud with scaling.</p>
+                        <div class="resource-meta">
+                            <span>Perforce</span>
+                            <span>Free & Paid</span>
+                        </div>
+                        <a href="https://www.blazemeter.com/" target="_blank" class="resource-link external">Visit Website →</a>
+                    </div>
                 </div>
+            </div>
+
+            <!-- BDD & Cucumber Resources -->
+            <div class="resource-section">
+                <h2><span class="section-icon">🥒</span> BDD & Behavior-Driven Testing</h2>
+                <p class="text-gray mb-2">Cucumber, Gherkin, and SpecFlow for behavior-driven development.</p>
                 
-                <div class="card text-center">
-                    <div style="font-size: 2rem; margin-bottom: var(--space-sm);">📬</div>
-                    <h4>Postman</h4>
-                    <p class="text-gray" style="font-size: 0.875rem;">API validation</p>
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">🥒</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>Cucumber</h3>
+                        <p>BDD framework for writing executable specifications in Gherkin language.</p>
+                        <div class="resource-meta">
+                            <span>Cucumber</span>
+                            <span>JVM/JS/Ruby</span>
+                        </div>
+                        <a href="https://cucumber.io/docs/cucumber/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">📝</span>
+                            <span class="resource-badge badge-official">Syntax</span>
+                        </div>
+                        <h3>Gherkin</h3>
+                        <p>Business Readable DSL for defining acceptance criteria. Used by Cucumber and Behave.</p>
+                        <div class="resource-meta">
+                            <span>Cucumber</span>
+                            <span>70+ languages</span>
+                        </div>
+                        <a href="https://cucumber.io/docs/gherkin/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">🔷</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>SpecFlow</h3>
+                        <p>BDD for .NET. Cucumber implementation for C# and VB.NET projects.</p>
+                        <div class="resource-meta">
+                            <span>SpecFlow</span>
+                            <span>.NET</span>
+                        </div>
+                        <a href="https://specflow.org/documentation/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CI/CD Resources -->
+            <div class="resource-section">
+                <h2><span class="section-icon">⚙️</span> CI/CD & DevOps</h2>
+                <p class="text-gray mb-2">Continuous integration and deployment pipelines for automated testing.</p>
+                
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">🐙</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>GitHub Actions</h3>
+                        <p>Automate your workflow from idea to production. CI/CD with GitHub.</p>
+                        <div class="resource-meta">
+                            <span>GitHub</span>
+                            <span>Free CI/CD</span>
+                        </div>
+                        <a href="https://docs.github.com/en/actions" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">🟦</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>GitLab CI/CD</h3>
+                        <p>Complete DevOps platform. Source code management + CI/CD pipeline.</p>
+                        <div class="resource-meta">
+                            <span>GitLab</span>
+                            <span>Free & Paid</span>
+                        </div>
+                        <a href="https://docs.gitlab.com/ee/ci/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">🤖</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>Jenkins</h3>
+                        <p>Open source automation server. Build, deploy, and automate any project.</p>
+                        <div class="resource-meta">
+                            <span>Jenkins</span>
+                            <span>Free</span>
+                        </div>
+                        <a href="https://www.jenkins.io/doc/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile & Accessibility Resources -->
+            <div class="resource-section">
+                <h2><span class="section-icon">📱</span> Mobile & Accessibility Testing</h2>
+                <p class="text-gray mb-2">Mobile app testing and accessibility validation tools.</p>
+                
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">📲</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>Appium</h3>
+                        <p>Open-source automation for native, mobile web, and hybrid apps. iOS and Android.</p>
+                        <div class="resource-meta">
+                            <span>Appium</span>
+                            <span>Free</span>
+                        </div>
+                        <a href="https://appium.io/docs/en/latest/" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">💡</span>
+                            <span class="resource-badge badge-official">Official Docs</span>
+                        </div>
+                        <h3>Google Lighthouse</h3>
+                        <p>Automated auditing, performance, accessibility, SEO, and best practices.</p>
+                        <div class="resource-meta">
+                            <span>Google</span>
+                            <span>Free</span>
+                        </div>
+                        <a href="https://developer.chrome.com/docs/lighthouse" target="_blank" class="resource-link external">Visit Docs →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Resources -->
+            <div class="resource-section">
+                <h2><span class="section-icon">📥</span> My Resources</h2>
+                <p class="text-gray mb-2">Download my curated documentation and guides.</p>
+                
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">📄</span>
+                            <span class="resource-badge badge-mine">My Resource</span>
+                        </div>
+                        <h3>Full Documentation PDF</h3>
+                        <p>Complete QA testing documentation covering all topics. 260 pages of in-depth content.</p>
+                        <div class="resource-meta">
+                            <span>260 pages</span>
+                            <span>Feb 2026</span>
+                        </div>
+                        <a href="assets/pdfs/LoadMagic-AI-Documentation.pdf" class="resource-link" download>Download PDF ↓</a>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-card-header">
+                            <span class="resource-icon">🎯</span>
+                            <span class="resource-badge badge-mine">My Resource</span>
+                        </div>
+                        <h3>Quick Reference Guide</h3>
+                        <p>One-page cheat sheet with essential commands and best practices. Print-friendly!</p>
+                        <div class="resource-meta">
+                            <span>1 page</span>
+                            <span>Available</span>
+                        </div>
+                        <a href="quick-reference.html" class="resource-link">View / Print →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-box">
+                <h3>Ready to Start Learning?</h3>
+                <p>Browse my tutorials and start mastering QA testing technologies today. From beginner to advanced, I've got you covered.</p>
+                <div class="cta-buttons">
+                    <a href="tutorials.html" class="btn btn-white">Browse Tutorials</a>
+                    <a href="about.html" class="btn" style="background: rgba(255,255,255,0.2); color: var(--white);">View Skills →</a>
                 </div>
             </div>
         </div>
@@ -147,7 +601,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">Philip Odzor</div>
+                <div class="footer-brand">QA Academy</div>
                 <div class="footer-links">
                     <a href="index.html">Home</a>
                     <a href="about.html">About</a>
@@ -157,6 +611,15 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
+            </div>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
             </div>
         </div>
     </footer>

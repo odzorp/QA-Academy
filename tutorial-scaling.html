@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Scaling & Optimization Tutorial">
+    <title>Scaling & Optimization | Philip Odzor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .quiz-container { background: var(--bg-secondary); border-radius: 12px; padding: 2rem; margin: 2rem 0; border: 1px solid var(--gray-200); }
+        .quiz-question { font-weight: 600; font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-primary); }
+        .quiz-options { display: flex; flex-direction: column; gap: 0.75rem; }
+        .quiz-option { display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: var(--bg-primary); border: 2px solid var(--gray-200); border-radius: 8px; cursor: pointer; transition: all 0.2s; color: var(--text-primary); }
+        .quiz-option:hover { border-color: var(--accent); }
+        .quiz-option.correct { border-color: var(--success); background: rgba(16, 185, 129, 0.1); }
+        .quiz-option.incorrect { border-color: var(--danger); background: rgba(239, 68, 68, 0.1); }
+        .quiz-result { display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: 500; }
+        .quiz-result.show { display: block; }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav-brand">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor">
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Scaling & Optimization</h1>
+            <p>Master horizontal scaling and performance optimization</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="content">
+                <p><strong>Duration:</strong> 50 minutes | <strong>Level:</strong> Advanced | <strong>Framework:</strong> LoadMagic.AI</p>
+                
+                <h2>What You'll Learn</h2>
+                <ul>
+                    <li>Horizontal vs vertical scaling</li>
+                    <li>Auto-scaling configurations</li>
+                    <li>Performance optimization techniques</li>
+                    <li>Resource management</li>
+                </ul>
+                
+                <h2>Horizontal Scaling</h2>
+                <p>Horizontal scaling means adding more machines to handle increased load:</p>
+                <pre class="code-block"><code># Locust distributed testing
+# Start master
+locust -f locustfile.py --master
+
+# Start workers (on other machines)
+locust -f locustfile.py --worker --master-host=192.168.1.100</code></pre>
+                
+                <h2>Auto-Scaling</h2>
+                <pre class="code-block"><code># LoadMagic auto-scaling configuration
+autoscale:
+  enabled: true
+  min_users: 10
+  max_users: 1000
+  scale_up_threshold: 80%  # CPU usage
+  scale_down_threshold: 20%
+  cooldown_period: 300s</code></pre>
+                
+                <h2>Performance Optimization</h2>
+                <pre class="code-block"><code># Optimized Locust script
+class OptimizedUser(HttpUser):
+    # Use connection pooling
+    # Reduce wait times
+    # Minimize assertions in high load
+    
+    @task(10)  # More frequent
+    def frequent_request(self):
+        pass
+    
+    @task(1)   # Less frequent
+    def rare_request(self):
+        pass</code></pre>
+                
+                <h2>Knowledge Check</h2>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">1. What is horizontal scaling?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Adding more CPU to existing servers</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">Adding more machines to handle load</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Reducing the test duration</div>
+                    </div>
+                    <div class="quiz-result" id="result1"></div>
+                </div>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">2. What does the scale_up_threshold control?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">When to add more virtual users</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">When to reduce test duration</div>
+                    </div>
+                    <div class="quiz-result" id="result2"></div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
+                    <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
+                    <a href="tutorial-enterprise.html" class="btn btn-primary">Next: Enterprise →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">QA Academy</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a><a href="about.html">About</a>
+                    <a href="tutorials.html">Tutorials</a><a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
+            </div>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function checkAnswer(element, isCorrect) {
+            const parent = element.parentElement, result = parent.nextElementSibling;
+            parent.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            if (isCorrect) { element.classList.add('correct'); result.className = 'quiz-result show'; result.innerHTML = '✓ Correct! Well done!'; }
+            else { element.classList.add('incorrect'); result.className = 'quiz-result show'; result.innerHTML = '✗ Not quite. Try again!'; }
+        }
+    </script>
+</body>
+</html>

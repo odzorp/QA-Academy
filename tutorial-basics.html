@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Understanding LoadMagic.AI Tutorial - Learn the fundamentals">
+    <title>Understanding LoadMagic.AI | Philip Odzor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .concept-card {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid var(--gray-200);
+        }
+        .concept-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .agent-card {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gray-700);
+        }
+        .agent-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--accent);
+            opacity: 0.1;
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+        .agent-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .agent-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+        .agent-role {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            color: var(--gray-300);
+        }
+        .agent-tasks {
+            font-size: 0.85rem;
+            background: rgba(255,255,255,0.1);
+            padding: 0.75rem;
+            border-radius: 8px;
+            color: var(--gray-200);
+        }
+        .workflow-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--bg-tertiary);
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        .workflow-arrow {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+            color: var(--text-secondary);
+        }
+        .comparison-table th {
+            background: var(--bg-tertiary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .comparison-table tr:hover {
+            background: var(--bg-secondary);
+        }
+        .highlight-box {
+            background: var(--gradient-accent);
+            color: var(--primary-dark);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+        .highlight-box h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--gray-200);
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+        .video-placeholder {
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            margin: 2rem 0;
+            cursor: pointer;
+            transition: background 0.2s;
+            border: 1px solid var(--gray-200);
+        }
+        .video-placeholder:hover {
+            background: var(--gray-200);
+        }
+        .video-placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        .quiz-container {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--gray-200);
+        }
+        .quiz-question {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-primary);
+        }
+        .quiz-option:hover {
+            border-color: var(--accent);
+        }
+        .quiz-option.selected {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        .quiz-option.incorrect {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+        .quiz-result {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .quiz-result.show {
+            display: block;
+        }
+        .quiz-result.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        .quiz-result.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav-brand">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor">
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span><span></span><span></span>
+                </div>
+                
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Understanding LoadMagic.AI</h1>
+            <p>Master the fundamentals of AI-powered performance testing</p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+        <div class="container">
+            <div class="content">
+                <p><strong>Duration:</strong> 25 minutes | <strong>Level:</strong> Beginner | <strong>Framework:</strong> LoadMagic.AI</p>
+                
+                <!-- What You'll Learn -->
+                <h2>What You'll Learn</h2>
+                <ul>
+                    <li>What LoadMagic.AI is and how it works</li>
+                    <li>The problems it solves in performance testing</li>
+                    <li>Understanding the AI agents (George, Rupert, Suzy, Carrie, Quinn)</li>
+                    <li>The complete testing workflow</li>
+                    <li>Supported frameworks and their use cases</li>
+                </ul>
+                
+                <!-- Video Placeholder -->
+                <div class="video-placeholder">
+                    <div class="video-placeholder-icon">🎬</div>
+                    <h3>Watch the Overview</h3>
+                    <p>A 3-minute introduction to LoadMagic.AI</p>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Video coming soon</p>
+                </div>
+                
+                <!-- What is LoadMagic.AI -->
+                <h2>What is LoadMagic.AI?</h2>
+                <div class="concept-card">
+                    <h3>AI-Powered Performance Testing</h3>
+                    <p><strong>LoadMagic.AI</strong> is an intelligent platform that revolutionizes how organizations create, maintain, and execute load tests. By leveraging specialized AI agents, it automates the most tedious and error-prone aspects of performance testing with Apache JMeter and Locust frameworks.</p>
+                    <p style="margin-top: 1rem;">Think of it as having a team of expert performance engineers available 24/7, ready to generate production-ready test scripts in minutes rather than hours or days.</p>
+                </div>
+                
+                <!-- Stats -->
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">80%</div>
+                        <div class="stat-label">Less Script Creation Time</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">90%</div>
+                        <div class="stat-label">Less Maintenance Effort</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5x</div>
+                        <div class="stat-label">Faster Time to Test</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">AI Assistance Available</div>
+                    </div>
+                </div>
+                
+                <!-- The Problem -->
+                <h2>The Problem LoadMagic.AI Solves</h2>
+                <p>Performance testing has traditionally been one of the most time-consuming aspects of software quality assurance. Here's why:</p>
+                
+                <div class="concept-card">
+                    <h3>1. Script Preparation Time</h3>
+                    <ul>
+                        <li>Manually recording and scripting user flows takes <strong>4-8 hours per script</strong></li>
+                        <li>Complex authentication flows require expert knowledge</li>
+                        <li>Dynamic values (tokens, session IDs, timestamps) need careful correlation</li>
+                    </ul>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>2. Maintenance Overhead</h3>
+                    <ul>
+                        <li>Every application change can break existing scripts</li>
+                        <li>Correlation rules must be updated whenever dynamic data patterns change</li>
+                        <li>Teams spend more time maintaining scripts than creating new tests</li>
+                    </ul>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>3. Knowledge Silos</h3>
+                    <ul>
+                        <li>Only specialized performance engineers can create effective tests</li>
+                        <li>Organizational knowledge resides in individual expertise</li>
+                        <li>Onboarding new team members requires significant training investment</li>
+                    </ul>
+                </div>
+                
+                <!-- How It Works -->
+                <h2>How LoadMagic.AI Works</h2>
+                <p>LoadMagic.AI introduces five specialized AI agents that handle different aspects of performance testing:</p>
+                
+                <!-- AI Agents -->
+                <div class="agent-grid">
+                    <div class="agent-card">
+                        <div class="agent-icon">🤖</div>
+                        <div class="agent-name">George</div>
+                        <div class="agent-role">JMeter Genie</div>
+                        <div class="agent-tasks">
+                            <strong>Specializes in:</strong><br>
+                            • JMeter script generation<br>
+                            • Test plan optimization<br>
+                            • Best practices implementation
+                        </div>
+                    </div>
+                    
+                    <div class="agent-card">
+                        <div class="agent-icon">📝</div>
+                        <div class="agent-name">Rupert</div>
+                        <div class="agent-role">Regex Expert</div>
+                        <div class="agent-tasks">
+                            <strong>Specializes in:</strong><br>
+                            • Dynamic value extraction<br>
+                            • Pattern matching<br>
+                            • Data correlation
+                        </div>
+                    </div>
+                    
+                    <div class="agent-card">
+                        <div class="agent-icon">📜</div>
+                        <div class="agent-name">Suzy</div>
+                        <div class="agent-role">Script Scholar</div>
+                        <div class="agent-tasks">
+                            <strong>Specializes in:</strong><br>
+                            • Python/Locust scripts<br>
+                            • Code documentation<br>
+                            • Script optimization
+                        </div>
+                    </div>
+                    
+                    <div class="agent-card">
+                        <div class="agent-icon">🔗</div>
+                        <div class="agent-name">Carrie</div>
+                        <div class="agent-role">Correlator</div>
+                        <div class="agent-tasks">
+                            <strong>Specializes in:</strong><br>
+                            • Session management<br>
+                            • Authentication handling<br>
+                            • Data parameterization
+                        </div>
+                    </div>
+                    
+                    <div class="agent-card" style="grid-column: span 2;">
+                        <div class="agent-icon">✅</div>
+                        <div class="agent-name">Quinn</div>
+                        <div class="agent-role">QA Assessor</div>
+                        <div class="agent-tasks">
+                            <strong>Specializes in:</strong><br>
+                            • Test quality validation<br>
+                            • Self-healing pipeline management<br>
+                            • Error detection and recovery<br>
+                            • Results analysis and reporting
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- The Workflow -->
+                <h2>The Complete Workflow</h2>
+                <p>LoadMagic.AI follows a proven six-step workflow:</p>
+                
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <span>1️⃣</span>
+                        <span>Record</span>
+                    </div>
+                    <span class="workflow-arrow">→</span>
+                    <div class="workflow-step">
+                        <span>2️⃣</span>
+                        <span>Upload</span>
+                    </div>
+                    <span class="workflow-arrow">→</span>
+                    <div class="workflow-step">
+                        <span>3️⃣</span>
+                        <span>Process</span>
+                    </div>
+                    <span class="workflow-arrow">→</span>
+                    <div class="workflow-step">
+                        <span>4️⃣</span>
+                        <span>Execute</span>
+                    </div>
+                    <span class="workflow-arrow">→</span>
+                    <div class="workflow-step">
+                        <span>5️⃣</span>
+                        <span>Analyze</span>
+                    </div>
+                    <span class="workflow-arrow">→</span>
+                    <div class="workflow-step">
+                        <span>6️⃣</span>
+                        <span>Maintain</span>
+                    </div>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Step-by-Step Breakdown</h3>
+                    <ol>
+                        <li><strong>Record:</strong> Capture browser traffic as a HAR file using browser DevTools</li>
+                        <li><strong>Upload:</strong> Import the HAR file into LoadMagic.AI studio</li>
+                        <li><strong>Process:</strong> AI agents analyze the traffic and generate optimized scripts</li>
+                        <li><strong>Execute:</strong> Run tests with automated correlation and parameterization</li>
+                        <li><strong>Analyze:</strong> View results in the Results Visualiser with actionable insights</li>
+                        <li><strong>Maintain:</strong> Self-healing pipeline automatically fixes issues when apps change</li>
+                    </ol>
+                </div>
+                
+                <!-- Traditional vs LoadMagic -->
+                <h2>Traditional vs LoadMagic.AI</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>Traditional</th>
+                            <th>LoadMagic.AI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Script Creation</td>
+                            <td>Manual (4-8 hours)</td>
+                            <td>AI-generated (minutes)</td>
+                        </tr>
+                        <tr>
+                            <td>Correlation</td>
+                            <td>Manual expert work</td>
+                            <td>Automated in minutes</td>
+                        </tr>
+                        <tr>
+                            <td>Maintenance</td>
+                            <td>High effort</td>
+                            <td>Self-healing</td>
+                        </tr>
+                        <tr>
+                            <td>Required Skills</td>
+                            <td>Expert knowledge</td>
+                            <td>No coding required</td>
+                        </tr>
+                        <tr>
+                            <td>Script Durability</td>
+                            <td>Brittle, breaks easily</td>
+                            <td>Adaptive, self-repairing</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Supported Frameworks -->
+                <h2>Supported Frameworks</h2>
+                
+                <div class="concept-card">
+                    <h3>🐞 Apache JMeter</h3>
+                    <ul>
+                        <li>Desktop plugin for local development</li>
+                        <li>Full GUI for test plan creation</li>
+                        <li>Extensive plugin ecosystem support</li>
+                        <li>Enterprise-grade features</li>
+                        <li>Best for: Teams already using JMeter</li>
+                    </ul>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>🐍 Locust (Python)</h3>
+                    <ul>
+                        <li>Web-based AI Studio interface</li>
+                        <li>Zero-coding script generation</li>
+                        <li>Python script output for CI/CD</li>
+                        <li>Modern, developer-friendly experience</li>
+                        <li>Best for: Python developers, CI/CD integration</li>
+                    </ul>
+                </div>
+                
+                <!-- Target Users -->
+                <h2>Who Benefits from LoadMagic.AI?</h2>
+                <div class="highlight-box">
+                    <h3>Everyone in the Software Development Lifecycle</h3>
+                    <div class="agent-grid" style="margin-top: 1.5rem;">
+                        <div class="agent-card">
+                            <div class="agent-icon">⚙️</div>
+                            <div class="agent-name">Performance Engineers</div>
+                            <div class="agent-tasks">Faster script creation, automated correlation, self-healing tests</div>
+                        </div>
+                        <div class="agent-card">
+                            <div class="agent-icon">🧪</div>
+                            <div class="agent-name">QA Engineers</div>
+                            <div class="agent-tasks">Access to load testing without specialized expertise</div>
+                        </div>
+                        <div class="agent-card">
+                            <div class="agent-icon">💻</div>
+                            <div class="agent-name">Developers</div>
+                            <div class="agent-tasks">Quick performance validation during development</div>
+                        </div>
+                        <div class="agent-card">
+                            <div class="agent-icon">📊</div>
+                            <div class="agent-name">Test Managers</div>
+                            <div class="agent-tasks">Reduced time-to-market, better test coverage</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quiz -->
+                <h2>Knowledge Check</h2>
+                <div class="quiz-container">
+                    <div class="quiz-question">What are the five AI agents in LoadMagic.AI?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, false)">
+                            <span>🔵</span>
+                            <span>George, Harry, Suzy, Carrie, Quinn</span>
+                        </div>
+                        <div class="quiz-option" onclick="selectOption(this, true)">
+                            <span>🟢</span>
+                            <span>George, Rupert, Suzy, Carrie, Quinn</span>
+                        </div>
+                        <div class="quiz-option" onclick="selectOption(this, false)">
+                            <span>🔴</span>
+                            <span>George, Rupert, Sam, Carrie, Quinn</span>
+                        </div>
+                    </div>
+                    <div class="quiz-result" id="quizResult">
+                        <strong>✓ Correct!</strong> The five AI agents are George (JMeter), Rupert (Regex), Suzy (Script), Carrie (Correlator), and Quinn (QA).
+                    </div>
+                </div>
+                
+                <!-- Next Steps -->
+                <h2>Next Steps</h2>
+                <p>Now that you understand LoadMagic.AI, continue with:</p>
+                <ul>
+                    <li><a href="tutorial-setup.html">Environment Setup</a> - Configure your machine</li>
+                    <li><a href="tutorial-quickstart.html">Quick Start Guide</a> - Run your first test</li>
+                </ul>
+                
+                <!-- Navigation -->
+                <div style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
+                    <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
+                    <a href="tutorial-setup.html" class="btn btn-primary">Next: Environment Setup →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">QA Academy</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="tutorials.html">Tutorials</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
+            </div>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function selectOption(element, isCorrect) {
+            // Remove selected class from all options
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Add selected class
+            element.classList.add('selected');
+            
+            // Show result
+            const result = document.getElementById('quizResult');
+            result.classList.remove('show', 'success', 'error');
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+                result.classList.add('show', 'success');
+            } else {
+                element.classList.add('incorrect');
+                result.innerHTML = '<strong>✗ Not quite.</strong> The correct answer is: George, Rupert, Suzy, Carrie, Quinn';
+                result.classList.add('show', 'error');
+            }
+        }
+    </script>
+</body>
+</html>

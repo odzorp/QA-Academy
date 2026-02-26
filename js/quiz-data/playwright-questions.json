@@ -1,0 +1,486 @@
+{
+    "tutorialId": "playwright-intro",
+    "title": "Playwright Fundamentals Quiz",
+    "description": "Test your knowledge of Playwright test automation",
+    "settings": {
+        "totalQuestions": 35,
+        "timeLimit": 1200,
+        "shuffleQuestions": true,
+        "showExplanations": true,
+        "passingScore": 70
+    },
+    "questions": [
+        {
+            "id": 1,
+            "type": "multiple-choice",
+            "difficulty": "easy",
+            "question": "Which company developed Playwright?",
+            "options": [
+                {"id": "a", "text": "Google"},
+                {"id": "b", "text": "Microsoft"},
+                {"id": "c", "text": "Facebook (Meta)"},
+                {"id": "d", "text": "Amazon"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "Playwright was developed by Microsoft and was first released in 2020. It was created by the same team that created Puppeteer."
+        },
+        {
+            "id": 2,
+            "type": "multiple-choice",
+            "difficulty": "easy",
+            "question": "Which browsers does Playwright support out of the box?",
+            "options": [
+                {"id": "a", "text": "Chrome only"},
+                {"id": "b", "text": "Chrome, Firefox, and Safari"},
+                {"id": "c", "text": "Chromium, Firefox, and WebKit"},
+                {"id": "d", "text": "All major browsers including Edge"}
+            ],
+            "correctAnswer": "c",
+            "explanation": "Playwright supports Chromium (Chrome/Edge), Firefox, and WebKit (Safari) with a single unified API."
+        },
+        {
+            "id": 3,
+            "type": "true-false",
+            "difficulty": "easy",
+            "question": "Playwright automatically waits for elements to be actionable before performing actions.",
+            "options": [
+                {"id": "a", "text": "True"},
+                {"id": "b", "text": "False"}
+            ],
+            "correctAnswer": "a",
+            "explanation": "One of Playwright's key features is 'auto-waiting' - it automatically waits for elements to be visible, stable, and actionable before performing actions, eliminating flaky tests."
+        },
+        {
+            "id": 4,
+            "type": "multiple-choice",
+            "difficulty": "easy",
+            "question": "What programming languages does Playwright support?",
+            "options": [
+                {"id": "a", "text": "JavaScript only"},
+                {"id": "b", "text": "JavaScript and TypeScript"},
+                {"id": "c", "text": "JavaScript, TypeScript, Python, Java, and C#"},
+                {"id": "d", "text": "Only Python and Java"}
+            ],
+            "correctAnswer": "c",
+            "explanation": "Playwright has official client libraries for JavaScript/TypeScript, Python, Java, and C#, making it accessible to teams with different language preferences."
+        },
+        {
+            "id": 5,
+            "type": "multiple-choice",
+            "difficulty": "easy",
+            "question": "What is the default timeout for Playwright actions?",
+            "options": [
+                {"id": "a", "text": "5 seconds"},
+                {"id": "b", "text": "10 seconds"},
+                {"id": "c", "text": "30 seconds"},
+                {"id": "d", "text": "1 minute"}
+            ],
+            "correctAnswer": "c",
+            "explanation": "Playwright has a default timeout of 30 seconds for most operations. This can be configured globally or per-action."
+        },
+        {
+            "id": 6,
+            "type": "multiple-choice",
+            "difficulty": "medium",
+            "question": "What is Playwright's 'codegen' tool used for?",
+            "options": [
+                {"id": "a", "text": "Generating random test data"},
+                {"id": "b", "text": "Recording browser interactions to generate test code"},
+                {"id": "c", "text": "Creating test reports"},
+                {"id": "d", "text": "Generating random email addresses"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "Playwright codegen is a CLI tool that opens a browser and records your interactions, generating clean Playwright test code that you can save and modify."
+        },
+        {
+            "id": 7,
+            "type": "true-false",
+            "difficulty": "easy",
+            "question": "Playwright tests can run in parallel across multiple worker processes.",
+            "options": [
+                {"id": "a", "text": "True"},
+                {"id": "b", "text": "False"}
+            ],
+            "correctAnswer": "a",
+            "explanation": "Playwright supports parallel test execution across multiple worker processes, significantly reducing test suite execution time."
+        },
+        {
+            "id": 8,
+            "type": "multiple-choice",
+            "difficulty": "medium",
+            "question": "Which method is used to launch a browser in Playwright?",
+            "options": [
+                {"id": "a", "text": "browser.newPage()"},
+                {"id": "b", "text": "browser.launch()"},
+                {"id": "c", "text": "playwright.chromium.launch()"},
+                {"id": "d", "text": "browser.create()"}
+            ],
+            "correctAnswer": "c",
+            "explanation": "To launch a browser, you use playwright.chromium.launch(), playwright.firefox.launch(), or playwright.webkit.launch() depending on which browser you need."
+        },
+        {
+            "id": 9,
+            "type": "multiple-choice",
+            "difficulty": "medium",
+            "question": "What is Playwright Test Runner primarily built on?",
+            "options": [
+                {"id": "a", "text": "Jest"},
+                {"id": "b", "text": "Mocha"},
+                {"id": "c", "text": "It has its own test runner"},
+                {"id": "d", "text": "Pytest"}
+            ],
+            "correctAnswer": "c",
+            "explanation": "Playwright comes with its own built-in test runner called 'playwright-test' (or @playwright/test) which provides a complete testing solution with parallel execution, reporting, and fixtures."
+        },
+        {
+            "id": 10,
+            "type": "multiple-choice",
+            "difficulty": "hard",
+            "question": "Which of the following is NOT a built-in Playwright locator strategy?",
+            "options": [
+                {"id": "a", "text": "getByText()"},
+                {"id": "b", "text": "getByRole()"},
+                {"id": "c", "text": "getByXPath()"},
+                {"id": "d", "text": "getByLabel()"}
+            ],
+            "correctAnswer": "c",
+            "explanation": "Playwright provides getByText(), getByRole(), getByLabel(), getByPlaceholder(), getByAltText(), and getByTitle(). It does NOT have a built-in getByXPath() method."
+        },
+        {
+            "id": 11,
+            "type": "true-false",
+            "difficulty": "easy",
+            "question": "Playwright can record videos of test executions.",
+            "options": [
+                {"id": "a", "text": "True"},
+                {"id": "b", "text": "False"}
+            ],
+            "correctAnswer": "a",
+            "explanation": "Playwright can record videos of test executions when configured in the playwright.config.js file, which is extremely helpful for debugging failed tests."
+        },
+        {
+            "id": 12,
+            "type": "scenario",
+            "difficulty": "hard",
+            "question": "Your application makes an API call after a button click and displays the result. How would you test this in Playwright?",
+            "options": [
+                {"id": "a", "text": "Use page.waitForTimeout() to wait for the API"},
+                {"id": "b", "text": "Use page.waitForResponse() to wait for the API call to complete"},
+                {"id": "c", "text": "Check if the button exists only"},
+                {"id": "d", "text": "Skip testing this scenario"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "Use page.waitForResponse() or page.waitForRequest() to properly wait for network requests/responses after interactions, ensuring the data is loaded before assertions."
+        },
+        {
+            "id": 13,
+            "type": "multiple-choice",
+            "difficulty": "medium",
+            "question": "What is the purpose of Playwright Trace Viewer?",
+            "options": [
+                {"id": "a", "text": "To trace memory leaks in tests"},
+                {"id": "b", "text": "To view a recording of test execution with full timeline and snapshots"},
+                {"id": "c", "text": "To trace network requests only"},
+                {"id": "d", "text": "To create test documentation"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "Playwright Trace Viewer is a GUI tool that lets you inspect test execution recordings, including screenshots, network logs, console logs, and full timeline information."
+        },
+        {
+            "id": 14,
+            "type": "multiple-choice",
+            "difficulty": "easy",
+            "question": "Which command is used to install Playwright and its dependencies?",
+            "options": [
+                {"id": "a", "text": "npm install playwright"},
+                {"id": "b", "text": "npm init playwright@latest"},
+                {"id": "c", "text": "npx playwright install"},
+                {"id": "d", "text": "npm install @playwright/test"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "npm init playwright@latest is the recommended way to set up Playwright. It installs the test runner, creates configuration files, and sets up example tests."
+        },
+        {
+            "id": 15,
+            "type": "true-false",
+            "difficulty": "medium",
+            "question": "Playwright can be used for API testing in addition to browser automation.",
+            "options": [
+                {"id": "a", "text": "True"},
+                {"id": "b", "text": "False"}
+            ],
+            "correctAnswer": "a",
+            "explanation": "Playwright includes an APIRequest context for making HTTP requests directly, allowing you to test REST APIs without a browser."
+        },
+        {
+            "id": 16,
+            "type": "multiple-choice",
+            "difficulty": "hard",
+            "question": "What is the difference between page.locator() and page.$$()?",
+            "options": [
+                {"id": "a", "text": "They are exactly the same"},
+                {"id": "b", "text": "locator() returns a Locator object with auto-waiting, $$ returns raw elements"},
+                {"id": "c", "text": "$$ is faster than locator"},
+                {"id": "d", "text": "locator() only works with CSS selectors"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "page.locator() returns a Locator object that has built-in auto-waiting and retry logic, while page.$$() returns raw DOM elements without these features."
+        },
+        {
+            "id": 17,
+            "type": "scenario",
+            "difficulty": "hard",
+            "question": "You want to test that a form validation message appears when submitting an empty form. Which assertion would be most appropriate?",
+            "options": [
+                {"id": "a", "text": "await expect(page.locator('.error')).toBeVisible()"},
+                {"id": "b", "text": "expect(page.locator('.error')).toHaveCount(1)"},
+                {"id": "c", "text": "assert(page.locator('.error').isVisible())"},
+                {"id": "d", "text": "page.waitForSelector('.error')"}
+            ],
+            "correctAnswer": "a",
+            "explanation": "Using Playwright's expect() with web-first assertions like toBeVisible() is the recommended approach. It automatically waits for the element to reach the expected state."
+        },
+        {
+            "id": 18,
+            "type": "multiple-choice",
+            "difficulty": "medium",
+            "question": "What is the main advantage of Playwright over Selenium for modern web applications?",
+            "options": [
+                {"id": "a", "text": "Playwright is free while Selenium requires payment"},
+                {"id": "b", "text": "Playwright has built-in auto-waiting and modern architecture for SPAs"},
+                {"id": "c", "text": "Playwright supports only one browser"},
+                {"id": "d", "text": "Selenium is faster than Playwright"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "Playwright's modern architecture with auto-waiting, built-in retry logic, and native support for modern web features like shadow DOM and SPA routing makes it more reliable for testing contemporary web applications."
+        },
+        {
+            "id": 19,
+            "type": "multiple-choice",
+            "difficulty": "medium",
+            "question": "What is the purpose of the 'page.goto()' method in Playwright?",
+            "options": [
+                {"id": "a", "text": "To create a new browser page"},
+                {"id": "b", "text": "To navigate to a specific URL"},
+                {"id": "c", "text": "To close the current page"},
+                {"id": "d", "text": "To refresh the page"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "page.goto() is used to navigate to a specific URL. It waits for the page to load by default, making tests more reliable."
+        },
+        {
+            "id": 20,
+            "type": "true-false",
+            "difficulty": "easy",
+            "question": "Playwright supports mobile device emulation.",
+            "options": [
+                {"id": "a", "text": "True"},
+                {"id": "b", "text": "False"}
+            ],
+            "correctAnswer": "a",
+            "explanation": "Playwright includes device descriptors that allow you to emulate mobile devices including viewport size, user agent, and touch capabilities."
+        },
+        {
+            "id": 21,
+            "type": "multiple-choice",
+            "difficulty": "medium",
+            "question": "Which Playwright method is used to handle file downloads?",
+            "options": [
+                {"id": "a", "text": "page.download()"},
+                {"id": "b", "text": "page.waitForDownload()"},
+                {"id": "c", "text": "page.on('download')"},
+                {"id": "d", "text": "Both B and C"}
+            ],
+            "correctAnswer": "d",
+            "explanation": "In Playwright, you handle downloads by setting up a download event listener with page.on('download') and then waiting for the download using promise returned by the event."
+        },
+        {
+            "id": 22,
+            "type": "multiple-choice",
+            "difficulty": "hard",
+            "question": "What is the purpose of 'page.evaluate()' in Playwright?",
+            "options": [
+                {"id": "a", "text": "To evaluate test assertions"},
+                {"id": "b", "text": "To execute JavaScript code in the browser context"},
+                {"id": "c", "text": "To evaluate CSS selectors"},
+                {"id": "d", "text": "To run Playwright test cases"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "page.evaluate() executes JavaScript code in the browser context. It allows you to access and manipulate the page's DOM, window objects, and call browser APIs directly from your test."
+        },
+        {
+            "id": 23,
+            "type": "true-false",
+            "difficulty": "easy",
+            "question": "Playwright tests can run in headless mode.",
+            "options": [
+                {"id": "a", "text": "True"},
+                {"id": "b", "text": "False"}
+            ],
+            "correctAnswer": "a",
+            "explanation": "Playwright runs in headless mode by default, which is faster and ideal for CI/CD pipelines. You can also run in headed mode for debugging."
+        },
+        {
+            "id": 24,
+            "type": "multiple-choice",
+            "difficulty": "medium",
+            "question": "What does the 'expect' function do in Playwright?",
+            "options": [
+                {"id": "a", "text": "Starts a new test"},
+                {"id": "b", "text": "Creates an assertion to verify expected conditions"},
+                {"id": "c", "text": "Creates a new browser context"},
+                {"id": "d", "text": "Executes a test hook"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "expect() in Playwright creates assertions. It waits for the expected condition to be met and automatically retries until the timeout is reached."
+        },
+        {
+            "id": 25,
+            "type": "multiple-choice",
+            "difficulty": "medium",
+            "question": "How do you configure Playwright to retry failing tests?",
+            "options": [
+                {"id": "a", "text": "Set retry option in test configuration"},
+                {"id": "b", "text": "Use --retry flag in CLI"},
+                {"id": "c", "text": "Both A and B"},
+                {"id": "d", "text": "Playwright doesn't support retries"}
+            ],
+            "correctAnswer": "c",
+            "explanation": "You can configure retries in playwright.config.js with the 'retries' option, or use the '--retries' flag when running tests from the command line."
+        },
+        {
+            "id": 26,
+            "type": "scenario",
+            "difficulty": "hard",
+            "question": "You need to test a modal dialog that appears after clicking a button. What's the best approach?",
+            "options": [
+                {"id": "a", "text": "Click the button and immediately check for the modal"},
+                {"id": "b", "text": "Click the button and use page.waitForSelector() for the modal"},
+                {"id": "c", "text": "Use page.pause() to wait manually"},
+                {"id": "d", "text": "Check if modal exists in the HTML"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "Use page.waitForSelector() or better yet, use auto-waiting with expect(page.locator('.modal')).toBeVisible() which automatically waits for the modal to appear."
+        },
+        {
+            "id": 27,
+            "type": "multiple-choice",
+            "difficulty": "medium",
+            "question": "What is a Playwright 'fixture'?",
+            "options": [
+                {"id": "a", "text": "A type of test assertion"},
+                {"id": "b", "text": "A reusable component for test setup and teardown"},
+                {"id": "c", "text": "A browser automation action"},
+                {"id": "d", "text": "A test reporting format"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "Fixtures are reusable setup components in Playwright Test that provide hooks for test preparation and cleanup. They can inject dependencies and manage resources."
+        },
+        {
+            "id": 28,
+            "type": "true-false",
+            "difficulty": "easy",
+            "question": "Playwright can interact with iframes.",
+            "options": [
+                {"id": "a", "text": "True"},
+                {"id": "b", "text": "False"}
+            ],
+            "correctAnswer": "a",
+            "explanation": "Playwright can interact with iframes using page.frameLocator() or by using locators that automatically handle iframe contexts."
+        },
+        {
+            "id": 29,
+            "type": "multiple-choice",
+            "difficulty": "hard",
+            "question": "What is the purpose of 'test.beforeEach()' hook in Playwright?",
+            "options": [
+                {"id": "a", "text": "To run code before the entire test suite"},
+                {"id": "b", "text": "To run code before each individual test"},
+                {"id": "c", "text": "To skip tests"},
+                {"id": "d", "text": "To create browser contexts"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "test.beforeEach() is a hook that runs before each individual test. It's used for common setup like navigating to a page or logging in."
+        },
+        {
+            "id": 30,
+            "type": "multiple-choice",
+            "difficulty": "medium",
+            "question": "Which file is used to configure Playwright Test?",
+            "options": [
+                {"id": "a", "text": "playwright.json"},
+                {"id": "b", "text": "playwright.config.js or playwright.config.ts"},
+                {"id": "c", "text": "test.config.js"},
+                {"id": "d", "text": ".playwrightrc"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "Playwright Test is configured using playwright.config.js or playwright.config.ts in the project root. This file contains settings for timeout, retries, reporters, and more."
+        },
+        {
+            "id": 31,
+            "type": "true-false",
+            "difficulty": "easy",
+            "question": "Playwright supports taking screenshots during test execution.",
+            "options": [
+                {"id": "a", "text": "True"},
+                {"id": "b", "text": "False"}
+            ],
+            "correctAnswer": "a",
+            "explanation": "Playwright can take screenshots using page.screenshot(). You can capture full page screenshots, single viewport, or specific elements."
+        },
+        {
+            "id": 32,
+            "type": "multiple-choice",
+            "difficulty": "hard",
+            "question": "What is the difference between 'toBeVisible()' and 'toBeAttached()' assertions?",
+            "options": [
+                {"id": "a", "text": "They are exactly the same"},
+                {"id": "b", "text": "toBeVisible() checks element is visible, toBeAttached() checks element exists in DOM"},
+                {"id": "c", "text": "toBeAttached() is faster"},
+                {"id": "d", "text": "There is no difference"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "toBeVisible() asserts the element is visible (visible, stable, actionable), while toBeAttached() only checks if the element exists in the DOM."
+        },
+        {
+            "id": 33,
+            "type": "multiple-choice",
+            "difficulty": "medium",
+            "question": "How do you run Playwright tests in a specific browser?",
+            "options": [
+                {"id": "a", "text": "Use --browser flag with npx playwright test"},
+                {"id": "b", "text": "Configure browsers in playwright.config.js"},
+                {"id": "c", "text": "Both A and B"},
+                {"id": "d", "text": "Playwright only runs in one browser"}
+            ],
+            "correctAnswer": "c",
+            "explanation": "You can run tests in a specific browser using the --project flag (e.g., --project=chromium) or by configuring projects in playwright.config.js."
+        },
+        {
+            "id": 34,
+            "type": "true-false",
+            "difficulty": "easy",
+            "question": "Playwright can test web applications that use service workers.",
+            "options": [
+                {"id": "a", "text": "True"},
+                {"id": "b", "text": "False"}
+            ],
+            "correctAnswer": "a",
+            "explanation": "Playwright supports service workers and can intercept network requests, making it suitable for testing PWAs and offline-first applications."
+        },
+        {
+            "id": 35,
+            "type": "scenario",
+            "difficulty": "hard",
+            "question": "You need to test that clicking a link opens in a new tab. How would you verify this in Playwright?",
+            "options": [
+                {"id": "a", "text": "Click the link and check current URL"},
+                {"id": "b", "text": "Use page.waitForEvent('popup') to capture the new page"},
+                {"id": "c", "text": "Click and use page.url() immediately"},
+                {"id": "d", "text": "This is not possible in Playwright"}
+            ],
+            "correctAnswer": "b",
+            "explanation": "Use page.waitForEvent('popup') or the dedicated 'popup' option in the click handler to capture new pages/tabs that open from interactions."
+        }
+    ]
+}

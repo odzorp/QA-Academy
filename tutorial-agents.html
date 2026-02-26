@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Agents Deep Dive - Learn about LoadMagic.AI's AI team">
+    <title>AI Agents Deep Dive | Philip Odzor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .agent-profile {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gray-700);
+        }
+        .agent-profile::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+        .agent-icon-large {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        .agent-name-large {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .agent-role-large {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            color: var(--gray-300);
+        }
+        .agent-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .skill-tag-agent {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--white);
+        }
+        .quiz-container {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--gray-200);
+        }
+        .quiz-question {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-primary);
+        }
+        .quiz-option:hover {
+            border-color: var(--accent);
+        }
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        .quiz-option.incorrect {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+        .quiz-result {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .quiz-result.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav-brand">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor">
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span><span></span><span></span>
+                </div>
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>AI Agents Deep Dive</h1>
+            <p>Meet your AI testing team</p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+        <div class="container">
+            <div class="content">
+                <p><strong>Duration:</strong> 35 minutes | <strong>Level:</strong> Intermediate | <strong>Framework:</strong> LoadMagic.AI</p>
+                
+                <h2>What You'll Learn</h2>
+                <ul>
+                    <li>Understanding each AI agent's role</li>
+                    <li>How agents collaborate to generate test scripts</li>
+                    <li>When to leverage each agent's strengths</li>
+                    <li>Troubleshooting agent-specific issues</li>
+                </ul>
+                
+                <!-- George -->
+                <h2>1. George - JMeter Genie</h2>
+                <div class="agent-profile">
+                    <div class="agent-icon-large">🤖</div>
+                    <div class="agent-name-large">George</div>
+                    <div class="agent-role-large">JMeter Genie - The Script Architect</div>
+                    <p>George is your JMeter expert. He transforms HAR recordings into production-ready JMeter test plans with optimal configurations.</p>
+                    <div class="agent-skills" style="margin-top: 1rem;">
+                        <span class="skill-tag-agent">🎯 JMeter Script Generation</span>
+                        <span class="skill-tag-agent">⚙️ Test Plan Optimization</span>
+                        <span class="skill-tag-agent">🔧 Configuration Management</span>
+                        <span class="skill-tag-agent">📊 Performance Best Practices</span>
+                    </div>
+                </div>
+                
+                <h3>What George Does</h3>
+                <ul>
+                    <li>Parses HAR files and identifies HTTP requests</li>
+                    <li>Generates JMeter test plans with proper structure</li>
+                    <li>Configures thread groups, samplers, and assertions</li>
+                    <li>Optimizes scripts for performance and maintainability</li>
+                </ul>
+                
+                <h3>Example Output</h3>
+                <pre class="code-block"><code>from locust import HttpUser, task, between
+
+class JMeterGeneratedUser(HttpUser):
+    wait_time = between(1, 3)
+    
+    def on_start(self):
+        self.client.post("/api/login", json={
+            "username": "testuser",
+            "password": "testpass"
+        })</code></pre>
+                
+                <!-- Rupert -->
+                <h2>2. Rupert - Regex Expert</h2>
+                <div class="agent-profile">
+                    <div class="agent-icon-large">📝</div>
+                    <div class="agent-name-large">Rupert</div>
+                    <div class="agent-role-large">Regex Expert - The Pattern Master</div>
+                    <p>Rupert specializes in identifying and extracting dynamic values using advanced regex patterns.</p>
+                    <div class="agent-skills" style="margin-top: 1rem;">
+                        <span class="skill-tag-agent">🔍 Pattern Matching</span>
+                        <span class="skill-tag-agent">📋 Dynamic Value Extraction</span>
+                        <span class="skill-tag-agent">🎯 Data Correlation</span>
+                        <span class="skill-tag-agent">💡 Regex Optimization</span>
+                    </div>
+                </div>
+                
+                <h3>What Rupert Does</h3>
+                <ul>
+                    <li>Identifies dynamic values in responses (tokens, IDs, timestamps)</li>
+                    <li>Creates regex patterns to extract these values</li>
+                    <li>Builds parameterization rules for reusable scripts</li>
+                    <li>Validates pattern accuracy across multiple responses</li>
+                </ul>
+                
+                <!-- Suzy -->
+                <h2>3. Suzy - Script Scholar</h2>
+                <div class="agent-profile">
+                    <div class="agent-icon-large">📜</div>
+                    <div class="agent-name-large">Suzy</div>
+                    <div class="agent-role-large">Script Scholar - The Python Expert</div>
+                    <p>Suzy is your Locust specialist, creating clean, well-documented Python scripts.</p>
+                    <div class="agent-skills" style="margin-top: 1rem;">
+                        <span class="skill-tag-agent">🐍 Locust Scripts</span>
+                        <span class="skill-tag-agent">📖 Code Documentation</span>
+                        <span class="skill-tag-agent">✨ Code Optimization</span>
+                        <span class="skill-tag-agent">🐛 Bug Prevention</span>
+                    </div>
+                </div>
+                
+                <!-- Carrie -->
+                <h2>4. Carrie - Correlator</h2>
+                <div class="agent-profile">
+                    <div class="agent-icon-large">🔗</div>
+                    <div class="agent-name-large">Carrie</div>
+                    <div class="agent-role-large">Correlator - The Connection Expert</div>
+                    <p>Carrie handles all aspects of session management and authentication correlation.</p>
+                    <div class="agent-skills" style="margin-top: 1rem;">
+                        <span class="skill-tag-agent">🍪 Session Management</span>
+                        <span class="skill-tag-agent">🔐 Authentication Handling</span>
+                        <span class="skill-tag-agent">🔄 Request Chaining</span>
+                        <span class="skill-tag-agent">📊 State Management</span>
+                    </div>
+                </div>
+                
+                <!-- Quinn -->
+                <h2>5. Quinn - QA Assessor</h2>
+                <div class="agent-profile">
+                    <div class="agent-icon-large">✅</div>
+                    <div class="agent-name-large">Quinn</div>
+                    <div class="agent-role-large">QA Assessor - The Quality Guardian</div>
+                    <p>Quinn ensures test quality, manages the self-healing pipeline, and validates results.</p>
+                    <div class="agent-skills" style="margin-top: 1rem;">
+                        <span class="skill-tag-agent">🛡️ Quality Validation</span>
+                        <span class="skill-tag-agent">🔄 Self-Healing</span>
+                        <span class="skill-tag-agent">📈 Results Analysis</span>
+                        <span class="skill-tag-agent">⚠️ Error Detection</span>
+                    </div>
+                </div>
+                
+                <!-- How They Work Together -->
+                <h2>How They Work Together</h2>
+                <p>The five agents collaborate in a pipeline to transform your HAR file into production-ready scripts:</p>
+                
+                <pre class="code-block"><code># Example: Agent Pipeline Execution
+pipeline = LoadMagicPipeline()
+
+# Step 1: HAR Processing
+har_data = pipeline.process_har(har_file)
+
+# Step 2: George generates JMeter/Locust script
+script = pipeline.george.generate(har_data)
+
+# Step 3: Rupert extracts dynamic values
+correlations = pipeline.rupert.extract(har_data)
+
+# Step 4: Suzy documents and optimizes
+script = pipeline.suzy.optimize(script)
+
+# Step 5: Carrie handles session management
+script = pipeline.carrie.correlate(script, correlations)
+
+# Step 6: Quinn validates and heals
+validated_script = pipeline.quinn.validate(script)</code></pre>
+                
+                <!-- Quiz -->
+                <h2>Knowledge Check</h2>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">1. Which agent specializes in creating Python Locust scripts?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">George - JMeter Genie</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">Suzy - Script Scholar</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Carrie - Correlator</div>
+                    </div>
+                    <div class="quiz-result" id="result1"></div>
+                </div>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">2. Which agent is responsible for self-healing test scripts?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Rupert - Regex Expert</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">George - JMeter Genie</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">Quinn - QA Assessor</div>
+                    </div>
+                    <div class="quiz-result" id="result2"></div>
+                </div>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">3. Which agent handles session management and authentication?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">Carrie - Correlator</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Suzy - Script Scholar</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">Quinn - QA Assessor</div>
+                    </div>
+                    <div class="quiz-result" id="result3"></div>
+                </div>
+                
+                <!-- Navigation -->
+                <div style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
+                    <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
+                    <a href="tutorial-correlation.html" class="btn btn-primary">Next: Correlation Engine →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">QA Academy</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="tutorials.html">Tutorials</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
+            </div>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function checkAnswer(element, isCorrect) {
+            const parent = element.parentElement;
+            const result = parent.nextElementSibling;
+            
+            parent.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+            });
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+                result.className = 'quiz-result show';
+                result.innerHTML = '✓ Correct! Well done!';
+            } else {
+                element.classList.add('incorrect');
+                result.className = 'quiz-result show';
+                result.innerHTML = '✗ Not quite. Try again!';
+            }
+        }
+    </script>
+</body>
+</html>
