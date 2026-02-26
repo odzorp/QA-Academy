@@ -24,6 +24,7 @@
         .ci-platform-card:hover { transform: translateY(-4px); border-color: var(--accent); }
         .ci-platform-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
     </style>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
     <header class="header" id="header">
@@ -192,6 +193,25 @@ notifications:
             </div>
         </div>
     </footer>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container modal-info" id="modalContainer">
+            <div class="modal-header">
+                <h3 id="modalTitle">Notification</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Message goes here</p>
+                <div class="modal-timer">
+                    <div class="modal-timer-bar" id="modalTimerBar"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal()">Got it</button>
+            </div>
+        </div>
+    </div>
 
     <script src="js/main.js"></script>
     <script>

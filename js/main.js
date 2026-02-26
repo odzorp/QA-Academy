@@ -247,3 +247,72 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('%c👋 Hi! Thanks for checking out my portfolio.', 'color: #3b82f6; font-size: 14px; font-weight: bold;');
     console.log('%c📚 Learn more about LoadMagic.AI at the tutorials page!', 'color: #64748b; font-size: 12px;');
 });
+
+// ===============================
+// MODAL SYSTEM
+// ===============================
+let modalTimeout;
+
+function showModal(title, message, type = 'info') {
+    const overlay = document.getElementById('modalOverlay');
+    const container = document.getElementById('modalContainer');
+    const titleEl = document.getElementById('modalTitle');
+    const messageEl = document.getElementById('modalMessage');
+    const timerBar = document.getElementById('modalTimerBar');
+    
+    if (!overlay || !container) return;
+    
+    // Set content
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+    
+    // Set type class
+    container.className = 'modal-container modal-' + type;
+    
+    // Show modal
+    overlay.classList.add('active');
+    
+    // Reset timer animation
+    timerBar.style.transition = 'none';
+    timerBar.style.width = '100%';
+    
+    // Force reflow
+    void timerBar.offsetWidth;
+    
+    // Start timer animation
+    timerBar.style.transition = 'width 5s linear';
+    timerBar.style.width = '0%';
+    
+    // Auto-close after 5 seconds
+    clearTimeout(modalTimeout);
+    modalTimeout = setTimeout(closeModal, 5000);
+}
+
+function closeModal() {
+    const overlay = document.getElementById('modalOverlay');
+    if (overlay) {
+        overlay.classList.remove('active');
+    }
+    clearTimeout(modalTimeout);
+}
+
+// Close modal on overlay click
+document.addEventListener('click', function(e) {
+    const overlay = document.getElementById('modalOverlay');
+    if (e.target === overlay) {
+        closeModal();
+    }
+});
+
+// Close modal on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});
+
+// Override alert for quiz-engine
+window.originalAlert = window.alert;
+window.alert = function(message, title = 'QA Academy') {
+    showModal(title, message, 'info');
+};

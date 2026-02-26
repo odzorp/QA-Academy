@@ -225,8 +225,6 @@
         .quiz-section h2 {
             margin-top: 0;
         }
-    </style>
-        }
         .quiz-options {
             display: flex;
             flex-direction: column;
@@ -290,6 +288,7 @@
             line-height: 1.6;
         }
     </style>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
     <!-- Header -->
@@ -609,6 +608,25 @@ test('my first test', async ({ page }) => {
         </div>
     </footer>
 
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container modal-info" id="modalContainer">
+            <div class="modal-header">
+                <h3 id="modalTitle">Notification</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Message goes here</p>
+                <div class="modal-timer">
+                    <div class="modal-timer-bar" id="modalTimerBar"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal()">Got it</button>
+            </div>
+        </div>
+    </div>
+
     <script src="js/main.js"></script>
     <script src="js/quiz-engine.js"></script>
     
@@ -827,154 +845,6 @@ test('my first test', async ({ page }) => {
                     ],
                     "correctAnswer": "a",
                     "explanation": "Playwright includes an APIRequest context for making HTTP requests directly, allowing you to test REST APIs without a browser."
-                }
-            ]
-        };
-
-        // Initialize quiz with embedded data
-        function initQuiz() {
-            const container = document.getElementById('quiz-container');
-            if (!container) {
-                console.error('Quiz container not found!');
-                return;
-            }
-            
-            try {
-                new QuizEngine('quiz-container', playwrightQuizData);
-                console.log('Quiz initialized successfully');
-            } catch (error) {
-                console.error('Failed to initialize quiz:', error);
-                container.innerHTML = '<p class="text-center" style="color: red; padding: 2rem;">Quiz unavailable. Error: ' + error.message + '</p>';
-            }
-        }
-
-        // Run quiz initialization after DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initQuiz);
-        } else {
-            initQuiz();
-        }
-    </script>
-                    "id": 2,
-                    "type": "multiple-choice",
-                    "difficulty": "easy",
-                    "question": "Which browsers does Playwright support out of the box?",
-                    "options": [
-                        {"id": "a", "text": "Chrome only"},
-                        {"id": "b", "text": "Chrome, Firefox, and Safari"},
-                        {"id": "c", "text": "Chromium, Firefox, and WebKit"},
-                        {"id": "d", "text": "All major browsers including Edge"}
-                    ],
-                    "correctAnswer": "c",
-                    "explanation": "Playwright supports Chromium (Chrome/Edge), Firefox, and WebKit (Safari) with a single unified API."
-                },
-                {
-                    "id": 3,
-                    "type": "true-false",
-                    "difficulty": "easy",
-                    "question": "Playwright automatically waits for elements to be actionable before performing actions.",
-                    "options": [
-                        {"id": "a", "text": "True"},
-                        {"id": "b", "text": "False"}
-                    ],
-                    "correctAnswer": "a",
-                    "explanation": "One of Playwright's key features is 'auto-waiting' - it automatically waits for elements to be visible, stable, and actionable before performing actions, eliminating flaky tests."
-                },
-                {
-                    "id": 4,
-                    "type": "multiple-choice",
-                    "difficulty": "easy",
-                    "question": "What programming languages does Playwright support?",
-                    "options": [
-                        {"id": "a", "text": "JavaScript only"},
-                        {"id": "b", "text": "JavaScript and TypeScript"},
-                        {"id": "c", "text": "JavaScript, TypeScript, Python, Java, and C#"},
-                        {"id": "d", "text": "Only Python and Java"}
-                    ],
-                    "correctAnswer": "c",
-                    "explanation": "Playwright has official client libraries for JavaScript/TypeScript, Python, Java, and C#, making it accessible to teams with different language preferences."
-                },
-                {
-                    "id": 5,
-                    "type": "multiple-choice",
-                    "difficulty": "easy",
-                    "question": "What is the default timeout for Playwright actions?",
-                    "options": [
-                        {"id": "a", "text": "5 seconds"},
-                        {"id": "b", "text": "10 seconds"},
-                        {"id": "c", "text": "30 seconds"},
-                        {"id": "d", "text": "1 minute"}
-                    ],
-                    "correctAnswer": "c",
-                    "explanation": "Playwright has a default timeout of 30 seconds for most operations. This can be configured globally or per-action."
-                },
-                {
-                    "id": 6,
-                    "type": "multiple-choice",
-                    "difficulty": "medium",
-                    "question": "What is Playwright's 'codegen' tool used for?",
-                    "options": [
-                        {"id": "a", "text": "Generating random test data"},
-                        {"id": "b", "text": "Recording browser interactions to generate test code"},
-                        {"id": "c", "text": "Creating test reports"},
-                        {"id": "d", "text": "Generating random email addresses"}
-                    ],
-                    "correctAnswer": "b",
-                    "explanation": "Playwright codegen is a CLI tool that opens a browser and records your interactions, generating clean Playwright test code that you can save and modify."
-                },
-                {
-                    "id": 7,
-                    "type": "true-false",
-                    "difficulty": "easy",
-                    "question": "Playwright tests can run in parallel across multiple worker processes.",
-                    "options": [
-                        {"id": "a", "text": "True"},
-                        {"id": "b", "text": "False"}
-                    ],
-                    "correctAnswer": "a",
-                    "explanation": "Playwright supports parallel test execution across multiple worker processes, significantly reducing test suite execution time."
-                },
-                {
-                    "id": 8,
-                    "type": "multiple-choice",
-                    "difficulty": "medium",
-                    "question": "Which method is used to launch a browser in Playwright?",
-                    "options": [
-                        {"id": "a", "text": "browser.newPage()"},
-                        {"id": "b", "text": "browser.launch()"},
-                        {"id": "c", "text": "playwright.chromium.launch()"},
-                        {"id": "d", "text": "browser.create()"}
-                    ],
-                    "correctAnswer": "c",
-                    "explanation": "To launch a browser, you use playwright.chromium.launch(), playwright.firefox.launch(), or playwright.webkit.launch() depending on which browser you need."
-                },
-                {
-                    "id": 9,
-                    "type": "multiple-choice",
-                    "difficulty": "medium",
-                    "question": "What is Playwright Test Runner primarily built on?",
-                    "options": [
-                        {"id": "a", "text": "Jest"},
-                        {"id": "b", "text": "Mocha"},
-                        {"id": "c", "text": "It has its own test runner"},
-                        {"id": "d", "text": "Pytest"}
-                    ],
-                    "correctAnswer": "c",
-                    "explanation": "Playwright comes with its own built-in test runner called 'playwright-test' (or @playwright/test) which provides a complete testing solution with parallel execution, reporting, and fixtures."
-                },
-                {
-                    "id": 10,
-                    "type": "multiple-choice",
-                    "difficulty": "hard",
-                    "question": "Which of the following is NOT a built-in Playwright locator strategy?",
-                    "options": [
-                        {"id": "a", "text": "getByText()"},
-                        {"id": "b", "text": "getByRole()"},
-                        {"id": "c", "text": "getByXPath()"},
-                        {"id": "d", "text": "getByLabel()"}
-                    ],
-                    "correctAnswer": "c",
-                    "explanation": "Playwright provides getByText(), getByRole(), getByLabel(), getByPlaceholder(), getByAltText(), and getByTitle(). It does NOT have a built-in getByXPath() method."
                 }
             ]
         };

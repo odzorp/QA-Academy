@@ -7,6 +7,7 @@
     <meta name="keywords" content="QA Testing, Software Testing, Test Automation, Playwright, Cypress, Selenium, API Testing, Performance Testing, CI/CD, QA Engineer Training">
     <meta name="author" content="Philip Odzor">
     <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     
     <!-- Open Graph -->
     <meta property="og:title" content="QA Academy | Professional Software Testing Education">
@@ -89,8 +90,58 @@
                 </div>
                 
                 <div class="hero-image">
-                    <img src="assets/images/profile.jpg" alt="Philip Odzor - QA Engineer">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor - QA Engineer" style="width: 320px; height: 380px; object-fit: cover; object-position: top;">
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Anime Section -->
+    <section class="section" style="background: linear-gradient(135deg, #fdf4ff 0%, #faf5ff 100%);">
+        <div class="container">
+            <div class="text-center mb-3">
+                <h2>🎌 Connect Over Anime!</h2>
+                <p class="text-gray" style="max-width: 600px; margin: 0 auto;">Love anime as much as I do? Whether you're into action, slice-of-life, or hidden gems - let's connect! Share your recommendations and discuss the latest releases.</p>
+            </div>
+            
+            <div class="grid-3" style="margin-top: var(--space-xl);">
+                <div class="card" style="border-top: 4px solid #ec4899;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔥</div>
+                    <h3 class="card-title">My Current Favorites</h3>
+                    <p class="card-text">Top anime I'm watching right now - from action-packed shonen to emotional slice-of-life.</p>
+                    <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        <span class="skill-tag" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">Action</span>
+                        <span class="skill-tag" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">Adventure</span>
+                        <span class="skill-tag" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">Drama</span>
+                    </div>
+                </div>
+                
+                <div class="card" style="border-top: 4px solid #8b5cf6;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">💎</div>
+                    <h3 class="card-title">Underrated Gems</h3>
+                    <p class="card-text">Hidden anime that deserve more attention - underwatched masterpieces worth your time.</p>
+                    <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        <span class="skill-tag" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">Hidden Gems</span>
+                        <span class="skill-tag" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">Underrated</span>
+                    </div>
+                </div>
+                
+                <div class="card" style="border-top: 4px solid #06b6d4;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">📺</div>
+                    <h3 class="card-title">Current Season</h3>
+                    <p class="card-text">Winter/Spring 2026 releases I'm following - stay updated with the latest anime drops.</p>
+                    <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        <span class="skill-tag" style="background: rgba(6, 182, 212, 0.1); color: #06b6d4;">2026</span>
+                        <span class="skill-tag" style="background: rgba(6, 182, 212, 0.1); color: #06b6d4;">Fresh</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: var(--space-xl); padding: var(--space-xl); background: rgba(255, 255, 255, 0.5); border-radius: var(--radius-xl);">
+                <p style="font-size: 1.1rem; color: var(--text-primary);">
+                    🤝 <strong>Let's connect!</strong> Drop your anime recommendations in the contact form - I'm always looking for new shows to watch!
+                </p>
+                <a href="contact.html" class="btn btn-primary" style="margin-top: 1rem;">Share Recommendations</a>
             </div>
         </div>
     </section>
@@ -195,7 +246,7 @@
                     <a href="about.html" class="btn btn-primary">View Full Profile</a>
                 </div>
                 <div class="text-center">
-                    <img src="assets/images/profile.jpg" alt="Philip Odzor" style="max-width: 300px; border-radius: 1rem; box-shadow: var(--shadow-xl);">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor" style="max-width: 300px; border-radius: 1rem; box-shadow: var(--shadow-xl); object-fit: cover; object-position: top;">
                 </div>
             </div>
         </div>
@@ -239,6 +290,25 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container modal-info" id="modalContainer">
+            <div class="modal-header">
+                <h3 id="modalTitle">Notification</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Message goes here</p>
+                <div class="modal-timer">
+                    <div class="modal-timer-bar" id="modalTimerBar"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal()">Got it</button>
+            </div>
+        </div>
+    </div>
 
     <script src="js/main.js"></script>
 </body>

@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
     <!-- Header -->
@@ -69,6 +70,7 @@
                         <span class="skill-tag">Playwright</span>
                         <span class="skill-tag">Cypress</span>
                         <span class="skill-tag">Selenium</span>
+                        <span class="skill-tag">Selenide</span>
                         <span class="skill-tag learning">WebdriverIO</span>
                         <span class="skill-tag learning">Appium</span>
                     </div>
@@ -106,9 +108,32 @@
                     
                     <div class="skill-group">
                         <h4>Core QA Skills</h4>
-                        <span class="skill-tag">Manual Testing</span>
-                        <span class="skill-tag">Xray</span>
-                        <span class="skill-tag">JIRA</span>
+                        <span class="skill-tag">Test Case Writing</span>
+                        <span class="skill-tag">Test Planning</span>
+                        <span class="skill-tag">Requirements Analysis</span>
+                        <span class="skill-tag">Test Scenario Identification</span>
+                        <span class="skill-tag">Regression Testing</span>
+                        <span class="skill-tag">Exploratory Testing</span>
+                        <span class="skill-tag">Smoke & Sanity Testing</span>
+                        <span class="skill-tag">Defect Management</span>
+                        <span class="skill-tag">Jira & Xray</span>
+                    </div>
+                    
+                    <div class="skill-group">
+                        <h4>Testing Techniques</h4>
+                        <span class="skill-tag">Boundary Value Analysis</span>
+                        <span class="skill-tag">Equivalence Partitioning</span>
+                        <span class="skill-tag">Decision Table Testing</span>
+                        <span class="skill-tag">Risk-based Testing</span>
+                        <span class="skill-tag">State Transition</span>
+                    </div>
+                    
+                    <div class="skill-group">
+                        <h4>Product & Project Management</h4>
+                        <span class="skill-tag">Product Management</span>
+                        <span class="skill-tag">Agile & Scrum</span>
+                        <span class="skill-tag">Roadmapping</span>
+                        <span class="skill-tag">User Stories</span>
                     </div>
                     
                     <div class="skill-group">
@@ -531,6 +556,25 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container modal-info" id="modalContainer">
+            <div class="modal-header">
+                <h3 id="modalTitle">Notification</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Message goes here</p>
+                <div class="modal-timer">
+                    <div class="modal-timer-bar" id="modalTimerBar"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal()">Got it</button>
+            </div>
+        </div>
+    </div>
 
     <script src="js/main.js"></script>
 </body>
