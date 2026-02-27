@@ -31,9 +31,9 @@ export default async function handler(request) {
     const systemPrompt = getSystemPrompt(agent);
     const fullPrompt = `${systemPrompt}\n\nUser request: ${prompt}`;
 
-    // Call Cloudflare Workers AI
+    // Call Cloudflare AI Gateway (OpenAI-compatible)
     const cfResponse = await fetch(
-      "https://api.cloudflare.com/client/v4/accounts/79cb91ad5275bebd4abfb6e03985c197/ai/run/@cf/meta/llama-3-8b-instruct",
+      "https://gateway.ai.cloudflare.com/v1/79cb91ad5275bebd4abfb6e03985c197/netlify/compat/chat/completions",
       {
         method: "POST",
         headers: {
@@ -41,9 +41,10 @@ export default async function handler(request) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          model: "llama-3-70b-instruct",
           messages: [
             { role: "system", content: systemPrompt },
-            { role: "user", content: prompt },
+            { role: "user", content: prompt }
           ],
           max_tokens: 2000,
         }),
@@ -57,7 +58,7 @@ export default async function handler(request) {
     }
 
     const data = await cfResponse.json();
-    const aiResponse = data.result?.response || "No response from AI";
+    const aiResponse = data.choices?.[0]?.message?.content || data.result?.response || "No response from AI";
 
     return new Response(JSON.stringify({ response: aiResponse }), {
       status: 200,
