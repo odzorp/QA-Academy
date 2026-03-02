@@ -1859,6 +1859,16 @@ pre code {
     box-shadow: var(--shadow-sm);
 }
 
+.table-scroll-wrapper {
+    overflow-x: auto;
+    margin: var(--space-xl) 0;
+    border-radius: var(--radius-lg);
+}
+
+.table-scroll-wrapper table {
+    margin: 0;
+}
+
 .content-table {
     width: 100%;
     border-collapse: collapse;
