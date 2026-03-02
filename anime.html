@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My Anime Collection - 29 anime across 5 categories">
+    <title>My Anime Collection | QA Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        .anime-hero {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+            padding: 100px 0 60px;
+            text-align: center;
+        }
+        .anime-hero h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .anime-hero p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .category-tabs {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+        }
+        .category-tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-full);
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        .category-tab:hover, .category-tab.active {
+            background: var(--accent);
+            color: var(--primary-dark);
+            border-color: var(--accent);
+        }
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .anime-card {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transition: all var(--transition-base);
+            border: 1px solid transparent;
+        }
+        .anime-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+        .anime-card.shonen { border-color: #3b82f6; }
+        .anime-card.isekai { border-color: #8b5cf6; }
+        .anime-card.dark { border-color: #ef4444; }
+        .anime-card.comedy { border-color: #06b6d4; }
+        .anime-card.special { border-color: #f59e0b; }
+        .anime-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .anime-card-content {
+            padding: 1.25rem;
+        }
+        .anime-card h3 {
+            color: white;
+            font-size: 1.1rem;
+            margin: 0 0 0.5rem;
+        }
+        .anime-card p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            margin: 0 0 1rem;
+            line-height: 1.5;
+        }
+        .get-link-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
+        .shonen .get-link-btn { background: #3b82f6; color: white; }
+        .isekai .get-link-btn { background: #8b5cf6; color: white; }
+        .dark .get-link-btn { background: #ef4444; color: white; }
+        .comedy .get-link-btn { background: #06b6d4; color: white; }
+        .special .get-link-btn { background: #f59e0b; color: white; }
+        .get-link-btn:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        .category-section {
+            display: none;
+        }
+        .category-section.active {
+            display: block;
+        }
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid;
+        }
+        .section-title.shonen { border-color: #3b82f6; }
+        .section-title.isekai { border-color: #8b5cf6; }
+        .section-title.dark { border-color: #ef4444; }
+        .section-title.comedy { border-color: #06b6d4; }
+        .section-title.special { border-color: #f59e0b; }
+        .section-title h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .section-title.shonen h2 { color: #3b82f6; }
+        .section-title.isekai h2 { color: #8b5cf6; }
+        .section-title.dark h2 { color: #ef4444; }
+        .section-title.comedy h2 { color: #06b6d4; }
+        .section-title.special h2 { color: #f59e0b; }
+        .count-badge {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+        }
+        @media (max-width: 768px) {
+            .anime-hero h1 { font-size: 1.75rem; }
+            .category-tabs { gap: 0.5rem; }
+            .category-tab { padding: 0.5rem 1rem; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav-brand">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor">
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Assistance</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span><span></span><span></span>
+                </div>
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="anime-hero">
+        <div class="container">
+            <h1>🎌 My Anime Collection</h1>
+            <p>29 anime across 5 categories. Click "Get Link" to request a streaming or download link!</p>
+        </div>
+    </section>
+
+    <!-- Anime Content -->
+    <section class="section">
+        <div class="container">
+            <!-- Category Tabs -->
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="all">All (29)</button>
+                <button class="category-tab" data-category="shonen">🔥 Shonen (10)</button>
+                <button class="category-tab" data-category="isekai">👑 Isekai (4)</button>
+                <button class="category-tab" data-category="dark">💀 Dark (4)</button>
+                <button class="category-tab" data-category="comedy">⚔️ Comedy (10)</button>
+                <button class="category-tab" data-category="special">👹 Special (1)</button>
+            </div>
+
+            <!-- Shonen/Action Category -->
+            <div class="category-section active" id="shonen">
+                <div class="section-title shonen">
+                    <h2>🔥 Shonen & Action</h2>
+                    <span class="count-badge">10 anime</span>
+                </div>
+                <div class="anime-grid">
+                    <div class="anime-card shonen">
+                        <img src="https://cdn.myanimelist.net/images/anime/2/88983.jpg" alt="Black Clover">
+                        <div class="anime-card-content">
+                            <h3>Black Clover</h3>
+                            <p>Asta, born without magic in a magical world, aims to become Wizard King using anti-magic swords. Epic magic battles & friendship!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Black Clover" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card shonen">
+                        <img src="https://cdn.myanimelist.net/images/anime/10/86738.jpg" alt="Demon Slayer">
+                        <div class="anime-card-content">
+                            <h3>Demon Slayer</h3>
+                            <p>Tanjiro avenges his family and searches for a cure for his demon sister Nezuko. Stunning animation & action!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Demon Slayer" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card shonen">
+                        <img src="https://cdn.myanimelist.net/images/anime/2/67486.jpg" alt="Seven Deadly Sins">
+                        <div class="anime-card-content">
+                            <h3>Seven Deadly Sins</h3>
+                            <p>Ex-Holy Knights reunite to clear their names and protect the kingdom from the Demon Clan. Action & romance!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Seven Deadly Sins" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card shonen">
+                        <img src="https://cdn.myanimelist.net/images/anime/11193/121815.jpg" alt="Jujutsu Kaisen">
+                        <div class="anime-card-content">
+                            <h3>Jujutsu Kaisen</h3>
+                            <p>High schooler Yuji becomes the vessel for a powerful curse. Epic battles against supernatural threats!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Jujutsu Kaisen" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card shonen">
+                        <img src="https://cdn.myanimelist.net/images/anime/7/76021.jpg" alt="One Punch Man">
+                        <div class="anime-card-content">
+                            <h3>One Punch Man</h3>
+                            <p>Saitama trains so hard he can defeat any enemy with one punch, but now he's bored! Comedy & action!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: One Punch Man" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card shonen">
+                        <img src="https://cdn.myanimelist.net/images/anime/1102/135832.jpg" alt="Hunter x Hunter">
+                        <div class="anime-card-content">
+                            <h3>Hunter x Hunter</h3>
+                            <p>Gon searches for his father, the legendary Hunter. Masterful storytelling with strategic battles!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Hunter x Hunter" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card shonen">
+                        <img src="https://cdn.myanimelist.net/images/anime/5/79628.jpg" alt="Naruto">
+                        <div class="anime-card-content">
+                            <h3>Naruto</h3>
+                            <p>Naruto overcomes being ostracized to become Hokage. Epic ninja adventure with deep bonds!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Naruto" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card shonen">
+                        <img src="https://cdn.myanimelist.net/images/anime/1793/132720.jpg" alt="Solo Leveling">
+                        <div class="anime-card-content">
+                            <h3>Solo Leveling</h3>
+                            <p>Jinwoo goes from the weakest hunter to the only player who can level up infinitely. Epic power fantasy!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Solo Leveling" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card shonen">
+                        <img src="https://cdn.myanimelist.net/images/anime/1919/127792.jpg" alt="Sakamoto Days">
+                        <div class="anime-card-content">
+                            <h3>Sakamoto Days</h3>
+                            <p>Former elite assassin runs a convenience store while training. Hilarious action & slice-of-life!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Sakamoto Days" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card shonen">
+                        <img src="https://cdn.myanimelist.net/images/anime/4502/123793.jpg" alt="Ranking of Kings">
+                        <div class="anime-card-content">
+                            <h3>Ranking of Kings</h3>
+                            <p>Bojji, a small king without strength, seeks to become a great ruler. Underrated dark fantasy gem!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Ranking of Kings" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Isekai/Fantasy Category -->
+            <div class="category-section" id="isekai">
+                <div class="section-title isekai">
+                    <h2>👑 Isekai & Fantasy</h2>
+                    <span class="count-badge">4 anime</span>
+                </div>
+                <div class="anime-grid">
+                    <div class="anime-card isekai">
+                        <img src="https://cdn.myanimelist.net/images/anime/6/86827.jpg" alt="Overlord">
+                        <div class="anime-card-content">
+                            <h3>Overlord</h3>
+                            <p>A skeletal overlord trapped in a game world commands powerful NPCs to conquer the realm. Dark comedy & strategy!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Overlord" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card isekai">
+                        <img src="https://cdn.myanimelist.net/images/anime/1973/132705.jpg" alt="Re:Monster">
+                        <div class="anime-card-content">
+                            <h3>Re:Monster</h3>
+                            <p>Protagonist awakens as a weak goblin and must evolve through absorbing others. Dark power fantasy!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Re:Monster" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card isekai">
+                        <img src="https://cdn.myanimelist.net/images/anime/1369/128628.jpg" alt="The Eminence in Shadow">
+                        <div class="anime-card-content">
+                            <h3>The Eminence in Shadow</h3>
+                            <p>Main character pretends to be a shadow mastermind but accidentally becomes one. Comedy isekai!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: The Eminence in Shadow" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card isekai">
+                        <img src="https://cdn.myanimelist.net/images/anime/1987/129222.jpg" alt="Lord of Mysteries">
+                        <div class="anime-card-content">
+                            <h3>Lord of Mysteries</h3>
+                            <p>Modern detective reincarnates in a steampunk Victorian world with mysterious powers. (Ongoing)</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Lord of Mysteries" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dark/Thriller Category -->
+            <div class="category-section" id="dark">
+                <div class="section-title dark">
+                    <h2>💀 Dark & Thriller</h2>
+                    <span class="count-badge">4 anime</span>
+                </div>
+                <div class="anime-grid">
+                    <div class="anime-card dark">
+                        <img src="https://cdn.myanimelist.net/images/anime/1/112096.jpg" alt="Invincible">
+                        <div class="anime-card-content">
+                            <h3>Invincible</h3>
+                            <p>Mark Grayson discovers his father is the world's most powerful hero. Western animation masterpiece!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Invincible" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card dark">
+                        <img src="https://cdn.myanimelist.net/images/anime/1616/128545.jpg" alt="Hell's Paradise">
+                        <div class="anime-card-content">
+                            <h3>Hell's Paradise</h3>
+                            <p>Assassins search for immortality on a mysterious island. Stunning visuals & intense action!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Hell's Paradise" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card dark">
+                        <img src="https://cdn.myanimelist.net/images/anime/1585/126029.jpg" alt="Arcane">
+                        <div class="anime-card-content">
+                            <h3>Arcane</h3>
+                            <p>League of Legends origin story - sister vs sister in steampunk city. Netflix masterpiece!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Arcane" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card dark">
+                        <img src="https://cdn.myanimelist.net/images/anime/1982/128305.jpg" alt="Pantheon">
+                        <div class="anime-card-content">
+                            <h3>Pantheon</h3>
+                            <p>Young hackers fight against a conspiracy of uploaded intelligences. Underrated sci-fi thriller!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Pantheon" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comedy/Unique Category -->
+            <div class="category-section" id="comedy">
+                <div class="section-title comedy">
+                    <h2>⚔️ Comedy & Unique</h2>
+                    <span class="count-badge">10 anime</span>
+                </div>
+                <div class="anime-grid">
+                    <div class="anime-card comedy">
+                        <img src="https://cdn.myanimelist.net/images/anime/1692/130567.jpg" alt="Mashle">
+                        <div class="anime-card-content">
+                            <h3>Mashle: Magic & Muscle</h3>
+                            <p>Mash can't use magic but is insanely ripped! He attends magic school to become Divine Visionary!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Mashle" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card comedy">
+                        <img src="https://cdn.myanimelist.net/images/anime/1715/135894.jpg" alt="Dandadan">
+                        <div class="anime-card-content">
+                            <h3>Dandadan</h3>
+                            <p>Boy meets girl who sees ghosts vs aliens! Hilarious paranormal comedy with epic battles!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Dandadan" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card comedy">
+                        <img src="https://cdn.myanimelist.net/images/anime/1911/132703.jpg" alt="Ragna Crimson">
+                        <div class="anime-card-content">
+                            <h3>Ragna Crimson</h3>
+                            <p>Dragon rider teams with anti-time-traveling vampire to destroy the gods. Dark action!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Ragna Crimson" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card comedy">
+                        <img src="https://cdn.myanimelist.net/images/anime/1986/129352.jpg" alt="Ishura">
+                        <div class="anime-card-content">
+                            <h3>Ishura</h3>
+                            <p>Fantasy world where the strongest warriors battle for the throne. Underrated action!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Ishura" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card comedy">
+                        <img src="https://cdn.myanimelist.net/images/anime/1989/132308.jpg" alt="Gachiakuta">
+                        <div class="anime-card-content">
+                            <h3>Gachiakuta</h3>
+                            <p>Boy falls into garbage world, becomes a soul reaper. Unique dark fantasy!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Gachiakuta" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card comedy">
+                        <img src="https://cdn.myanimelist.net/images/anime/1979/127982.jpg" alt="My Status: Assassin">
+                        <div class="anime-card-content">
+                            <h3>My Status: Assassin</h3>
+                            <p>Protagonist reincarnates as an assassin in a fantasy world. Intrigue, action & political drama!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: My Status Assassin" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                    <div class="anime-card comedy">
+                        <img src="https://cdn.myanimelist.net/images/anime/1976/129352.jpg" alt="Wistoria">
+                        <div class="anime-card-content">
+                            <h3>Wistoria</h3>
+                            <p>Will and Elf work to become Spellblade Regalia. Action-packed fantasy adventure!</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Wistoria" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Category -->
+            <div class="category-section" id="special">
+                <div class="section-title special">
+                    <h2>👹 Special</h2>
+                    <span class="count-badge">1 anime</span>
+                </div>
+                <div class="anime-grid">
+                    <div class="anime-card special">
+                        <img src="https://cdn.myanimelist.net/images/anime/1981/132709.jpg" alt="Clevatess">
+                        <div class="anime-card-content">
+                            <h3>Clevatess</h3>
+                            <p>One of the Lords of Dark Beasts revives a hero he killed and adopts an orphaned baby - together they fight to save a dying world.</p>
+                            <a href="mailto:odzorp3@gmail.com?subject=Request: Clevatess" class="get-link-btn">📥 Get Link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact CTA -->
+            <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); border-radius: var(--radius-xl);">
+                <p style="color: white; font-size: 1.1rem; margin-bottom: 1rem;">
+                    🤝 <strong>Let's connect!</strong> Have anime recommendations for me?
+                </p>
+                <a href="contact.html" class="btn btn-white">Contact Me</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2026 QA Academy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Category filter functionality
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const category = tab.dataset.category;
+                
+                // Show/hide sections
+                document.querySelectorAll('.category-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                if (category === 'all') {
+                    document.querySelectorAll('.category-section').forEach(s => s.classList.add('active'));
+                } else {
+                    document.getElementById(category).classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
