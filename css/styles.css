@@ -777,6 +777,15 @@ pre code {
     .nav-brand-text small {
         font-size: 0.65rem;
     }
+    
+    /* Fix mobile spacing between nav and content */
+    .hero {
+        padding-top: 90px;
+    }
+    
+    .hero-image {
+        margin-top: var(--space-lg);
+    }
 }
 
 /* ============================================
