@@ -69,9 +69,23 @@
             transform: translateY(-4px);
             box-shadow: var(--shadow-xl);
         }
+        .anime-card-image {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
         .anime-card.shonen { border-color: #3b82f6; }
+        .anime-card.shonen .anime-card-image { background: linear-gradient(135deg, #dc2626 0%, #f97316 50%, #fbbf24 100%); }
         .anime-card.isekai { border-color: #8b5cf6; }
+        .anime-card.isekai .anime-card-image { background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%); }
         .anime-card.dark { border-color: #ef4444; }
+        .anime-card.dark .anime-card-image { background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 50%, #b91c1c 100%); }
+        .anime-card.comedy { border-color: #06b6d4; }
+        .anime-card.comedy .anime-card-image { background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #22d3ee 100%); }
+        .anime-card.special { border-color: #f59e0b; }
+        .anime-card.special .anime-card-image { background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%); }
         .anime-card.comedy { border-color: #06b6d4; }
         .anime-card.special { border-color: #f59e0b; }
         .anime-card img {
@@ -209,7 +223,7 @@
                 </div>
                 <div class="anime-grid">
                     <div class="anime-card shonen">
-                        <img src="https://cdn.myanimelist.net/images/anime/2/88983.jpg" alt="Black Clover">
+                        <div class="anime-card-image">🧙‍♂️</div>
                         <div class="anime-card-content">
                             <h3>Black Clover</h3>
                             <p>Asta, born without magic in a magical world, aims to become Wizard King using anti-magic swords. Epic magic battles & friendship!</p>
@@ -217,7 +231,7 @@
                         </div>
                     </div>
                     <div class="anime-card shonen">
-                        <img src="https://cdn.myanimelist.net/images/anime/10/86738.jpg" alt="Demon Slayer">
+                        <div class="anime-card-image">👹</div>
                         <div class="anime-card-content">
                             <h3>Demon Slayer</h3>
                             <p>Tanjiro avenges his family and searches for a cure for his demon sister Nezuko. Stunning animation & action!</p>
@@ -225,7 +239,7 @@
                         </div>
                     </div>
                     <div class="anime-card shonen">
-                        <img src="https://cdn.myanimelist.net/images/anime/2/67486.jpg" alt="Seven Deadly Sins">
+                        <div class="anime-card-image">⚔️</div>
                         <div class="anime-card-content">
                             <h3>Seven Deadly Sins</h3>
                             <p>Ex-Holy Knights reunite to clear their names and protect the kingdom from the Demon Clan. Action & romance!</p>
@@ -233,7 +247,7 @@
                         </div>
                     </div>
                     <div class="anime-card shonen">
-                        <img src="https://cdn.myanimelist.net/images/anime/11193/121815.jpg" alt="Jujutsu Kaisen">
+                        <div class="anime-card-image">👻</div>
                         <div class="anime-card-content">
                             <h3>Jujutsu Kaisen</h3>
                             <p>High schooler Yuji becomes the vessel for a powerful curse. Epic battles against supernatural threats!</p>
@@ -241,7 +255,7 @@
                         </div>
                     </div>
                     <div class="anime-card shonen">
-                        <img src="https://cdn.myanimelist.net/images/anime/7/76021.jpg" alt="One Punch Man">
+                        <div class="anime-card-image">💪</div>
                         <div class="anime-card-content">
                             <h3>One Punch Man</h3>
                             <p>Saitama trains so hard he can defeat any enemy with one punch, but now he's bored! Comedy & action!</p>
@@ -249,7 +263,7 @@
                         </div>
                     </div>
                     <div class="anime-card shonen">
-                        <img src="https://cdn.myanimelist.net/images/anime/1102/135832.jpg" alt="Hunter x Hunter">
+                        <div class="anime-card-image">🏹</div>
                         <div class="anime-card-content">
                             <h3>Hunter x Hunter</h3>
                             <p>Gon searches for his father, the legendary Hunter. Masterful storytelling with strategic battles!</p>
@@ -257,7 +271,7 @@
                         </div>
                     </div>
                     <div class="anime-card shonen">
-                        <img src="https://cdn.myanimelist.net/images/anime/5/79628.jpg" alt="Naruto">
+                        <div class="anime-card-image">🍥</div>
                         <div class="anime-card-content">
                             <h3>Naruto</h3>
                             <p>Naruto overcomes being ostracized to become Hokage. Epic ninja adventure with deep bonds!</p>
@@ -265,7 +279,7 @@
                         </div>
                     </div>
                     <div class="anime-card shonen">
-                        <img src="https://cdn.myanimelist.net/images/anime/1793/132720.jpg" alt="Solo Leveling">
+                        <div class="anime-card-image">⚡</div>
                         <div class="anime-card-content">
                             <h3>Solo Leveling</h3>
                             <p>Jinwoo goes from the weakest hunter to the only player who can level up infinitely. Epic power fantasy!</p>
@@ -273,7 +287,7 @@
                         </div>
                     </div>
                     <div class="anime-card shonen">
-                        <img src="https://cdn.myanimelist.net/images/anime/1919/127792.jpg" alt="Sakamoto Days">
+                        <div class="anime-card-image">🗡️</div>
                         <div class="anime-card-content">
                             <h3>Sakamoto Days</h3>
                             <p>Former elite assassin runs a convenience store while training. Hilarious action & slice-of-life!</p>
@@ -281,7 +295,7 @@
                         </div>
                     </div>
                     <div class="anime-card shonen">
-                        <img src="https://cdn.myanimelist.net/images/anime/4502/123793.jpg" alt="Ranking of Kings">
+                        <div class="anime-card-image">👑</div>
                         <div class="anime-card-content">
                             <h3>Ranking of Kings</h3>
                             <p>Bojji, a small king without strength, seeks to become a great ruler. Underrated dark fantasy gem!</p>
@@ -299,7 +313,7 @@
                 </div>
                 <div class="anime-grid">
                     <div class="anime-card isekai">
-                        <img src="https://cdn.myanimelist.net/images/anime/6/86827.jpg" alt="Overlord">
+                        <div class="anime-card-image">💀</div>
                         <div class="anime-card-content">
                             <h3>Overlord</h3>
                             <p>A skeletal overlord trapped in a game world commands powerful NPCs to conquer the realm. Dark comedy & strategy!</p>
@@ -307,7 +321,7 @@
                         </div>
                     </div>
                     <div class="anime-card isekai">
-                        <img src="https://cdn.myanimelist.net/images/anime/1973/132705.jpg" alt="Re:Monster">
+                        <div class="anime-card-image">🧟</div>
                         <div class="anime-card-content">
                             <h3>Re:Monster</h3>
                             <p>Protagonist awakens as a weak goblin and must evolve through absorbing others. Dark power fantasy!</p>
@@ -315,7 +329,7 @@
                         </div>
                     </div>
                     <div class="anime-card isekai">
-                        <img src="https://cdn.myanimelist.net/images/anime/1369/128628.jpg" alt="The Eminence in Shadow">
+                        <div class="anime-card-image">🌑</div>
                         <div class="anime-card-content">
                             <h3>The Eminence in Shadow</h3>
                             <p>Main character pretends to be a shadow mastermind but accidentally becomes one. Comedy isekai!</p>
@@ -323,7 +337,7 @@
                         </div>
                     </div>
                     <div class="anime-card isekai">
-                        <img src="https://cdn.myanimelist.net/images/anime/1987/129222.jpg" alt="Lord of Mysteries">
+                        <div class="anime-card-image">🔍</div>
                         <div class="anime-card-content">
                             <h3>Lord of Mysteries</h3>
                             <p>Modern detective reincarnates in a steampunk Victorian world with mysterious powers. (Ongoing)</p>
@@ -341,7 +355,7 @@
                 </div>
                 <div class="anime-grid">
                     <div class="anime-card dark">
-                        <img src="https://cdn.myanimelist.net/images/anime/1/112096.jpg" alt="Invincible">
+                        <div class="anime-card-image">🦸</div>
                         <div class="anime-card-content">
                             <h3>Invincible</h3>
                             <p>Mark Grayson discovers his father is the world's most powerful hero. Western animation masterpiece!</p>
@@ -349,7 +363,7 @@
                         </div>
                     </div>
                     <div class="anime-card dark">
-                        <img src="https://cdn.myanimelist.net/images/anime/1616/128545.jpg" alt="Hell's Paradise">
+                        <div class="anime-card-image">🏯</div>
                         <div class="anime-card-content">
                             <h3>Hell's Paradise</h3>
                             <p>Assassins search for immortality on a mysterious island. Stunning visuals & intense action!</p>
@@ -357,7 +371,7 @@
                         </div>
                     </div>
                     <div class="anime-card dark">
-                        <img src="https://cdn.myanimelist.net/images/anime/1585/126029.jpg" alt="Arcane">
+                        <div class="anime-card-image">🎮</div>
                         <div class="anime-card-content">
                             <h3>Arcane</h3>
                             <p>League of Legends origin story - sister vs sister in steampunk city. Netflix masterpiece!</p>
@@ -365,7 +379,7 @@
                         </div>
                     </div>
                     <div class="anime-card dark">
-                        <img src="https://cdn.myanimelist.net/images/anime/1982/128305.jpg" alt="Pantheon">
+                        <div class="anime-card-image">💻</div>
                         <div class="anime-card-content">
                             <h3>Pantheon</h3>
                             <p>Young hackers fight against a conspiracy of uploaded intelligences. Underrated sci-fi thriller!</p>
@@ -383,7 +397,7 @@
                 </div>
                 <div class="anime-grid">
                     <div class="anime-card comedy">
-                        <img src="https://cdn.myanimelist.net/images/anime/1692/130567.jpg" alt="Mashle">
+                        <div class="anime-card-image">💪</div>
                         <div class="anime-card-content">
                             <h3>Mashle: Magic & Muscle</h3>
                             <p>Mash can't use magic but is insanely ripped! He attends magic school to become Divine Visionary!</p>
@@ -391,7 +405,7 @@
                         </div>
                     </div>
                     <div class="anime-card comedy">
-                        <img src="https://cdn.myanimelist.net/images/anime/1715/135894.jpg" alt="Dandadan">
+                        <div class="anime-card-image">👽</div>
                         <div class="anime-card-content">
                             <h3>Dandadan</h3>
                             <p>Boy meets girl who sees ghosts vs aliens! Hilarious paranormal comedy with epic battles!</p>
@@ -399,7 +413,7 @@
                         </div>
                     </div>
                     <div class="anime-card comedy">
-                        <img src="https://cdn.myanimelist.net/images/anime/1911/132703.jpg" alt="Ragna Crimson">
+                        <div class="anime-card-image">🐉</div>
                         <div class="anime-card-content">
                             <h3>Ragna Crimson</h3>
                             <p>Dragon rider teams with anti-time-traveling vampire to destroy the gods. Dark action!</p>
@@ -407,7 +421,7 @@
                         </div>
                     </div>
                     <div class="anime-card comedy">
-                        <img src="https://cdn.myanimelist.net/images/anime/1986/129352.jpg" alt="Ishura">
+                        <div class="anime-card-image">⚔️</div>
                         <div class="anime-card-content">
                             <h3>Ishura</h3>
                             <p>Fantasy world where the strongest warriors battle for the throne. Underrated action!</p>
@@ -415,7 +429,7 @@
                         </div>
                     </div>
                     <div class="anime-card comedy">
-                        <img src="https://cdn.myanimelist.net/images/anime/1989/132308.jpg" alt="Gachiakuta">
+                        <div class="anime-card-image">🗑️</div>
                         <div class="anime-card-content">
                             <h3>Gachiakuta</h3>
                             <p>Boy falls into garbage world, becomes a soul reaper. Unique dark fantasy!</p>
@@ -423,7 +437,7 @@
                         </div>
                     </div>
                     <div class="anime-card comedy">
-                        <img src="https://cdn.myanimelist.net/images/anime/1979/127982.jpg" alt="My Status: Assassin">
+                        <div class="anime-card-image">🗡️</div>
                         <div class="anime-card-content">
                             <h3>My Status: Assassin</h3>
                             <p>Protagonist reincarnates as an assassin in a fantasy world. Intrigue, action & political drama!</p>
@@ -431,7 +445,7 @@
                         </div>
                     </div>
                     <div class="anime-card comedy">
-                        <img src="https://cdn.myanimelist.net/images/anime/1976/129352.jpg" alt="Wistoria">
+                        <div class="anime-card-image">🧝</div>
                         <div class="anime-card-content">
                             <h3>Wistoria</h3>
                             <p>Will and Elf work to become Spellblade Regalia. Action-packed fantasy adventure!</p>
@@ -449,7 +463,7 @@
                 </div>
                 <div class="anime-grid">
                     <div class="anime-card special">
-                        <img src="https://cdn.myanimelist.net/images/anime/1981/132709.jpg" alt="Clevatess">
+                        <div class="anime-card-image">👹</div>
                         <div class="anime-card-content">
                             <h3>Clevatess</h3>
                             <p>One of the Lords of Dark Beasts revives a hero he killed and adopts an orphaned baby - together they fight to save a dying world.</p>
