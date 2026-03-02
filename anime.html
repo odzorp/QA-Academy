@@ -125,12 +125,6 @@
             transform: scale(1.05);
             opacity: 0.9;
         }
-        .category-section {
-            display: none;
-        }
-        .category-section.active {
-            display: block;
-        }
         .section-title {
             display: flex;
             align-items: center;
@@ -504,22 +498,22 @@
         // Category filter functionality
         document.querySelectorAll('.category-tab').forEach(tab => {
             tab.addEventListener('click', () => {
+                const category = tab.dataset.category;
+                
                 // Update active tab
                 document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 
-                const category = tab.dataset.category;
-                
-                // Show/hide sections
+                // Show/hide sections based on category
                 document.querySelectorAll('.category-section').forEach(section => {
-                    section.classList.remove('active');
+                    if (category === 'all') {
+                        section.style.display = 'block';
+                    } else if (section.id === category) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
                 });
-                
-                if (category === 'all') {
-                    document.querySelectorAll('.category-section').forEach(s => s.classList.add('active'));
-                } else {
-                    document.getElementById(category).classList.add('active');
-                }
             });
         });
     </script>
