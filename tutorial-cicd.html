@@ -41,6 +41,7 @@
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="about.html" class="nav-link">About</a>
                     <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
                     <a href="resources.html" class="nav-link">Resources</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
@@ -139,34 +140,22 @@ notifications:
     subject: "Load Test Results: ${{ github.ref }}"
     attach_results: true</code></pre>
                 
-                <!-- Quiz -->
-                <h2>Knowledge Check</h2>
-                
-                <div class="quiz-container">
-                    <div class="quiz-question">1. What is a quality gate in CI/CD?</div>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">A physical gate for the server room</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">A threshold that fails the build if not met</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">A type of load balancer</div>
-                    </div>
-                    <div class="quiz-result" id="result1"></div>
-                </div>
-                
-                <div class="quiz-container">
-                    <div class="quiz-question">2. Which file configures LoadMagic.AI settings in CI?</div>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">.github/workflows/main.yml</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">loadmagic.yaml</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">package.json</div>
-                    </div>
-                    <div class="quiz-result" id="result2"></div>
-                </div>
+
                 
                 <div style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
                     <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
                     <a href="tutorial-scaling.html" class="btn btn-primary">Next: Scaling & Optimization →</a>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section class="quiz-section">
+        <div class="container">
+            <h2>Knowledge Check</h2>
+            <p>Test your understanding of CI/CD integration</p>
+            <div id="quiz-container" class="quiz-container"></div>
         </div>
     </section>
 
@@ -214,12 +203,304 @@ notifications:
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/quiz-engine.js"></script>
     <script>
-        function checkAnswer(element, isCorrect) {
-            const parent = element.parentElement, result = parent.nextElementSibling;
-            parent.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('correct', 'incorrect'));
-            if (isCorrect) { element.classList.add('correct'); result.className = 'quiz-result show'; result.innerHTML = '✓ Correct! Well done!'; }
-            else { element.classList.add('incorrect'); result.className = 'quiz-result show'; result.innerHTML = '✗ Not quite. Try again!'; }
+        const cicdQuizData = {
+            tutorialTitle: "CI/CD Integration",
+            questions: [
+                {
+                    id: 1,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "What is a quality gate in CI/CD?",
+                    options: [
+                        {id: "a", text: "A physical gate for the server room"},
+                        {id: "b", text: "A threshold that fails the build if not met"},
+                        {id: "c", text: "A type of load balancer"},
+                        {id: "d", text: "A security checkpoint"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Quality gates are automated thresholds that determine whether a build can proceed based on test results."
+                },
+                {
+                    id: 2,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "Which file configures LoadMagic.AI settings in CI?",
+                    options: [
+                        {id: "a", text: ".github/workflows/main.yml"},
+                        {id: "b", text: "loadmagic.yaml"},
+                        {id: "c", text: "package.json"},
+                        {id: "d", text: "Jenkinsfile"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "loadmagic.yaml is the configuration file for LoadMagic.AI settings including quality gates and notifications."
+                },
+                {
+                    id: 3,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the purpose of artifact upload in CI/CD pipelines?",
+                    options: [
+                        {id: "a", text: "To store test results for later analysis"},
+                        {id: "b", text: "To deploy code to production"},
+                        {id: "c", text: "To compile the application"},
+                        {id: "d", text: "To send notifications"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Artifacts store test results and logs allowing teams to review detailed reports after the pipeline completes."
+                },
+                {
+                    id: 4,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "Which trigger would run tests on every pull request?",
+                    options: [
+                        {id: "a", text: "on: push"},
+                        {id: "b", text: "on: pull_request"},
+                        {id: "c", text: "on: schedule"},
+                        {id: "d", text: "on: release"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The pull_request trigger executes the workflow whenever a pull request is opened or updated."
+                },
+                {
+                    id: 5,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What does 'fail' action in quality gates do?",
+                    options: [
+                        {id: "a", text: "Sends an email notification"},
+                        {id: "b", text: "Blocks the pipeline from proceeding"},
+                        {id: "c", text: "Logs the failure only"},
+                        {id: "d", text: "Retries the tests"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The 'fail' action stops the pipeline from proceeding when a threshold is exceeded."
+                },
+                {
+                    id: 6,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "Secrets should be hardcoded in CI/CD workflow files.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Secrets should be stored in secure secret storage and referenced using environment variables, never hardcoded."
+                },
+                {
+                    id: 7,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "Which metric is commonly used for response time quality gates?",
+                    options: [
+                        {id: "a", text: "Average response time"},
+                        {id: "b", text: "p50 response time"},
+                        {id: "c", text: "p95 or p99 response time"},
+                        {id: "d", text: "Minimum response time"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "p95 or p99 percentiles are used to ensure most users (95% or 99%) experience acceptable response times."
+                },
+                {
+                    id: 8,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the benefit of running load tests in CI/CD?",
+                    options: [
+                        {id: "a", text: "Faster builds"},
+                        {id: "b", text: "Catches performance regressions early"},
+                        {id: "c", text: "Better code coverage"},
+                        {id: "d", text: "Easier debugging"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Running load tests in CI/CD catches performance issues before they reach production."
+                },
+                {
+                    id: 9,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What does the 'warn' action do in quality gates?",
+                    options: [
+                        {id: "a", text: "Stops the pipeline completely"},
+                        {id: "b", text: "Allows pipeline to continue but alerts team"},
+                        {id: "c", text: "Disables future tests"},
+                        {id: "d", text: "Marks the build as successful"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The 'warn' action lets the pipeline continue but creates notifications alerting the team to review."
+                },
+                {
+                    id: 10,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "Load tests should always run against production environments.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Load tests should run in staging or dedicated test environments to avoid impacting production users."
+                },
+                {
+                    id: 11,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "Which GitHub Actions event runs tests when merging to main?",
+                    options: [
+                        {id: "a", text: "on: fork"},
+                        {id: "b", text: "on: push with branches: [main]"},
+                        {id: "c", text: "on: issue_comment"},
+                        {id: "d", text: "on: watch"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The push trigger with branches specification runs when code is pushed to the specified branch."
+                },
+                {
+                    id: 12,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is artifact retention in CI/CD?",
+                    options: [
+                        {id: "a", text: "How long build artifacts are stored"},
+                        {id: "b", text: "The time to keep servers running"},
+                        {id: "c", text: "Duration of user sessions"},
+                        {id: "d", text: "Cache expiration time"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Artifact retention defines how long test results and logs are kept before being automatically deleted."
+                },
+                {
+                    id: 13,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "Notifications can be sent to Slack from CI/CD pipelines.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Most CI/CD platforms support Slack integrations via webhooks for real-time build notifications."
+                },
+                {
+                    id: 14,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is the recommended approach for test data in CI/CD?",
+                    options: [
+                        {id: "a", text: "Use production data copies"},
+                        {id: "b", text: "Generate synthetic representative data"},
+                        {id: "c", text: "Use minimal test data"},
+                        {id: "d", text: "No test data needed"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Synthetic representative data ensures realistic tests without exposing production data or violating compliance."
+                },
+                {
+                    id: 15,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is a common error rate threshold for quality gates?",
+                    options: [
+                        {id: "a", text: "10%"},
+                        {id: "b", text: "5%"},
+                        {id: "c", text: "1%"},
+                        {id: "d", text: "20%"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "1% error rate is a common threshold - exceeding this typically indicates serious performance issues."
+                },
+                {
+                    id: 16,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "CI/CD pipelines can trigger on schedule using cron syntax.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Scheduled triggers use cron syntax to run tests at specific times, useful for nightly performance tests."
+                },
+                {
+                    id: 17,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is the benefit of parallel test execution in CI/CD?",
+                    options: [
+                        {id: "a", text: "Slower feedback but thorough testing"},
+                        {id: "b", text: "Faster feedback to developers"},
+                        {id: "c", text: "Lower infrastructure costs"},
+                        {id: "d", text: "Simpler configuration"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Parallel execution reduces total test time, providing faster feedback on code changes."
+                },
+                {
+                    id: 18,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "Which secret is needed for LoadMagic.AI CI integration?",
+                    options: [
+                        {id: "a", text: "AWS credentials"},
+                        {id: "b", text: "LoadMagic.AI API key"},
+                        {id: "c", text: "GitHub token"},
+                        {id: "d", text: "Docker hub credentials"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The LoadMagic.AI API key authenticates your account and associates test runs with your subscription."
+                },
+                {
+                    id: 19,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "Load test results should be reviewed even when tests pass.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Reviewing results helps identify gradual performance degradation before it becomes critical."
+                },
+                {
+                    id: 20,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is threshold hysteresis in quality gates?",
+                    options: [
+                        {id: "a", text: "Immediate failure on threshold breach"},
+                        {id: "b", text: "Allowing slight variations to prevent flakiness"},
+                        {id: "c", text: "Static threshold values"},
+                        {id: "d", text: "Random test selection"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Hysteresis adds buffer zones around thresholds to prevent rapid flip-flopping between pass/fail states."
+                }
+            ]
+        };
+
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (!container) {
+                console.error('Quiz container not found!');
+                return;
+            }
+            
+            try {
+                new QuizEngine('quiz-container', cicdQuizData);
+                console.log('Quiz initialized successfully');
+            } catch (error) {
+                console.error('Failed to initialize quiz:', error);
+                container.innerHTML = '<p class="text-center" style="color: red; padding: 2rem;">Quiz unavailable. Error: ' + error.message + '</p>';
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initQuiz);
+        } else {
+            initQuiz();
         }
     </script>
 </body>

@@ -27,6 +27,7 @@
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="about.html" class="nav-link">About</a>
                     <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
                     <a href="resources.html" class="nav-link">Resources</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
@@ -185,29 +186,21 @@ class APITestUser(HttpUser):
         </div>
     </section>
 
+    <!-- Quiz Section -->
+    <section class="quiz-section">
+        <div class="container">
+            <h2>Knowledge Check</h2>
+            <p>Test your understanding of LoadMagic.AI fundamentals</p>
+            <div id="quiz-container" class="quiz-container"></div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">QA Academy</div>
-                <div class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="about.html">About</a>
-                    <a href="tutorials.html">Tutorials</a>
-                    <a href="contact.html">Contact</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
-            </div>
-            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
-                    <span style="margin-right: 0.5rem;">🤖</span>
-                    <strong>AI-Powered Development</strong>
-                </p>
-                <p style="font-size: 0.75rem; color: var(--text-muted);">
-                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
-                </p>
+                <p>&copy; 2026 QA Academy. All rights reserved.</p>
+                <p class="footer-credit">Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5</p>
             </div>
         </div>
     </footer>
@@ -232,5 +225,305 @@ class APITestUser(HttpUser):
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/quiz-engine.js"></script>
+    <script>
+        const quickstartQuizData = {
+            tutorialTitle: "LoadMagic.AI Quickstart",
+            questions: [
+                {
+                    id: 1,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "What is the primary purpose of LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "Unit testing"},
+                        {id: "b", text: "Performance and load testing"},
+                        {id: "c", text: "Security scanning"},
+                        {id: "d", text: "Code linting"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "LoadMagic.AI is designed specifically for performance and load testing of web applications."
+                },
+                {
+                    id: 2,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "How long does it typically take to create your first load test in LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "1 hour"},
+                        {id: "b", text: "15 minutes"},
+                        {id: "c", text: "30 minutes"},
+                        {id: "d", text: "5 minutes"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The Quick Start guide promises you can create your first load test in 15 minutes."
+                },
+                {
+                    id: 3,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "LoadMagic.AI supports testing REST APIs only.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "LoadMagic.AI supports various protocols including HTTP, WebSocket, and more."
+                },
+                {
+                    id: 4,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is a virtual user (VU) in load testing?",
+                    options: [
+                        {id: "a", text: "A real user account"},
+                        {id: "b", text: "A simulated concurrent user"},
+                        {id: "c", text: "A database user"},
+                        {id: "d", text: "An admin account"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "A virtual user (VU) simulates a concurrent user making requests to your application."
+                },
+                {
+                    id: 5,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What does RPS stand for in load testing?",
+                    options: [
+                        {id: "a", text: "Requests Per Second"},
+                        {id: "b", text: "Response Time"},
+                        {id: "c", text: "Resource Processing Speed"},
+                        {id: "d", text: "Request Priority Score"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "RPS (Requests Per Second) measures the throughput of your system."
+                },
+                {
+                    id: 6,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "Which tool is commonly used alongside LoadMagic.AI for API testing?",
+                    options: [
+                        {id: "a", text: "Postman"},
+                        {id: "b", text: "Photoshop"},
+                        {id: "c", text: "Slack"},
+                        {id: "d", text: "Zoom"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Postman is commonly used for API testing and can work alongside load testing tools."
+                },
+                {
+                    id: 7,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the ramp-up period in a load test?",
+                    options: [
+                        {id: "a", text: "Time to analyze results"},
+                        {id: "b", text: "Time to gradually increase virtual users"},
+                        {id: "c", text: "Time to prepare test data"},
+                        {id: "d", text: "Time to deploy the application"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Ramp-up period is the time taken to gradually increase the number of virtual users."
+                },
+                {
+                    id: 8,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "Response time is measured in milliseconds.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Response time is typically measured in milliseconds (ms) for precision."
+                },
+                {
+                    id: 9,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the difference between load testing and stress testing?",
+                    options: [
+                        {id: "a", text: "There is no difference"},
+                        {id: "b", text: "Load tests normal capacity; stress tests beyond limits"},
+                        {id: "c", text: "Stress testing is faster"},
+                        {id: "d", text: "Load testing uses more resources"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Load testing checks normal capacity; stress testing pushes beyond limits to find breaking points."
+                },
+                {
+                    id: 10,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is throughput in performance testing?",
+                    options: [
+                        {id: "a", text: "Server CPU usage"},
+                        {id: "b", text: "Memory consumption"},
+                        {id: "c", text: "Amount of work done per time unit"},
+                        {id: "d", text: "Network bandwidth"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "Throughput measures the amount of work or transactions processed per time unit."
+                },
+                {
+                    id: 11,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is spike testing in load testing?",
+                    options: [
+                        {id: "a", text: "Testing during a power outage"},
+                        {id: "b", text: "Sudden dramatic increase/decrease in load"},
+                        {id: "c", text: "Testing with maximum users only"},
+                        {id: "d", text: "Testing network spikes"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Spike testing involves sudden dramatic increases or decreases in user load to test system response."
+                },
+                {
+                    id: 12,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "P99 response time means 99% of requests are faster than this value.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "P99 means 99% of requests fall below this response time threshold."
+                },
+                {
+                    id: 13,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is a test scenario in load testing?",
+                    options: [
+                        {id: "a", text: "A bug report"},
+                        {id: "b", text: "A sequence of user actions to simulate"},
+                        {id: "c", text: "A server configuration"},
+                        {id: "d", text: "A database query"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "A test scenario defines the sequence of user actions that virtual users will perform."
+                },
+                {
+                    id: 14,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the purpose of think time in load tests?",
+                    options: [
+                        {id: "a", text: "To make tests run slower"},
+                        {id: "b", text: "To simulate real user behavior between actions"},
+                        {id: "c", text: "To reduce server load"},
+                        {id: "d", text: "To wait for animations"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Think time simulates the pause real users take between actions."
+                },
+                {
+                    id: 15,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is endurance testing (soak testing)?",
+                    options: [
+                        {id: "a", text: "Quick burst of extreme load"},
+                        {id: "b", text: "Sustained load over extended period to find memory leaks"},
+                        {id: "c", text: "Testing during maintenance window"},
+                        {id: "d", text: "Testing with random data"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Endurance/soak testing applies sustained load over time to identify issues like memory leaks."
+                },
+                {
+                    id: 16,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "Baseline testing establishes performance benchmarks.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Baseline testing establishes performance benchmarks for future comparisons."
+                },
+                {
+                    id: 17,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is latency in network terms?",
+                    options: [
+                        {id: "a", text: "Data transfer speed"},
+                        {id: "b", text: "Time for a packet to travel from source to destination"},
+                        {id: "c", text: "Packet loss percentage"},
+                        {id: "d", text: "Network bandwidth"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Latency is the time it takes for a data packet to travel from source to destination."
+                },
+                {
+                    id: 18,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is the saturation point in load testing?",
+                    options: [
+                        {id: "a", text: "When the system is idle"},
+                        {id: "b", text: "When resources are fully utilized and performance degrades"},
+                        {id: "c", text: "When tests complete"},
+                        {id: "d", text: "When the server starts up"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Saturation point is when system resources are fully utilized and performance starts to degrade."
+                },
+                {
+                    id: 19,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the recommended approach for determining test data?",
+                    options: [
+                        {id: "a", text: "Use any available data"},
+                        {id: "b", text: "Use production-like representative data"},
+                        {id: "c", text: "Use minimal data for speed"},
+                        {id: "d", text: "Use random generated data only"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Using production-like representative data ensures accurate test results."
+                },
+                {
+                    id: 20,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "Performance testing should be done in a non-production environment.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Performance testing should typically be done in staging or non-production to avoid impacting users."
+                }
+            ]
+        };
+
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (!container) {
+                console.error('Quiz container not found!');
+                return;
+            }
+            
+            try {
+                new QuizEngine('quiz-container', quickstartQuizData);
+                console.log('Quiz initialized successfully');
+            } catch (error) {
+                console.error('Failed to initialize quiz:', error);
+                container.innerHTML = '<p class="text-center" style="color: red; padding: 2rem;">Quiz unavailable. Error: ' + error.message + '</p>';
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initQuiz);
+        } else {
+            initQuiz();
+        }
+    </script>
 </body>
 </html>

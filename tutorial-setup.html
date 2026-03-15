@@ -167,6 +167,7 @@
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="about.html" class="nav-link">About</a>
                     <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
                     <a href="resources.html" class="nav-link">Resources</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
@@ -529,6 +530,15 @@ loadmagic status
                     </ul>
                 </div>
                 
+                <!-- Quiz Section -->
+                <section class="quiz-section">
+                    <div class="container">
+                        <h2>Knowledge Check</h2>
+                        <p>Test your understanding of LoadMagic.AI setup and configuration</p>
+                        <div id="quiz-container" class="quiz-container"></div>
+                    </div>
+                </section>
+                
                 <!-- Next Steps -->
                 <h2>Next Steps</h2>
                 <p>Great job setting up your environment! Now you're ready to:</p>
@@ -602,6 +612,311 @@ loadmagic status
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/quiz-engine.js"></script>
+    <script>
+        const setupQuizData = {
+            title: "LoadMagic.AI Setup Quiz",
+            description: "Test your understanding of environment setup and configuration",
+            settings: {
+                questionsPerQuiz: 10,
+                timePerQuestion: 30,
+                showExplanations: true,
+                allowRetry: true
+            },
+            questions: [
+                {
+                    id: 1,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "What is the first step to set up LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "Install Python"},
+                        {id: "b", text: "Create an account at studio.loadmagic.ai"},
+                        {id: "c", text: "Configure JMeter"},
+                        {id: "d", text: "Install Docker"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The first step is creating an account at studio.loadmagic.ai to access the platform."
+                },
+                {
+                    id: 2,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "Which programming language is required for LoadMagic.AI custom scripts?",
+                    options: [
+                        {id: "a", text: "Python"},
+                        {id: "b", text: "JavaScript"},
+                        {id: "c", text: "Java or Python (depending on framework)"},
+                        {id: "d", text: "C#"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "LoadMagic.AI supports both Java (for JMeter) and Python (for Locust) for custom scripting."
+                },
+                {
+                    id: 3,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What environment variable must be set for Java-based testing?",
+                    options: [
+                        {id: "a", text: "LOADMAGIC_HOME"},
+                        {id: "b", text: "PYTHON_PATH"},
+                        {id: "c", text: "JAVA_HOME"},
+                        {id: "d", text: "JMETER_PATH"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "JAVA_HOME must be set to point to the JDK installation directory."
+                },
+                {
+                    id: 4,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "LoadMagic.AI can run tests in the cloud without local JMeter installation.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "LoadMagic.AI's cloud execution handles JMeter provisioning automatically."
+                },
+                {
+                    id: 5,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the default port used by JMeter?",
+                    options: [
+                        {id: "a", text: "8080"},
+                        {id: "b", text: "3000"},
+                        {id: "c", text: "4444"},
+                        {id: "d", text: "5432"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "JMeter's default RMI port is 4444, though it can be configured."
+                },
+                {
+                    id: 6,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "Where do you obtain your LoadMagic.AI API key?",
+                    options: [
+                        {id: "a", text: "From GitHub"},
+                        {id: "b", text: "From the dashboard/settings in studio.loadmagic.ai"},
+                        {id: "c", text: "Via email"},
+                        {id: "d", text: "From JMeter plugins"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "API keys are generated and managed in the LoadMagic.AI studio settings."
+                },
+                {
+                    id: 7,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "Docker is required for all LoadMagic.AI installations.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Docker is optional - you can use local installations or cloud execution."
+                },
+                {
+                    id: 8,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the purpose of the config.yaml file in LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "Stores test data"},
+                        {id: "b", text: "Configures test execution parameters and API settings"},
+                        {id: "c", text: "Defines test scenarios"},
+                        {id: "d", text: "Logs test results"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "config.yaml contains execution parameters, API keys, and platform settings."
+                },
+                {
+                    id: 9,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What should you do if you encounter 'Plugin not loading' error?",
+                    options: [
+                        {id: "a", text: "Restart your computer"},
+                        {id: "b", text: "Verify the .jar file is in the lib/ext folder"},
+                        {id: "c", text: "Uninstall Java"},
+                        {id: "d", text: "Clear browser cache"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "JMeter plugins must be placed in the lib/ext directory to be loaded."
+                },
+                {
+                    id: 10,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "Python is required even when using only JMeter for testing.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Python is only needed when using Locust framework; JMeter works with Java."
+                },
+                {
+                    id: 11,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the recommended way to authenticate with LoadMagic.AI API?",
+                    options: [
+                        {id: "a", text: "Basic Auth with username/password"},
+                        {id: "b", text: "API Key in header"},
+                        {id: "c", text: "OAuth 2.0"},
+                        {id: "d", text: "JWT tokens"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "API keys are passed in request headers for authentication."
+                },
+                {
+                    id: 12,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "Which file is used to configure JMeter properties locally?",
+                    options: [
+                        {id: "a", text: "jmeter.properties in bin folder"},
+                        {id: "b", text: "config.yaml"},
+                        {id: "c", text: "environment.yml"},
+                        {id: "d", text: "setup.json"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "JMeter properties are configured in jmeter.properties located in the bin folder."
+                },
+                {
+                    id: 13,
+                    type: "true-false",
+                    difficulty: "medium",
+                    question: "You can switch between cloud and local execution modes.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "LoadMagic.AI supports both cloud and local execution modes."
+                },
+                {
+                    id: 14,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the minimum Java version required for JMeter 5.x?",
+                    options: [
+                        {id: "a", text: "Java 7"},
+                        {id: "b", text: "Java 8"},
+                        {id: "c", text: "Java 11"},
+                        {id: "d", text: "Java 17"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "JMeter 5.x requires Java 8 or higher."
+                },
+                {
+                    id: 15,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What could cause 'Port already in use' error in LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "Incorrect API key"},
+                        {id: "b", text: "Another process using the default JMeter port (4444)"},
+                        {id: "c", text: "Missing Python installation"},
+                        {id: "d", text: "Slow internet connection"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Port conflicts occur when another process uses the same port as JMeter."
+                },
+                {
+                    id: 16,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "LoadMagic.AI supports both JMeter and Locust frameworks.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "LoadMagic.AI supports both Apache JMeter and Locust frameworks."
+                },
+                {
+                    id: 17,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the purpose of the '.loadmagic' config directory?",
+                    options: [
+                        {id: "a", text: "Stores user preferences and API credentials"},
+                        {id: "b", text: "Caches test results"},
+                        {id: "c", text: "Logs application errors"},
+                        {id: "d", text: "Stores test data files"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "The .loadmagic directory stores configuration and authentication settings."
+                },
+                {
+                    id: 18,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "When running distributed testing, what component coordinates the load generators?",
+                    options: [
+                        {id: "a", text: "Python script"},
+                        {id: "b", text: "JMeter Master/Controller"},
+                        {id: "c", text: "LoadMagic.AI cloud"},
+                        {id: "d", text: "Docker swarm"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "In distributed testing, the JMeter master coordinates multiple load generator nodes."
+                },
+                {
+                    id: 19,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "You need an internet connection to use LoadMagic.AI's cloud execution.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Cloud execution requires internet connectivity to communicate with LoadMagic.AI."
+                },
+                {
+                    id: 20,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is the recommended approach for handling test data in LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "Hardcode test data in scripts"},
+                        {id: "b", text: "Use external CSV/JSON files with parameterization"},
+                        {id: "c", text: "Generate random data at runtime only"},
+                        {id: "d", text: "Avoid using test data"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "External data files allow for better test maintainability and data-driven testing."
+                }
+            ]
+        };
+
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (!container) {
+                console.error('Quiz container not found!');
+                return;
+            }
+            
+            try {
+                new QuizEngine('quiz-container', setupQuizData);
+                console.log('Quiz initialized successfully');
+            } catch (error) {
+                console.error('Failed to initialize quiz:', error);
+                container.innerHTML = '<p class="text-center" style="color: red; padding: 2rem;">Quiz unavailable. Error: ' + error.message + '</p>';
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initQuiz);
+        } else {
+            initQuiz();
+        }
+    </script>
     <script>
         function showTab(tabName) {
             // Hide all tab contents

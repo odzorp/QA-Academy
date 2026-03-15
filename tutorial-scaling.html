@@ -37,6 +37,7 @@
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="about.html" class="nav-link">About</a>
                     <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
                     <a href="resources.html" class="nav-link">Resources</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
@@ -100,32 +101,20 @@ class OptimizedUser(HttpUser):
     def rare_request(self):
         pass</code></pre>
                 
-                <h2>Knowledge Check</h2>
-                
-                <div class="quiz-container">
-                    <div class="quiz-question">1. What is horizontal scaling?</div>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">Adding more CPU to existing servers</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">Adding more machines to handle load</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">Reducing the test duration</div>
-                    </div>
-                    <div class="quiz-result" id="result1"></div>
-                </div>
-                
-                <div class="quiz-container">
-                    <div class="quiz-question">2. What does the scale_up_threshold control?</div>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">When to add more virtual users</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">When to reduce test duration</div>
-                    </div>
-                    <div class="quiz-result" id="result2"></div>
-                </div>
-                
                 <div style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
                     <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
                     <a href="tutorial-enterprise.html" class="btn btn-primary">Next: Enterprise →</a>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section class="quiz-section">
+        <div class="container">
+            <h2>Knowledge Check</h2>
+            <p>Test your understanding of scaling and optimization</p>
+            <div id="quiz-container" class="quiz-container"></div>
         </div>
     </section>
 
@@ -173,12 +162,302 @@ class OptimizedUser(HttpUser):
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/quiz-engine.js"></script>
     <script>
-        function checkAnswer(element, isCorrect) {
-            const parent = element.parentElement, result = parent.nextElementSibling;
-            parent.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('correct', 'incorrect'));
-            if (isCorrect) { element.classList.add('correct'); result.className = 'quiz-result show'; result.innerHTML = '✓ Correct! Well done!'; }
-            else { element.classList.add('incorrect'); result.className = 'quiz-result show'; result.innerHTML = '✗ Not quite. Try again!'; }
+        const scalingQuizData = {
+            tutorialTitle: "Scaling & Optimization",
+            questions: [
+                {
+                    id: 1,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "What is horizontal scaling?",
+                    options: [
+                        {id: "a", text: "Adding more CPU to existing servers"},
+                        {id: "b", text: "Adding more machines to handle load"},
+                        {id: "c", text: "Reducing the test duration"},
+                        {id: "d", text: "Optimizing database queries"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Horizontal scaling adds more machines to distribute load across multiple servers."
+                },
+                {
+                    id: 2,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "What does the scale_up_threshold control?",
+                    options: [
+                        {id: "a", text: "When to add more virtual users"},
+                        {id: "b", text: "When to reduce test duration"},
+                        {id: "c", text: "When to stop the test"},
+                        {id: "d", text: "When to reduce wait times"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "The scale_up_threshold determines when to increase load based on resource utilization."
+                },
+                {
+                    id: 3,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is vertical scaling?",
+                    options: [
+                        {id: "a", text: "Adding more servers"},
+                        {id: "b", text: "Upgrading existing server resources (CPU, RAM)"},
+                        {id: "c", text: "Distributing load across regions"},
+                        {id: "d", text: "Caching responses"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Vertical scaling means upgrading the capacity of existing servers with more resources."
+                },
+                {
+                    id: 4,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the purpose of connection pooling?",
+                    options: [
+                        {id: "a", text: "To store test results"},
+                        {id: "b", text: "To reuse database connections efficiently"},
+                        {id: "c", text: "To balance load between servers"},
+                        {id: "d", text: "To cache test data"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Connection pooling reuses database connections rather than creating new ones for each request."
+                },
+                {
+                    id: 5,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "Auto-scaling automatically adjusts load based on conditions.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Auto-scaling automatically adds or removes resources based on defined thresholds."
+                },
+                {
+                    id: 6,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What does cooldown_period prevent?",
+                    options: [
+                        {id: "a", text: "Too rapid scaling up and down"},
+                        {id: "b", text: "Server crashes"},
+                        {id: "c", text: "Test timeouts"},
+                        {id: "d", text: "Data loss"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Cooldown periods prevent rapid up-down scaling by waiting before making additional changes."
+                },
+                {
+                    id: 7,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is a distributed load test?",
+                    options: [
+                        {id: "a", text: "Testing from multiple geographic regions"},
+                        {id: "b", text: "Using multiple worker machines to generate load"},
+                        {id: "c", text: "Testing both API and UI"},
+                        {id: "d", text: "Running multiple test types simultaneously"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Distributed testing uses multiple worker machines to generate larger amounts of concurrent load."
+                },
+                {
+                    id: 8,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "The @task decorator in Locust controls task frequency.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "The @task weight determines how often a task executes relative to other tasks."
+                },
+                {
+                    id: 9,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the benefit of gradual ramp-up?",
+                    options: [
+                        {id: "a", text: "Faster test completion"},
+                        {id: "b", text: "Allows system to stabilize and identifies breaking points"},
+                        {id: "c", text: "Uses less resources"},
+                        {id: "d", text: "Simpler test scripts"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Gradual ramp-up helps identify exactly when performance degrades and allows the system to warm up."
+                },
+                {
+                    id: 10,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is the purpose of a load balancer in scaling?",
+                    options: [
+                        {id: "a", text: "To increase server storage"},
+                        {id: "b", text: "To distribute traffic across multiple servers"},
+                        {id: "c", text: "To cache responses"},
+                        {id: "d", text: "To reduce network latency"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Load balancers distribute incoming traffic across multiple servers to ensure no single server is overwhelmed."
+                },
+                {
+                    id: 11,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "min_users sets the lowest number of virtual users in a test.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "min_users defines the starting load level for the test."
+                },
+                {
+                    id: 12,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is database indexing optimization?",
+                    options: [
+                        {id: "a", text: "Adding more databases"},
+                        {id: "b", text: "Creating efficient data retrieval paths"},
+                        {id: "c", text: "Encrypting database connections"},
+                        {id: "d", text: "Backing up databases"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Proper indexing creates efficient paths for the database to retrieve data, improving query performance."
+                },
+                {
+                    id: 13,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What does scale_down_threshold control?",
+                    options: [
+                        {id: "a", text: "When to add more users"},
+                        {id: "b", text: "When to reduce resources after load decreases"},
+                        {id: "c", text: "When to stop the test"},
+                        {id: "d", text: "When to fail the test"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "scale_down_threshold determines when to reduce resources after demand decreases."
+                },
+                {
+                    id: 14,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "Caching can improve application performance.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Caching stores frequently accessed data in memory for faster retrieval."
+                },
+                {
+                    id: 15,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the difference between scale_up and scale_down thresholds?",
+                    options: [
+                        {id: "a", text: "They should be the same value"},
+                        {id: "b", text: "Scale up is higher than scale down to prevent rapid cycling"},
+                        {id: "c", text: "Scale down should always be higher"},
+                        {id: "d", text: "They are not used together"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Having a gap between thresholds prevents rapid oscillation between scaling up and down."
+                },
+                {
+                    id: 16,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is session affinity (sticky sessions)?",
+                    options: [
+                        {id: "a", text: "Users must log in every session"},
+                        {id: "b", text: "Routing users to the same server for the duration of their session"},
+                        {id: "c", text: "Ending user sessions after inactivity"},
+                        {id: "d", text: "Creating new sessions for each request"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Session affinity routes users to the same server throughout their session for consistency."
+                },
+                {
+                    id: 17,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "max_users limits the maximum concurrent virtual users.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "max_users sets the upper limit for concurrent users in the load test."
+                },
+                {
+                    id: 18,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is throughput in performance testing?",
+                    options: [
+                        {id: "a", text: "Server response time"},
+                        {id: "b", text: "Number of requests processed per second"},
+                        {id: "c", text: "Network bandwidth"},
+                        {id: "d", text: "Error rate"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Throughput measures how many requests the system can handle per unit of time."
+                },
+                {
+                    id: 19,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is a bottleneck in system scaling?",
+                    options: [
+                        {id: "a", text: "A type of load balancer"},
+                        {id: "b", text: "A point in the system that limits overall performance"},
+                        {id: "c", text: "A caching strategy"},
+                        {id: "d", text: "A test scenario"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Bottlenecks are constraints (CPU, memory, network, database) that limit system performance."
+                },
+                {
+                    id: 20,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "Performance optimization should be done before load testing.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Load testing helps identify what optimizations are needed - don't optimize prematurely."
+                }
+            ]
+        };
+
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (!container) {
+                console.error('Quiz container not found!');
+                return;
+            }
+            
+            try {
+                new QuizEngine('quiz-container', scalingQuizData);
+                console.log('Quiz initialized successfully');
+            } catch (error) {
+                console.error('Failed to initialize quiz:', error);
+                container.innerHTML = '<p class="text-center" style="color: red; padding: 2rem;">Quiz unavailable. Error: ' + error.message + '</p>';
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initQuiz);
+        } else {
+            initQuiz();
         }
     </script>
 </body>

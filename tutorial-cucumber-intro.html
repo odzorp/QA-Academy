@@ -3,18 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cucumber BDD Tutorial - Learn behavior-driven testing">
-    <title>Cucumber Introduction | QA Academy</title>
+    <meta name="description" content="Cucumber BDD Tutorial - Learn behavior-driven development with Gherkin">
+    <title>Cucumber BDD Tutorial | QA Academy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        .coming-soon-container { max-width: 800px; margin: 0 auto; text-align: center; padding: 4rem 2rem; }
-        .coming-soon-icon { font-size: 6rem; margin-bottom: 2rem; }
-        .coming-soon-container h1 { margin-bottom: 1rem; }
-        .coming-soon-container p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem; }
-        .timeline-badge { display: inline-block; background: #4B8F3C; color: white; padding: 0.5rem 1rem; border-radius: 50px; font-weight: 600; margin-top: 1rem; }
+        .tutorial-content { max-width: 900px; margin: 0 auto; }
+        .tutorial-content h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content h2 { font-size: 1.875rem; font-weight: 700; margin-top: var(--space-2xl); margin-bottom: var(--space-lg); color: var(--text-primary); border-bottom: 3px solid #4B8F3C; padding-bottom: var(--space-sm); display: inline-block; }
+        .tutorial-content h3 { font-size: 1.375rem; font-weight: 600; margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content p { font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+        .tutorial-content ul, .tutorial-content ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: var(--space-lg); padding-left: var(--space-xl); }
+        .tutorial-content li { margin-bottom: var(--space-sm); color: var(--text-secondary); }
+        .tutorial-content strong { color: var(--text-primary); font-weight: 600; }
+        .tutorial-meta { display: flex; gap: var(--space-lg); flex-wrap: wrap; margin-bottom: var(--space-xl); padding: var(--space-md) var(--space-lg); background: var(--bg-secondary); border-radius: var(--radius-lg); }
+        .tutorial-meta-item { display: flex; align-items: center; gap: var(--space-sm); font-size: 1rem; color: var(--text-secondary); }
+        .concept-card { background: var(--bg-primary); border-radius: 12px; padding: 2rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--gray-200); }
+        .concept-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .key-points { background: linear-gradient(135deg, #4B8F3C 0%, #22c55e 100%); color: white; padding: var(--space-xl); border-radius: var(--radius-xl); margin: var(--space-xl) 0; }
+        .key-points h3 { color: white; margin-bottom: var(--space-md); }
+        .key-points ul { margin-bottom: 0; }
+        .key-points li { color: white; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .feature-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--gray-200); }
+        .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .feature-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .feature-desc { font-size: 0.9rem; color: var(--text-secondary); }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 1rem; }
+        .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--gray-200); }
+        .comparison-table th { background: var(--bg-secondary); font-weight: 600; color: var(--text-primary); }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1.5rem; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95rem; overflow-x: auto; margin: 1.5rem 0; line-height: 1.6; }
+        .code-block .comment { color: #64748b; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #34d399; }
+        .code-block .method { color: #60a5fa; }
+        .code-block .function { color: #fbbf24; }
+        .code-block .tag { color: #f472b6; }
+        .quiz-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #4B8F3C 0%, #22c55e 100%); color: white; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+        .quiz-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4); }
+        .gherkin-block { background: #f0fdf4; border: 2px solid #4B8F3C; color: #14532d; padding: 1.5rem; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95rem; margin: 1.5rem 0; line-height: 1.8; }
+        .gherkin-block .keyword { color: #166534; font-weight: 700; }
+        .gherkin-block .scenario { color: #15803d; font-weight: 600; }
+        .gherkin-block .step { color: #14532d; }
     </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
@@ -33,6 +65,7 @@
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="about.html" class="nav-link">About</a>
                     <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
                     <a href="resources.html" class="nav-link">Resources</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
@@ -42,24 +75,605 @@
         </div>
     </header>
 
-    <section class="page-header">
+    <section class="page-header" style="background: linear-gradient(135deg, #4B8F3C 0%, #22c55e 100%);">
         <div class="container">
             <h1>Cucumber & BDD</h1>
-            <p>Behavior-Driven Development Testing</p>
+            <p>Behavior-Driven Development with Gherkin</p>
         </div>
     </section>
 
-    <section class="section">
-        <div class="coming-soon-container">
-            <div class="coming-soon-icon">🥒</div>
-            <h1>Coming Soon!</h1>
-            <p>I'm currently working on creating a comprehensive Cucumber/BDD tutorial course. This page will cover Gherkin syntax, step definitions, hooks, and reporting.</p>
-            <div class="timeline-badge">Q2 2026</div>
-            <div style="margin-top: 2rem;">
-                <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
+    <main class="section">
+        <div class="container">
+            <div class="tutorial-content">
+                
+                <div class="tutorial-meta">
+                    <div class="tutorial-meta-item">
+                        <span>⏱️</span>
+                        <span>Reading Time: 50 min</span>
+                    </div>
+                    <div class="tutorial-meta-item">
+                        <span>📊</span>
+                        <span>Difficulty: Intermediate</span>
+                    </div>
+                    <div class="tutorial-meta-item">
+                        <span>🔧</span>
+                        <span>Language: Java/Gherkin</span>
+                    </div>
+                    <div class="tutorial-meta-item">
+                        <span>📅</span>
+                        <span>Updated: March 2026</span>
+                    </div>
+                </div>
+
+                <p>Cucumber is a powerful tool that enables Behavior-Driven Development (BDD), bridging the gap between technical and non-technical stakeholders through a shared understanding of software behavior. This tutorial will guide you through creating executable specifications using Gherkin syntax and implementing them with Cucumber.</p>
+
+                <h2 id="what-is-bdd">What is Behavior-Driven Development?</h2>
+
+                <p>Behavior-Driven Development is an agile software development methodology that encourages collaboration between developers, QA, and business stakeholders. BDD focuses on defining the behavior of a system from the user's perspective using concrete examples.</p>
+
+                <div class="concept-card">
+                    <h3 class="feature-icon">🔄</h3>
+                    <h3 class="feature-title">The BDD Cycle</h3>
+                    <p class="feature-desc">BDD follows a three-step iterative cycle: <strong>Discuss</strong> → <strong>Derive</strong> → <strong>Develop</strong>. Teams discuss scenarios in plain language, derive executable specifications from them, and then develop the code to make those specifications pass.</p>
+                </div>
+
+                <h2 id="gherkin-syntax">Gherkin Syntax</h2>
+
+                <p>Gherkin is the business-readable domain-specific language that Cucumber uses to define test cases. It allows you to write specifications in plain English while remaining executable.</p>
+
+                <h3 id="basic-keywords">Basic Keywords</h3>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Keyword</th>
+                            <th>Purpose</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Feature</strong></td>
+                            <td>Top-level</td>
+                            <td>Groups related scenarios</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Background</strong></td>
+                            <td>Setup</td>
+                            <td>Steps run before each scenario</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Scenario</strong></td>
+                            <td>Test case</td>
+                            <td>A single executable example</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Scenario Outline</strong></td>
+                            <td>Template</td>
+                            <td>Parameterized scenario template</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Given</strong></td>
+                            <td>Precondition</td>
+                            <td>Initial state setup</td>
+                        </tr>
+                        <tr>
+                            <td><strong>When</strong></td>
+                            <td>Action</td>
+                            <td>User action or event</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Then</strong></td>
+                            <td>Assertion</td>
+                            <td>Expected outcome</td>
+                        </tr>
+                        <tr>
+                            <td><strong>And / But</strong></td>
+                            <td>Extension</td>
+                            <td>Chain multiple steps</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 id="first-feature">Your First Feature File</h3>
+
+                <p>Let's create a complete feature file for a login functionality to understand Gherkin syntax in action:</p>
+
+                <div class="gherkin-block">
+<span class="keyword">Feature</span>: User Login Functionality
+  As a registered user
+  I want to log in to my account
+  So that I can access my personalized dashboard
+
+  <span class="keyword">Background</span>:
+    Given the user is on the login page
+    And the login form is displayed
+
+  <span class="keyword">Scenario</span>: Successful login with valid credentials
+    When the user enters valid username "testuser" and password "password123"
+    And clicks the login button
+    Then the user should be redirected to the dashboard
+    And a welcome message "Welcome, testuser!" should be displayed
+
+  <span class="keyword">Scenario</span>: Failed login with invalid password
+    When the user enters username "testuser" and password "wrongpassword"
+    And clicks the login button
+    Then an error message "Invalid credentials" should be displayed
+    And the user should remain on the login page
+
+  <span class="keyword">Scenario</span>: Failed login with empty fields
+    When the user clicks the login button without entering credentials
+    Then error messages should be displayed for required fields
+    And the user should remain on the login page
+                </div>
+
+                <h2 id="step-definitions">Implementing Step Definitions</h2>
+
+                <p>Step definitions connect Gherkin steps to executable code. Each step in a scenario maps to a method in your step definition class.</p>
+
+                <h3 id="step-definition-basics">Step Definition Structure</h3>
+
+                <div class="code-block">
+<span class="keyword">import</span> io.cucumber.java.en.Given;
+<span class="keyword">import</span> io.cucumber.java.en.When;
+<span class="keyword">import</span> io.cucumber.java.en.Then;
+<span class="keyword">import</span> org.junit.Assert;
+
+<span class="keyword">public class</span> LoginStepDefinitions {
+    
+    <span class="keyword">private</span> WebDriver driver;
+    <span class="keyword">private</span> LoginPage loginPage;
+
+    <span class="keyword">public</span> LoginStepDefinitions() {
+        <span class="keyword">this</span>.driver = Hooks.driver;
+        <span class="keyword">this</span>.loginPage = <span class="keyword">new</span> LoginPage(driver);
+    }
+
+    <span class="comment">// Given steps - Preconditions</span>
+    @Given(<span class="string">"the user is on the login page"</span>)
+    <span class="keyword">public void</span> userIsOnLoginPage() {
+        driver.get(<span class="string">"https://example.com/login"</span>);
+    }
+
+    @Given(<span class="string">"the login form is displayed"</span>)
+    <span class="keyword">public void</span> loginFormIsDisplayed() {
+        Assert.assertTrue(loginPage.isFormDisplayed());
+    }
+
+    <span class="comment">// When steps - Actions</span>
+    @When(<span class="string">"the user enters valid username {string} and password {string}"</span>)
+    <span class="keyword">public void</span> userEntersCredentials(String username, String password) {
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+    }
+
+    @When(<span class="string">"the user enters username {string} and password {string}"</span>)
+    <span class="keyword">public void</span> userEntersInvalidCredentials(String username, String password) {
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+    }
+
+    @When(<span class="string">"clicks the login button"</span>)
+    <span class="keyword">public void</span> userClicksLoginButton() {
+        loginPage.clickLoginButton();
+    }
+
+    @When(<span class="string">"the user clicks the login button without entering credentials"</span>)
+    <span class="keyword">public void</span> userClicksLoginWithoutCredentials() {
+        loginPage.clickLoginButton();
+    }
+
+    <span class="comment">// Then steps - Assertions</span>
+    @Then(<span class="string">"the user should be redirected to the dashboard"</span>)
+    <span class="keyword">public void</span> userRedirectedToDashboard() {
+        Assert.assertTrue(driver.getCurrentUrl().contains(<span class="string">"dashboard"</span>));
+    }
+
+    @Then(<span class="string">"a welcome message {string} should be displayed"</span>)
+    <span class="keyword">public void</span> welcomeMessageDisplayed(String message) {
+        Assert.assertEquals(message, loginPage.getWelcomeMessage());
+    }
+
+    @Then(<span class="string">"an error message {string} should be displayed"</span>)
+    <span class="keyword">public void</span> errorMessageDisplayed(String expectedError) {
+        Assert.assertTrue(loginPage.getErrorMessage().contains(expectedError));
+    }
+
+    @Then(<span class="string">"error messages should be displayed for required fields"</span>)
+    <span class="keyword">public void</span> validationErrorsDisplayed() {
+        Assert.assertTrue(loginPage.hasValidationErrors());
+    }
+
+    @Then(<span class="string">"the user should remain on the login page"</span>)
+    <span class="keyword">public void</span> userRemainsOnLoginPage() {
+        Assert.assertTrue(driver.getCurrentUrl().contains(<span class="string">"login"</span>));
+    }
+}
+                </div>
+
+                <h3 id="parameter-types">Using Parameter Types</h3>
+
+                <p>Cucumber supports converting captured groups in step definitions to specific types using ParameterTypes.</p>
+
+                <div class="code-block">
+<span class="keyword">import</span> io.cucumber.java.ParameterType;
+<span class="keyword">import</span> java.time.LocalDate;
+<span class="keyword">import</span> java.time.format.DateTimeFormatter;
+
+<span class="keyword">public class</span> CustomParameterTypes {
+
+    <span class="comment">// Custom parameter type for dates</span>
+    @ParameterType(<span class="string">"\\d{2}/\\d{2}/\\d{4}"</span>)
+    <span class="keyword">public</span> LocalDate date(<span class="keyword">final</span> String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(<span class="string">"dd/MM/yyyy"</span>);
+        <span class="keyword">return</span> LocalDate.parse(dateString, formatter);
+    }
+
+    <span class="comment">// Custom parameter type for prices</span>
+    @ParameterType(<span class="string">"\\$\\d+"</span>)
+    <span class="keyword">public</span> Double price(<span class="keyword">final</span> String priceString) {
+        <span class="keyword">return</span> Double.parseDouble(priceString.replace(<span class="string">"$"</span>, <span class="string">""</span>));
+    }
+}
+
+<span class="comment">// Now use in step definitions:</span>
+@Given(<span class="string">"the subscription starts on {date}"</span>)
+<span class="keyword">public void</span> subscriptionStartsOn(LocalDate startDate) {
+    subscription.setStartDate(startDate);
+}
+
+@When(<span class="string">"the user selects the plan costing {price}"</span>)
+<span class="keyword">public void</span> userSelectsPlan(Double price) {
+    pricingPage.selectPlanWithPrice(price);
+}
+                </div>
+
+                <h2 id="data-tables">Data Tables in Gherkin</h2>
+
+                <p>Data tables allow you to pass tabular data directly to step definitions, making scenarios more readable and enabling efficient data-driven testing.</p>
+
+                <h3 id="table-basics">Basic Data Tables</h3>
+
+                <div class="gherkin-block">
+<span class="keyword">Scenario</span>: Verify user profile fields
+  Given the user profile page is displayed
+  Then the following user information should be correct:
+    | Field       | Value                |
+    |-------------|----------------------|
+    | Name        | John Doe             |
+    | Email       | john@example.com    |
+    | Phone       | +1-555-0123         |
+    | Country     | Ghana                |
+                </div>
+
+                <div class="code-block">
+<span class="keyword">import</span> io.cucumber.datatable.DataTable;
+<span class="keyword">import</span> java.util.List;
+<span class="keyword">import</span> java.util.Map;
+
+<span class="comment">// DataTable as List of Maps</span>
+@Then(<span class="string">"the following user information should be correct:"</span>)
+<span class="keyword">public void</span> verifyUserInformation(DataTable dataTable) {
+    List&lt;Map&lt;String, String&gt;&gt; rows = dataTable.asMaps();
+    
+    <span class="keyword">for</span> (Map&lt;String, String&gt; row : rows) {
+        String field = row.get(<span class="string">"Field"</span>);
+        String expectedValue = row.get(<span class="string">"Value"</span>);
+        
+        <span class="keyword">switch</span> (field) {
+            <span class="keyword">case</span> <span class="string">"Name"</span>:
+                Assert.assertEquals(expectedValue, profilePage.getName());
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">"Email"</span>:
+                Assert.assertEquals(expectedValue, profilePage.getEmail());
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">"Phone"</span>:
+                Assert.assertEquals(expectedValue, profilePage.getPhone());
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">"Country"</span>:
+                Assert.assertEquals(expectedValue, profilePage.getCountry());
+                <span class="keyword">break</span>;
+        }
+    }
+}
+                </div>
+
+                <h3 id="table-transformation">Data Table Transformation</h3>
+
+                <div class="gherkin-block">
+<span class="keyword">Scenario</span>: Add multiple products to cart
+  Given the following products are available:
+    | Product     | Price  | Quantity |
+    |------------|--------|----------|
+    | Laptop     | 999    | 1        |
+    | Mouse      | 29     | 2        |
+    | Keyboard   | 79     | 1        |
+  When the user adds all products to cart
+  Then the cart should contain 4 items
+  And the total should be $1136
+                </div>
+
+                <div class="code-block">
+<span class="comment">// Transform DataTable directly to List of objects</span>
+<span class="keyword">import</span> io.cucumber.java.DataTableType;
+
+<span class="keyword">public class</span> Product {
+    <span class="keyword">private</span> String name;
+    <span class="keyword">private</span> Double price;
+    <span class="keyword">private</span> Integer quantity;
+    
+    <span class="comment">// Getters and setters</span>
+    <span class="keyword">public</span> String getName() { <span class="keyword">return</span> name; }
+    <span class="keyword">public</span> Double getPrice() { <span class="keyword">return</span> price; }
+    <span class="keyword">public</span> Integer getQuantity() { <span class="keyword">return</span> quantity; }
+    
+    <span class="comment">// DataTable Type entry point</span>
+    @DataTableType
+    <span class="keyword">public</span> Product productEntry(Map&lt;String, String&gt; entry) {
+        Product product = <span class="keyword">new</span> Product();
+        product.name = entry.get(<span class="string">"Product"</span>);
+        product.price = Double.parseDouble(entry.get(<span class="string">"Price"</span>));
+        product.quantity = Integer.parseInt(entry.get(<span class="string">"Quantity"</span>));
+        <span class="keyword">return</span> product;
+    }
+}
+
+<span class="comment">// Use the transformed list directly</span>
+@Given(<span class="string">"the following products are available:"</span>)
+<span class="keyword">public void</span> productsAvailable(List&lt;Product&gt; products) {
+    <span class="keyword">for</span> (Product product : products) {
+        inventoryPage.addProduct(product.getName(), product.getPrice());
+    }
+}
+                </div>
+
+                <h2 id="scenario-outlines">Scenario Outlines</h2>
+
+                <p>Scenario outlines allow you to run the same scenario with different data sets, similar to data-driven testing in traditional frameworks.</p>
+
+                <div class="gherkin-block">
+<span class="keyword">Feature</span>: Currency Conversion
+
+  <span class="keyword">Scenario Outline</span>: Convert currency amounts
+    Given the currency converter is open
+    When the user converts <span class="step"><amount> <from_currency></span> to <span class="step"><to_currency></span>
+    Then the result should display the correct converted amount
+    
+    Examples:
+      | amount | from_currency | to_currency | expected |
+      | 100   | USD          | EUR         | 92       |
+      | 50    | USD          | GBP          | 39       |
+      | 200   | EUR          | USD         | 217      |
+      | 1000  | GBP          | USD         | 1282     |
+                </div>
+
+                <h2 id="hooks">Cucumber Hooks</h2>
+
+                <p>Hooks allow you to execute code before and after scenarios, providing setup and teardown functionality.</p>
+
+                <h3 id="hook-types">Types of Hooks</h3>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Hook</th>
+                            <th>When it runs</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>@Before</strong></td>
+                            <td>Before each scenario</td>
+                            <td>Setup test data, navigate to pages</td>
+                        </tr>
+                        <tr>
+                            <td><strong>@After</strong></td>
+                            <td>After each scenario</td>
+                            <td>Cleanup, screenshot on failure</td>
+                        </tr>
+                        <tr>
+                            <td><strong>@BeforeStep</strong></td>
+                            <td>Before each step</td>
+                            <td>Logging, test data setup per step</td>
+                        </tr>
+                        <tr>
+                            <td><strong>@AfterStep</strong></td>
+                            <td>After each step</td>
+                            <td>Capture screenshots per step</td>
+                        </tr>
+                        <tr>
+                            <td><strong>@BeforeAll</strong></td>
+                            <td>Before all scenarios</td>
+                            <td>Database connection, load config</td>
+                        </tr>
+                        <tr>
+                            <td><strong>@AfterAll</strong></td>
+                            <td>After all scenarios</td>
+                            <td>Close connections, generate reports</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="code-block">
+<span class="keyword">import</span> io.cucumber.java.Before;
+<span class="keyword">import</span> io.cucumber.java.After;
+<span class="keyword">import</span> io.cucumber.java.AfterStep;
+<span class="keyword">import</span> io.cucumber.java.Scenario;
+<span class="keyword">import</span> org.openqa.selenium.OutputType;
+<span class="keyword">import</span> org.openqa.selenium.TakesScreenshot;
+
+<span class="keyword">public class</span> Hooks {
+    
+    <span class="keyword">private static</span> WebDriver driver;
+    
+    <span class="keyword">public</span> Hooks(WebDriver driver) {
+        <span class="keyword">this</span>.driver = driver;
+    }
+
+    @Before
+    <span class="keyword">public void</span> setup(Scenario scenario) {
+        System.out.println(<span class="string">"Starting scenario: "</span> + scenario.getName());
+    }
+
+    @After
+    <span class="keyword">public void</span> teardown(Scenario scenario) {
+        <span class="keyword">if</span> (scenario.isFailed()) {
+            <span class="comment">// Capture screenshot on failure</span>
+            byte[] screenshot = ((TakesScreenshot) driver)
+                .getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, <span class="string">"image/png"</span>, <span class="string">"failure-screenshot"</span>);
+        }
+        System.out.println(<span class="string">"Finished scenario: "</span> + scenario.getName());
+    }
+
+    @AfterStep
+    <span class="keyword">public void</span> afterStep(Scenario scenario) {
+        <span class="comment">// Add screenshot after every step (for debugging)</span>
+        <span class="keyword">if</span> (scenario.isFailed()) {
+            byte[] screenshot = ((TakesScreenshot) driver)
+                .getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, <span class="string">"image/png"</span>, 
+                <span class="string">"Step failure screenshot"</span>);
+        }
+    }
+
+    @Before(<span class="string">"@ui-test"</span>)
+    <span class="keyword">public void</span> setupUITest() {
+        driver.manage().window().maximize();
+    }
+
+    @After(<span class="string">"@ui-test"</span>)
+    <span class="keyword">public void</span> cleanupUITest() {
+        driver.manage().deleteAllCookies();
+    }
+}
+                </div>
+
+                <h2 id="tags">Organizing with Tags</h2>
+
+                <p>Tags allow you to organize scenarios and features, enabling selective execution based on criteria like test type, priority, or feature area.</p>
+
+                <div class="gherkin-block">
+<span class="keyword">@smoke-test</span>
+<span class="keyword">Feature</span>: User Authentication
+
+  <span class="keyword">@critical</span>
+  <span class="keyword">Scenario</span>: Login with correct credentials
+    Given the user is on the login page
+    When the user enters valid credentials
+    Then the user should be logged in successfully
+
+  <span class="keyword">@regression</span>
+  <span class="keyword">Scenario</span>: Password reset flow
+    Given the user clicks on forgot password
+    When the user enters their email
+    Then a reset link should be sent
+                </div>
+
+                <div class="code-block">
+<span class="comment">// Run specific tags from command line</span>
+mvn test -Dcucumber.filter.tags=<span class="string">"@smoke-test"</span>
+mvn test -Dcucumber.filter.tags=<span class="string">"@critical and @regression"</span>
+mvn test -Dcucumber.filter.tags=<span class="string">"@ui-test and not @skip"</span>
+
+<span class="comment">// In TestNG runner</span>
+@CucumberOptions(
+    features = <span class="string">"src/test/resources/features"</span>,
+    glue = {<span class="string">"com.qa.stepdefinitions"</span>},
+    tags = <span class="string">"@smoke-test"</span>,
+    plugin = {<span class="string">"pretty"</span>, <span class="string">"html:target/cucumber-report.html"</span>}
+)
+<span class="keyword">public class</span> TestRunner {}
+                </div>
+
+                <h2 id="dependency-injection">Dependency Injection</h2>
+
+                <p>Cucumber supports dependency injection to share state between step definition classes and manage object creation.</p>
+
+                <div class="code-block">
+<span class="comment">// Using Picocontainer (default)</span>
+<span class="keyword">public class</span> Context {
+    <span class="keyword">public</span> WebDriver driver;
+    <span class="keyword">public</span> User currentUser;
+    <span class="keyword">public</span> String currentUrl;
+}
+
+<span class="keyword">public class</span> LoginSteps {
+    <span class="keyword">private final</span> Context context;
+    
+    <span class="keyword">public</span> LoginSteps(Context context) {
+        <span class="keyword">this</span>.context = context;
+    }
+
+    @Given(<span class="string">"the user logs in with valid credentials"</span>)
+    <span class="keyword">public void</span> userLogsIn() {
+        context.driver.get(<span class="string">"https://example.com/login"</span>);
+        context.driver.findElement(By.name(<span class="string">"username"</span>)).sendKeys(<span class="string">"test"</span>);
+        context.currentUser = <span class="keyword">new</span> User(<span class="string">"test"</span>);
+    }
+}
+
+<span class="keyword">public class</span> DashboardSteps {
+    <span class="keyword">private final</span> Context context;
+    
+    <span class="keyword">public</span> DashboardSteps(Context context) {
+        <span class="keyword">this</span>.context = context;
+    }
+
+    @Then(<span class="string">"the welcome message should show the username"</span>)
+    <span class="keyword">public void</span> verifyWelcomeMessage() {
+        String message = context.driver.findElement(By.className(<span class="string">"welcome"</span>)).getText();
+        Assert.assertTrue(message.contains(context.currentUser.getUsername()));
+    }
+}
+                </div>
+
+                <h2 id="best-practices">Best Practices</h2>
+
+                <div class="key-points">
+                    <h3>Key Takeaways</h3>
+                    <ul>
+                        <li><strong>Write Imperative, Not Declarative</strong> - Start with detailed steps, then refactor to reusable ones</li>
+                        <li><strong>One Assertion Per Scenario</strong> - Each scenario should verify one behavior</li>
+                        <li><strong>Use Descriptive Names</strong> - Scenario names should describe what's being tested</li>
+                        <li><strong>Keep Steps Atomic</strong> - Each step should be independent and reusable</li>
+                        <li><strong>Use Background Wisely</strong> - Only for truly common preconditions</li>
+                        <li><strong>Tag Strategically</strong> - Organize by feature, priority, and test type</li>
+                        <li><strong>Business Language</strong> - Write Gherkin that business stakeholders can understand</li>
+                        <li><strong>Hooks for Infrastructure</strong> - Keep hooks minimal; use step definitions for test logic</li>
+                    </ul>
+                </div>
+
+                <h2 id="next-steps">Next Steps</h2>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <div class="feature-title">Selenium WebDriver</div>
+                        <div class="feature-desc">Master browser automation as the foundation for Cucumber tests</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-title">CI/CD Integration</div>
+                        <div class="feature-desc">Run Cucumber tests in your CI/CD pipeline</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🐞</div>
+                        <div class="feature-title">API Testing</div>
+                        <div class="feature-desc">Combine API and UI testing in your BDD framework</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="tutorials.html" class="quiz-btn">
+                        <span>📝</span> Take the Cucumber Quiz
+                    </a>
+                </div>
+
             </div>
         </div>
-    </section>
+    </main>
 
     <footer class="footer">
         <div class="container">
@@ -87,7 +701,6 @@
         </div>
     </footer>
 
-    <!-- Modal -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-container modal-info" id="modalContainer">
             <div class="modal-header">

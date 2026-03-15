@@ -7,14 +7,43 @@
     <title>Selenide Fundamentals | QA Academy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        .coming-soon-container { max-width: 800px; margin: 0 auto; text-align: center; padding: 4rem 2rem; }
-        .coming-soon-icon { font-size: 6rem; margin-bottom: 2rem; }
-        .coming-soon-container h1 { margin-bottom: 1rem; }
-        .coming-soon-container p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem; }
-        .timeline-badge { display: inline-block; background: #6366f1; color: white; padding: 0.5rem 1rem; border-radius: 50px; font-weight: 600; margin-top: 1rem; }
+        .tutorial-content { max-width: 900px; margin: 0 auto; }
+        .tutorial-content h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content h2 { font-size: 1.875rem; font-weight: 700; margin-top: var(--space-2xl); margin-bottom: var(--space-lg); color: var(--text-primary); border-bottom: 3px solid #9333ea; padding-bottom: var(--space-sm); display: inline-block; }
+        .tutorial-content h3 { font-size: 1.375rem; font-weight: 600; margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content p { font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+        .tutorial-content ul, .tutorial-content ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: var(--space-lg); padding-left: var(--space-xl); }
+        .tutorial-content li { margin-bottom: var(--space-sm); color: var(--text-secondary); }
+        .tutorial-content strong { color: var(--text-primary); font-weight: 600; }
+        .tutorial-meta { display: flex; gap: var(--space-lg); flex-wrap: wrap; margin-bottom: var(--space-xl); padding: var(--space-md) var(--space-lg); background: var(--bg-secondary); border-radius: var(--radius-lg); }
+        .tutorial-meta-item { display: flex; align-items: center; gap: var(--space-sm); font-size: 1rem; color: var(--text-secondary); }
+        .concept-card { background: var(--bg-primary); border-radius: 12px; padding: 2rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--gray-200); }
+        .concept-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .key-points { background: linear-gradient(135deg, #9333ea 0%, #7c3aed 100%); color: white; padding: var(--space-xl); border-radius: var(--radius-xl); margin: var(--space-xl) 0; }
+        .key-points h3 { color: white; margin-bottom: var(--space-md); }
+        .key-points ul { margin-bottom: 0; }
+        .key-points li { color: white; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .feature-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--gray-200); }
+        .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .feature-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .feature-desc { font-size: 0.9rem; color: var(--text-secondary); }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 1rem; }
+        .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--gray-200); }
+        .comparison-table th { background: var(--bg-secondary); font-weight: 600; color: var(--text-primary); }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1.5rem; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95rem; overflow-x: auto; margin: 1.5rem 0; line-height: 1.6; }
+        .code-block .comment { color: #64748b; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #34d399; }
+        .code-block .method { color: #60a5fa; }
+        .code-block .function { color: #fbbf24; }
+        .quiz-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #9333ea 0%, #7c3aed 100%); color: white; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+        .quiz-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(147, 51, 234, 0.4); }
+        .info-box { background: #f3e8ff; border-left: 4px solid #9333ea; padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .info-box p { margin: 0; color: #6b21a8; font-size: 1rem; }
     </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
@@ -24,30 +53,471 @@
             <nav class="nav">
                 <a href="index.html" class="nav-brand">
                     <img src="assets/images/profile.jpg" alt="Philip Odzor">
-                    <span class="nav-brand-text">QA Academy</span>
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
                 </a>
-                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-                    <span></span><span></span><span></span>
-                </button>
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="tutorials.html">Tutorials</a></li>
-                    <li><a href="resources.html">Resources</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
             </nav>
         </div>
     </header>
 
-    <main>
-        <div class="coming-soon-container">
-            <div class="coming-soon-icon">💎</div>
+    <section class="page-header">
+        <div class="container">
             <h1>Selenide Fundamentals</h1>
-            <p>Elegant Selenium wrapper for concise and reliable browser automation in Java</p>
-            <div class="timeline-badge">Coming Soon - Q2 2026</div>
-            <div style="margin-top: 3rem;">
-                <a href="tutorials.html" class="btn btn-primary">Browse All Tutorials</a>
+            <p>Elegant Selenium Wrapper for Concise & Reliable Browser Automation</p>
+        </div>
+    </section>
+
+    <main class="section">
+        <div class="container">
+            <div class="tutorial-content">
+                
+                <div class="tutorial-meta">
+                    <div class="tutorial-meta-item">
+                        <span>⏱️</span>
+                        <span>Reading Time: 35 min</span>
+                    </div>
+                    <div class="tutorial-meta-item">
+                        <span>📊</span>
+                        <span>Difficulty: Intermediate</span>
+                    </div>
+                    <div class="tutorial-meta-item">
+                        <span>🔧</span>
+                        <span>Language: Java</span>
+                    </div>
+                    <div class="tutorial-meta-item">
+                        <span>📅</span>
+                        <span>Updated: March 2026</span>
+                    </div>
+                </div>
+
+                <p>Selenide is a powerful wrapper around Selenium WebDriver that simplifies browser automation in Java. Built to address common pain points in Selenium testing, Selenide provides a more intuitive API, automatic waiting, and built-in support for common testing scenarios. If you've struggled with flaky tests, complex waits, or verbose code in Selenium, Selenide offers an elegant solution.</p>
+
+                <h2 id="what-is-selenide">What is Selenide?</h2>
+                
+                <p>Selenide is an open-source framework that wraps Selenium WebDriver to provide a cleaner, more reliable API for writing browser automation tests in Java. Created by Andrei Solntsev in 2011, Selenide has gained significant popularity in the Java testing community, particularly in Eastern Europe and Russia.</p>
+
+                <div class="concept-card">
+                    <h3 class="feature-icon">💎</h3>
+                    <h3 class="feature-title">Why Choose Selenide?</h3>
+                    <p class="feature-desc">Selenide solves the most common Selenium headaches: flaky waits, stale element references, and verbose code. It uses a fluent API design that makes your tests readable and maintainable.</p>
+                </div>
+
+                <h2 id="key-features">Key Features</h2>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⏰</div>
+                        <div class="feature-title">Automatic Waiting</div>
+                        <div class="feature-desc">Selenide automatically waits for elements to appear, be clickable, or be visible. No more explicit waits or sleep statements.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <div class="feature-title">Fluent API</div>
+                        <div class="feature-desc">Concise, readable syntax that reads like natural language. Write less code with more clarity.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-title">Automatic Screenshots</div>
+                        <div class="feature-desc">Built-in support for capturing screenshots on test failures automatically.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🐛</div>
+                        <div class="feature-title">Clear Error Messages</div>
+                        <div class="feature-desc">Detailed error messages with screenshots included when tests fail, making debugging easier.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <div class="feature-title">jQuery Support</div>
+                        <div class="feature-desc">Use jQuery-like selectors for element location, familiar to web developers.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-title">Ajax Support</div>
+                        <div class="feature-desc">Built-in handling for dynamic web pages with Ajax calls and dynamic content loading.</div>
+                    </div>
+                </div>
+
+                <h2 id="selenium-vs-selenide">Selenide vs Selenium</h2>
+
+                <p>Understanding the differences between Selenide and raw Selenium helps you decide when to use each. Here's a detailed comparison:</p>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Selenium WebDriver</th>
+                            <th>Selenide</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Waiting</strong></td>
+                            <td>Manual explicit waits required</td>
+                            <td>Automatic waiting by default</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Element Lookup</strong></td>
+                            <td>Verbose findElement calls</td>
+                            <td>Fluent $() syntax</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stale Elements</strong></td>
+                            <td>Must handle manually</td>
+                            <td>Automatic retry</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Screenshots</strong></td>
+                            <td>Manual implementation</td>
+                            <td>Automatic on failure</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Configuration</strong></td>
+                            <td>Multiple setup steps</td>
+                            <td>Single line initialization</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Collections</strong></td>
+                            <td>WebElement List</td>
+                            <td>Filtered SelenideElements</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Language</strong></td>
+                            <td>Java, Python, C#, etc.</td>
+                            <td>Java only</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2 id="setup">Setting Up Selenide</h2>
+
+                <p>Getting started with Selenide is straightforward. You can add it to your project using either Maven or Gradle.</p>
+
+                <h3 id="maven-setup">Maven Dependency</h3>
+
+                <p>Add the following dependency to your pom.xml file:</p>
+
+<div class="code-block"><span class="comment"><!-- Selenide Core --></span>
+<span class="keyword">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span><span class="string">com.codeborne</span><span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span><span class="string">selenide</span><span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span><span class="string">7.0.0</span><span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;scope&gt;</span><span class="string">test</span><span class="tag">&lt;/scope&gt;</span>
+<span class="keyword">&lt;/dependency&gt;</span></div>
+
+                <h3 id="gradle-setup">Gradle Dependency</h3>
+
+<div class="code-block"><span class="comment">// Selenide</span>
+<span class="keyword">testImplementation</span> <span class="string">"com.codeborne:selenide:7.0.0"</span></div>
+
+                <h3 id="initialization">Initializing Selenide</h3>
+
+                <p>Unlike Selenium which requires extensive setup, Selenide initializes automatically. However, for customization, you can use the Configuration class:</p>
+
+<div class="code-block"><span class="keyword">import</span> <span class="string">com.codeborne.selenide.Configuration;</span>
+
+<span class="keyword">public class</span> <span class="function">BaseTest</span> {
+    <span class="keyword">static</span> {
+        <span class="comment">// Configure browser</span>
+        Configuration.<span class="method">browser</span> = <span class="string">"chrome"</span>;
+        
+        <span class="comment">// Base URL for all tests</span>
+        Configuration.<span class="method">baseUrl</span> = <span class="string">"https://demo.example.com"</span>;
+        
+        <span class="comment">// Timeout for element to appear</span>
+        Configuration.<span class="method">timeout</span> = <span class="string">3000</span>; <span class="comment">// 3 seconds</span>
+        
+        <span class="comment">// Hold browser open after tests</span>
+        Configuration.<span class="method">holdBrowserOpen</span> = <span class="keyword">false</span>;
+        
+        <span class="comment">// Base directory for downloads</span>
+        Configuration.<span class="method">downloadsFolder</span> = <span class="string">"build/downloads"</span>;
+    }
+}</div>
+
+                <h2 id="basic-operations">Basic Operations</h2>
+
+                <p>Selenide provides intuitive methods for common browser operations. The syntax is clean and readable.</p>
+
+                <h3 id="opening-pages">Opening Pages</h3>
+
+<div class="code-block"><span class="comment">// Open a URL</span>
+<span class="method">open</span>(<span class="string">"/login"</span>);
+
+<span class="comment">// Open with full URL</span>
+<span class="method">open</span>(<span class="string">"https://demo.example.com/login"</span>);
+
+<span class="comment">// Open with authentication</span>
+<span class="method">open</span>(<span class="string">"/admin"</span>, <span class="string">admin</span>, <span class="string">password123"</span>);</div>
+
+                <h3 id="finding-elements">Finding Elements</h3>
+
+<div class="code-block"><span class="comment">// Single element - most common selectors</span>
+<span class="method">$</span>(<span class="string">"#username"</span>).<span class="method">setValue</span>(<span class="string">"testuser"</span>);
+<span class="method">$</span>(<span class="string">"[name='email']"</span>).<span class="method">setValue</span>(<span class="string">"test@example.com"</span>);
+<span class="method">$</span>(<span class="string">".btn-primary"</span>).<span class="method">click</span>();
+
+<span class="comment">// Using text content</span>
+<span class="method">$</span>(<span class="string">"=Submit"</span>).<span class="method">click</span>();
+<span class="method">$</span>(<span class="string">"*=sign in"</span>).<span class="method">click</span>();
+
+<span class="comment">// Multiple elements</span>
+<span class="method">$$</span>(<span class="string">".menu-item"</span>).<span class="method">first</span>().<span class="method">click</span>();
+<span class="method">$$</span>(<span class="string">"table tr"</span>).<span class="method">get</span>(1).<span class="method">click</span>();
+
+<span class="comment">// Filter elements</span>
+<span class="method">$$</span>(<span class="string">".product"</span>).<span class="method">filter</span>(<span class="string">".in-stock"</span>).<span class="method">first</span>().<span class="method">click</span>();</div>
+
+                <h3 id="working-with-forms">Working with Forms</h3>
+
+<div class="code-block"><span class="comment">// Text input fields</span>
+<span class="method">$</span>(<span class="string">"#username"</span>).<span class="method">setValue</span>(<span class="string">"johndoe"</span>);
+<span class="method">$</span>(<span class="string">"#username"</span>).<span class="method">append</span>(<span class="string">"123"</span>); <span class="comment">// Append text</span>
+<span class="method">$</span>(<span class="string">"#search"</span>).<span class="method">pressEnter</span>();
+
+<span class="comment">// Clear field</span>
+<span class="method">$</span>(<span class="string">"#username"</span>).<span class="method">clear</span>();
+
+<span class="comment">// Dropdown (select)</span>
+<span class="method">$</span>(<span class="string">"#country"</span>).<span class="method">selectOption</span>(<span class="string">"United States"</span>);
+<span class="method">$</span>(<span class="string">"#country"</span>).<span class="method">selectOptionByValue</span>(<span class="string">"US"</span>);
+<span class="method">$</span>(<span class="string">"#country"</span>).<span class="method">selectOptionByIndex</span>(1);
+
+<span class="comment">// Checkbox</span>
+<span class="method">$</span>(<span class="string">"#agree"</span>).<span class="method">click</span>();
+<span class="method">$</span>(<span class="string">"#remember"</span>).<span class="method">setSelected</span>(<span class="keyword">true</span>);
+
+<span class="comment">// Radio buttons</span>
+<span class="method">$</span>(<span class="string">"[name='payment']"</span>).<span class="method">selectRadio</span>(<span class="string">"credit_card"</span>);</div>
+
+                <h3 id="assertions">Assertions and Verification</h3>
+
+<div class="code-block"><span class="comment">// Text assertions</span>
+<span class="method">$</span>(<span class="string">".title"</span>).<span class="method">shouldHave</span>(<span class="method">text</span>(<span class="string">"Welcome, John!"</span>));
+<span class="method">$</span>(<span class="string">".title"</span>).<span class="method">shouldHave</span>(<span class="method">exactText</span>(<span class="string">"Welcome, John!"</span>));
+<span class="method">$</span>(<span class="string">".description"</span>).<span class="method">shouldHave</span>(<span class="method">textCaseSensitive</span>(<span class="string">"HELLO WORLD"</span>));
+
+<span class="comment">// Value assertions</span>
+<span class="method">$</span>(<span class="string">"#username"</span>).<span class="method">shouldHave</span>(<span class="method">value</span>(<span class="string">"johndoe"</span>));
+<span class="method">$</span>(<span class="string">"#email"</span>).<span class="method">shouldBe</span>(<span class="method">empty</span>());
+
+<span class="comment">// Visibility assertions</span>
+<span class="method">$</span>(<span class="string">".success-message"</span>).<span class="method">shouldBe</span>(<span class="method">visible</span>());
+<span class="method">$</span>(<span class="string">".error-message"</span>).<span class="method">shouldNotBe</span>(<span class="method">visible</span>());
+
+<span class="comment">// Enabled/disabled assertions</span>
+<span class="method">$</span>(<span class="string">"#submit-btn"</span>).<span class="method">shouldBe</span>(<span class="method">enabled</span>());
+<span class="method">$</span>(<span class="string">"#delete-btn"</span>).<span class="method">shouldBe</span>(<span class="method">disabled</span>());
+
+<span class="comment">// Attribute assertions</span>
+<span class="method">$</span>(<span class="string">"#avatar"</span>).<span class="method">shouldHave</span>(<span class="method">attr</span>(<span class="string">"alt"</span>, <span class="string">"User Avatar"</span>));
+<span class="method">$</span>(<span class="string">"#link"</span>).<span class="method">shouldHave</span>(<span class="method">href</span>(<span class="string">"https://example.com"</span>));</div>
+
+                <h2 id="waiting-strategies">Waiting Strategies</h2>
+
+                <p>One of Selenide's strongest features is its automatic waiting. Understanding how it works helps you write more reliable tests.</p>
+
+                <h3 id="default-waiting">Default Automatic Waiting</h3>
+
+                <p>Selenide automatically waits for conditions before performing actions. This eliminates the need for explicit waits:</p>
+
+<div class="code-block"><span class="comment">// No explicit wait needed - Selenide waits up to timeout</span>
+<span class="method">$</span>(<span class="string">"#submit"</span>).<span class="method">click</span>();
+
+<span class="comment">// Wait for element to appear</span>
+<span class="method">$</span>(<span class="string">".loading"</span>).<span class="method">shouldBe</span>(<span class="method">visible</span>);
+
+<span class="comment">// Wait for element to disappear</span>
+<span class="method">$</span>(<span class="string">".loading"</span>).<span class="method">shouldDisappear</span>();
+
+<span class="comment">// Wait for text to appear</span>
+<span class="method">$</span>(<span class="string">"#status"</span>).<span class="method">shouldHave</span>(<span class="method">text</span>(<span class="string">"Success"</span>));</div>
+
+                <h3 id="custom-waiting">Custom Waiting Conditions</h3>
+
+<div class="code-block"><span class="keyword">import</span> <span class="string">com.codeborne.selenide.Condition.*</span>;
+<span class="keyword">import</span> <span class="string">com.codeborne.selenide.ex.*</span>;
+
+<span class="comment">// Wait with custom timeout</span>
+<span class="method">$</span>(<span class="string">"#result"</span>).
+    <span class="method">should</span>(<span class="method">appear</span>, <span class="method">java.time.Duration.ofSeconds</span>(10));
+
+<span class="comment">// Wait for condition with custom message</span>
+<span class="method">$</span>(<span class="string">"#data"</span>).
+    <span class="method">shouldHave</span>(<span class="method">text</span>(<span class="string">"Loaded"</span>), <span class="method">Duration.ofSeconds</span>(15));
+
+<span class="comment">// Wait until condition is met</span>
+<span class="method">$</span>(<span class="string">"#counter"</span>).<span class="method">shouldHave</span>(<span class="method">text</span>(<span class="string">"10"</span>));</div>
+
+                <h2 id="page-objects">Page Objects with Selenide</h2>
+
+                <p>For maintainable test code, use the Page Object pattern with Selenide's elegant syntax:</p>
+
+<div class="code-block"><span class="keyword">import</span> <span class="string">com.codeborne.selenide.SelenideElement;</span>
+<span class="keyword">import static</span> <span class="string">com.codeborne.selenide.Selectors.*</span>;
+
+<span class="keyword">public class</span> <span class="function">LoginPage</span> {
+    
+    <span class="keyword">private final</span> SelenideElement usernameInput = <span class="method">$</span>(<span class="string">"#username"</span>);
+    <span class="keyword">private final</span> SelenideElement passwordInput = <span class="method">$</span>(<span class="string">"#password"</span>);
+    <span class="keyword">private final</span> SelenideElement loginButton = <span class="method">$</span>(<span class="string">"button[type='submit']"</span>);
+    <span class="keyword">private final</span> SelenideElement errorMessage = <span class="method">$</span>(<span class="string">".error-message"</span>);
+    <span class="keyword">private final</span> SelenideElement successMessage = <span class="method">$</span>(<span class="string">".success-message"</span>);
+    
+    <span class="keyword">public</span> <span class="function">LoginPage</span> <span class="method">open</span>() {
+        <span class="method">open</span>(<span class="string">"/login"</span>);
+        <span class="keyword">return this</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="function">LoginPage</span> <span class="method">enterUsername</span>(String username) {
+        usernameInput.<span class="method">setValue</span>(username);
+        <span class="keyword">return this</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="function">LoginPage</span> <span class="method">enterPassword</span>(String password) {
+        passwordInput.<span class="method">setValue</span>(password);
+        <span class="keyword">return this</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="function">DashboardPage</span> <span class="method">clickLogin</span>() {
+        loginButton.<span class="method">click</span>();
+        <span class="keyword">return new</span> <span class="function">DashboardPage</span>();
+    }
+    
+    <span class="keyword">public</span> <span class="function">LoginPage</span> <span class="method">login</span>(String username, String password) {
+        <span class="keyword">return</span> <span class="method">enterUsername</span>(username)
+            .<span class="method">enterPassword</span>(password)
+            .<span class="method">clickLogin</span>();
+    }
+    
+    <span class="keyword">public</span> String <span class="method">getErrorMessage</span>() {
+        <span class="keyword">return</span> errorMessage.<span class="method">text</span>();
+    }
+    
+    <span class="keyword">public</span> <span class="function">LoginPage</span> <span class="method">shouldShowError</span>(String expectedError) {
+        errorMessage.<span class="method">shouldBe</span>(<span class="method">visible</span>)
+            .<span class="method">shouldHave</span>(<span class="method">text</span>(expectedError));
+        <span class="keyword">return this</span>;
+    }
+}</div>
+
+                <h3 id="using-page-objects">Using the Page Object</h3>
+
+<div class="code-block"><span class="keyword">import</span> <span class="string">org.junit.jupiter.api.Test</span>;
+
+<span class="keyword">class</span> <span class="function">LoginTest</span> {
+    
+    <span class="tag">@Test</span>
+    <span class="keyword">void</span> <span class="function">successfulLogin</span>() {
+        <span class="keyword">new</span> <span class="function">LoginPage</span>()
+            .<span class="method">open</span>()
+            .<span class="method">login</span>(<span class="string">"admin"</span>, <span class="string">"password123"</span>);
+        
+        <span class="comment">// Verify redirect to dashboard</span>
+        <span class="method">$</span>(<span class="string">".dashboard"</span>).<span class="method">shouldBe</span>(<span class="method">visible</span>());
+    }
+    
+    <span class="tag">@Test</span>
+    <span class="keyword">void</span> <span class="function">invalidCredentials</span>() {
+        <span class="keyword">new</span> <span class="function">LoginPage</span>()
+            .<span class="method">open</span>()
+            .<span class="method">login</span>(<span class="string">"admin"</span>, <span class="string">"wrongpass"</span>)
+            .<span class="method">shouldShowError</span>(<span class="string">"Invalid credentials"</span>);
+    }
+}</div>
+
+                <h2 id="configuration">Advanced Configuration</h2>
+
+                <p>Selenide provides extensive configuration options for different testing scenarios:</p>
+
+<div class="code-block"><span class="comment">// Complete configuration example</span>
+Configuration.<span class="method">browserSize</span> = <span class="string">"1920x1080"</span>;
+Configuration.<span class="method">headless</span> = <span class="keyword">true</span>;
+Configuration.<span class="method">pageLoadStrategy</span> = <span class="string">"normal"</span>;
+Configuration.<span class="method">implicitWait</span> = <span class="string">5000</span>;
+Configuration.<span class="method">assertionTimeout</span> = <span class="string">5000</span>;
+Configuration.<span class="method">fastSetValue</span> = <span class="keyword">false</span>;
+Configuration.<span class="method">clickViaJs</span> = <span class="keyword">false</span>;
+Configuration.<span class="method">screenshots</span> = <span class="keyword">true</span>;
+Configuration.<span class="method">savePageSource</span> = <span class="keyword">false</span>;
+Configuration.<span class="method">reportsFolder</span> = <span class="string">"build/reports/tests"</span>;</div>
+
+                <h3 id="browser-options">Browser Options</h3>
+
+<div class="code-block"><span class="comment">// Chrome options example</span>
+Configuration.<span class="method">browserCapabilities</span> = <span class="keyword">new</span> <span class="function">ChromeOptions</span>()
+    .<span class="method">addArguments</span>(<span class="string">"--start-maximized"</span>)
+    .<span class="method">addArguments</span>(<span class="string">"--disable-infobars"</span>)
+    .<span class="method">addArguments</span>(<span class="string">"--disable-extensions"</span>)
+    .<span class="method">addArguments</span>(<span class="string">"--no-sandbox"</span>)
+    .<span class="method">setExperimentalOption</span>(<span class="string">"excludeSwitches"</span>, 
+        <span class="method">Arrays.asList</span>(<span class="string">"enable-automation"</span>));</div>
+
+                <h2 id="ajax-testing">Handling Ajax and Dynamic Content</h2>
+
+                <p>Selenide excels at handling Ajax-heavy applications where content loads dynamically:</p>
+
+<div class="code-block"><span class="comment">// Wait for Ajax requests to complete</span>
+<span class="method">$</span>(<span class="string">"#load-more"</span>).<span class="method">click</span>();
+
+<span class="comment">// Wait for element to appear after Ajax call</span>
+<span class="method">$</span>(<span class="string">"#results .item"</span>).<span class="method">shouldHave</span>(<span class="method">sizeGreaterThan</span>(0));
+
+<span class="comment">// Wait for specific text</span>
+<span class="method">$</span>(<span class="string">"#status"</span>).<span class="method">waitUntil</span>(<span class="method">text</span>(<span class="string">"Complete"</span>), 5000);
+
+<span class="comment">// Wait for element to disappear</span>
+<span class="method">$</span>(<span class="string">".spinner"</span>).<span class="method">waitUntil</span>(<span class="method">not</span>(<span class="method">visible</span>()), 3000);
+
+<span class="comment">// Polling interval for custom checks</span>
+<span class="method">$</span>(<span class="string">"#data"</span>).<span class="method">should</span>(<span class="method">until</span>(<span class="string">el -&gt;</span> 
+    el.<span class="method">getText</span>().<span class="method">contains</span>(<span class="string">"Ready"</span>));</div>
+
+                <h2 id="best-practices">Best Practices</h2>
+
+                <div class="concept-card">
+                    <h3 class="feature-icon">✅</h3>
+                    <h3 class="feature-title">Writing Maintainable Selenide Tests</h3>
+                    <p class="feature-desc">Follow these practices to create robust, maintainable test suites:</p>
+                    <ul>
+                        <li><strong>Use Page Objects</strong> - Encapsulate page logic in dedicated classes</li>
+                        <li><strong>Leverage Automatic Waiting</strong> - Trust Selenide's built-in waiting</li>
+                        <li><strong>Keep Selectors Stable</strong> - Use IDs and data-testid attributes</li>
+                        <li><strong>Chain Methods</strong> - Use fluent API for readable code</li>
+                        <li><strong>Handle Asynchrony</strong> - Use shouldHave, shouldBe for assertions</li>
+                        <li><strong>Organize Test Data</strong> - Separate test data from test logic</li>
+                    </ul>
+                </div>
+
+                <div class="key-points">
+                    <h3>Key Points</h3>
+                    <ul>
+                        <li>Selenide wraps Selenium WebDriver for simpler, more reliable browser automation</li>
+                        <li>Automatic waiting eliminates flaky tests caused by timing issues</li>
+                        <li>Fluent API makes test code readable and maintainable</li>
+                        <li>Built-in screenshots and detailed error messages aid debugging</li>
+                        <li>Page Object pattern integrates perfectly with Selenide's syntax</li>
+                        <li>Configuration is simple but extensible for complex scenarios</li>
+                    </ul>
+                </div>
+
+                <div style="text-align: center; margin: 3rem 0;">
+                    <a href="tutorials.html" class="quiz-btn">
+                        <span>📝</span> Take Selenide Quiz
+                    </a>
+                </div>
+
             </div>
         </div>
     </main>
@@ -70,29 +540,10 @@
                 <p>&copy; 2026 QA Academy. All rights reserved.</p>
             </div>
             <div style="text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                <p style="font-size: 0.85rem; opacity: 0.7;">🤖 AI-Powered Development<br>Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5</p>
+                <p style="font-size: 0.85rem; opacity: 0.7;">AI-Powered Development<br>Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5</p>
             </div>
         </div>
     </footer>
-
-    <!-- Modal -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-container modal-info" id="modalContainer">
-            <div class="modal-header">
-                <h3 id="modalTitle">Notification</h3>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p id="modalMessage">Message goes here</p>
-                <div class="modal-timer">
-                    <div class="modal-timer-bar" id="modalTimerBar"></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" onclick="closeModal()">Got it</button>
-            </div>
-        </div>
-    </div>
 
     <script src="js/main.js"></script>
 </body>

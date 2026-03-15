@@ -74,7 +74,7 @@ philiportfolio/
 ├── ai-test-design.html          # Test Design Agent
 ├── ai-bdd-writer.html           # BDD Writer Agent
 ├── ai-performance.html          # Performance Testing Agent
-├── tutorial-*.html              # 18+ tutorial pages
+├── tutorial-*.html              # 20 tutorial pages
 ├── netlify/
 │   └── functions/
 │       └── ai-agent.js          # AI agent backend function
@@ -102,6 +102,41 @@ Current main navigation (6 items):
 - AI Agents (`ai-agents.html`)
 - Resources (`resources.html`)
 - Contact (`contact.html`)
+
+---
+
+## Tutorial Status
+
+### Completed Tutorials (12)
+| Tutorial | File |
+|----------|------|
+| Playwright Introduction | tutorial-playwright-intro.html |
+| Cypress Basics | tutorial-cypress-intro.html |
+| GitHub Actions CI/CD | tutorial-githubactions-intro.html |
+| LoadMagic.AI Quickstart | tutorial-quickstart.html |
+| LoadMagic.AI Basics | tutorial-basics.html |
+| LoadMagic.AI Setup | tutorial-setup.html |
+| LoadMagic.AI Architecture | tutorial-architecture.html |
+| LoadMagic.AI CI/CD | tutorial-cicd.html |
+| LoadMagic.AI Scaling | tutorial-scaling.html |
+| LoadMagic.AI Enterprise | tutorial-enterprise.html |
+| AI Agents | tutorial-agents.html |
+| Correlation Engine | tutorial-correlation.html |
+
+### Still "Coming Soon" (8 tutorials)
+1. Locust Basics - tutorial-locust-basics.html
+2. Locust Advanced - tutorial-locust-advanced.html
+3. Locust CI/CD - tutorial-locust-ci-cd.html
+4. Cucumber BDD - tutorial-cucumber-intro.html
+5. Selenium WebDriver - tutorial-selenium-intro.html
+6. Selenide - tutorial-selenide-intro.html
+7. Agile & Scrum - tutorial-agile-scrum.html
+8. Product Management - tutorial-product-mgmt.html
+
+### Pending Tasks
+- Complete content for the 8 "Coming Soon" tutorials above
+- Update tutorials.html to remove "Coming Soon" badges once content is added
+- Deploy updated site to Netlify
 
 ---
 
@@ -148,6 +183,11 @@ Current main navigation (6 items):
 - Fixed theming (dark/light mode) on AI agent pages
 - Fixed Cloudflare AI Gateway endpoint configuration
 - Commented out Sign Language sections (focus on QA only)
+- Completed GitHub Actions CI/CD tutorial (was "Coming Soon")
+
+### In Progress (March 2026)
+- Locust tutorials (Basics, Advanced, CI/CD) - need content review
+- 5 additional tutorials need completion (Cucumber, Selenium, Selenide, Agile/Scrum, Product Mgmt)
 
 ### Known Issues
 - AI agents require `CLOUDFLARE_AI_TOKEN` environment variable to be set in Netlify

@@ -129,6 +129,7 @@
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="about.html" class="nav-link">About</a>
                     <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
                     <a href="resources.html" class="nav-link">Resources</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
@@ -429,6 +430,15 @@
                     </div>
                 </div>
                 
+                <!-- Quiz Section -->
+                <section class="quiz-section">
+                    <div class="container">
+                        <h2>Knowledge Check</h2>
+                        <p>Test your understanding of LoadMagic.AI system architecture</p>
+                        <div id="quiz-container" class="quiz-container"></div>
+                    </div>
+                </section>
+                
                 <!-- Next Steps -->
                 <h2>Next Steps</h2>
                 <p>Now that you understand the architecture, dive deeper into:</p>
@@ -494,5 +504,308 @@
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/quiz-engine.js"></script>
+    <script>
+        const architectureQuizData = {
+            title: "LoadMagic.AI Architecture Quiz",
+            description: "Test your understanding of system architecture components",
+            settings: {
+                questionsPerQuiz: 10,
+                timePerQuestion: 30,
+                showExplanations: true,
+                allowRetry: true
+            },
+            questions: [
+                {
+                    id: 1,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "What is the main purpose of the LoadMagic.AI API Gateway?",
+                    options: [
+                        {id: "a", text: "Data storage"},
+                        {id: "b", text: "Routes requests to appropriate services"},
+                        {id: "c", text: "Runs test scripts"},
+                        {id: "d", text: "Stores user credentials"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The API Gateway routes incoming requests to the appropriate microservices."
+                },
+                {
+                    id: 2,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "Which component is responsible for AI model inference in LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "API Gateway"},
+                        {id: "b", text: "Execution Engine"},
+                        {id: "c", text: "AI Service Layer"},
+                        {id: "d", text: "Data Store"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "The AI Service Layer handles all AI model inference and processing."
+                },
+                {
+                    id: 3,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "LoadMagic.AI uses a microservices architecture.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "LoadMagic.AI is built on a microservices architecture for scalability."
+                },
+                {
+                    id: 4,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What does the Execution Engine component do?",
+                    options: [
+                        {id: "a", text: "Stores test results"},
+                        {id: "b", text: "Orchestrates test execution and resource allocation"},
+                        {id: "c", text: "Authenticates users"},
+                        {id: "d", text: "Generates AI responses"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The Execution Engine orchestrates test execution and manages compute resources."
+                },
+                {
+                    id: 5,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "Which database is typically used for storing user data and projects?",
+                    options: [
+                        {id: "a", text: "Redis"},
+                        {id: "b", text: "MongoDB"},
+                        {id: "c", text: "Oracle"},
+                        {id: "d", text: "SQL Server"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "MongoDB is commonly used for flexible schema storage of user data and projects."
+                },
+                {
+                    id: 6,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "The AI Service Layer can only process text-based requests.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The AI Service Layer processes various inputs including code, logs, and configurations."
+                },
+                {
+                    id: 7,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is the purpose of vector databases in LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "User authentication"},
+                        {id: "b", text: "Storing embeddings for semantic search and context"},
+                        {id: "c", text: "Caching test results"},
+                        {id: "d", text: "Managing API keys"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Vector databases store embeddings for semantic search and AI context retrieval."
+                },
+                {
+                    id: 8,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is the role of the Storage Layer in LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "API authentication"},
+                        {id: "b", text: "Manages test results, logs, and large file storage"},
+                        {id: "c", text: "Runs AI models"},
+                        {id: "d", text: "Routes network traffic"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The Storage Layer manages test results, logs, HAR archives, and other large files."
+                },
+                {
+                    id: 9,
+                    type: "true-false",
+                    difficulty: "medium",
+                    question: "LoadMagic.AI can be deployed on-premise.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "LoadMagic.AI supports both cloud and on-premise deployment options."
+                },
+                {
+                    id: 10,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "How does LoadMagic.AI ensure scalability?",
+                    options: [
+                        {id: "a", text: "Single server deployment"},
+                        {id: "b", text: "Horizontal scaling through container orchestration"},
+                        {id: "c", text: "Manual server configuration"},
+                        {id: "d", text: "Fixed resource allocation"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Horizontal scaling with container orchestration allows dynamic resource allocation."
+                },
+                {
+                    id: 11,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is the purpose of message queues in the architecture?",
+                    options: [
+                        {id: "a", text: "Direct user requests"},
+                        {id: "b", text: "Async communication between microservices"},
+                        {id: "c", text: "Primary data storage"},
+                        {id: "d", text: "User interface rendering"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Message queues enable async communication and reliable service coordination."
+                },
+                {
+                    id: 12,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "The architecture supports both JMeter and Locust frameworks.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "LoadMagic.AI supports multiple testing frameworks including JMeter and Locust."
+                },
+                {
+                    id: 13,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What component handles OAuth and authentication flows?",
+                    options: [
+                        {id: "a", text: "Storage Layer"},
+                        {id: "b", text: "Auth Service"},
+                        {id: "c", text: "API Gateway"},
+                        {id: "d", text: "Execution Engine"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The Auth Service handles all authentication and authorization flows."
+                },
+                {
+                    id: 14,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the benefit of a microservices architecture?",
+                    options: [
+                        {id: "a", text: "Simpler deployment"},
+                        {id: "b", text: "Independent scaling and fault isolation"},
+                        {id: "c", text: "Lower initial cost"},
+                        {id: "d", text: "Easier coding"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Microservices allow independent scaling and prevent single points of failure."
+                },
+                {
+                    id: 15,
+                    type: "true-false",
+                    difficulty: "medium",
+                    question: "S3/GCS is used for storing test result files.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Object storage like S3/GCS handles large files including test results and HAR archives."
+                },
+                {
+                    id: 16,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is the purpose of the Notification Service?",
+                    options: [
+                        {id: "a", text: "Send test requests"},
+                        {id: "b", text: "Alert users about test completion and events"},
+                        {id: "c", text: "Store configuration"},
+                        {id: "d", text: "Manage user sessions"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The Notification Service sends alerts for test completion, failures, and other events."
+                },
+                {
+                    id: 17,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "LoadMagic.AI uses Kubernetes for container orchestration.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Kubernetes is commonly used for managing containerized microservices."
+                },
+                {
+                    id: 18,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is the role of API Gateway in security?",
+                    options: [
+                        {id: "a", text: "Data encryption only"},
+                        {id: "b", text: "Rate limiting, auth validation, and request validation"},
+                        {id: "c", text: "Database queries"},
+                        {id: "d", text: "Test script execution"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "API Gateway handles security features including rate limiting and authentication."
+                },
+                {
+                    id: 19,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "How are AI models served in LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "Embedded in the app"},
+                        {id: "b", text: "Through dedicated AI inference service"},
+                        {id: "c", text: "Via external API only"},
+                        {id: "d", text: "Not used in the architecture"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "AI models are served through a dedicated AI inference service layer."
+                },
+                {
+                    id: 20,
+                    type: "true-false",
+                    difficulty: "medium",
+                    question: "The architecture supports real-time test monitoring.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Real-time monitoring is supported through WebSocket connections and streaming updates."
+                }
+            ]
+        };
+
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (!container) {
+                console.error('Quiz container not found!');
+                return;
+            }
+            
+            try {
+                new QuizEngine('quiz-container', architectureQuizData);
+                console.log('Quiz initialized successfully');
+            } catch (error) {
+                console.error('Failed to initialize quiz:', error);
+                container.innerHTML = '<p class="text-center" style="color: red; padding: 2rem;">Quiz unavailable. Error: ' + error.message + '</p>';
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initQuiz);
+        } else {
+            initQuiz();
+        }
+    </script>
 </body>
 </html>

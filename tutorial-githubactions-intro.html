@@ -3,18 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="GitHub Actions Tutorial - Learn CI/CD">
-    <title>GitHub Actions Basics | QA Academy</title>
+    <meta name="description" content="GitHub Actions CI/CD Tutorial - Learn to automate your testing workflows">
+    <title>GitHub Actions CI/CD | QA Academy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        .coming-soon-container { max-width: 800px; margin: 0 auto; text-align: center; padding: 4rem 2rem; }
-        .coming-soon-icon { font-size: 6rem; margin-bottom: 2rem; }
-        .coming-soon-container h1 { margin-bottom: 1rem; }
-        .coming-soon-container p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem; }
-        .timeline-badge { display: inline-block; background: #1f2937; color: white; padding: 0.5rem 1rem; border-radius: 50px; font-weight: 600; margin-top: 1rem; }
+        .tutorial-content { max-width: 900px; margin: 0 auto; }
+        .tutorial-content h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content h2 { font-size: 1.875rem; font-weight: 700; margin-top: var(--space-2xl); margin-bottom: var(--space-lg); color: var(--text-primary); border-bottom: 3px solid var(--accent); padding-bottom: var(--space-sm); display: inline-block; }
+        .tutorial-content h3 { font-size: 1.375rem; font-weight: 600; margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content p { font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+        .tutorial-content ul, .tutorial-content ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: var(--space-lg); padding-left: var(--space-xl); }
+        .tutorial-content li { margin-bottom: var(--space-sm); color: var(--text-secondary); }
+        .tutorial-content strong { color: var(--text-primary); font-weight: 600; }
+        
+        .tutorial-meta { display: flex; gap: var(--space-lg); flex-wrap: wrap; margin-bottom: var(--space-xl); padding: var(--space-md) var(--space-lg); background: var(--bg-secondary); border-radius: var(--radius-lg); }
+        .tutorial-meta-item { display: flex; align-items: center; gap: var(--space-sm); font-size: 1rem; color: var(--text-secondary); }
+        
+        .concept-card { background: var(--bg-primary); border-radius: 12px; padding: 2rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--gray-200); }
+        .concept-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        
+        .key-points { background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%); color: var(--primary-dark); padding: var(--space-xl); border-radius: var(--radius-xl); margin: var(--space-xl) 0; }
+        .key-points h3 { color: var(--primary-dark); margin-bottom: var(--space-md); }
+        .key-points ul { margin-bottom: 0; }
+        .key-points li { color: var(--primary-dark); }
+        
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .feature-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--gray-200); }
+        .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .feature-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .feature-desc { font-size: 0.9rem; color: var(--text-secondary); }
+        
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 1rem; }
+        .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--gray-200); }
+        .comparison-table th { background: var(--bg-tertiary); font-weight: 600; color: var(--text-primary); }
+        .comparison-table tr:hover { background: var(--bg-secondary); }
+        
+        .code-block { background: #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto; }
+        .code-block code { font-family: 'Fira Code', monospace; font-size: 0.9rem; color: #e2e8f0; white-space: pre; }
+        .code-block .comment { color: #64748b; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #34d399; }
+        .code-block .number { color: #f472b6; }
+        
+        .next-steps { background: var(--bg-secondary); border-radius: var(--radius-xl); padding: var(--space-2xl); margin-top: var(--space-2xl); border: 1px solid var(--gray-200); }
+        .next-steps h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; }
+        .next-steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
+        .next-step-card { display: flex; align-items: center; justify-content: space-between; padding: var(--space-lg); background: var(--bg-primary); border-radius: var(--radius-lg); text-decoration: none; color: var(--text-primary); font-weight: 500; border: 1px solid var(--gray-200); transition: all var(--transition-fast); }
+        .next-step-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .next-step-card span { display: flex; align-items: center; gap: var(--space-sm); }
+        
+        .breadcrumb { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-lg); font-size: 0.9rem; }
+        .breadcrumb a { color: var(--accent); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { color: var(--text-muted); }
+        
+        .quiz-section { background: var(--bg-secondary); border-radius: var(--radius-xl); padding: var(--space-2xl); margin-top: var(--space-2xl); border: 2px solid var(--accent); }
+        .quiz-section h2 { margin-top: 0; border-bottom: none; }
+        .quiz-cta { display: inline-flex; align-items: center; gap: var(--space-sm); margin-top: var(--space-lg); padding: var(--space-md) var(--space-xl); background: var(--accent); color: white; font-weight: 600; border-radius: var(--radius-lg); text-decoration: none; transition: transform var(--transition-fast), box-shadow var(--transition-fast); }
+        .quiz-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
     </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
@@ -33,6 +82,7 @@
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="about.html" class="nav-link">About</a>
                     <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
                     <a href="resources.html" class="nav-link">Resources</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
@@ -45,18 +95,444 @@
     <section class="page-header">
         <div class="container">
             <h1>GitHub Actions</h1>
-            <p>Automate Your Testing Workflows</p>
+            <p>Master CI/CD with GitHub's Powerful Automation Platform</p>
         </div>
     </section>
 
     <section class="section">
-        <div class="coming-soon-container">
-            <div class="coming-soon-icon">🐙</div>
-            <h1>Coming Soon!</h1>
-            <p>I'm currently working on creating a comprehensive GitHub Actions tutorial course. This page will cover workflows, matrix testing, artifacts, and deployment automation.</p>
-            <div class="timeline-badge">Q3 2026</div>
-            <div style="margin-top: 2rem;">
-                <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
+        <div class="container">
+            <div class="tutorial-content">
+                <div class="breadcrumb">
+                    <a href="tutorials.html">Tutorials</a>
+                    <span>/</span>
+                    <span>GitHub Actions</span>
+                </div>
+
+                <div class="tutorial-meta">
+                    <div class="tutorial-meta-item">⏱️ 45 minutes</div>
+                    <div class="tutorial-meta-item">📚 Intermediate</div>
+                    <div class="tutorial-meta-item">🔄 Last updated: March 2026</div>
+                </div>
+
+                <h2>What is GitHub Actions?</h2>
+                <p>
+                    GitHub Actions is a powerful CI/CD (Continuous Integration/Continuous Deployment) platform that allows you to automate your software development workflows directly from your GitHub repository. It enables you to build, test, and deploy your code automatically whenever you push changes to your repository.
+                </p>
+
+                <div class="key-points">
+                    <h3>Why GitHub Actions for QA Engineers?</h3>
+                    <ul>
+                        <li><strong>Automated Testing:</strong> Run your test suites on every pull request</li>
+                        <li><strong>Matrix Testing:</strong> Test across multiple OS, browser, and Node versions simultaneously</li>
+                        <li><strong>Artifact Management:</strong> Store and share test reports and build outputs</li>
+                        <li><strong>Deployment Automation:</strong> Deploy to production automatically after tests pass</li>
+                        <li><strong>Free Tier:</strong> 2,000 minutes/month for public repositories</li>
+                    </ul>
+                </div>
+
+                <h2>Core Concepts</h2>
+                <p>Before diving into workflows, let's understand the fundamental building blocks of GitHub Actions:</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📋</div>
+                        <div class="feature-title">Workflows</div>
+                        <div class="feature-desc">Automated processes that run when triggered by events. A repository can have multiple workflows.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚙️</div>
+                        <div class="feature-title">Jobs</div>
+                        <div class="feature-desc">A set of steps that execute on the same runner. Jobs can run in parallel or sequentially.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <div class="feature-title">Steps</div>
+                        <div class="feature-desc">Individual tasks within a job. Can run commands or use actions.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔧</div>
+                        <div class="feature-title">Actions</div>
+                        <div class="feature-desc">Reusable units of code. You can create your own or use thousands of community actions.</div>
+                    </div>
+                </div>
+
+                <h2>Setting Up Your First Workflow</h2>
+                <p>
+                    Workflows are defined in YAML files stored in the <code>.github/workflows</code> directory of your repository. Let's create a basic workflow that runs tests on every push:
+                </p>
+
+                <div class="code-block">
+                    <code><span class="comment"># .github/workflows/test.yml</span>
+<span class="keyword">name</span>: Run Tests
+
+<span class="comment"># Trigger workflow on push to main and pull requests</span>
+<span class="keyword">on</span>:
+  <span class="keyword">push</span>:
+    branches: [ main ]
+  <span class="keyword">pull_request</span>:
+    branches: [ main ]
+
+<span class="keyword">jobs</span>:
+  <span class="comment"># Define a job called 'test'</span>
+  <span class="keyword">test</span>:
+    <span class="comment"># Specify the runner (virtual machine)</span>
+    <span class="keyword">runs-on</span>: ubuntu-latest
+    
+    <span class="comment"># Steps to execute</span>
+    <span class="keyword">steps</span>:
+      <span class="comment"># Checkout the code</span>
+      - <span class="keyword">uses</span>: actions/checkout@v4
+      
+      <span class="comment"># Set up Node.js</span>
+      - <span class="keyword">uses</span>: actions/setup-node@v4
+        <span class="keyword">with</span>:
+          <span class="keyword">node-version</span>: <span class="string">'20'</span>
+          <span class="keyword">cache</span>: <span class="string">'npm'</span>
+      
+      <span class="comment"># Install dependencies</span>
+      - <span class="keyword">name</span>: Install Dependencies
+        <span class="keyword">run</span>: npm ci
+      
+      <span class="comment"># Run tests</span>
+      - <span class="keyword">name</span>: Run Tests
+        <span class="keyword">run</span>: npm test</code>
+                </div>
+
+                <h2>Running Multiple Test Frameworks</h2>
+                <p>
+                    For QA engineers, you'll often need to run different types of tests. Let's expand our workflow to run both unit tests and E2E tests:
+                </p>
+
+                <div class="code-block">
+                    <code><span class="keyword">name</span>: CI Pipeline
+
+<span class="keyword">on</span>: [ push, pull_request ]
+
+<span class="keyword">jobs</span>:
+  <span class="comment"># Job 1: Run unit tests</span>
+  <span class="keyword">unit-tests</span>:
+    <span class="keyword">runs-on</span>: ubuntu-latest
+    <span class="keyword">steps</span>:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: <span class="string">'20'</span>
+          cache: <span class="string">'npm'</span>
+      - run: npm ci
+      - run: npm run test:unit
+      - run: npm run test:coverage
+        <span class="keyword">with</span>:
+          <span class="keyword">token</span>: $<span class="keyword">{</span><span class="string">secrets.GITHUB_TOKEN</span><span class="keyword">}</span>
+
+  <span class="comment"># Job 2: Run E2E tests</span>
+  <span class="keyword">e2e-tests</span>:
+    <span class="keyword">runs-on</span>: ubuntu-latest
+    <span class="keyword">steps</span>:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: <span class="string">'20'</span>
+      - name: Start App
+        run: npm start &
+      - name: Wait for App
+        run: npx wait-on http://localhost:3000
+      - name: Run Cypress
+        uses: cypress-io/github-action@v5
+        with:
+          start: npm start
+          wait-on: http://localhost:3000</code>
+                </div>
+
+                <h2>Matrix Testing</h2>
+                <p>
+                    Matrix strategy allows you to run tests across multiple combinations of environments simultaneously. This is crucial for comprehensive test coverage:
+                </p>
+
+                <div class="code-block">
+                    <code><span class="keyword">jobs</span>:
+  <span class="keyword">test-matrix</span>:
+    <span class="keyword">runs-on</span>: $<span class="keyword">{</span><span class="string">matrix.os</span><span class="keyword">}</span>
+    <span class="keyword">strategy</span>:
+      <span class="keyword">fail-fast</span>: <span class="keyword">false</span>
+      <span class="keyword">matrix</span>:
+        <span class="keyword">os</span>: [ubuntu-latest, windows-latest, macos-latest]
+        <span class="keyword">node-version</span>: [18, 20, 22]
+        <span class="keyword">browser</span>: [chromium, firefox, webkit]
+    <span class="keyword">steps</span>:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: $<span class="keyword">{</span><span class="string">matrix.node-version</span><span class="keyword">}</span>
+      - run: npm ci
+      - name: Run Playwright Tests
+        uses: microsoft/playwright-github-action@v1
+        with:
+          <span class="keyword">install</span>: <span class="keyword">true</span>
+      - run: npx playwright test --project=$<span class="keyword">{</span><span class="string">matrix.browser</span><span class="keyword">}</span></code>
+                </div>
+
+                <h2>Using Artifacts</h2>
+                <p>
+                    Artifacts allow you to store test reports, screenshots, and other files generated during your workflow:
+                </p>
+
+                <div class="code-block">
+                    <code><span class="keyword">jobs</span>:
+  <span class="keyword">test</span>:
+    <span class="keyword">runs-on</span>: ubuntu-latest
+    <span class="keyword">steps</span>:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npm test
+      
+      <span class="comment"># Upload test reports</span>
+      - name: Upload Test Reports
+        <span class="keyword">uses</span>: actions/upload-artifact@v4
+        <span class="keyword">if</span>: always()
+        with:
+          <span class="keyword">name</span>: test-reports
+          <span class="keyword">path</span>: |
+            test-results/
+            coverage/
+          <span class="keyword">retention-days</span>: <span class="number">30</span>
+      
+      <span class="comment"># Upload screenshots on failure</span>
+      - name: Upload Screenshots
+        <span class="keyword">uses</span>: actions/upload-artifact@v4
+        <span class="keyword">if</span>: failure()
+        with:
+          <span class="keyword">name</span>: failure-screenshots
+          <span class="keyword">path</span>: cypress/screenshots/</code>
+                </div>
+
+                <h2>Secret Management</h2>
+                <p>
+                    Never hardcode sensitive information in your workflows. Use GitHub Secrets:
+                </p>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Secret Type</th>
+                            <th>Use Case</th>
+                            <th>How to Configure</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Repository Secrets</td>
+                            <td>API keys, tokens for a single repo</td>
+                            <td>Settings → Secrets → Actions</td>
+                        </tr>
+                        <tr>
+                            <td>Environment Secrets</td>
+                            <td>Different secrets per environment</td>
+                            <td>Settings → Environments → Add secrets</td>
+                        </tr>
+                        <tr>
+                            <td>Organization Secrets</td>
+                            <td>Shared secrets across repos</td>
+                            <td>Org Settings → Secrets → Actions</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="code-block">
+                    <code><span class="comment"># Using secrets in your workflow</span>
+<span class="keyword">steps</span>:
+  - name: Run Tests with API Key
+    <span class="keyword">env</span>:
+      API_KEY: $<span class="keyword">{</span><span class="string">secrets.API_KEY</span><span class="keyword">}</span>
+    <span class="keyword">run</span>: npm test -- --api-key=$API_KEY</code>
+                </div>
+
+                <h2>Deployment Automation</h2>
+                <p>
+                    Automate your deployment process with conditional workflows:
+                </p>
+
+                <div class="code-block">
+                    <code><span class="keyword">name</span>: Deploy
+
+<span class="keyword">on</span>:
+  <span class="keyword">push</span>:
+    branches: [ main ]
+
+<span class="keyword">jobs</span>:
+  <span class="comment"># Run tests first</span>
+  <span class="keyword">test</span>:
+    <span class="keyword">runs-on</span>: ubuntu-latest
+    <span class="keyword">steps</span>:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npm test
+
+  <span class="comment"># Deploy only if tests pass</span>
+  <span class="keyword">deploy</span>:
+    <span class="keyword">needs</span>: test
+    <span class="keyword">runs-on</span>: ubuntu-latest
+    <span class="keyword">if</span>: github.ref == 'refs/heads/main'
+    <span class="keyword">steps</span>:
+      - uses: actions/checkout@v4
+      
+      <span class="comment"># Deploy to staging</span>
+      - name: Deploy to Staging
+        <span class="keyword">run</span>: ./deploy.sh staging
+        <span class="keyword">env</span>:
+          DEPLOY_TOKEN: $<span class="keyword">{</span><span class="string">secrets.STAGING_TOKEN</span><span class="keyword">}</span></code>
+                </div>
+
+                <h2>Caching Dependencies</h2>
+                <p>
+                    Speed up your workflows by caching dependencies:
+                </p>
+
+                <div class="code-block">
+                    <code><span class="keyword">steps</span>:
+  <span class="comment"># npm cache</span>
+  - uses: actions/setup-node@v4
+    <span class="keyword">with</span>:
+      <span class="keyword">node-version</span>: <span class="string">'20'</span>
+      <span class="keyword">cache</span>: <span class="string">'npm'</span>
+
+  <span class="comment"># or pip cache</span>
+  - uses: actions/setup-python@v5
+    <span class="keyword">with</span>:
+      python-version: <span class="string">'3.11'</span>
+      <span class="keyword">cache</span>: <span class="string">'pip'</span>
+
+  <span class="comment"># or maven cache</span>
+  - uses: actions/setup-java@v4
+    <span class="keyword">with</span>:
+      distribution: <span class="string">'temurat'</span>
+      java-version: <span class="string">'17'</span>
+      <span class="keyword">cache</span>: <span class="string">'maven'</span></code>
+                </div>
+
+                <h2>GitHub Actions for QA Testing</h2>
+                <p>
+                    As a QA engineer, here are the most useful GitHub Actions for testing workflows:
+                </p>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Purpose</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>cypress-io/github-action</td>
+                            <td>Run Cypress tests</td>
+                            <td>E2E testing</td>
+                        </tr>
+                        <tr>
+                            <td>microsoft/playwright-github-action</td>
+                            <td>Run Playwright tests</td>
+                            <td>Cross-browser testing</td>
+                        </tr>
+                        <tr>
+                            <td>actions/setup-node</td>
+                            <td>Set up Node.js</td>
+                            <td>Any JS project</td>
+                        </tr>
+                        <tr>
+                            <td>browser-actions/setup-chrome</td>
+                            <td>Install Chrome</td>
+                            <td>Browser automation</td>
+                        </tr>
+                        <tr>
+                            <td>actions/upload-artifact</td>
+                            <td>Store test reports</td>
+                            <td>Share test results</td>
+                        </tr>
+                        <tr>
+                            <td>dorny/paths-filter</td>
+                            <td>Filter changed files</td>
+                            <td>Run specific tests</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Conditional Test Execution</h2>
+                <p>
+                    Run tests only when specific files change:
+                </p>
+
+                <div class="code-block">
+                    <code><span class="keyword">name</span>: Smart Tests
+
+<span class="keyword">on</span>: [push, pull_request]
+
+<span class="keyword">jobs</span>:
+  <span class="keyword">test</span>:
+    <span class="keyword">runs-on</span>: ubuntu-latest
+    <span class="keyword">steps</span>:
+      - uses: actions/checkout@v4
+      
+      <span class="comment"># Only run backend tests if backend code changed</span>
+      - <span class="keyword">name</span>: Backend Tests
+        <span class="keyword">if</span>: contains(github.event.inputs.changed-files, 'backend') || contains(github.event.inputs.changed-files, 'api')
+        <span class="keyword">run</span>: npm run test:api
+      
+      <span class="comment"># Only run frontend tests if frontend code changed</span>
+      - <span class="keyword">name</span>: Frontend Tests
+        <span class="keyword">if</span>: contains(github.event.inputs.changed-files, 'frontend')
+        <span class="keyword">run</span>: npm run test:e2e</code>
+                </div>
+
+                <div class="key-points">
+                    <h3>Best Practices for QA with GitHub Actions</h3>
+                    <ul>
+                        <li><strong>Fail Fast:</strong> Use `fail-fast: false` in matrix to see all failures</li>
+                        <li><strong>Parallel Execution:</strong> Split tests into jobs that can run in parallel</li>
+                        <li><strong>Artifacts:</strong> Always upload test reports for debugging</li>
+                        <li><strong>Caching:</strong> Cache dependencies to speed up workflows</li>
+                        <li><strong>Notifications:</strong> Set up Slack/Discord notifications for failures</li>
+                        <li><strong>Security:</strong> Never expose secrets in logs or test output</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-section">
+                    <h2>Test Your Knowledge</h2>
+                    <p>Ready to test what you've learned? Take the GitHub Actions quiz to reinforce your understanding of CI/CD workflows.</p>
+                    <a href="tutorial-githubactions-intro.html#quiz" class="quiz-cta">
+                        Take Quiz →
+                    </a>
+                </div>
+
+                <div class="next-steps">
+                    <h2>Continue Learning</h2>
+                    <div class="next-steps-grid">
+                        <a href="tutorial-cicd.html" class="next-step-card">
+                            <span>📚 CI/CD Concepts</span>
+                            →
+                        </a>
+                        <a href="tutorial-playwright-intro.html" class="next-step-card">
+                            <span>🎭 Playwright Testing</span>
+                            →
+                        </a>
+                        <a href="tutorial-cypress-intro.html" class="next-step-card">
+                            <span>🧪 Cypress Testing</span>
+                            →
+                        </a>
+                        <a href="tutorials.html" class="next-step-card">
+                            <span>📋 All Tutorials</span>
+                            →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="quiz">
+        <div class="container">
+            <div class="tutorial-content">
+                <h2>GitHub Actions Quiz</h2>
+                <div id="quiz-container" class="quiz-container"></div>
             </div>
         </div>
     </section>
@@ -87,7 +563,6 @@
         </div>
     </footer>
 
-    <!-- Modal -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-container modal-info" id="modalContainer">
             <div class="modal-header">
@@ -107,5 +582,305 @@
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/quiz-engine.js"></script>
+    <script>
+        const githubActionsQuizData = {
+            tutorialTitle: "GitHub Actions",
+            questions: [
+                {
+                    id: 1,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "What is the file extension for GitHub Actions workflow files?",
+                    options: [
+                        {id: "a", text: ".yml"},
+                        {id: "b", text: ".yaml"},
+                        {id: "c", text: "Both .yml and .yaml are valid"},
+                        {id: "d", text: ".json"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "GitHub Actions accepts both .yml and .yaml file extensions for workflow files."
+                },
+                {
+                    id: 2,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "Where should workflow files be stored in a GitHub repository?",
+                    options: [
+                        {id: "a", text: "/workflows/"},
+                        {id: "b", text: "/.github/workflows/"},
+                        {id: "c", text: "/actions/"},
+                        {id: "d", text: "/ci/"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Workflow files must be stored in the .github/workflows/ directory at the root of your repository."
+                },
+                {
+                    id: 3,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "Jobs in a GitHub Actions workflow can run in parallel by default.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "By default, jobs in a workflow run in parallel on separate runners. You can use 'needs' to create dependencies between jobs."
+                },
+                {
+                    id: 4,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the purpose of the 'needs' keyword in GitHub Actions?",
+                    options: [
+                        {id: "a", text: "To specify job dependencies"},
+                        {id: "b", text: "To require secrets"},
+                        {id: "c", text: "To set environment variables"},
+                        {id: "d", text: "To trigger other workflows"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "The 'needs' keyword specifies that a job depends on another job completing first, ensuring proper execution order."
+                },
+                {
+                    id: 5,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "Which GitHub Actions feature allows testing across multiple environment combinations?",
+                    options: [
+                        {id: "a", text: "Artifacts"},
+                        {id: "b", text: "Matrix strategy"},
+                        {id: "c", text: "Environment variables"},
+                        {id: "d", text: "Caching"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Matrix strategy allows you to define multiple combinations of OS, runtime versions, and other variables to test against simultaneously."
+                },
+                {
+                    id: 6,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "What is the maximum number of free CI/CD minutes per month for public repositories?",
+                    options: [
+                        {id: "a", text: "500"},
+                        {id: "b", text: "1,000"},
+                        {id: "c", text: "2,000"},
+                        {id: "d", text: "5,000"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "GitHub provides 2,000 free CI/CD minutes per month for public repositories, with additional minutes available for private repos based on plan."
+                },
+                {
+                    id: 7,
+                    type: "true-false",
+                    difficulty: "medium",
+                    question: "You can use the 'if' conditional to skip steps based on conditions.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Yes, you can use 'if' conditions to skip entire jobs or individual steps based on expressions like success(), failure(), or environment conditions."
+                },
+                {
+                    id: 8,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the purpose of 'actions/checkout'?",
+                    options: [
+                        {id: "a", text: "To check code style"},
+                        {id: "b", text: "To download repository code"},
+                        {id: "c", text: "To run linting"},
+                        {id: "d", text: "To create pull requests"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "actions/checkout@v4 is used to clone your repository into the runner so that your workflow can access the code."
+                },
+                {
+                    id: 9,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "Which keyword is used to pass secrets to a workflow securely?",
+                    options: [
+                        {id: "a", text: "env.SECRET"},
+                        {id: "b", text: "secrets.SECRET_NAME"},
+                        {id: "c", text: "GITHUB_SECRET"},
+                        {id: "d", text: "${{ secret }}"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Secrets are accessed using the ${{ secrets.SECRET_NAME }} syntax within your workflow files."
+                },
+                {
+                    id: 10,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What does 'fail-fast: false' do in a matrix strategy?",
+                    options: [
+                        {id: "a", text: "Stops all jobs if one fails"},
+                        {id: "b", text: "Continues running all matrix combinations even if one fails"},
+                        {id: "c", text: "Fails the workflow immediately"},
+                        {id: "d", text: "Retries failed jobs"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "fail-fast: false ensures that all matrix combinations continue to run even if one fails, giving you complete test results."
+                },
+                {
+                    id: 11,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "What triggers GitHub Actions workflows by default?",
+                    options: [
+                        {id: "a", text: "Only push events"},
+                        {id: "b", text: "Only manual triggers"},
+                        {id: "c", text: "Events like push, pull request, or schedule"},
+                        {id: "d", text: "Only when secrets change"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "Workflows can be triggered by various events including push, pull_request, schedule, workflow_dispatch, and more."
+                },
+                {
+                    id: 12,
+                    type: "true-false",
+                    difficulty: "medium",
+                    question: "You can store and share files between jobs using artifacts.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Yes, actions/upload-artifact and actions/download-artifact allow you to share files between jobs in a workflow."
+                },
+                {
+                    id: 13,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is the purpose of 'concurrency' in GitHub Actions?",
+                    options: [
+                        {id: "a", text: "To run jobs in parallel"},
+                        {id: "b", text: "To cancel redundant runs and prevent conflicts"},
+                        {id: "c", text: "To increase memory limits"},
+                        {id: "d", text: "To configure timeouts"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Concurrency ensures only one workflow run per branch/ref is active, canceling redundant runs when new commits are pushed."
+                },
+                {
+                    id: 14,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "Which action is commonly used to set up Node.js in a workflow?",
+                    options: [
+                        {id: "a", text: "actions/setup-java"},
+                        {id: "b", text: "actions/setup-node"},
+                        {id: "c", text: "actions/setup-python"},
+                        {id: "d", text: "actions/install-node"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "actions/setup-node@v4 is the official action for setting up Node.js environments with optional caching."
+                },
+                {
+                    id: 15,
+                    type: "true-false",
+                    difficulty: "medium",
+                    question: "Workflows can be triggered manually using workflow_dispatch.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "workflow_dispatch allows you to manually trigger workflows from the GitHub UI with optional input parameters."
+                },
+                {
+                    id: 16,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is the maximum retention period for workflow artifacts?",
+                    options: [
+                        {id: "a", text: "30 days"},
+                        {id: "b", text: "60 days"},
+                        {id: "c", text: "90 days"},
+                        {id: "d", text: "180 days"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "GitHub retains workflow artifacts for 90 days. You can configure retention-days in the upload action for shorter periods."
+                },
+                {
+                    id: 17,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What does 'runs-on' specify in a job?",
+                    options: [
+                        {id: "a", text: "The job name"},
+                        {id: "b", text: "The virtual machine to run the job"},
+                        {id: "c", text: "The timeout for the job"},
+                        {id: "d", text: "The secrets required"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "runs-on specifies the type of runner (virtual machine) that executes the job, like ubuntu-latest, windows-latest, or macos-latest."
+                },
+                {
+                    id: 18,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "Which expression function checks if a previous job succeeded?",
+                    options: [
+                        {id: "a", text: "success()"},
+                        {id: "b", text: "completed()"},
+                        {id: "c", text: "passed()"},
+                        {id: "d", text: "finished()"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "success() returns true when all previous steps have succeeded. It's commonly used in 'if' conditions to run steps only on success."
+                },
+                {
+                    id: 19,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "GitHub Actions supports caching to speed up workflows.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Yes, actions/setup-node, actions/setup-python, and other setup actions have built-in caching support to speed up dependency installation."
+                },
+                {
+                    id: 20,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is the maximum number of concurrent jobs in a matrix?",
+                    options: [
+                        {id: "a", text: "256"},
+                        {id: "b", text: "500"},
+                        {id: "c", text: "1,000"},
+                        {id: "d", text: "There is no limit"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "GitHub Actions supports up to 256 concurrent jobs in a matrix strategy. For higher needs, you can contact GitHub support."
+                }
+            ]
+        };
+
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (!container) {
+                console.error('Quiz container not found!');
+                return;
+            }
+            
+            try {
+                new QuizEngine('quiz-container', githubActionsQuizData);
+                console.log('Quiz initialized successfully');
+            } catch (error) {
+                console.error('Failed to initialize quiz:', error);
+                container.innerHTML = '<p class="text-center" style="color: red; padding: 2rem;">Quiz unavailable. Error: ' + error.message + '</p>';
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initQuiz);
+        } else {
+            initQuiz();
+        }
+    </script>
 </body>
 </html>

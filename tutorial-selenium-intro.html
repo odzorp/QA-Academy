@@ -3,18 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Selenium WebDriver Tutorial - Learn automation">
-    <title>Selenium WebDriver | QA Academy</title>
+    <meta name="description" content="Selenium WebDriver Tutorial - Master browser automation with the industry-standard framework">
+    <title>Selenium WebDriver Tutorial | QA Academy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        .coming-soon-container { max-width: 800px; margin: 0 auto; text-align: center; padding: 4rem 2rem; }
-        .coming-soon-icon { font-size: 6rem; margin-bottom: 2rem; }
-        .coming-soon-container h1 { margin-bottom: 1rem; }
-        .coming-soon-container p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem; }
-        .timeline-badge { display: inline-block; background: #43B02A; color: white; padding: 0.5rem 1rem; border-radius: 50px; font-weight: 600; margin-top: 1rem; }
+        .tutorial-content { max-width: 900px; margin: 0 auto; }
+        .tutorial-content h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content h2 { font-size: 1.875rem; font-weight: 700; margin-top: var(--space-2xl); margin-bottom: var(--space-lg); color: var(--text-primary); border-bottom: 3px solid var(--accent); padding-bottom: var(--space-sm); display: inline-block; }
+        .tutorial-content h3 { font-size: 1.375rem; font-weight: 600; margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content p { font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+        .tutorial-content ul, .tutorial-content ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: var(--space-lg); padding-left: var(--space-xl); }
+        .tutorial-content li { margin-bottom: var(--space-sm); color: var(--text-secondary); }
+        .tutorial-content strong { color: var(--text-primary); font-weight: 600; }
+        .tutorial-meta { display: flex; gap: var(--space-lg); flex-wrap: wrap; margin-bottom: var(--space-xl); padding: var(--space-md) var(--space-lg); background: var(--bg-secondary); border-radius: var(--radius-lg); }
+        .tutorial-meta-item { display: flex; align-items: center; gap: var(--space-sm); font-size: 1rem; color: var(--text-secondary); }
+        .concept-card { background: var(--bg-primary); border-radius: 12px; padding: 2rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--gray-200); }
+        .concept-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .key-points { background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%); color: var(--primary-dark); padding: var(--space-xl); border-radius: var(--radius-xl); margin: var(--space-xl) 0; }
+        .key-points h3 { color: var(--primary-dark); margin-bottom: var(--space-md); }
+        .key-points ul { margin-bottom: 0; }
+        .key-points li { color: var(--primary-dark); }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .feature-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--gray-200); }
+        .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .feature-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .feature-desc { font-size: 0.9rem; color: var(--text-secondary); }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 1rem; }
+        .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--gray-200); }
+        .comparison-table th { background: var(--bg-secondary); font-weight: 600; color: var(--text-primary); }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1.5rem; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95rem; overflow-x: auto; margin: 1.5rem 0; line-height: 1.6; }
+        .code-block .comment { color: #64748b; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #34d399; }
+        .code-block .method { color: #60a5fa; }
+        .code-block .function { color: #fbbf24; }
+        .quiz-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, var(--accent) 0%, #2563eb 100%); color: white; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+        .quiz-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); }
+        .info-box { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .info-box p { margin: 0; color: #1e40af; font-size: 1rem; }
+        .warning-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .warning-box p { margin: 0; color: #92400e; font-size: 1rem; }
     </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
@@ -33,6 +64,7 @@
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="about.html" class="nav-link">About</a>
                     <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Assistance</a>
                     <a href="resources.html" class="nav-link">Resources</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
@@ -49,17 +81,608 @@
         </div>
     </section>
 
-    <section class="section">
-        <div class="coming-soon-container">
-            <div class="coming-soon-icon">🌐</div>
-            <h1>Coming Soon!</h1>
-            <p>I'm currently working on creating a comprehensive Selenium tutorial course. This page will cover WebDriver, locators, waits, and framework design patterns.</p>
-            <div class="timeline-badge">Q3 2026</div>
-            <div style="margin-top: 2rem;">
-                <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
+    <main class="section">
+        <div class="container">
+            <div class="tutorial-content">
+                
+                <div class="tutorial-meta">
+                    <div class="tutorial-meta-item">
+                        <span>⏱️</span>
+                        <span>Reading Time: 45 min</span>
+                    </div>
+                    <div class="tutorial-meta-item">
+                        <span>📊</span>
+                        <span>Difficulty: Intermediate</span>
+                    </div>
+                    <div class="tutorial-meta-item">
+                        <span>🔧</span>
+                        <span>Language: Java/Python/JavaScript</span>
+                    </div>
+                    <div class="tutorial-meta-item">
+                        <span>📅</span>
+                        <span>Updated: March 2026</span>
+                    </div>
+                </div>
+
+                <p>Selenium WebDriver is the cornerstone of browser automation and test automation in the software testing industry. Since its inception in 2004, Selenium has become the de facto standard for web application testing, supporting multiple browsers, platforms, and programming languages. This comprehensive tutorial will take you from understanding the fundamentals of Selenium WebDriver to building robust, maintainable test automation frameworks.</p>
+
+                <h2 id="what-is-selenium">What is Selenium WebDriver?</h2>
+                
+                <p>Selenium WebDriver is a tool that allows you to automate web browsers programmatically. It provides a programming interface for interacting with web elements, navigating pages, and verifying expected behaviors. Unlike earlier versions of Selenium (IDE and Remote Control), WebDriver communicates directly with the browser using each browser's native automation support, making it faster and more reliable.</p>
+
+                <div class="concept-card">
+                    <h3 class="feature-icon">🎯</h3>
+                    <h3 class="feature-title">Why Learn Selenium WebDriver?</h3>
+                    <p class="feature-desc">Selenium remains the most widely-used web automation tool globally, with over 70% of test automation engineers using it professionally. Understanding Selenium provides a foundation for testing roles at virtually any company.</p>
+                </div>
+
+                <h2 id="architecture">Selenium Architecture</h2>
+
+                <p>Understanding the Selenium architecture is crucial for debugging issues and optimizing your tests. The architecture consists of several key components that work together to automate browsers.</p>
+
+                <h3 id="webdriver-protocol">The WebDriver Protocol</h3>
+
+                <p>The WebDriver protocol is a W3C standard that defines a wire protocol for browser automation. This protocol allows client libraries to send commands to browsers and receive responses through HTTP requests. Each browser driver (ChromeDriver, GeckoDriver, EdgeDriver) implements this protocol and acts as a bridge between your test code and the browser.</p>
+
+                <h3 id="component-diagram">Key Components</h3>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <div class="feature-title">Test Script</div>
+                        <div class="feature-desc">Your automation code written in Java, Python, JavaScript, C#, or Ruby that defines what actions to perform.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <div class="feature-title">WebDriver API</div>
+                        <div class="feature-desc">The language-specific bindings that provide the programming interface for browser automation.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔌</div>
+                        <div class="feature-title">Browser Drivers</div>
+                        <div class="feature-desc">Executable files (ChromeDriver, GeckoDriver, EdgeDriver) that act as intermediaries between WebDriver and browsers.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <div class="feature-title">Real Browsers</div>
+                        <div class="feature-desc">The actual web browsers (Chrome, Firefox, Safari, Edge) where your tests execute.</div>
+                    </div>
+                </div>
+
+                <h2 id="locators">Finding Web Elements</h2>
+
+                <p>One of the most critical skills in Selenium is learning how to locate web elements on a page. Selenium provides multiple locator strategies, each with different use cases and reliability characteristics.</p>
+
+                <h3 id="locator-strategies">Locator Strategies</h3>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Locator</th>
+                            <th>Syntax</th>
+                            <th>Example</th>
+                            <th>Reliability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ID</strong></td>
+                            <td>By.id("username")</td>
+                            <td>driver.findElement(By.id("username"))</td>
+                            <td>⭐⭐⭐⭐⭐</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Name</strong></td>
+                            <td>By.name("email")</td>
+                            <td>driver.findElement(By.name("email"))</td>
+                            <td>⭐⭐⭐⭐</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Class Name</strong></td>
+                            <td>By.className("btn-primary")</td>
+                            <td>driver.findElement(By.className("btn-primary"))</td>
+                            <td>⭐⭐⭐</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tag Name</strong></td>
+                            <td>By.tagName("input")</td>
+                            <td>driver.findElements(By.tagName("input"))</td>
+                            <td>⭐⭐</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Link Text</strong></td>
+                            <td>By.linkText("Click Here")</td>
+                            <td>driver.findElement(By.linkText("Click Here"))</td>
+                            <td>⭐⭐⭐⭐</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CSS Selector</strong></td>
+                            <td>By.cssSelector("#submit")</td>
+                            <td>driver.findElement(By.cssSelector(".form input[type='email']"))</td>
+                            <td>⭐⭐⭐⭐⭐</td>
+                        </tr>
+                        <tr>
+                            <td><strong>XPath</strong></td>
+                            <td>By.xpath("//button[@id='submit']")</td>
+                            <td>driver.findElement(By.xpath("//div[@class='container']//input[1]"))</td>
+                            <td>⭐⭐⭐⭐⭐</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 id="css-vs-xpath">CSS Selectors vs XPath</h3>
+
+                <p>Both CSS selectors and XPath are powerful ways to locate elements, but they have different strengths:</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-title">CSS Selectors</div>
+                        <div class="feature-desc">
+                            <ul>
+                                <li>Faster execution speed</li>
+                                <li>Easier to read and maintain</li>
+                                <li>Better browser support</li>
+                                <li>Cannot navigate upward (parent to child only)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">XPath</div>
+                        <div class="feature-desc">
+                            <ul>
+                                <li>Can navigate both directions</li>
+                                <li>More powerful filtering</li>
+                                <li>Text-based matching</li>
+                                <li>Slightly slower than CSS</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 id="advanced-locators">Advanced Locator Techniques</h3>
+
+                <p>Modern web applications often require more sophisticated locators. Here are advanced techniques:</p>
+
+                <div class="code-block">
+<span class="comment">// CSS: Finding elements with specific attributes</span>
+driver.findElement(By.cssSelector("input[type='email'][placeholder*='email']"));
+driver.findElement(By.cssSelector("button:not(.disabled)"));
+driver.findElement(By.cssSelector("div.container > p:first-child"));
+
+<span class="comment">// XPath: Advanced navigation and filtering</span>
+driver.findElement(By.xpath("//input[@type='submit' and contains(@class, 'btn')]"));
+driver.findElement(By.xpath("//table//tr[position()=2]")); <span class="comment">// Second row</span>
+driver.findElement(By.xpath("//a[text()='Forgot Password']")); <span class="comment">// Exact text match</span>
+driver.findElement(By.xpath("//span[contains(text(), 'Welcome')]")); <span class="comment">// Partial text</span>
+                </div>
+
+                <h2 id="webdriver-basics">WebDriver Operations</h2>
+
+                <p>Now that you understand locators, let's explore the fundamental operations you can perform with WebDriver to interact with web elements.</p>
+
+                <h3 id="browser-operations">Browser Operations</h3>
+
+                <div class="code-block">
+<span class="comment">// Initialize WebDriver (Chrome)</span>
+<span class="keyword">WebDriver</span> driver = <span class="keyword">new</span> ChromeDriver();
+
+<span class="comment">// Navigate to a URL</span>
+driver.get(<span class="string">"https://example.com"</span>);
+
+<span class="comment">// Get current URL and title</span>
+String currentUrl = driver.getCurrentUrl();
+String title = driver.getTitle();
+
+<span class="comment">// Navigate back, forward, and refresh</span>
+driver.navigate().back();
+driver.navigate().forward();
+driver.navigate().refresh();
+
+<span class="comment">// Manage window operations</span>
+driver.manage().window().maximize();
+driver.manage().window().fullscreen();
+driver.manage().window().setSize(<span class="keyword">new</span> Dimension(1920, 1080));
+
+<span class="comment">// Close and quit</span>
+driver.close(); <span class="comment">// Close current window</span>
+driver.quit(); <span class="comment">// Close all windows and end session</span>
+                </div>
+
+                <h3 id="element-operations">Element Operations</h3>
+
+                <div class="code-block">
+<span class="comment">// Find a single element</span>
+WebElement searchBox = driver.findElement(By.name(<span class="string">"q"</span>));
+
+<span class="comment">// Find multiple elements</span>
+List&lt;WebElement&gt; links = driver.findElements(By.tagName(<span class="string">"a"</span>));
+
+<span class="comment">// Click on an element</span>
+driver.findElement(By.id(<span class="string">"submit-btn"</span>)).click();
+
+<span class="comment">// Enter text into input fields</span>
+driver.findElement(By.name(<span class="string">"username"</span>)).sendKeys(<span class="string">"testuser"</span>);
+
+<span class="comment">// Clear input fields</span>
+driver.findElement(By.name(<span class="string">"username"</span>)).clear();
+
+<span class="comment">// Get element text</span>
+String heading = driver.findElement(By.tagName(<span class="string">"h1"</span>)).getText();
+
+<span class="comment">// Get attribute values</span>
+String placeholder = driver.findElement(By.name(<span class="string">"email"</span>))
+    .getAttribute(<span class="string">"placeholder"</span>);
+
+<span class="comment">// Check if element is displayed/enabled/selected</span>
+boolean isVisible = driver.findElement(By.id(<span class="string">"modal"</span>)).isDisplayed();
+boolean isEnabled = driver.findElement(By.id(<span class="string">"submit"</span>)).isEnabled();
+boolean isChecked = driver.findElement(By.id(<span class="string">"agree"</span>)).isSelected();
+                </div>
+
+                <h3 id="dropdown-operations">Working with Dropdowns</h3>
+
+                <div class="code-block">
+<span class="comment">// Import Select class</span>
+<span class="keyword">import</span> org.openqa.selenium.support.ui.Select;
+
+<span class="comment">// Standard dropdown (select element)</span>
+Select countryDropdown = <span class="keyword">new</span> Select(driver.findElement(By.id(<span class="string">"country"</span>)));
+
+<span class="comment">// Select by visible text</span>
+countryDropdown.selectByVisibleText(<span class="string">"Ghana"</span>);
+
+<span class="comment">// Select by value attribute</span>
+countryDropdown.selectByValue(<span class="string">"gh"</span>);
+
+<span class="comment">// Select by index (0-based)</span>
+countryDropdown.selectByIndex(5);
+
+<span class="comment">// Get all options</span>
+List&lt;WebElement&gt; options = countryDropdown.getOptions();
+
+<span class="comment">// Deselect options (for multi-select)</span>
+countryDropdown.deselectAll();
+countryDropdown.deselectByValue(<span class="string">"gh"</span>);
+                </div>
+
+                <h2 id="waits">Handling Synchronization</h2>
+
+                <p>One of the biggest challenges in Selenium is handling synchronization between your test code and the web application's dynamic behavior. Modern web apps load content asynchronously, so you must wait for elements to be ready before interacting with them.</p>
+
+                <h3 id="implicit-waits">Implicit Waits</h3>
+
+                <p>Implicit waits tell WebDriver to poll the DOM for a certain amount of time when trying to find any element. This is set once and applies to all element finds.</p>
+
+                <div class="code-block">
+<span class="comment">// Set implicit wait (global setting)</span>
+driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+<span class="comment">// Now WebDriver will wait up to 10 seconds for any element</span>
+driver.findElement(By.id(<span class="string">"dynamic-content"</span>)); <span class="comment">// Waits if not immediately present</span>
+                </div>
+
+                <div class="warning-box">
+                    <p><strong>⚠️ Best Practice:</strong> Avoid mixing implicit and explicit waits, as this can lead to unpredictable wait times. Many experts recommend using explicit waits only.</p>
+                </div>
+
+                <h3 id="explicit-waits">Explicit Waits</h3>
+
+                <p>Explicit waits are more flexible and target specific conditions. They're the recommended approach for modern Selenium automation.</p>
+
+                <div class="code-block">
+<span class="keyword">import</span> org.openqa.selenium.support.ui.WebDriverWait;
+<span class="keyword">import</span> org.openqa.selenium.support.ui.ExpectedConditions;
+
+<span class="comment">// Create WebDriverWait instance</span>
+WebDriverWait wait = <span class="keyword">new</span> WebDriverWait(driver, 10);
+
+<span class="comment">// Wait for element to be clickable</span>
+WebElement button = wait.until(ExpectedConditions
+    .elementToBeClickable(By.id(<span class="string">"submit-btn"</span>)));
+
+<span class="comment">// Wait for element to be visible</span>
+wait.until(ExpectedConditions
+    .visibilityOfElementLocated(By.className(<span class="string">"success-message"</span>)));
+
+<span class="comment">// Wait for text to be present</span>
+wait.until(ExpectedConditions
+    .textToBePresentInElementLocated(By.id(<span class="string">"status"</span>), <span class="string">"Completed"</span>));
+
+<span class="comment">// Wait for element to be invisible</span>
+wait.until(ExpectedConditions
+    .invisibilityOfElementLocated(By.className(<span class="string">"loading-spinner"</span>)));
+
+<span class="comment">// Wait for frame to be available and switch to it</span>
+wait.until(ExpectedConditions
+    .frameToBeAvailableAndSwitchToIt(By.name(<span class="string">"content-frame"</span>)));
+
+<span class="comment">// Wait for number of windows</span>
+wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+                </div>
+
+                <h3 id="fluent-waits">Fluent Waits</h3>
+
+                <p>Fluent waits provide maximum control over waiting conditions, allowing you to define custom polling intervals and ignore specific exceptions.</p>
+
+                <div class="code-block">
+<span class="keyword">import</span> org.openqa.selenium.support.ui.FluentWait;
+<span class="keyword">import</span> java.time.Duration;
+
+<span class="comment">// Create FluentWait instance</span>
+FluentWait&lt;WebDriver&gt; fluentWait = <span class="keyword">new</span> FluentWait&lt;&gt;(driver)
+    .withTimeout(Duration.ofSeconds(10))
+    .pollingEvery(Duration.ofMillis(500))
+    .ignoring(NoSuchElementException.class)
+    .ignoring(StaleElementReferenceException.class);
+
+<span class="comment">// Custom wait condition</span>
+WebElement dynamicElement = fluentWait.until(driver -&gt; {
+    WebElement element = driver.findElement(By.id(<span class="string">"dynamic"</span>);
+    <span class="keyword">if</span> (element.isDisplayed()) {
+        <span class="keyword">return</span> element;
+    }
+    <span class="keyword">return null</span>;
+});
+                </div>
+
+                <h2 id="page-object-model">Page Object Model (POM)</h2>
+
+                <p>The Page Object Model is a design pattern that creates an object repository for web elements. It improves test maintenance and reduces code duplication by separating test logic from page-specific code.</p>
+
+                <h3 id="pom-benefits">Benefits of POM</h3>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-title">Reusability</div>
+                        <div class="feature-desc">Element locators defined once can be reused across multiple tests.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛠️</div>
+                        <div class="feature-title">Maintainability</div>
+                        <div class="feature-desc">When UI changes, update only the page class, not every test.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📖</div>
+                        <div class="feature-title">Readability</div>
+                        <div class="feature-desc">Tests become more readable, like natural language descriptions.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <div class="feature-title">Team Collaboration</div>
+                        <div class="feature-desc">QA and developers can work on separate components easily.</div>
+                    </div>
+                </div>
+
+                <h3 id="pom-example">Implementation Example</h3>
+
+                <div class="code-block">
+<span class="comment">// LoginPage.java - Page Object Class</span>
+<span class="keyword">public class</span> LoginPage {
+    <span class="keyword">private final</span> WebDriver driver;
+
+    <span class="comment">// Page Elements</span>
+    <span class="keyword">private final</span> By usernameField = By.id(<span class="string">"username"</span>);
+    <span class="keyword">private final</span> By passwordField = By.name(<span class="string">"password"</span>);
+    <span class="keyword">private final</span> By loginButton = By.cssSelector(<span class="string">"button[type='submit']"</span>);
+    <span class="keyword">private final</span> By errorMessage = By.className(<span class="string">"error-message"</span>);
+
+    <span class="comment">// Constructor</span>
+    <span class="keyword">public</span> LoginPage(WebDriver driver) {
+        <span class="keyword">this</span>.driver = driver;
+    }
+
+    <span class="comment">// Page Actions</span>
+    <span class="keyword">public</span> LoginPage enterUsername(String username) {
+        driver.findElement(usernameField).sendKeys(username);
+        <span class="keyword">return this</span>; <span class="comment">// Enable method chaining</span>
+    }
+
+    <span class="keyword">public</span> LoginPage enterPassword(String password) {
+        driver.findElement(passwordField).sendKeys(password);
+        <span class="keyword">return this</span>;
+    }
+
+    <span class="keyword">public</span> DashboardPage clickLogin() {
+        driver.findElement(loginButton).click();
+        <span class="keyword">return new</span> DashboardPage(driver); <span class="comment">// Return next page object</span>
+    }
+
+    <span class="keyword">public</span> String getErrorMessage() {
+        <span class="keyword">return</span> driver.findElement(errorMessage).getText();
+    }
+
+    <span class="keyword">public</span> <span class="function">void</span> login(String username, String password) {
+        enterUsername(username)
+            .enterPassword(password)
+            .clickLogin();
+    }
+}
+                </div>
+
+                <div class="code-block">
+<span class="comment">// LoginTest.java - Test Class</span>
+<span class="keyword">public class</span> LoginTest {
+    <span class="keyword">private</span> WebDriver driver;
+    <span class="keyword">private</span> LoginPage loginPage;
+
+    @BeforeMethod
+    <span class="keyword">public void</span> setUp() {
+        driver = <span class="keyword">new</span> ChromeDriver();
+        driver.get(<span class="string">"https://example.com/login"</span>);
+        loginPage = <span class="keyword">new</span> LoginPage(driver);
+    }
+
+    @Test
+    <span class="keyword">public void</span> testValidLogin() {
+        loginPage.login(<span class="string">"validuser"</span>, <span class="string">"validpass"</span>);
+        
+        <span class="comment">// Assert using test framework</span>
+        Assert.assertTrue(driver.getCurrentUrl().contains(<span class="string">"dashboard"</span>));
+    }
+
+    @Test
+    <span class="keyword">public void</span> testInvalidLogin() {
+        loginPage.login(<span class="string">"invalid"</span>, <span class="string">"wrong"</span>);
+        
+        String error = loginPage.getErrorMessage();
+        Assert.assertTrue(error.contains(<span class="string">"Invalid credentials"</span>));
+    }
+
+    @AfterMethod
+    <span class="keyword">public void</span> tearDown() {
+        driver.quit();
+    }
+}
+                </div>
+
+                <h2 id="framework-components">Building a Test Framework</h2>
+
+                <p>A robust test framework extends beyond basic automation. It includes logging, reporting, data-driven testing, and cross-browser execution capabilities.</p>
+
+                <h3 id="testng-setup">TestNG Framework Setup</h3>
+
+                <p>TestNG (Test Next Generation) provides powerful testing features beyond JUnit, including parallel execution, test dependencies, and detailed reporting.</p>
+
+                <div class="code-block">
+<span class="comment">// testng.xml - TestNG Configuration</span>
+&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;
+&lt;!DOCTYPE suite SYSTEM <span class="string">"https://testng.org/testng-1.0.dtd"</span>&gt;
+&lt;suite name=<span class="string">"Automation Suite"</span> parallel=<span class="string">"classes"</span> thread-count=<span class="string">"4"</span>&gt;
+    &lt;test name=<span class="string">"Regression Tests"</span> preserve-order=<span class="string">"true"</span>&gt;
+        &lt;classes&gt;
+            &lt;class name=<span class="string">"com.qa.tests.LoginTest"</span>/&gt;
+            &lt;class name=<span class="string">"com.qa.tests.SearchTest"</span>/&gt;
+            &lt;class name=<span class="string">"com.qa.tests.CheckoutTest"</span>/&gt;
+        &lt;/classes&gt;
+    &lt;/test&gt;
+&lt;/suite&gt;
+                </div>
+
+                <h3 id="data-driven-testing">Data-Driven Testing</h3>
+
+                <p>Run the same test with different data sets using parameterization.</p>
+
+                <div class="code-block">
+<span class="comment">// DataProvider for multiple test data</span>
+<span class="keyword">@DataProvider</span>(name = <span class="string">"loginData"</span>)
+<span class="keyword">public</span> Object[][] getLoginData() {
+    <span class="keyword">return new</span> Object[][] {
+        {<span class="string">"validuser"</span>, <span class="string">"validpass"</span>, <span class="string">"success"</span>},
+        {<span class="string">"invalid"</span>, <span class="string">"wrong"</span>, <span class="string">"error"</span>},
+        {<span class="string">""</span>, <span class="string">"password"</span>, <span class="string">"error"</span>},
+        {<span class="string">"user"</span>, <span class="string">""</span>, <span class="string">"error"</span>}
+    };
+}
+
+<span class="comment">// Test method using DataProvider</span>
+@Test(dataProvider = <span class="string">"loginData"</span>)
+<span class="keyword">public void</span> testLogin(String username, String password, String expectedResult) {
+    loginPage.login(username, password);
+    
+    <span class="keyword">if</span> (expectedResult.equals(<span class="string">"success"</span>)) {
+        Assert.assertTrue(driver.getCurrentUrl().contains(<span class="string">"dashboard"</span>));
+    } <span class="keyword">else</span> {
+        Assert.assertTrue(loginPage.getErrorMessage().length() > 0);
+    }
+}
+                </div>
+
+                <h3 id="reporting">Test Reporting with Extent Reports</h3>
+
+                <div class="code-block">
+<span class="keyword">import</span> com.aventstack.extentreports.ExtentReports;
+<span class="keyword">import</span> com.aventstack.extentreports.ExtentTest;
+<span class="keyword">import</span> com.aventstack.extentreports.Status;
+
+<span class="keyword">public class</span> TestBase {
+    <span class="keyword">protected</span> ExtentReports extent;
+    <span class="keyword">protected</span> ExtentTest test;
+
+    @BeforeSuite
+    <span class="keyword">public void</span> beforeSuite() {
+        extent = <span class="keyword">new</span> ExtentReports();
+        extent.attachReporter(<span class="keyword">new</span> HtmlReporter(<span class="string">"test-report.html"</span>));
+        extent.setSystemInfo(<span class="string">"OS"</span>, <span class="string">"Windows"</span>);
+        extent.setSystemInfo(<span class="string">"Browser"</span>, <span class="string">"Chrome"</span>);
+    }
+
+    @BeforeMethod
+    <span class="keyword">public void</span> beforeMethod(ITestResult result) {
+        test = extent.createTest(result.getMethod().getMethodName());
+    }
+
+    @AfterMethod
+    <span class="keyword">public void</span> afterMethod(ITestResult result) {
+        <span class="keyword">if</span> (result.getStatus() == ITestResult.SUCCESS) {
+            test.log(Status.PASS, <span class="string">"Test Passed"</span>);
+        } <span class="keyword">else if</span> (result.getStatus() == ITestResult.FAILURE) {
+            test.log(Status.FAIL, <span class="string">"Test Failed"</span>);
+            test.fail(result.getThrowable());
+        } <span class="keyword">else</span> {
+            test.log(Status.SKIP, <span class="string">"Test Skipped"</span>);
+        }
+    }
+
+    @AfterSuite
+    <span class="keyword">public void</span> afterSuite() {
+        extent.flush();
+    }
+}
+                </div>
+
+                <h2 id="best-practices">Best Practices</h2>
+
+                <div class="key-points">
+                    <h3>Key Takeaways</h3>
+                    <ul>
+                        <li><strong>Use Explicit Waits</strong> - Always prefer explicit waits over implicit waits for better control and reliability</li>
+                        <li><strong>Implement Page Object Model</strong> - Separate page logic from test logic for maintainable code</li>
+                        <li><strong>Use Meaningful Locators</strong> - Prefer ID and name attributes; avoid brittle XPaths</li>
+                        <li><strong>Handle Exceptions Gracefully</strong> - Implement proper error handling and retry logic</li>
+                        <li><strong>Take Screenshots on Failure</strong> - Capture evidence for debugging failed tests</li>
+                        <li><strong>Avoid Thread.sleep()</strong> - Use dynamic waits instead of fixed delays</li>
+                        <li><strong>Keep Tests Independent</strong> - Each test should be able to run independently</li>
+                        <li><strong>Use Descriptive Names</strong> - Name tests clearly to describe what they verify</li>
+                    </ul>
+                </div>
+
+                <h2 id="next-steps">Next Steps</h2>
+
+                <p>Now that you've learned the fundamentals of Selenium WebDriver, continue your learning journey with these related tutorials:</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🐴</div>
+                        <div class="feature-title">Selenide</div>
+                        <div class="feature-desc">Learn the concise, developer-friendly wrapper around Selenium</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🥒</div>
+                        <div class="feature-title">Cucumber BDD</div>
+                        <div class="feature-desc">Implement behavior-driven development with Gherkin syntax</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-title">CI/CD Integration</div>
+                        <div class="feature-desc">Automate your tests in continuous integration pipelines</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🐛</div>
+                        <div class="feature-title">API Testing</div>
+                        <div class="feature-desc">Master REST API testing with Postman and REST Assured</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="tutorials.html" class="quiz-btn">
+                        <span>📝</span> Take the Selenium Quiz
+                    </a>
+                </div>
+
             </div>
         </div>
-    </section>
+    </main>
 
     <footer class="footer">
         <div class="container">
@@ -87,7 +710,6 @@
         </div>
     </footer>
 
-    <!-- Modal -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-container modal-info" id="modalContainer">
             <div class="modal-header">

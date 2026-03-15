@@ -10,15 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        .quiz-container { background: var(--bg-secondary); border-radius: 12px; padding: 2rem; margin: 2rem 0; border: 1px solid var(--gray-200); }
-        .quiz-question { font-weight: 600; font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-primary); }
-        .quiz-options { display: flex; flex-direction: column; gap: 0.75rem; }
-        .quiz-option { display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: var(--bg-primary); border: 2px solid var(--gray-200); border-radius: 8px; cursor: pointer; transition: all 0.2s; color: var(--text-primary); }
-        .quiz-option:hover { border-color: var(--accent); }
-        .quiz-option.correct { border-color: var(--success); background: rgba(16, 185, 129, 0.1); }
-        .quiz-option.incorrect { border-color: var(--danger); background: rgba(239, 68, 68, 0.1); }
-        .quiz-result { display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px; font-weight: 500; }
-        .quiz-result.show { display: block; }
     </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
@@ -37,6 +28,7 @@
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="about.html" class="nav-link">About</a>
                     <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
                     <a href="resources.html" class="nav-link">Resources</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
@@ -149,24 +141,12 @@ compliance:
                 
                 <h2>Knowledge Check</h2>
                 
-                <div class="quiz-container">
-                    <div class="quiz-question">1. What does SSO stand for?</div>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">Simple Sign On</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">Single Sign-On</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">Secure Sign On</div>
+                <section class="quiz-section">
+                    <div class="container">
+                        <p>Test your understanding of Enterprise Implementation</p>
+                        <div id="quiz-container" class="quiz-container"></div>
                     </div>
-                    <div class="quiz-result" id="result1"></div>
-                </div>
-                
-                <div class="quiz-container">
-                    <div class="quiz-question">2. What is RBAC?</div>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">Role-Based Access Control</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">Resource-Based Access Control</div>
-                    </div>
-                    <div class="quiz-result" id="result2"></div>
-                </div>
+                </section>
                 
                 <div style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
                     <a href="tutorials.html" class="btn btn-secondary">← Back to Tutorials</a>
@@ -220,13 +200,39 @@ compliance:
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/quiz-engine.js"></script>
     <script>
-        function checkAnswer(element, isCorrect) {
-            const parent = element.parentElement, result = parent.nextElementSibling;
-            parent.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('correct', 'incorrect'));
-            if (isCorrect) { element.classList.add('correct'); result.className = 'quiz-result show'; result.innerHTML = '✓ Correct! Well done!'; }
-            else { element.classList.add('incorrect'); result.className = 'quiz-result show'; result.innerHTML = '✗ Not quite. Try again!'; }
+        const quizData = {
+            title: "Enterprise Implementation Knowledge Check",
+            questions: [
+                { q: "What does SSO stand for?", options: ["Simple Sign On", "Single Sign-On", "Secure Sign On", "Standard Sign On"], correct: 1, explanation: "SSO stands for Single Sign-On, which allows users to access multiple applications with one set of credentials." },
+                { q: "What is RBAC?", options: ["Role-Based Access Control", "Resource-Based Access Control", "Rule-Based Access Control", "Request-Based Access Control"], correct: 0, explanation: "RBAC stands for Role-Based Access Control, a method of restricting system access based on user roles." },
+                { q: "Which SSO provider is mentioned in the tutorial?", options: ["Okta", "Auth0", "Ping Identity", "ForgeRock"], correct: 0, explanation: "The tutorial mentions Okta as one of the supported SSO providers." },
+                { q: "What is the purpose of RBAC mappings?", options: ["Define user passwords", "Map roles to groups", "Create new users", "Set session timeouts"], correct: 1, explanation: "RBAC mappings connect roles to groups in your identity provider." },
+                { q: "What does multi-tenant architecture enable?", options: ["Single application usage", "Multiple isolated customer environments", "Reduced security", "Faster performance"], correct: 1, explanation: "Multi-tenant architecture enables serving multiple customers from a single application while keeping their data isolated." },
+                { q: "What are the three isolation methods for multi-tenancy?", options: ["Database, Schema, Container", "Network, Storage, Compute", "API, Gateway, Service", "User, Role, Permission"], correct: 0, explanation: "The three isolation methods are database, schema, and container." },
+                { q: "What is the purpose of audit logging?", options: ["Improve performance", "Track user actions for compliance", "Reduce storage costs", "Speed up queries"], correct: 1, explanation: "Audit logging tracks user actions for security and compliance purposes." },
+                { q: "What does GDPR ensure?", options: ["Data performance", "Data privacy and protection", "Data speed", "Data redundancy"], correct: 1, explanation: "GDPR (General Data Protection Regulation) ensures data privacy and protection for EU citizens." },
+                { q: "What does 'encryption at rest' mean?", options: ["Encryption during transmission", "Encryption when stored", "Encryption during processing", "Encryption at login"], correct: 1, explanation: "Encryption at rest means data is encrypted when stored on disk." },
+                { q: "How long is audit log retention configured in the tutorial?", options: ["90 days", "180 days", "365 days", "730 days"], correct: 2, explanation: "The tutorial configures audit log retention for 365 days." },
+                { q: "Which role has all permissions in RBAC?", options: ["Tester", "Viewer", "Admin", "Guest"], correct: 2, explanation: "The admin role has '*' which represents all permissions." },
+                { q: "What is the viewer role restricted to?", options: ["All operations", "Read-only operations", "Write operations", "Delete operations"], correct: 1, explanation: "The viewer role is restricted to read-only operations like tests:read and results:read." },
+                { q: "What cloud provider region is mentioned for data residency?", options: ["us-east-1", "eu-west-1", "ap-south-1", "sa-east-1"], correct: 1, explanation: "eu-west-1 is mentioned for GDPR-compliant data residency." },
+                { q: "What is the audit log export format?", options: ["XML", "CSV", "JSON", "YAML"], correct: 2, explanation: "The audit logs are exported in JSON format." },
+                { q: "What is the purpose of the self-healing pipeline?", options: ["Auto-restart servers", "Fix broken test scripts automatically", "Clean databases", "Backup data"], correct: 1, explanation: "The self-healing pipeline automatically fixes broken test scripts to maintain reliability." },
+                { q: "What environment variables are used for SSO credentials?", options: ["SSO_USER, SSO_PASS", "OKTA_CLIENT_ID, OKTA_CLIENT_SECRET", "API_KEY, API_SECRET", "TOKEN, SECRET"], correct: 1, explanation: "OKTA_CLIENT_ID and OKTA_CLIENT_SECRET are used as environment variables for SSO credentials." },
+                { q: "What is the storage quota unit used?", options: ["MB", "GB", "TB", "PB"], correct: 1, explanation: "Storage quotas are specified in GB (Gigabytes)." },
+                { q: "What happens when a tenant exceeds its quota?", options: ["Automatic upgrade", "New tenant creation", "Access restrictions or warnings", "Data deletion"], correct: 2, explanation: "When quotas are exceeded, access restrictions or warnings are typically triggered." },
+                { q: "What is the relationship between roles and groups in SSO?", options: ["No relationship", "Roles are mapped to groups", "Groups are deleted from roles", "Roles replace groups"], correct: 1, explanation: "Roles are mapped to groups from the identity provider in SSO configuration." },
+                { q: "What is compliance monitoring in enterprise systems?", options: ["Optional feature", "Tracking adherence to regulations", "Performance monitoring", "User activity reports only"], correct: 1, explanation: "Compliance monitoring tracks adherence to regulatory requirements like GDPR, HIPAA, etc." }
+            ]
+        };
+        
+        function initQuiz() {
+            new QuizEngine('quiz-container', quizData);
         }
+        
+        document.addEventListener('DOMContentLoaded', initQuiz);
     </script>
 </body>
 </html>

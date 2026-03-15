@@ -3,13 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Locust CI/CD Tutorial - Coming Soon | Philip Odzor">
-    <title>Locust CI/CD | Philip Odzor</title>
+    <meta name="description" content="Locust CI/CD Tutorial - Integrate load testing into your CI/CD pipeline with GitHub Actions, Jenkins, and more">
+    <title>Locust CI/CD Integration | QA Academy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --primary-light: #d1fae5;
+            --accent: #34d399;
+        }
+        .page-header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .badge-category { background: var(--primary); color: white; }
+        .btn-primary { background: var(--primary); border-color: var(--primary); }
+        .btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); }
+        code { background: #f0fdf4; border: 1px solid #bbf7d0; }
+        pre { background: #f0fdf4; border-left: 4px solid var(--primary); }
+        .feature-icon { background: var(--primary-light); color: var(--primary-dark); }
+        .key-points { border-left: 4px solid var(--primary); background: #f0fdf4; }
+        .tutorial-nav a { color: var(--primary); }
+        .tutorial-nav a:hover { background: var(--primary-light); }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -27,13 +45,13 @@
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="about.html" class="nav-link">About</a>
                     <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
                     <a href="resources.html" class="nav-link">Resources</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
                 <div class="nav-toggle" id="navToggle">
                     <span></span><span></span><span></span>
                 </div>
-                
                 <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
             </nav>
         </div>
@@ -42,49 +60,865 @@
     <!-- Page Header -->
     <section class="page-header">
         <div class="container">
-            <h1>Locust CI/CD Tutorial</h1>
-            <p>Automated Performance Testing Pipeline</p>
+            <div class="breadcrumb">
+                <a href="tutorials.html">Tutorials</a> / <a href="tutorials.html#performance">Performance Testing</a> / Locust CI/CD
+            </div>
+            <h1>Locust CI/CD Integration</h1>
+            <p>Automate Performance Testing in Your Deployment Pipeline</p>
+            <div class="tutorial-meta">
+                <span class="badge-category">Performance Testing</span>
+                <span class="badge-difficulty">Intermediate</span>
+                <span class="badge-time">35 min</span>
+            </div>
         </div>
     </section>
 
-    <!-- Coming Soon Section -->
+    <!-- Tutorial Navigation -->
+    <div class="tutorial-nav">
+        <div class="container">
+            <a href="#introduction">Introduction</a>
+            <a href="#github-actions">GitHub Actions</a>
+            <a href="#gitlab-ci">GitLab CI</a>
+            <a href="#jenkins">Jenkins Pipeline</a>
+            <a href="#docker">Docker Integration</a>
+            <a href="#notifications">Notifications</a>
+            <a href="#best-practices">Best Practices</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
     <section class="section">
         <div class="container">
-            <div class="coming-soon-container">
-                <div class="text-center">
-                    <div class="coming-soon-icon">🔄</div>
-                    <h2>CI/CD Integration Coming Soon</h2>
-                    <p class="text-gray mb-3">Learn how to integrate Locust into your CI/CD pipeline for automated performance testing:</p>
-                    
-                    <div style="max-width: 600px; margin: 0 auto;">
-                        <div class="card mb-3">
-                            <h3>Integration Platforms Covered</h3>
-                            <ul>
-                                <li>GitHub Actions Workflow Setup</li>
-                                <li>GitLab CI/CD Pipeline Integration</li>
-                                <li>Jenkins Automation Strategies</li>
-                                <li>Performance Gate Creation</li>
-                                <li>Slack/Teams Notifications</li>
-                            </ul>
-                        </div>
+            <div class="tutorial-layout">
+                <!-- Main Content -->
+                <article class="tutorial-content">
+                    <!-- Introduction -->
+                    <section id="introduction">
+                        <h2>CI/CD Integration for Performance Testing</h2>
+                        <p>Integrating load testing into your CI/CD pipeline ensures that performance regressions are caught before they reach production. In this tutorial, we'll explore various ways to automate Locust tests in different CI/CD platforms.</p>
                         
-                        <div class="card">
-                            <h3>Prerequisites</h3>
+                        <div class="info-box">
+                            <h4>What You'll Learn</h4>
                             <ul>
-                                <li>Locust Intermediate Level</li>
-                                <li>Basic CI/CD Knowledge</li>
-                                <li>Understanding of Git Workflows</li>
-                                <li>Experience with Docker (Optional)</li>
+                                <li>Set up automated load tests in GitHub Actions</li>
+                                <li>Configure GitLab CI pipelines for performance testing</li>
+                                <li>Create Jenkins pipelines for continuous performance testing</li>
+                                <li>Set up Docker-based test environments</li>
+                                <li>Configure alerts and notifications</li>
                             </ul>
                         </div>
+
+                        <h3>Why Integrate Load Testing?</h3>
+                        <ul>
+                            <li><strong>Early Detection</strong>: Catch performance issues in development</li>
+                            <li><strong>Consistency</strong>: Run the same tests on every commit</li>
+                            <li><strong>Regression Prevention</strong>: Stop performance degradation</li>
+                            <li><strong>Confidence</strong>: Ship with confidence knowing performance is tested</li>
+                        </ul>
+                    </section>
+
+                    <!-- GitHub Actions -->
+                    <section id="github-actions">
+                        <h2>GitHub Actions Integration</h2>
+                        <p>GitHub Actions provides a powerful way to run load tests on every push or pull request.</p>
+
+                        <h3>Basic GitHub Actions Workflow</h3>
+                        <pre><code class="language-yaml"># .github/workflows/load-test.yml
+name: Performance Testing
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 2 * * *'  # Nightly tests
+
+env:
+  LOCUST_HOST: ${{ secrets.TEST_HOST }}
+  LOCUST_USERS: 100
+  LOCUST_SPAWN_RATE: 10
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install locust locust[fast] fakeredis
+
+      - name: Run Locust load test
+        run: |
+          locust -f locustfiles/website_test.py \
+            --headless \
+            --users ${{ env.LOCUST_USERS }} \
+            --spawn-rate ${{ env.LOCUST_SPAWN_RATE }} \
+            --run-time 5m \
+            --host ${{ env.LOCUST_HOST }} \
+            --csv results/loadtest \
+            --html results/report.html
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: load-test-results
+          path: results/
+          retention-days: 30
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: locust-report
+          path: results/report.html
+
+      - name: Check performance thresholds
+        run: |
+          # Parse results and check thresholds
+          python scripts/check_thresholds.py results/loadtest_stats.csv</code></pre>
+
+                        <h3>Pull Request Performance Comments</h3>
+                        <pre><code class="language-yaml"># .github/workflows/load-test-pr.yml
+name: PR Performance Test
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run load test
+        run: |
+          locust -f locustfile.py \
+            --headless \
+            --users 50 \
+            --spawn-rate 10 \
+            --run-time 2m \
+            --csv /tmp/results \
+            --json
+            
+      - name: Post results as PR comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const stats = fs.readFileSync('/tmp/results_stats.csv', 'utf8');
+            
+            const lines = stats.split('\n');
+            const header = lines[0].split(',');
+            const data = lines[1].split(',');
+            
+            const metrics = {};
+            header.forEach((h, i) => {
+              metrics[h] = data[i];
+            });
+            
+            const comment = `
+            ## ⚡ Load Test Results
+            | Metric | Value |
+            |--------|-------|
+            | Requests | ${metrics['Request Count'] || 'N/A'} |
+            | Failures | ${metrics['Failure Count'] || '0'} |
+            | Median | ${metrics['Median Response Time'] || 'N/A'}ms |
+            | 95th % | ${metrics['95%ile'] || 'N/A'}ms |
+            | 99th % | ${metrics['99%ile'] || 'N/A'}ms |
+            
+            _Test run on PR #${context.issue.number}_
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });</code></pre>
+
+                        <h3>Performance Gate Action</h3>
+                        <pre><code class="language-yaml"># Example with performance gates
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run load test
+        run: |
+          locust -f locustfile.py \
+            --headless \
+            --users 200 \
+            --spawn-rate 20 \
+            --run-time 5m \
+            --csv results \
+            --exit-code-on-zero-requests 0
+            
+      - name: Evaluate performance
+        run: |
+          python scripts/evaluate_performance.py results/stats.csv
+        continue-on-error: true
+        
+      - name: Fail if thresholds exceeded
+        if: failure()
+        run: |
+          echo "❌ Performance thresholds exceeded!"
+          exit 1</code></pre>
+                    </section>
+
+                    <!-- GitLab CI -->
+                    <section id="gitlab-ci">
+                        <h2>GitLab CI/CD Integration</h2>
+                        <p>GitLab CI provides excellent support for running load tests as part of your pipeline.</p>
+
+                        <h3>Basic .gitlab-ci.yml</h3>
+                        <pre><code class="language-yaml"># .gitlab-ci.yml
+stages:
+  - test
+  - performance
+  - deploy
+
+variables:
+  LOCUST_HOST: "https://staging.example.com"
+  LOCUST_USERS: "100"
+  LOCUST_DURATION: "5m"
+
+performance_test:
+  stage: performance
+  image: python:3.11-slim
+  before_script:
+    - pip install locust locust[fast]
+  script:
+    - locust -f locustfiles/website.py \
+        --headless \
+        --users $LOCUST_USERS \
+        --spawn-rate 10 \
+        --run-time $LOCUST_DURATION \
+        --host $LOCUST_HOST \
+        --html report.html \
+        --csv results
+  artifacts:
+    paths:
+      - report.html
+      - results_stats.csv
+      - results_stats_history.csv
+    expire_in: 30 days
+    reports:
+      junit: results_results.xml
+  only:
+    - main
+    - merge_requests
+    - scheduled
+
+performance_regression:
+  stage: performance
+  image: python:3.11-slim
+  script:
+    - pip install locust
+    - |
+      locust -f locustfiles/api_test.py \
+        --headless \
+        --users 500 \
+        --spawn-rate 50 \
+        --run-time 10m \
+        --host $LOCUST_HOST \
+        --csv results
+    - python scripts/check_baseline.py results/stats.csv
+  artifacts:
+    paths:
+      - results/
+  only:
+    - main
+  when: manual</code></pre>
+
+                        <h3>Advanced GitLab CI with Multiple Stages</h3>
+                        <pre><code class="language-yaml"># Advanced GitLab CI pipeline
+stages:
+  - test
+  - load-test
+  - security
+  - deploy
+
+variables:
+  LOCUST_FILE: "locustfiles/api_test.py"
+
+.load-test-template:
+  &load-test-template
+  image: locustio/locust:2.20
+  before_script:
+    - mkdir -p reports
+  script:
+    - locust -f $LOCUST_FILE
+      --headless
+      --users $LOCUST_USERS
+      --spawn-rate $LOCUST_SPAWN_RATE
+      --run-time $LOCUST_DURATION
+      --host $LOCUST_HOST
+      --html reports/locust-report.html
+      --csv reports/locust-data
+  artifacts:
+    paths:
+      - reports/
+    expire_in: 7 days
+
+smoke-test:
+  <<: *load-test-template
+  variables:
+    LOCUST_USERS: "20"
+    LOCUST_SPAWN_RATE: "5"
+    LOCUST_DURATION: "2m"
+  stage: load-test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+full-load-test:
+  <<: *load-test-template
+  variables:
+    LOCUST_USERS: "500"
+    LOCUST_SPAWN_RATE: "25"
+    LOCUST_DURATION: "15m"
+  stage: load-test
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  allow_failure: true
+
+stress-test:
+  <<: *load-test-template
+  variables:
+    LOCUST_USERS: "1000"
+    LOCUST_SPAWN_RATE: "50"
+    LOCUST_DURATION: "30m"
+  stage: load-test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  allow_failure: true</code></pre>
+                    </section>
+
+                    <!-- Jenkins -->
+                    <section id="jenkins">
+                        <h2>Jenkins Pipeline Integration</h2>
+                        <p>Jenkins is widely used in enterprise environments. Here's how to integrate Locust.</p>
+
+                        <h3>Jenkinsfile (Declarative Pipeline)</h3>
+                        <pre><code class="language-jenkins">// Jenkinsfile
+pipeline {
+    agent any
+    
+    environment {
+        LOCUST_HOST = 'https://staging.example.com'
+        LOCUST_USERS = '100'
+        LOCUST_SPAWN_RATE = '10'
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                sh 'pip install locust locust[fast]'
+            }
+        }
+        
+        stage('Run Load Test') {
+            steps {
+                sh '''
+                    locust -f locustfiles/website.py \
+                        --headless \
+                        --users $LOCUST_USERS \
+                        --spawn-rate $LOCUST_SPAWN_RATE \
+                        --run-time 5m \
+                        --host $LOCUST_HOST \
+                        --html report.html \
+                        --csv results \
+                        --junit results.xml
+                '''
+            }
+        }
+        
+        stage('Archive Results') {
+            steps {
+                archiveArtifacts artifacts: 'report.html,results*.csv', fingerprint: true
+                junit 'results.xml'
+            }
+        }
+        
+        stage('Performance Gate') {
+            steps {
+                sh 'python scripts/evaluate_performance.py results/stats.csv'
+            }
+        }
+    }
+    
+    post {
+        always {
+            cleanWs()
+        }
+        success {
+            slackSend(color: 'good', message: "Load test passed!")
+        }
+        failure {
+            slackSend(color: 'danger', message: "Load test failed!")
+        }
+    }
+}</code></pre>
+
+                        <h3>Jenkinsfile (Scripted Pipeline)</h3>
+                        <pre><code class="language-jenkins">// Scripted Pipeline with Dynamic Load
+node {
+    def locustUsers = 100
+    def passed = false
+    
+    stage('Setup') {
+        checkout scm
+        sh 'pip install locust'
+    }
+    
+    stage('Baseline Test') {
+        // Run baseline test first
+        sh """
+            locust -f locustfile.py \
+                --headless \
+                --users 50 \
+                --spawn-rate 10 \
+                --run-time 2m \
+                --host $LOCUST_HOST \
+                --csv baseline_results
+        """
+        
+        // Read baseline metrics
+        def baseline = readFile('baseline_results_stats.csv')
+        echo "Baseline: ${baseline}"
+    }
+    
+    stage('Full Load Test') {
+        // Progressive load test
+        [50, 100, 200, 500].each { users ->
+            stage("Load Test: ${users} users") {
+                sh """
+                    locust -f locustfile.py \
+                        --headless \
+                        --users ${users} \
+                        --spawn-rate 20 \
+                        --run-time 5m \
+                        --host $LOCUST_HOST \
+                        --csv results_${users}
+                """
+                
+                // Check results
+                def result = sh(
+                    script: "python scripts/check_threshold.py results_${users}_stats.csv",
+                    returnStatus: true
+                )
+                
+                if (result != 0) {
+                    currentBuild.result = 'UNSTABLE'
+                    passed = false
+                }
+            }
+        }
+    }
+    
+    stage('Publish Report') {
+        archiveArtifacts artifacts: '*.html,*.csv', fingerprint: true
+        publishHTML([
+            allowMissing: false,
+            alwaysLinkToLastBuild: true,
+            keepAll: true,
+            reportDir: '.',
+            reportFiles: 'report.html',
+            reportName: 'Load Test Report'
+        ])
+    }
+}</code></pre>
+                    </section>
+
+                    <!-- Docker -->
+                    <section id="docker">
+                        <h2>Docker-Based Testing</h2>
+                        <p>Using Docker ensures consistent test environments and easy scaling.</p>
+
+                        <h3>Docker Compose for Distributed Testing</h3>
+                        <pre><code class="language-yaml"># docker-compose.yml
+version: '3.8'
+
+services:
+  locust-master:
+    image: locustio/locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./locustfiles:/mnt/locust
+    environment:
+      - LOCUST_HOST=${TARGET_HOST:-http://app:8000}
+      - LOCUST_MODE=master
+    command: >
+      -f /mnt/locust/locustfile.py 
+      --master 
+      --expect-workers 4
+      --port 8089
+
+  locust-worker-1:
+    image: locustio/locust
+    volumes:
+      - ./locustfiles:/mnt/locust
+    environment:
+      - LOCUST_HOST=${TARGET_HOST:-http://app:8000}
+      - LOCUST_MODE=worker
+      - LOCUST_MASTER_HOST=locust-master
+    depends_on:
+      - locust-master
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust-master
+
+  locust-worker-2:
+    image: locustio/locust
+    volumes:
+      - ./locustfiles:/mnt/locust
+    environment:
+      - LOCUST_HOST=${TARGET_HOST:-http://app:8000}
+      - LOCUST_MODE=worker
+      - LOCUST_MASTER_HOST=locust-master
+    depends_on:
+      - locust-master
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust-master
+
+  locust-worker-3:
+    image: locustio/locust
+    volumes:
+      - ./locustfiles:/mnt/locust
+    environment:
+      - LOCUST_HOST=${TARGET_HOST:-http://app:8000}
+      - LOCUST_MODE=worker
+      - LOCUST_MASTER_HOST=locust-master
+    depends_on:
+      - locust-master
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust-master
+
+  locust-worker-4:
+    image: locustio/locust
+    volumes:
+      - ./locustfiles:/mnt/locust
+    environment:
+      - LOCUST_HOST=${TARGET_HOST:-http://app:8000}
+      - LOCUST_MODE=worker
+      - LOCUST_MASTER_HOST=locust-master
+    depends_on:
+      - locust-master
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust-master</code></pre>
+
+                        <h3>Dockerfile for Custom Locust Image</h3>
+                        <pre><code class="language-dockerfile"># Dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy locust files
+COPY locustfiles/ /mnt/locust/
+
+# Set environment variables
+ENV LOCUST_HOST=http://app:8000
+ENV PYTHONUNBUFFERED=1
+
+# Run Locust
+CMD ["locust", "-f", "/mnt/locust/locustfile.py"]</code></pre>
+
+                        <h3>Kubernetes Deployment</h3>
+                        <pre><code class="language-yaml"># k8s-locust.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: locust-master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: locust-master
+  template:
+    metadata:
+      labels:
+        app: locust-master
+    spec:
+      containers:
+      - name: locust
+        image: locustio/locust
+        ports:
+        - containerPort: 8089
+        env:
+        - name: LOCUST_MODE
+          value: "master"
+        - name: LOCUST_HOST
+          value: "http://your-app:8000"
+        volumeMounts:
+        - name: config
+          mountPath: /mnt/locust
+      volumes:
+      - name: config
+        configMap:
+          name: locust-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: locust-worker
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: locust-worker
+  template:
+    metadata:
+      labels:
+        app: locust-worker
+    spec:
+      containers:
+      - name: locust
+        image: locustio/locust
+        env:
+        - name: LOCUST_MODE
+          value: "worker"
+        - name: LOCUST_MASTER_HOST
+          value: "locust-master"
+        - name: LOCUST_MASTER_PORT
+          value: "8089"
+        volumeMounts:
+        - name: config
+          mountPath: /mnt/locust
+      volumes:
+      - name: config
+        configMap:
+          name: locust-config</code></pre>
+                    </section>
+
+                    <!-- Notifications -->
+                    <section id="notifications">
+                        <h2>Notifications and Alerts</h2>
+                        <p>Configure notifications to stay informed about test results.</p>
+
+                        <h3>Slack Notifications</h3>
+                        <pre><code class="language-python">import os
+import json
+from locust import events
+import requests
+
+SLACK_WEBHOOK = os.environ.get("SLACK_WEBHOOK_URL")
+
+def send_slack_notification(message, color="good"):
+    \"\"\"Send notification to Slack\"\"\"
+    if not SLACK_WEBHOOK:
+        return
+    
+    payload = {
+        "attachments": [{
+            "color": color,
+            "text": message,
+            "fields": [
+                {"title": "Environment", "value": os.environ.get("ENV", "staging")},
+                {"title": "Branch", "value": os.environ.get("GIT_BRANCH", "main")}
+            ]
+        }]
+    }
+    
+    requests.post(SLACK_WEBHOOK, json=payload)
+
+@events.test_start.add_listener
+def on_test_start(environment, **kwargs):
+    send_slack_notification(
+        f"🚀 Load test started!\n"
+        f"Users: {environment.runner.target_user_count}\n"
+        f"Spawn rate: {environment.runner.spawn_rate}/s",
+        color="#36a64f"
+    )
+
+@events.test_stop.add_listener
+def on_test_stop(environment, **kwargs):
+    # Get stats
+    stats = environment.stats
+    
+    message = f"""
+📊 Load Test Complete!
+
+Total Requests: {stats.total.num_requests}
+Failures: {stats.total.num_failures}
+Median: {stats.total.median_response_time}ms
+95th %: {stats.total.get_response_time_percentile(0.95)}ms
+    \"\"\"
+    
+    if stats.total.num_failures > 0:
+        send_slack_notification(message, color="danger")
+    else:
+        send_slack_notification(message, color="good")</code></pre>
+
+                        <h3>Email Notifications</h3>
+                        <pre><code class="language-python">import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from locust import events
+
+def send_email(subject, body, recipients):
+    \"\"\"Send email notification\"\"\"
+    msg = MIMEMultipart()
+    msg['From'] = 'locust@example.com'
+    msg['To'] = ', '.join(recipients)
+    msg['Subject'] = subject
+    
+    msg.attach(MIMEText(body, 'html'))
+    
+    with smtplib.SMTP('smtp.gmail.com', 587) as server:
+        server.starttls()
+        server.login(os.environ['EMAIL_USER'], os.environ['EMAIL_PASS'])
+        server.sendmail(msg['From'], recipients, msg.as_string())
+
+@events.test_stop.add_listener
+def on_test_stop(environment, **kwargs):
+    stats = environment.stats
+    
+    if stats.total.num_failures > 0:
+        html = f"""
+        <h2>⚠️ Load Test Failed</h2>
+        <p><strong>Total Requests:</strong> {stats.total.num_requests}</p>
+        <p><strong>Failures:</strong> {stats.total.num_failures}</p>
+        <p><strong>Error Rate:</strong> {stats.total.fail_ratio*100:.2f}%</p>
+        """
+        send_email(
+            "[ALERT] Load Test Failed",
+            html,
+            ['team@example.com']
+        )</code></pre>
+                    </section>
+
+                    <!-- Best Practices -->
+                    <section id="best-practices">
+                        <h2>CI/CD Best Practices</h2>
+                        
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">🎯</div>
+                                <h3>Define Thresholds</h3>
+                                <p>Set clear performance thresholds that must be met</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">📊</div>
+                                <h3>Track Trends</h3>
+                                <p>Store historical data to identify degradation</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🔄</div>
+                                <h3>Run Regularly</h3>
+                                <p>Schedule tests to run nightly or weekly</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">⚡</div>
+                                <h3>Fast Feedback</h3>
+                                <p>Quick smoke tests on PRs, full tests on merge</p>
+                            </div>
+                        </div>
+
+                        <h3>Recommended Test Strategy</h3>
+                        <pre><code class="language-yaml"># Test strategy matrix
+environments:
+  pull_request:
+    users: 20-50
+    duration: 2-3m
+    frequency: every PR
+    type: smoke
+    
+  nightly:
+    users: 100-200
+    duration: 10-15m
+    frequency: daily
+    type: standard
+    
+  weekly:
+    users: 500-1000
+    duration: 30-60m
+    frequency: weekly
+    type: stress
+    
+  release:
+    users: 1000+
+    duration: 60m+
+    frequency: release
+    type: soak</code></pre>
+                    </section>
+
+                    <!-- Key Points -->
+                    <section class="key-points">
+                        <h2>Key Points Summary</h2>
+                        <ul>
+                            <li><strong>Automate Tests</strong>: Integrate Locust into CI/CD for every commit</li>
+                            <li><strong>GitHub Actions</strong>: Use workflows with performance gates and PR comments</li>
+                            <li><strong>GitLab CI</strong>: Leverage stages and rules for different test types</li>
+                            <li><strong>Jenkins</strong>: Create pipelines with dynamic load progression</li>
+                            <li><strong>Docker</strong>: Containerize for consistent environments</li>
+                            <li><strong>Notifications</strong>: Alert team on success/failure</li>
+                            <li><strong>Thresholds</strong>: Define and enforce performance SLAs</li>
+                            <li><strong>Strategy</strong>: Match test intensity to pipeline stage</li>
+                        </ul>
+                    </section>
+
+                    <!-- Navigation -->
+                    <div class="tutorial-nav-footer">
+                        <a href="tutorial-locust-advanced.html" class="btn btn-outline">
+                            ← Previous: Advanced Locust
+                        </a>
+                        <a href="tutorials.html" class="btn btn-primary">
+                            View All Tutorials →
+                        </a>
                     </div>
-                    
-                    <div style="margin-top: var(--space-2xl);">
-                        <p class="text-gray mb-2">Expected availability: Q3 2026</p>
-                        <a href="tutorials.html" class="btn btn-primary">Back to Tutorials</a>
+                </article>
+
+                <!-- Sidebar -->
+                <aside class="tutorial-sidebar">
+                    <div class="sidebar-card">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="tutorial-locust-basics.html">Locust Basics</a></li>
+                            <li><a href="tutorial-locust-advanced.html">Advanced Locust</a></li>
+                            <li><a href="tutorial-githubactions-intro.html">GitHub Actions</a></li>
+                        </ul>
                     </div>
-                </div>
+                    <div class="sidebar-card">
+                        <h4>Related Topics</h4>
+                        <ul>
+                            <li><a href="tutorial-quickstart.html">Load Testing Quick Start</a></li>
+                            <li><a href="tutorial-basics.html">Performance Testing Basics</a></li>
+                        </ul>
+                    </div>
+                </aside>
             </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section bg-light">
+        <div class="container text-center">
+            <h2>Ready to Test Your Knowledge?</h2>
+            <p>Take the Locust quiz to verify your understanding of CI/CD integration.</p>
+            <a href="tutorials.html" class="btn btn-primary btn-lg">Start Quiz</a>
         </div>
     </section>
 

@@ -3,18 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Agile & Scrum Tutorial - Learn Agile methodologies and Jira workflow">
+    <meta name="description" content="Agile & Scrum Tutorial - Master Scrum ceremonies, roles, sprint planning, and Jira workflow management">
     <title>Agile & Scrum Fundamentals | QA Academy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        .coming-soon-container { max-width: 800px; margin: 0 auto; text-align: center; padding: 4rem 2rem; }
-        .coming-soon-icon { font-size: 6rem; margin-bottom: 2rem; }
-        .coming-soon-container h1 { margin-bottom: 1rem; }
-        .coming-soon-container p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem; }
-        .timeline-badge { display: inline-block; background: #3b82f6; color: white; padding: 0.5rem 1rem; border-radius: 50px; font-weight: 600; margin-top: 1rem; }
+        :root { --accent: #3b82f6; }
+        .tutorial-content { max-width: 900px; margin: 0 auto; }
+        .tutorial-content h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content h2 { font-size: 1.875rem; font-weight: 700; margin-top: var(--space-2xl); margin-bottom: var(--space-lg); color: var(--text-primary); border-bottom: 3px solid var(--accent); padding-bottom: var(--space-sm); display: inline-block; }
+        .tutorial-content h3 { font-size: 1.375rem; font-weight: 600; margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content p { font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+        .tutorial-content ul, .tutorial-content ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: var(--space-lg); padding-left: var(--space-xl); }
+        .tutorial-content li { margin-bottom: var(--space-sm); color: var(--text-secondary); }
+        .tutorial-content strong { color: var(--text-primary); font-weight: 600; }
+        
+        .tutorial-meta { display: flex; gap: var(--space-lg); flex-wrap: wrap; margin-bottom: var(--space-xl); padding: var(--space-md) var(--space-lg); background: var(--bg-secondary); border-radius: var(--radius-lg); }
+        .tutorial-meta-item { display: flex; align-items: center; gap: var(--space-sm); font-size: 1rem; color: var(--text-secondary); }
+        
+        .concept-card { background: var(--bg-primary); border-radius: 12px; padding: 2rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--gray-200); }
+        .concept-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        
+        .key-points { background: linear-gradient(135deg, var(--accent) 0%, #06b6d4 100%); color: white; padding: var(--space-xl); border-radius: var(--radius-xl); margin: var(--space-xl) 0; }
+        .key-points h3 { color: white; margin-bottom: var(--space-md); }
+        .key-points ul { margin-bottom: 0; }
+        .key-points li { color: white; }
+        
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .feature-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--gray-200); }
+        .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .feature-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .feature-desc { font-size: 0.9rem; color: var(--text-secondary); }
+        
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 1rem; }
+        .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--gray-200); }
+        .comparison-table th { background: var(--bg-tertiary); font-weight: 600; color: var(--text-primary); }
+        .comparison-table tr:hover { background: var(--bg-secondary); }
+        
+        .code-block { background: #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto; }
+        .code-block code { font-family: 'Fira Code', monospace; font-size: 0.9rem; color: #e2e8f0; white-space: pre; }
+        .code-block .comment { color: #64748b; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #34d399; }
+        .code-block .number { color: #f472b6; }
+        
+        .next-steps { background: var(--bg-secondary); border-radius: var(--radius-xl); padding: var(--space-2xl); margin-top: var(--space-2xl); border: 1px solid var(--gray-200); }
+        .next-steps h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; }
+        .next-steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
+        .next-step-card { display: flex; align-items: center; justify-content: space-between; padding: var(--space-lg); background: var(--bg-primary); border-radius: var(--radius-lg); text-decoration: none; color: var(--text-primary); font-weight: 500; border: 1px solid var(--gray-200); transition: all var(--transition-fast); }
+        .next-step-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .next-step-card span { display: flex; align-items: center; gap: var(--space-sm); }
+        
+        .breadcrumb { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-lg); font-size: 0.9rem; }
+        .breadcrumb a { color: var(--accent); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { color: var(--text-muted); }
+        
+        .quiz-section { background: var(--bg-secondary); border-radius: var(--radius-xl); padding: var(--space-2xl); margin-top: var(--space-2xl); border: 2px solid var(--accent); }
+        .quiz-section h2 { margin-top: 0; border-bottom: none; }
+        .quiz-cta { display: inline-flex; align-items: center; gap: var(--space-sm); margin-top: var(--space-lg); padding: var(--space-md) var(--space-xl); background: var(--accent); color: white; font-weight: 600; border-radius: var(--radius-lg); text-decoration: none; transition: transform var(--transition-fast), box-shadow var(--transition-fast); }
+        .quiz-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        
+        .role-card { background: linear-gradient(135deg, var(--accent) 0%, #06b6d4 100%); color: white; padding: 1.5rem; border-radius: 12px; margin: 1rem 0; }
+        .role-card h3 { color: white; margin-bottom: 0.5rem; }
+        .role-card p { color: rgba(255,255,255,0.9); font-size: 1rem; }
+        
+        .ceremony-timeline { display: flex; flex-direction: column; gap: 1rem; margin: 2rem 0; }
+        .ceremony-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: 8px; border-left: 4px solid var(--accent); }
+        .ceremony-icon { font-size: 1.5rem; }
+        .ceremony-info h4 { margin: 0 0 0.25rem 0; color: var(--text-primary); }
+        .ceremony-info p { margin: 0; font-size: 0.9rem; color: var(--text-secondary); }
     </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
@@ -24,33 +84,500 @@
             <nav class="nav">
                 <a href="index.html" class="nav-brand">
                     <img src="assets/images/profile.jpg" alt="Philip Odzor">
-                    <span class="nav-brand-text">QA Academy</span>
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
                 </a>
-                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-                    <span></span><span></span><span></span>
-                </button>
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="tutorials.html">Tutorials</a></li>
-                    <li><a href="resources.html">Resources</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
             </nav>
         </div>
     </header>
 
-    <main>
-        <div class="coming-soon-container">
-            <div class="coming-soon-icon">📋</div>
+    <section class="page-header">
+        <div class="container">
             <h1>Agile & Scrum Fundamentals</h1>
             <p>Master Scrum ceremonies, roles, sprint planning, and Jira workflow management</p>
-            <div class="timeline-badge">Coming Soon - Q2 2026</div>
-            <div style="margin-top: 3rem;">
-                <a href="tutorials.html" class="btn btn-primary">Browse All Tutorials</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="tutorial-content">
+                <div class="breadcrumb">
+                    <a href="tutorials.html">Tutorials</a>
+                    <span>/</span>
+                    <span>Agile & Scrum</span>
+                </div>
+
+                <div class="tutorial-meta">
+                    <div class="tutorial-meta-item">⏱️ 45 minutes</div>
+                    <div class="tutorial-meta-item">📚 Beginner to Intermediate</div>
+                    <div class="tutorial-meta-item">🔄 Last updated: March 2026</div>
+                </div>
+
+                <h2>What is Agile?</h2>
+                <p>
+                    Agile is an iterative approach to project management and software development that helps teams deliver value to their customers faster and with fewer headaches. Instead of betting everything on a single launch, an agile team delivers work in small, consumable increments. Requirements, plans, and results are evaluated continuously so teams have a natural mechanism for responding to change quickly.
+                </p>
+                <p>
+                    The Agile Manifesto, created in 2001 by 17 software developers, emphasizes individuals and interactions over processes and tools, working software over comprehensive documentation, customer collaboration over contract negotiation, and responding to change over following a plan.
+                </p>
+
+                <div class="key-points">
+                    <h3>Why Agile for QA Engineers?</h3>
+                    <ul>
+                        <li><strong>Early Testing:</strong> QA is involved from sprint planning, catching bugs early</li>
+                        <li><strong>Continuous Feedback:</strong> Regular retrospectives improve testing processes</li>
+                        <li><strong>Adaptability:</strong> Test plans evolve with changing requirements</li>
+                        <li><strong>Collaboration:</strong> Close working relationship with developers and product owners</li>
+                        <li><strong>Incremental Delivery:</strong> Each sprint produces testable, shippable increments</li>
+                    </ul>
+                </div>
+
+                <h2>What is Scrum?</h2>
+                <p>
+                    Scrum is a lightweight framework that helps people, teams and organizations generate value through adaptive solutions for complex problems. It is founded on empiricism—the idea that knowledge comes from experience and decisions are based on observation. The three pillars of Scrum are Transparency, Inspection, and Adaptation.
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <div class="feature-title">Transparency</div>
+                        <div class="feature-desc">All aspects must be visible to those responsible for outcomes</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Inspection</div>
+                        <div class="feature-desc">Frequently inspect artifacts and progress toward goals</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-title">Adaptation</div>
+                        <div class="feature-desc">Adjust processes when inspection reveals deviation</div>
+                    </div>
+                </div>
+
+                <h2>Scrum Roles</h2>
+                <p>Scrum defines three accountabilities that together create the Scrum Team:</p>
+
+                <div class="role-card">
+                    <h3>Product Owner</h3>
+                    <p>The Product Owner is accountable for maximizing the value of the product resulting from the work of the Scrum Team. They manage the Product Backlog, prioritizing items based on business value, user needs, and technical dependencies.</p>
+                </div>
+
+                <div class="role-card">
+                    <h3>Scrum Master</h3>
+                    <p>The Scrum Master is accountable for establishing Scrum as defined in the Scrum Guide. They act as a servant-leader for the Scrum Team, facilitating ceremonies, removing impediments, and coaching on Agile principles.</p>
+                </div>
+
+                <div class="role-card">
+                    <h3>Developers</h3>
+                    <p>Developers are the people in the Scrum Team that are committed to creating any aspect of a usable Increment each Sprint. This includes QA engineers who are responsible for testing the increment.</p>
+                </div>
+
+                <h2>The Scrum Events</h2>
+                <p>Scrum uses events to create regularity and to minimize the need for meetings not defined in Scrum. All events are time-boxed to ensure productive discussions.</p>
+
+                <div class="ceremony-timeline">
+                    <div class="ceremony-item">
+                        <div class="ceremony-icon">🏃</div>
+                        <div class="ceremony-info">
+                            <h4>Sprint (2-4 weeks)</h4>
+                            <p>The heartbeat of Scrum. A fixed time-box during which a "Done", useable, and potentially releasable product increment is created.</p>
+                        </div>
+                    </div>
+                    <div class="ceremony-item">
+                        <div class="ceremony-icon">📋</div>
+                        <div class="ceremony-info">
+                            <h4>Sprint Planning</h4>
+                            <p>Time-boxed to 8 hours for a one-month sprint. The work to be performed in the Sprint is planned at Sprint Planning.</p>
+                        </div>
+                    </div>
+                    <div class="ceremony-item">
+                        <div class="ceremony-icon">🗓️</div>
+                        <div class="ceremony-info">
+                            <h4>Daily Scrum</h4>
+                            <p>15-minute event for Developers to plan work for the next 24 hours. QA engineers share testing progress and any blockers.</p>
+                        </div>
+                    </div>
+                    <div class="ceremony-item">
+                        <div class="ceremony-icon">🔍</div>
+                        <div class="ceremony-info">
+                            <h4>Sprint Review</h4>
+                            <p>Held at the end of the Sprint to inspect the Increment and adapt the Product Backlog. Demo the work to stakeholders.</p>
+                        </div>
+                    </div>
+                    <div class="ceremony-item">
+                        <div class="ceremony-icon">💭</div>
+                        <div class="ceremony-info">
+                            <h4>Sprint Retrospective</h4>
+                            <p>Opportunity for the Scrum Team to inspect itself and create a plan for improvements during the next Sprint.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>The Scrum Artifacts</h2>
+                <p>Scrum's artifacts represent work or value. They are designed to maximize transparency of key information.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <div class="feature-title">Product Backlog</div>
+                        <div class="feature-desc">An ordered list of everything that is known to be needed in the product. Always evolving and never complete.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✅</div>
+                        <div class="feature-title">Sprint Backlog</div>
+                        <div class="feature-desc">The set of Product Backlog items selected for the Sprint plus a plan for delivering them.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <div class="feature-title">Increment</div>
+                        <div class="feature-desc">The sum of all Product Backlog items completed during a Sprint and prior Sprints.</div>
+                    </div>
+                </div>
+
+                <h2>Definition of Done</h2>
+                <p>
+                    The Definition of Done (DoD) is a shared understanding of what it means for work to be complete. For QA engineers, the DoD typically includes:
+                </p>
+
+                <div class="code-block">
+                    <code><span class="comment"># Example Definition of Done for a User Story</span>
+
+<span class="keyword">Acceptance Criteria:</span>
+  ✓ All automated tests pass
+  ✓ Code has been peer reviewed
+  ✓ Documentation updated
+  ✓ Manual test cases executed
+  ✓ No critical or high severity bugs open
+  ✓ Performance tests completed (if applicable)
+  ✓ Security scan passed (if applicable)
+  ✓ Product Owner accepted the story</code>
+                </div>
+
+                <h2>User Stories and Acceptance Criteria</h2>
+                <p>
+                    User Stories are short, simple descriptions of a feature told from the perspective of the person who wants the new capability. They follow the format: "As a [type of user], I want [goal] so that [benefit]."
+                </p>
+
+                <div class="concept-card">
+                    <h3>INVEST in Good User Stories</h3>
+                    <ul>
+                        <li><strong>I</strong>dependent - Can be delivered independently</li>
+                        <li><strong>N</strong>egotiable - Not a contract, details can be discussed</li>
+                        <li><strong>V</strong>aluable - Delivers value to users</li>
+                        <li><strong>E</strong>stimable - Team can estimate the effort</li>
+                        <li><strong>S</strong>mall - Can be completed in one Sprint</li>
+                        <li><strong>T</strong>estable - We know when it's done</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <code><span class="comment"># Example User Story with Acceptance Criteria</span>
+
+<span class="keyword">User Story:</span>
+As a registered user, 
+I want to reset my password 
+so that I can regain access to my account if I forget it.
+
+<span class="keyword">Acceptance Criteria:</span>
+1. User can request password reset via email
+2. Reset link expires after 24 hours
+3. User must confirm new password twice
+4. Confirmation email sent after successful reset
+5. User logged out of all devices after reset</code>
+                </div>
+
+                <h2>Writing Test Cases from User Stories</h2>
+                <p>
+                    QA engineers play a crucial role in validating user stories. Here's how to approach testing:
+                </p>
+
+                <h3>1. Review Acceptance Criteria</h3>
+                <p>
+                    Before writing any test cases, thoroughly review the acceptance criteria. If anything is unclear, ask the Product Owner for clarification. Never assume requirements.
+                </p>
+
+                <h3>2. Identify Test Scenarios</h3>
+                <p>
+                    Break down each acceptance criterion into testable scenarios. Consider positive and negative test cases, boundary conditions, and edge cases.
+                </p>
+
+                <h3>3. Create Test Cases</h3>
+                <div class="code-block">
+                    <code><span class="comment"># Example Test Case Format</span>
+
+<span class="keyword">Test Case ID:</span> TC-PW-001
+<span class="keyword">Title:</span> Password Reset - Valid Email
+<span class="keyword">Pre-condition:</span> User is registered with valid email
+<span class="keyword">Steps:</span>
+1. Navigate to login page
+2. Click "Forgot Password"
+3. Enter registered email
+4. Click "Submit"
+<span class="keyword">Expected Result:</span>
+- Success message displayed
+- Email received with reset link</code>
+                </div>
+
+                <h3>4. Execute and Report</h3>
+                <p>
+                    Run your test cases and document results. Report any defects found using your chosen bug tracking tool. Ensure defects are linked to the relevant user story.
+                </p>
+
+                <h2>Jira Workflow for QA</h2>
+                <p>
+                    Jira is the most popular tool for managing Agile projects. Here's how to set up a QA-focused workflow:
+                </p>
+
+                <div class="code-block">
+                    <code><span class="comment"># Jira Workflow for QA Teams</span>
+
+<span class="keyword">Standard Issue Transitions:</span>
+
+To Do → In Progress (Developer starts work)
+In Progress → In Review (Developer submits for review)
+In Review → In QA (Ready for testing)
+In QA → In Progress (QA finds issues, returns to Dev)
+In QA → Done (All tests pass, criteria met)
+Done → Closed (Released to production)</code>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔴</div>
+                        <div class="feature-title">To Do</div>
+                        <div class="feature-desc">Work not yet started</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🟡</div>
+                        <div class="feature-title">In Progress</div>
+                        <div class="feature-desc">Currently being worked on</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔵</div>
+                        <div class="feature-title">In Review</div>
+                        <div class="feature-desc">Code review or peer review</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🟣</div>
+                        <div class="feature-title">In QA</div>
+                        <div class="feature-desc">Testing in progress</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🟢</div>
+                        <div class="feature-title">Done</div>
+                        <div class="feature-desc">All tests passed</div>
+                    </div>
+                </div>
+
+                <h2>Sprint Planning as a QA Engineer</h2>
+                <p>
+                    Sprint Planning sets the stage for the entire Sprint. As a QA engineer, your involvement is critical:
+                </p>
+
+                <h3>Before Sprint Planning</h3>
+                <ul>
+                    <li>Review the Product Backlog items scheduled for the Sprint</li>
+                    <li>Ensure acceptance criteria are clear and testable</li>
+                    <li>Identify any dependencies that might affect testing</li>
+                    <li>Prepare questions for the Product Owner</li>
+                </ul>
+
+                <h3>During Sprint Planning</h3>
+                <ul>
+                    <li>Ask clarifying questions about requirements</li>
+                    <li>Provide testing estimates for each story</li>
+                    <li>Discuss testability of features</li>
+                    <li>Identify integration points that need testing</li>
+                    <li>Communicate any risks or concerns early</li>
+                </ul>
+
+                <h3>Story Points vs Testing Effort</h3>
+                <p>
+                    Remember: Development story points and QA effort are different. A 3-point story might take 1 point of QA effort, while a 5-point story might require 3 points of testing. Factor this into your estimates.
+                </p>
+
+                <h2>Daily Scrum for QA</h2>
+                <p>
+                    The Daily Scrum is a 15-minute event for the Developers. As a QA engineer, you should:
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Report Testing Status</div>
+                        <div class="feature-desc">What testing did you complete yesterday?</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-title">Plan Today</div>
+                        <div class="feature-desc">What testing will you do today?</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🚧</div>
+                        <div class="feature-title">Identify Blockers</div>
+                        <div class="feature-desc">Any impediments affecting testing?</div>
+                    </div>
+                </div>
+
+                <h2>Sprint Review</h2>
+                <p>
+                    The Sprint Review demonstrates what was accomplished. QA engineers play a key role:
+                </p>
+                <ul>
+                    <li>Present test results and metrics</li>
+                    <li>Demonstrate feature functionality</li>
+                    <li>Highlight any known issues or workarounds</li>
+                    <li>Discuss testing challenges encountered</li>
+                    <li>Provide feedback on product quality</li>
+                </ul>
+
+                <h2>Sprint Retrospective</h2>
+                <p>
+                    The retrospective is for the Scrum Team to inspect itself. QA engineers should contribute:
+                </p>
+
+                <div class="code-block">
+                    <code><span class="comment"># Example Retrospective Topics for QA</span>
+
+<span class="keyword">What went well?</span>
+- Test automation coverage increased by 20%
+- Early collaboration with developers reduced bug count
+
+<span class="keyword">What didn't go well?</span>
+- Insufficient time for regression testing
+- Environment issues delayed testing by 2 days
+
+<span class="keyword">Action Items for Next Sprint:</span>
+- Set up dedicated QA environment by Day 1
+- Add 5 more regression test cases to automation suite
+- Schedule test planning session at sprint start</code>
+                </div>
+
+                <h2>QA Metrics in Scrum</h2>
+                <p>
+                    Tracking metrics helps teams understand their testing effectiveness:
+                </p>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Description</th>
+                            <th>Target</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Test Coverage</td>
+                            <td>Percentage of requirements tested</td>
+                            <td>> 90%</td>
+                        </tr>
+                        <tr>
+                            <td>Defect Density</td>
+                            <td>Bugs per 1000 lines of code</td>
+                            <td>< 1.0</td>
+                        </tr>
+                        <tr>
+                            <td>Test Execution Rate</td>
+                            <td>Tests run per day</td>
+                            <td>Trending up</td>
+                        </tr>
+                        <tr>
+                            <td>Pass Rate</td>
+                            <td>Percentage of tests passing</td>
+                            <td>> 95%</td>
+                        </tr>
+                        <tr>
+                            <td>Mean Time to Detect</td>
+                            <td>Average time to find a bug</td>
+                            <td>Decreasing</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Agile Testing Quadrants</h2>
+                <p>
+                    Lisa Crispin's Agile Testing Quadrants help QA engineers plan comprehensive test strategies:
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">Q1</div>
+                        <div class="feature-title">Unit Tests</div>
+                        <div class="feature-desc">Automated tests that verify individual components. Written by developers.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">Q2</div>
+                        <div class="feature-title">Functional Tests</div>
+                        <div class="feature-desc">Business-facing tests that verify functionality. GUI, API, integration tests.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">Q3</div>
+                        <div class="feature-title">Exploratory Tests</div>
+                        <div class="feature-desc">Manual testing to discover edge cases and unusual behaviors.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">Q4</div>
+                        <div class="feature-title">Performance Tests</div>
+                        <div class="feature-desc">Non-functional testing - load, stress, security, usability.</div>
+                    </div>
+                </div>
+
+                <h2>Key Points</h2>
+                <div class="key-points">
+                    <h3>Summary</h3>
+                    <ul>
+                        <li>Agile emphasizes iterative development, continuous feedback, and adaptability</li>
+                        <li>Scrum provides a framework with defined roles, events, and artifacts</li>
+                        <li>QA engineers are integral team members, not a separate phase</li>
+                        <li>Definition of Done ensures quality standards are met</li>
+                        <li>User stories with clear acceptance criteria enable effective testing</li>
+                        <li>Jira workflows help track testing progress through the Sprint</li>
+                        <li>Metrics provide insight into testing effectiveness and product quality</li>
+                    </ul>
+                </div>
+
+                <div class="next-steps">
+                    <h2>Continue Learning</h2>
+                    <div class="next-steps-grid">
+                        <a href="tutorial-product-mgmt.html" class="next-step-card">
+                            <span>📊 Product Management</span>
+                            <span>→</span>
+                        </a>
+                        <a href="tutorial-quickstart.html" class="next-step-card">
+                            <span>⚡ Quick Start</span>
+                            <span>→</span>
+                        </a>
+                        <a href="tutorial-playwright-intro.html" class="next-step-card">
+                            <span>🎭 Playwright Testing</span>
+                            <span>→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2>Test Your Knowledge</h2>
+                    <p>Ready to validate what you've learned? Take the Agile & Scrum quiz to test your understanding of Scrum ceremonies, roles, and best practices.</p>
+                    <a href="tutorials.html" class="quiz-cta">
+                        <span>📝 Take the Quiz</span>
+                    </a>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
 
     <footer class="footer">
         <div class="container">
@@ -75,7 +602,6 @@
         </div>
     </footer>
 
-    <!-- Modal -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-container modal-info" id="modalContainer">
             <div class="modal-header">

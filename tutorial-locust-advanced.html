@@ -3,13 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Advanced Locust Tutorial - Coming Soon | Philip Odzor">
-    <title>Advanced Locust | Philip Odzor</title>
+    <meta name="description" content="Advanced Locust Tutorial - Master distributed testing, custom metrics, and enterprise load testing strategies">
+    <title>Advanced Locust | QA Academy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --primary-light: #d1fae5;
+            --accent: #34d399;
+        }
+        .page-header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .badge-category { background: var(--primary); color: white; }
+        .btn-primary { background: var(--primary); border-color: var(--primary); }
+        .btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); }
+        code { background: #f0fdf4; border: 1px solid #bbf7d0; }
+        pre { background: #f0fdf4; border-left: 4px solid var(--primary); }
+        .feature-icon { background: var(--primary-light); color: var(--primary-dark); }
+        .key-points { border-left: 4px solid var(--primary); background: #f0fdf4; }
+        .tutorial-nav a { color: var(--primary); }
+        .tutorial-nav a:hover { background: var(--primary-light); }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -27,13 +45,13 @@
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="about.html" class="nav-link">About</a>
                     <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
                     <a href="resources.html" class="nav-link">Resources</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
                 <div class="nav-toggle" id="navToggle">
                     <span></span><span></span><span></span>
                 </div>
-                
                 <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
             </nav>
         </div>
@@ -42,49 +60,1024 @@
     <!-- Page Header -->
     <section class="page-header">
         <div class="container">
+            <div class="breadcrumb">
+                <a href="tutorials.html">Tutorials</a> / <a href="tutorials.html#performance">Performance Testing</a> / Advanced Locust
+            </div>
             <h1>Advanced Locust Tutorial</h1>
             <p>Enterprise-Grade Load Testing Techniques</p>
+            <div class="tutorial-meta">
+                <span class="badge-category">Performance Testing</span>
+                <span class="badge-difficulty">Advanced</span>
+                <span class="badge-time">45 min</span>
+            </div>
         </div>
     </section>
 
-    <!-- Coming Soon Section -->
+    <!-- Tutorial Navigation -->
+    <div class="tutorial-nav">
+        <div class="container">
+            <a href="#introduction">Introduction</a>
+            <a href="#distributed-testing">Distributed Testing</a>
+            <a href="#custom-metrics">Custom Metrics</a>
+            <a href="#advanced-tasks">Advanced Tasks</a>
+            <a href="#database-testing">Database Testing</a>
+            <a href="#microservices">Microservices</a>
+            <a href="#best-practices">Best Practices</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
     <section class="section">
         <div class="container">
-            <div class="coming-soon-container">
-                <div class="text-center">
-                    <div class="coming-soon-icon">🚀</div>
-                    <h2>Advanced Tutorial Coming Soon</h2>
-                    <p class="text-gray mb-3">Master advanced Locust techniques for enterprise-scale load testing:</p>
-                    
-                    <div style="max-width: 600px; margin: 0 auto;">
-                        <div class="card mb-3">
-                            <h3>Advanced Topics Covered</h3>
-                            <ul>
-                                <li>Custom Geo-Distributed Testing</li>
-                                <li>Real-Time Performance Monitoring</li>
-                                <li>Advanced User Behavior Modeling</li>
-                                <li>Database Integration Testing</li>
-                                <li>Microservices Load Testing Strategies</li>
-                            </ul>
-                        </div>
+            <div class="tutorial-layout">
+                <!-- Main Content -->
+                <article class="tutorial-content">
+                    <!-- Introduction -->
+                    <section id="introduction">
+                        <h2>Introduction to Advanced Locust</h2>
+                        <p>Welcome to the Advanced Locust tutorial! In this comprehensive guide, we'll explore enterprise-level load testing techniques that go beyond basic script creation. You'll learn how to build scalable, maintainable, and insightful load tests that can handle complex real-world scenarios.</p>
                         
-                        <div class="card">
-                            <h3>Prerequisites</h3>
+                        <div class="info-box">
+                            <h4>What You'll Learn</h4>
                             <ul>
-                                <li>Python Intermediate Level</li>
-                                <li>Basic Locust Knowledge</li>
-                                <li>Understanding of Microservices</li>
-                                <li>Experience with Database Systems</li>
+                                <li>Set up and manage distributed Locust environments</li>
+                                <li>Implement custom metrics and monitoring</li>
+                                <li>Design advanced user behavior patterns</li>
+                                <li>Integrate with databases for realistic data-driven testing</li>
+                                <li>Apply microservices testing strategies</li>
                             </ul>
                         </div>
+
+                        <h3>Prerequisites</h3>
+                        <p>Before diving into this advanced tutorial, ensure you have:</p>
+                        <ul>
+                            <li>Completed the <a href="tutorial-locust-basics.html">Locust Basics</a> tutorial</li>
+                            <li>Python intermediate level knowledge</li>
+                            <li>Understanding of REST APIs and HTTP protocols</li>
+                            <li>Experience with command-line tools</li>
+                        </ul>
+                    </section>
+
+                    <!-- Distributed Testing -->
+                    <section id="distributed-testing">
+                        <h2>Distributed Load Testing</h2>
+                        <p>When you need to simulate thousands or tens of thousands of concurrent users, a single Locust instance won't be enough. Distributed testing allows you to spread the load across multiple machines, generating massive traffic from a coordinated test cluster.</p>
+
+                        <h3>Understanding the Architecture</h3>
+                        <p>Locust supports distributed testing through a master-slave architecture:</p>
+                        <ul>
+                            <li><strong>Master Node</strong>: Coordinates the test, collects results, and presents the web UI</li>
+                            <li><strong>Worker Nodes</strong>: Actually execute the tasks and generate load</li>
+                            <li><strong>Communication</strong>: Workers communicate with the master via TCP (or gRPC in newer versions)</li>
+                        </ul>
+
+                        <h3>Setting Up Distributed Testing</h3>
+                        <p>Let's set up a distributed Locust environment. First, ensure Locust is installed on all machines:</p>
+
+                        <pre><code class="language-bash"># Install Locust on all machines
+pip install locust
+
+# Or with additional dependencies
+pip install locust[fast]</code></pre>
+
+                        <h4>Starting the Master Node</h4>
+                        <p>The master node controls the test and provides the web interface:</p>
+
+                        <pre><code class="language-bash"># Start master on port 5557
+locust -f locustfile.py \
+    --master \
+    --port 5557</code></pre>
+
+                        <p>Additional master options:</p>
+                        <pre><code class="language-bash"># Master with auto-scaling enabled
+locust -f locustfile.py \
+    --master \
+    --port 5557 \
+    --expect-workers 4 \
+    --headless \
+    -u 10000 \
+    -r 100 \
+    --run-time 1h \
+    --csv /tmp/loadtest</code></pre>
+
+                        <h4>Starting Worker Nodes</h4>
+                        <p>Workers connect to the master and execute the load test:</p>
+
+                        <pre><code class="language-bash"># Start worker (specify master host)
+locust -f locustfile.py \
+    --worker \
+    --master-host 192.168.1.100 \
+    --master-port 5557
+
+# Worker with custom tag
+locust -f locustfile.py \
+    --worker \
+    --master-host 192.168.1.100 \
+    --master-port 5557 \
+    --tags "api"</code></pre>
+
+                        <h4>SSH-Based Cluster Launch</h4>
+                        <p>For launching multiple workers via SSH:</p>
+
+                        <pre><code class="language-bash"># Using locust swarm command
+locust -f locustfile.py \
+    --swarm \
+    --headless \
+    -u 5000 \
+    -r 100 \
+    --run-time 30m \
+    --csv results/loadtest \
+    --host https://api.example.com
+
+# Launch workers on multiple machines
+locust -f locustfile.py \
+    --master \
+    --expect-workers 8</code></pre>
+
+                        <div class="info-box">
+                            <h4>Pro Tip: Auto-Scaling with Docker</h4>
+                            <p>For dynamic load testing, consider using Docker Swarm or Kubernetes with Locust. You can automatically scale worker pods based on CPU usage or queue depth, creating truly elastic load testing infrastructure.</p>
+                        </div>
+                    </section>
+
+                    <!-- Custom Metrics -->
+                    <section id="custom-metrics">
+                        <h2>Custom Metrics and Events</h2>
+                        <p>Locust provides built-in metrics like request count, response time, and failure rate. But for enterprise testing, you'll often need custom metrics specific to your application.</p>
+
+                        <h3>Using the Event System</h3>
+                        <p>Locust's event system allows you to hook into various points of the test lifecycle:</p>
+
+                        <pre><code class="language-python">from locust import events, TaskSet, task, between, HttpUser
+import time
+import json
+
+# Define custom event handlers
+def on_request_success(request_type, name, response_time, response_length, **kwargs):
+    \"\"\"Called when a request succeeds\"\"\"
+    print(f"Success: {name} - {response_time}ms")
+
+def on_request_failure(request_type, name, response_time, exception, **kwargs):
+    \"\"\"Called when a request fails\"\"\"
+    print(f"Failure: {name} - {exception}")
+
+def on_user_error(user_instance, exception, tb, **kwargs):
+    \"\"\"Called when a user encounters an error\"\"\"
+    print(f"User error: {exception}")
+
+# Register event handlers
+events.request_success.add_listener(on_request_success)
+events.request_failure.add_listener(on_request_failure)
+events.user_error.add_listener(on_user_error)
+
+# Example: Track custom business metrics
+class EcommerceUser(HttpUser):
+    wait_time = between(1, 3)
+    
+    def on_start(self):
+        self.cart_total = 0
+        self.items_viewed = 0
+    
+    @task(3)
+    def view_product(self):
+        product_id = random.randint(1, 1000)
+        with self.client.get(f"/api/products/{product_id}", 
+                           catch_response=True) as response:
+            if response.status_code == 200:
+                self.items_viewed += 1
+                response.success()
+            else:
+                response.failure(f"Got status {response.status_code}")
+    
+    @task(2)
+    def add_to_cart(self):
+        product_id = random.randint(1, 1000)
+        with self.client.post("/api/cart/add",
+                            json={"product_id": product_id, "quantity": 1},
+                            catch_response=True) as response:
+            if response.status_code == 200:
+                data = response.json()
+                self.cart_total = data.get("total", 0)
+                response.success()
+            else:
+                response.failure(f"Failed to add to cart")
+    
+    @task(1)
+    def checkout(self):
+        with self.client.post("/api/checkout",
+                            json={"payment_method": "card"},
+                            catch_response=True) as response:
+            if response.status_code == 200:
+                # Custom metric: Track checkout conversion
+                events.request_success.fire(
+                    request_type="CHECKOUT",
+                    name="checkout_conversion",
+                    response_time=response.elapsed.total_seconds() * 1000,
+                    response_length=len(response.content)
+                )
+                self.cart_total = 0
+                response.success()
+            else:
+                response.failure(f"Checkout failed")</code></pre>
+
+                        <h3>Publishing Custom Metrics</h3>
+                        <p>You can publish custom metrics to external monitoring systems:</p>
+
+                        <pre><code class="language-python">import statsd
+from locust import events
+
+# Initialize StatsD client
+statsd_client = statsd.StatsClient('localhost', 8125)
+
+def publish_custom_metrics(request_type, name, response_time, response_length, **kwargs):
+    \"\"\"Publish custom metrics to StatsD/Graphite\"\"\"
+    # Send response time as timing
+    statsd_client.timing(f"locust.{name}.response_time", response_time)
+    
+    # Send request count
+    statsd_client.incr(f"locust.{name}.requests")
+    
+    # Track custom business metrics
+    if "checkout" in name:
+        statsd_client.incr("locust.checkout.conversions")
+    elif "cart" in name:
+        statsd_client.incr("locust.cart.additions")
+
+events.request_success.add_listener(publish_custom_metrics)
+
+# Example: Prometheus metrics export
+from prometheus_client import Counter, Histogram, Gauge
+
+REQUEST_COUNT = Counter('locust_requests_total', 'Total requests', ['method', 'endpoint', 'status'])
+REQUEST_LATENCY = Histogram('locust_request_latency_seconds', 'Request latency', ['method', 'endpoint'])
+ACTIVE_USERS = Gauge('locust_active_users', 'Number of active users')
+
+def export_to_prometheus(request_type, name, response_time, response_length, **kwargs):
+    \"\"\"Export metrics to Prometheus\"\"\"
+    status = "success"
+    REQUEST_COUNT.labels(method=request_type, endpoint=name, status=status).inc()
+    REQUEST_LATENCY.labels(method=request_type, endpoint=name).observe(response_time / 1000)
+
+events.request_success.add_listener(export_to_prometheus)
+
+# Track active users
+@events.init_command_line_parser.add_listener
+def update_active_users(parser):
+    parser.add_argument("--active-users", type=int, default=0)
+
+@events.user_added.add_listener  
+def on_user_added(user, **kwargs):
+    ACTIVE_USERS.inc()
+
+@events.user_stopped.add_listener
+def on_user_stopped(user, **kwargs):
+    ACTIVE_USERS.dec()</code></pre>
+
+                        <h3>Data-Driven Testing with CSV</h3>
+                        <p>Load test with realistic data from CSV files:</p>
+
+                        <pre><code class="language-python">import csv
+from locust import HttpUser, task, between, events
+import random
+
+# Load test data from CSV
+test_data = []
+
+def load_test_data():
+    \"\"\"Load test data from CSV file\"\"\"
+    global test_data
+    with open('test_data/users.csv', 'r') as f:
+        reader = csv.DictReader(f)
+        test_data = list(reader)
+
+# Load data on startup
+load_test_data()
+
+class DataDrivenUser(HttpUser):
+    wait_time = between(1, 3)
+    
+    def on_start(self):
+        # Assign random user from test data
+        self.user_data = random.choice(test_data)
+        self.token = None
+    
+    @task
+    def login(self):
+        response = self.client.post("/api/auth/login", json={
+            "username": self.user_data['username'],
+            "password": self.user_data['password']
+        })
+        if response.status_code == 200:
+            self.token = response.json()["token"]
+    
+    @task
+    def get_profile(self):
+        if self.token:
+            self.client.get("/api/user/profile",
+                         headers={"Authorization": f"Bearer {self.token}"})</code></pre>
+                    </section>
+
+                    <!-- Advanced Tasks -->
+                    <section id="advanced-tasks">
+                        <h2>Advanced Task Patterns</h2>
+                        <p>Creating realistic load patterns requires sophisticated task design. Let's explore advanced patterns for simulating complex user behavior.</p>
+
+                        <h3>Sequential Task Flows</h3>
+                        <p>Model realistic user journeys through sequential task execution:</p>
+
+                        <pre><code class="language-python">from locust import TaskSet, task, between, HttpUser
+
+class UserJourney(TaskSet):
+    \"\"\"Sequential user journey through an e-commerce flow\"\"\"
+    
+    def on_start(self):
+        \"\"\"Initialize user session\"\"\"
+        self.cart = []
+        self.auth_token = None
+        self.user_id = None
+    
+    @task
+    def complete_purchase_flow(self):
+        \"\"\"Execute the full purchase journey as a single task\"\"\"
+        # Step 1: Login
+        self._login()
+        
+        # Step 2: Browse products
+        self._browse_products()
+        
+        # Step 3: View product details
+        self._view_product_details()
+        
+        # Step 4: Add to cart
+        self._add_to_cart()
+        
+        # Step 5: Update quantity
+        self._update_cart()
+        
+        # Step 6: Checkout
+        self._checkout()
+    
+    def _login(self):
+        with self.client.post("/api/auth/login", json={
+            "email": "test@example.com",
+            "password": "testpass123"
+        }, catch_response=True) as response:
+            if response.status_code == 200:
+                self.auth_token = response.json()["token"]
+                response.success()
+            else:
+                response.failure("Login failed")
+    
+    def _browse_products(self):
+        # Browse category pages
+        categories = ["electronics", "clothing", "home"]
+        for category in categories[:random.randint(1, 3)]:
+            self.client.get(f"/api/products?category={category}")
+    
+    def _view_product_details(self):
+        # View 2-5 random products
+        for _ in range(random.randint(2, 5)):
+            product_id = random.randint(1, 1000)
+            self.client.get(f"/api/products/{product_id}")
+    
+    def _add_to_cart(self):
+        # Add 1-4 items to cart
+        for _ in range(random.randint(1, 4)):
+            product_id = random.randint(1, 1000)
+            self.client.post("/api/cart", json={
+                "product_id": product_id,
+                "quantity": random.randint(1, 3)
+            })
+    
+    def _update_cart(self):
+        # Sometimes update quantities
+        if random.random() > 0.5:
+            self.client.put("/api/cart/update", json={
+                "item_id": random.randint(1, 100),
+                "quantity": random.randint(1, 5)
+            })
+    
+    def _checkout(self):
+        # Complete checkout
+        with self.client.post("/api/checkout", json={
+            "address_id": random.randint(1, 100),
+            "payment_method": "credit_card"
+        }, catch_response=True) as response:
+            if response.status_code in [200, 201]:
+                response.success()
+            elif response.status_code == 400:
+                # Out of stock - acceptable
+                response.success()
+            else:
+                response.failure(f"Checkout failed: {response.status_code}")
+
+class EcommerceUser(HttpUser):
+    tasks = {UserJourney: 1}
+    wait_time = between(5, 15)</code></pre>
+
+                        <h3>Weighted Task Execution</h3>
+                        <p>Control task frequency using weights:</p>
+
+                        <pre><code class="language-python">class WeightedUser(HttpUser):
+    wait_time = between(1, 3)
+    
+    @task(10)
+    def browse_homepage(self):
+        \"\"\"Most common - weight 10\"\"\"
+        self.client.get("/")
+    
+    @task(5)
+    def search_products(self):
+        \"\"\"Medium frequency - weight 5\"\"\"
+        query = random.choice(["laptop", "phone", "tablet"])
+        self.client.get(f"/api/search?q={query}")
+    
+    @task(3)
+    def view_product(self):
+        \"\"\"Less common - weight 3\"\"\"
+        product_id = random.randint(1, 1000)
+        self.client.get(f"/api/products/{product_id}")
+    
+    @task(1)
+    def checkout(self):
+        \"\"\"Rare - weight 1\"\"\"
+        self.client.post("/api/checkout", json={...})
+    
+    # Dynamic weight adjustment based on time
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.adjust_weights()
+    
+    def adjust_weights(self):
+        \"\"\"Adjust weights based on time of day\"\"\"
+        hour = datetime.now().hour
+        if 9 <= hour <= 17:
+            # Business hours: more browsing
+            self.tasks = {self.browse_homepage: 15, self.checkout: 1}
+        else:
+            # Off hours: less traffic
+            self.tasks = {self.browse_homepage: 5, self.checkout: 1}</code></pre>
+
+                        <h3>Conditional Task Execution</h3>
+                        <p>Execute tasks based on conditions:</p>
+
+                        <pre><code class="language-python">class ConditionalUser(HttpUser):
+    wait_time = between(1, 3)
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.is_logged_in = False
+        self.has_items_in_cart = False
+        self.user_tier = random.choice(["free", "premium", "enterprise"])
+    
+    @task
+    def conditional_login_task(self):
+        \"\"\"Execute only if not logged in\"\"\"
+        if not self.is_logged_in:
+            self.login()
+    
+    @task
+    def conditional_checkout_task(self):
+        \"\"\"Execute only if cart has items\"\"\"
+        if self.has_items_in_cart:
+            self.checkout()
+    
+    @task
+    def tier_based_pricing(self):
+        \"\"\"Different behavior based on user tier\"\"\"
+        if self.user_tier == "enterprise":
+            # Enterprise users get bulk pricing
+            self.client.get("/api/products/bulk-pricing")
+        elif self.user_tier == "premium":
+            # Premium users see deals
+            self.client.get("/api/deals/premium")
+        else:
+            # Free users see standard catalog
+            self.client.get("/api/products")</code></pre>
+                    </section>
+
+                    <!-- Database Testing -->
+                    <section id="database-testing">
+                        <h2>Database Integration Testing</h2>
+                        <p>For comprehensive load testing, you often need to interact directly with databases to create test data, verify data integrity, and measure database performance.</p>
+
+                        <h3>Database Load Testing Setup</h3>
+                        <pre><code class="language-python">from locust import HttpUser, task, between, events
+import psycopg2
+import redis
+from sqlalchemy import create_engine
+
+class DatabaseUser(HttpUser):
+    wait_time = between(1, 3)
+    
+    def on_start(self):
+        \"\"\"Initialize database connections\"\"\"
+        # PostgreSQL connection
+        self.db_conn = psycopg2.connect(
+            host="localhost",
+            database="testdb",
+            user="testuser",
+            password="testpass"
+        )
+        
+        # Redis connection
+        self.redis_client = redis.Redis(
+            host='localhost',
+            port=6379,
+            db=0
+        )
+        
+        # SQLAlchemy for ORM operations
+        self.engine = create_engine(
+            'postgresql://testuser:testpass@localhost/testdb'
+        )
+    
+    def on_stop(self):
+        \"\"\"Close database connections\"\"\"
+        self.db_conn.close()
+        self.redis_client.close()
+    
+    @task(3)
+    def read_from_database(self):
+        \"\"\"Test database read performance\"\"\"
+        cursor = self.db_conn.cursor()
+        cursor.execute("SELECT * FROM products LIMIT 100")
+        results = cursor.fetchall()
+        cursor.close()
+    
+    @task(2)
+    def write_to_database(self):
+        \"\"\"Test database write performance\"\"\"
+        cursor = self.db_conn.cursor()
+        cursor.execute(
+            "INSERT INTO orders (user_id, total, status) VALUES (%s, %s, %s)",
+            (random.randint(1, 1000), random.uniform(10, 1000), 'pending')
+        )
+        self.db_conn.commit()
+        cursor.close()
+    
+    @task(1)
+    def cache_operations(self):
+        \"\"\"Test Redis cache performance\"\"\"
+        # Write to cache
+        self.redis_client.set(f"user:{random.randint(1,1000)}", "test_data")
+        
+        # Read from cache
+        self.redis_client.get(f"user:{random.randint(1,1000)}")
+        
+        # Delete from cache
+        self.redis_client.delete(f"user:{random.randint(1,1000)}")
+    
+    @task
+    def complex_query(self):
+        \"\"\"Test complex query performance\"\"\"
+        cursor = self.db_conn.cursor()
+        # Simulate a JOIN query
+        cursor.execute("""
+            SELECT o.id, o.user_id, p.name, oi.quantity
+            FROM orders o
+            JOIN order_items oi ON o.id = oi.order_id
+            JOIN products p ON oi.product_id = p.id
+            WHERE o.created_at > NOW() - INTERVAL '1 day'
+            LIMIT 100
+        \"\"\")
+        results = cursor.fetchall()
+        cursor.close()</code></pre>
+
+                        <h3>Database Performance Metrics</h3>
+                        <pre><code class="language-python">import time
+from locust import events
+
+def track_database_metrics(db_operation, *args, **kwargs):
+    \"\"\"Track database operation metrics\"\"\"
+    start_time = time.time()
+    
+    try:
+        # Execute the database operation
+        result = db_operation(*args, **kwargs)
+        duration = (time.time() - start_time) * 1000  # Convert to ms
+        
+        # Fire custom event for DB metrics
+        events.request_success.fire(
+            request_type="DATABASE",
+            name=db_operation.__name__,
+            response_time=duration,
+            response_length=0
+        )
+        return result
+    except Exception as e:
+        duration = (time.time() - start_time) * 1000
+        events.request_failure.fire(
+            request_type="DATABASE",
+            name=db_operation.__name__,
+            response_time=duration,
+            exception=e
+        )
+        raise
+
+# Example usage
+@events.test_start.add_listener
+def on_test_start(environment, **kwargs):
+    print("Starting database performance monitoring...")
+    
+    # Set up monitoring
+    conn = psycopg2.connect(...)
+    cursor = conn.cursor()
+    
+    # Create monitoring function
+    def monitor_query():
+        cursor.execute("""
+            SELECT 
+                query,
+                calls,
+                total_time,
+                mean_time,
+                rows
+            FROM pg_stat_statements
+            ORDER BY total_time DESC
+            LIMIT 10
+        """)
+        return cursor.fetchall()
+    
+    # This will be called periodically during the test</code></pre>
+                    </section>
+
+                    <!-- Microservices -->
+                    <section id="microservices">
+                        <h2>Microservices Load Testing</h2>
+                        <p>Testing microservices architectures requires understanding service dependencies, distributed tracing, and handling service-to-service communication.</p>
+
+                        <h3>Testing Service Mesh</h3>
+                        <pre><code class="language-python">from locust import HttpUser, task, between, NestedTaskSet
+import random
+
+class ServiceUser(HttpUser):
+    wait_time = between(0.5, 2)
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Service URLs
+        self.services = {
+            "api-gateway": "http://localhost:8000",
+            "user-service": "http://localhost:8001",
+            "order-service": "http://localhost:8002",
+            "payment-service": "http://localhost:8003",
+            "notification-service": "http://localhost:8004",
+        }
+    
+    @task(5)
+    def api_gateway_request(self):
+        \"\"\"Direct API Gateway\"\"\"
+        self.client.get(f"{self.services['api-gateway']}/api/v1/products")
+    
+    @task(3)
+    def user_service_chain(self):
+        \"\"\"Test user service flow\"\"\"
+        # Register -> Login -> Get Profile
+        user_data = {
+            "email": f"user{random.randint(1,10000)}@test.com",
+            "password": "testpass123",
+            "name": f"Test User {random.randint(1,1000)}"
+        }
+        
+        # Register
+        reg_response = self.client.post(
+            f"{self.services['user-service']}/api/users",
+            json=user_data
+        )
+        
+        if reg_response.status_code == 201:
+            # Login
+            login_response = self.client.post(
+                f"{self.services['user-service']}/api/auth/login",
+                json={"email": user_data["email"], "password": user_data["password"]}
+            )
+            
+            if login_response.status_code == 200:
+                token = login_response.json().get("token")
+                # Get profile
+                self.client.get(
+                    f"{self.services['user-service']}/api/users/me",
+                    headers={"Authorization": f"Bearer {token}"}
+                )
+    
+    @task(2)
+    def order_processing_flow(self):
+        \"\"\"End-to-end order processing\"\"\"
+        # Create order -> Process payment -> Send notification
+        order_data = {
+            "items": [
+                {"product_id": random.randint(1, 100), "quantity": random.randint(1, 5)}
+            ],
+            "user_id": random.randint(1, 1000)
+        }
+        
+        # Create order
+        order_response = self.client.post(
+            f"{self.services['order-service']}/api/orders",
+            json=order_data
+        )
+        
+        if order_response.status_code in [200, 201]:
+            order_id = order_response.json().get("order_id")
+            
+            # Process payment
+            payment_response = self.client.post(
+                f"{self.services['payment-service']}/api/payments",
+                json={
+                    "order_id": order_id,
+                    "amount": random.uniform(10, 1000),
+                    "method": "card"
+                }
+            )
+            
+            if payment_response.status_code == 200:
+                # Trigger notification
+                self.client.post(
+                    f"{self.services['notification-service']}/api/notifications",
+                    json={
+                        "order_id": order_id,
+                        "type": "order_confirmation",
+                        "user_id": order_data["user_id"]
+                    }
+                )
+    
+    @task(1)
+    def distributed_tracing_test(self):
+        \"\"\"Test with distributed tracing headers\"\"\"
+        trace_id = f"locust-{random.randint(1,1000000)}"
+        
+        headers = {
+            "X-Request-ID": trace_id,
+            "X-B3-TraceId": trace_id,
+            "X-B3-SpanId": f"{random.randint(1,1000000):016x}",
+        }
+        
+        response = self.client.get(
+            f"{self.services['api-gateway']}/api/v1/dashboard",
+            headers=headers
+        )</code></pre>
+
+                        <h3>Chaos Engineering with Locust</h3>
+                        <pre><code class="language-python">import random
+from locust import events
+
+class ChaosEngine:
+    \"\"\"Introduce controlled chaos for resilience testing\"\"\"
+    
+    def __init__(self, failure_rate=0.1, latency_multiplier=1.0):
+        self.failure_rate = failure_rate
+        self.latency_multiplier = latency_multiplier
+        self.enabled = True
+    
+    def should_inject_failure(self):
+        \"\"\"Determine if failure should be injected\"\"\"
+        return self.enabled and random.random() < self.failure_rate
+    
+    def inject_latency(self, response_time):
+        \"\"\"Inject additional latency\"\"\"
+        return response_time * self.latency_multiplier
+
+chaos = ChaosEngine(failure_rate=0.05, latency_multiplier=2.0)
+
+@events.request.add_listener
+def apply_chaos(request_type, name, response_time, response_length, exception, **kwargs):
+    \"\"\"Apply chaos engineering principles\"\"\"
+    if exception:
+        # Log failure for analysis
+        print(f"Chaos injected failure: {name} - {exception}")
+    
+    # Randomly kill connections to test resilience
+    if chaos.should_inject_failure():
+        print(f"Chaos: Simulating service failure for {name}")</code></pre>
+                    </section>
+
+                    <!-- Best Practices -->
+                    <section id="best-practices">
+                        <h2>Enterprise Best Practices</h2>
+                        <p>When deploying Locust in enterprise environments, follow these best practices for reliable, maintainable, and insightful load tests.</p>
+
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">📊</div>
+                                <h3>Comprehensive Monitoring</h3>
+                                <p>Integrate with Prometheus, Grafana, DataDog for real-time visibility</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🔄</div>
+                                <h3>Infrastructure as Code</h3>
+                                <p>Version control your test scripts and configurations</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🎯</div>
+                                <h3>Realistic Data</h3>
+                                <p>Use production-like data for accurate results</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🔒</div>
+                                <h3>Security Considerations</h3>
+                                <p>Secure test environments and sensitive data</p>
+                            </div>
+                        </div>
+
+                        <h3>Test Environment Setup</h3>
+                        <pre><code class="language-bash"># Production-ready environment setup
+# docker-compose.yml for distributed Locust
+
+version: '3.8'
+services:
+  locust-master:
+    image: locustio/locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./locustfiles:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --master --expect-workers 4
+
+  locust-worker-1:
+    image: locustio/locust
+    volumes:
+      - ./locustfiles:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust-master
+    depends_on:
+      - locust-master
+
+  locust-worker-2:
+    image: locustio/locust
+    volumes:
+      - ./locustfiles:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust-master
+    depends_on:
+      - locust-master
+
+  locust-worker-3:
+    image: locustio/locust
+    volumes:
+      - ./locustfiles:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust-master
+    depends_on:
+      - locust-master
+
+  locust-worker-4:
+    image: locustio/locust
+    volumes:
+      - ./locustfiles:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --worker --master-host locust-master
+    depends_on:
+      - locust-master</code></pre>
+
+                        <h3>CI/CD Integration</h3>
+                        <pre><code class="language-yaml"># GitHub Actions workflow for automated load testing
+name: Load Testing
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install locust locust[fast] fakeredis psycopg2-binary
+      
+      - name: Run load test
+        run: |
+          locust -f locustfile.py \
+            --headless \
+            --users 1000 \
+            --spawn-rate 100 \
+            --run-time 30m \
+            --csv results/loadtest \
+            --html results/report.html \
+            --host ${{ secrets.TEST_HOST }}
+      
+      - name: Upload results
+        uses: actions/upload-artifact@v3
+        with:
+          name: load-test-results
+          path: results/
+      
+      - name: Post to Slack on failure
+        if: failure()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}</code></pre>
+
+                        <h3>Performance Threshold Examples</h3>
+                        <pre><code class="language-python"># Define performance thresholds
+PERFORMANCE_THRESHOLDS = {
+    "api/homepage": {
+        "response_time_p95": 500,  # ms
+        "error_rate": 0.01,  # 1%
+        "throughput": 100,  # rps
+    },
+    "api/search": {
+        "response_time_p95": 1000,
+        "error_rate": 0.02,
+        "throughput": 50,
+    },
+    "api/checkout": {
+        "response_time_p95": 2000,
+        "error_rate": 0.005,
+        "throughput": 20,
+    },
+}
+
+# Validate against thresholds
+def validate_performance(results):
+    \"\"\"Validate performance against thresholds\"\"\"
+    violations = []
+    
+    for endpoint, metrics in results.items():
+        if endpoint in PERFORMANCE_THRESHOLDS:
+            threshold = PERFORMANCE_THRESHOLDS[endpoint]
+            
+            if metrics.get("p95_response_time", 0) > threshold["response_time_p95"]:
+                violations.append(
+                    f"{endpoint}: P95 response time "
+                    f"({metrics['p95_response_time']}ms) exceeds "
+                    f"threshold ({threshold['response_time_p95']}ms)"
+                )
+            
+            if metrics.get("error_rate", 0) > threshold["error_rate"]:
+                violations.append(
+                    f"{endpoint}: Error rate "
+                    f"({metrics['error_rate']:.2%}) exceeds "
+                    f"threshold ({threshold['error_rate']:.2%})"
+                )
+    
+    if violations:
+        raise AssertionError(f"Performance violations:\n" + "\n".join(violations))</code></pre>
+                    </section>
+
+                    <!-- Key Points -->
+                    <section class="key-points">
+                        <h2>Key Points Summary</h2>
+                        <ul>
+                            <li><strong>Distributed Testing</strong>: Use master-worker architecture to scale load generation across multiple machines</li>
+                            <li><strong>Custom Metrics</strong>: Leverage Locust events system to track application-specific metrics</li>
+                            <li><strong>Data-Driven</strong>: Use CSV, databases, or APIs to feed realistic test data</li>
+                            <li><strong>Advanced Tasks</strong>: Implement sequential flows, weighted execution, and conditional logic</li>
+                            <li><strong>Database Testing</strong>: Measure database performance directly with proper connection pooling</li>
+                            <li><strong>Microservices</strong>: Test service-to-service communication and distributed tracing</li>
+                            <li><strong>CI/CD Integration</strong>: Automate load tests in your deployment pipeline</li>
+                            <li><strong>Performance Gates</strong>: Define thresholds and fail builds that exceed them</li>
+                        </ul>
+                    </section>
+
+                    <!-- Navigation -->
+                    <div class="tutorial-nav-footer">
+                        <a href="tutorial-locust-basics.html" class="btn btn-outline">
+                            ← Previous: Locust Basics
+                        </a>
+                        <a href="tutorial-locust-ci-cd.html" class="btn btn-primary">
+                            Next: Locust CI/CD →
+                        </a>
                     </div>
-                    
-                    <div style="margin-top: var(--space-2xl);">
-                        <p class="text-gray mb-2">Expected availability: Q2 2026</p>
-                        <a href="tutorials.html" class="btn btn-primary">Back to Tutorials</a>
+                </article>
+
+                <!-- Sidebar -->
+                <aside class="tutorial-sidebar">
+                    <div class="sidebar-card">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="tutorial-locust-basics.html">Locust Basics</a></li>
+                            <li><a href="tutorial-locust-ci-cd.html">Locust CI/CD</a></li>
+                            <li><a href="tutorial-githubactions-intro.html">GitHub Actions</a></li>
+                        </ul>
                     </div>
-                </div>
+                    <div class="sidebar-card">
+                        <h4>Related Topics</h4>
+                        <ul>
+                            <li><a href="tutorial-quickstart.html">Load Testing Quick Start</a></li>
+                            <li><a href="tutorial-basics.html">Performance Testing Basics</a></li>
+                        </ul>
+                    </div>
+                </aside>
             </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section bg-light">
+        <div class="container text-center">
+            <h2>Ready to Test Your Knowledge?</h2>
+            <p>Take the Locust quiz to verify your understanding of advanced load testing concepts.</p>
+            <a href="tutorials.html" class="btn btn-primary btn-lg">Start Quiz</a>
         </div>
     </section>
 

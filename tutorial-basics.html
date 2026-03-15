@@ -247,6 +247,7 @@
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="about.html" class="nav-link">About</a>
                     <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
                     <a href="resources.html" class="nav-link">Resources</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
@@ -559,27 +560,13 @@
                 </div>
                 
                 <!-- Quiz -->
-                <h2>Knowledge Check</h2>
-                <div class="quiz-container">
-                    <div class="quiz-question">What are the five AI agents in LoadMagic.AI?</div>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="selectOption(this, false)">
-                            <span>🔵</span>
-                            <span>George, Harry, Suzy, Carrie, Quinn</span>
-                        </div>
-                        <div class="quiz-option" onclick="selectOption(this, true)">
-                            <span>🟢</span>
-                            <span>George, Rupert, Suzy, Carrie, Quinn</span>
-                        </div>
-                        <div class="quiz-option" onclick="selectOption(this, false)">
-                            <span>🔴</span>
-                            <span>George, Rupert, Sam, Carrie, Quinn</span>
-                        </div>
+                <section class="quiz-section">
+                    <div class="container">
+                        <h2>Knowledge Check</h2>
+                        <p>Test your understanding of LoadMagic.AI basics</p>
+                        <div id="quiz-container" class="quiz-container"></div>
                     </div>
-                    <div class="quiz-result" id="quizResult">
-                        <strong>✓ Correct!</strong> The five AI agents are George (JMeter), Rupert (Regex), Suzy (Script), Carrie (Correlator), and Quinn (QA).
-                    </div>
-                </div>
+                </section>
                 
                 <!-- Next Steps -->
                 <h2>Next Steps</h2>
@@ -645,28 +632,311 @@
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/quiz-engine.js"></script>
     <script>
-        function selectOption(element, isCorrect) {
-            // Remove selected class from all options
-            document.querySelectorAll('.quiz-option').forEach(opt => {
-                opt.classList.remove('selected', 'correct', 'incorrect');
-            });
-            
-            // Add selected class
-            element.classList.add('selected');
-            
-            // Show result
-            const result = document.getElementById('quizResult');
-            result.classList.remove('show', 'success', 'error');
-            
-            if (isCorrect) {
-                element.classList.add('correct');
-                result.classList.add('show', 'success');
-            } else {
-                element.classList.add('incorrect');
-                result.innerHTML = '<strong>✗ Not quite.</strong> The correct answer is: George, Rupert, Suzy, Carrie, Quinn';
-                result.classList.add('show', 'error');
+        const basicsQuizData = {
+            title: "LoadMagic.AI Basics Quiz",
+            description: "Test your understanding of LoadMagic.AI fundamentals",
+            settings: {
+                questionsPerQuiz: 10,
+                timePerQuestion: 30,
+                showExplanations: true,
+                allowRetry: true
+            },
+            questions: [
+                {
+                    id: 1,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "What is LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "A cloud hosting service"},
+                        {id: "b", text: "An AI-powered performance testing platform"},
+                        {id: "c", text: "A database management system"},
+                        {id: "d", text: "A version control system"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "LoadMagic.AI is an AI-powered performance testing platform that simplifies load testing."
+                },
+                {
+                    id: 2,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "Which AI agent in LoadMagic.AI handles JMeter scripting?",
+                    options: [
+                        {id: "a", text: "Suzy"},
+                        {id: "b", text: "George"},
+                        {id: "c", text: "Quinn"},
+                        {id: "d", text: "Carrie"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "George is the JMeter agent that helps create and optimize load test scripts."
+                },
+                {
+                    id: 3,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "What does the Carrie agent do in LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "Creates regex patterns"},
+                        {id: "b", text: "Handles correlation of dynamic values"},
+                        {id: "c", text: "Writes test scripts"},
+                        {id: "d", text: "Manages QA processes"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Carrie is the correlation agent that handles dynamic value extraction and correlation."
+                },
+                {
+                    id: 4,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "Which agent in LoadMagic.AI is responsible for script generation?",
+                    options: [
+                        {id: "a", text: "George"},
+                        {id: "b", text: "Rupert"},
+                        {id: "c", text: "Suzy"},
+                        {id: "d", text: "Quinn"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "Suzy is the script generation agent that creates test scripts automatically."
+                },
+                {
+                    id: 5,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the primary purpose of LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "Unit testing"},
+                        {id: "b", text: "Performance and load testing"},
+                        {id: "c", text: "Security testing"},
+                        {id: "d", text: "Visual regression testing"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "LoadMagic.AI specializes in performance and load testing for web applications."
+                },
+                {
+                    id: 6,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "LoadMagic.AI requires coding knowledge to create basic tests.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "LoadMagic.AI uses AI to generate tests automatically, making it accessible to non-coders."
+                },
+                {
+                    id: 7,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "Which agent handles regex pattern creation in LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "George"},
+                        {id: "b", text: "Rupert"},
+                        {id: "c", text: "Suzy"},
+                        {id: "d", text: "Carrie"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Rupert is the regex agent that helps create patterns for data extraction."
+                },
+                {
+                    id: 8,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What type of testing does LoadMagic.AI primarily support?",
+                    options: [
+                        {id: "a", text: "Functional testing"},
+                        {id: "b", text: "Smoke testing"},
+                        {id: "c", text: "Load and performance testing"},
+                        {id: "d", text: "Accessibility testing"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "LoadMagic.AI is designed specifically for load and performance testing scenarios."
+                },
+                {
+                    id: 9,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "Quinn is the QA agent that provides test guidance and best practices.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Quinn is the QA agent that offers guidance on testing strategies and best practices."
+                },
+                {
+                    id: 10,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What makes LoadMagic.AI different from traditional load testing tools?",
+                    options: [
+                        {id: "a", text: "It uses AI to automate test creation"},
+                        {id: "b", text: "It only works with Java"},
+                        {id: "c", text: "It requires expensive licenses"},
+                        {id: "d", text: "It doesn't support cloud execution"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "LoadMagic.AI differentiates itself through AI-powered automation of test creation."
+                },
+                {
+                    id: 11,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "Which agent would you use to automatically generate load test scenarios?",
+                    options: [
+                        {id: "a", text: "George"},
+                        {id: "b", text: "Suzy"},
+                        {id: "c", text: "Rupert"},
+                        {id: "d", text: "Carrie"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Suzy generates test scripts automatically based on user requirements."
+                },
+                {
+                    id: 12,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "LoadMagic.AI can integrate with JMeter for advanced testing.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "LoadMagic.AI integrates with JMeter through the George agent."
+                },
+                {
+                    id: 13,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is dynamic correlation in load testing?",
+                    options: [
+                        {id: "a", text: "Testing mobile apps"},
+                        {id: "b", text: "Handling session tokens and variables that change between requests"},
+                        {id: "c", text: "Comparing two different applications"},
+                        {id: "d", text: "Testing API responses only"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Dynamic correlation handles session tokens, viewstates, and other variables that change with each request."
+                },
+                {
+                    id: 14,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "Which agent would help identify and extract dynamic values from responses?",
+                    options: [
+                        {id: "a", text: "George"},
+                        {id: "b", text: "Suzy"},
+                        {id: "c", text: "Rupert"},
+                        {id: "d", text: "Carrie"}
+                    ],
+                    correctAnswer: "d",
+                    explanation: "Carrie handles correlation, which identifies and extracts dynamic values from responses."
+                },
+                {
+                    id: 15,
+                    type: "true-false",
+                    difficulty: "easy",
+                    question: "LoadMagic.AI supports both cloud-based and on-premise testing.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "LoadMagic.AI supports flexible deployment options including cloud and on-premise."
+                },
+                {
+                    id: 16,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the role of the QA agent (Quinn) in LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "Writing code"},
+                        {id: "b", text: "Providing testing guidance and best practices"},
+                        {id: "c", text: "Managing servers"},
+                        {id: "d", text: "Designing user interfaces"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Quinn provides QA guidance, testing strategies, and best practice recommendations."
+                },
+                {
+                    id: 17,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "Which scenario best describes using LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "Testing a login page manually"},
+                        {id: "b", text: "Generating automated load tests for an e-commerce site"},
+                        {id: "c", text: "Writing unit tests for a function"},
+                        {id: "d", text: "Creating database schemas"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "LoadMagic.AI excels at generating automated load tests for complex web applications."
+                },
+                {
+                    id: 18,
+                    type: "true-false",
+                    difficulty: "medium",
+                    question: "The five AI agents in LoadMagic.AI work independently without collaboration.",
+                    options: [
+                        {id: "a", text: "True"},
+                        {id: "b", text: "False"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The agents collaborate - for example, Suzy generates scripts that George then optimizes."
+                },
+                {
+                    id: 19,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What types of applications can be tested with LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "Only static HTML pages"},
+                        {id: "b", text: "Web applications, APIs, and microservices"},
+                        {id: "c", text: "Only mobile apps"},
+                        {id: "d", text: "Desktop applications only"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "LoadMagic.AI can test web applications, APIs, microservices, and complex distributed systems."
+                },
+                {
+                    id: 20,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is the main benefit of AI-powered load testing?",
+                    options: [
+                        {id: "a", text: "It eliminates the need for test planning"},
+                        {id: "b", text: "It reduces time to create tests and improves test coverage"},
+                        {id: "c", text: "It replaces all manual testing"},
+                        {id: "d", text: "It automatically deploys applications"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "AI-powered testing significantly reduces test creation time while improving coverage and accuracy."
+                }
+            ]
+        };
+
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (!container) {
+                console.error('Quiz container not found!');
+                return;
             }
+            
+            try {
+                new QuizEngine('quiz-container', basicsQuizData);
+                console.log('Quiz initialized successfully');
+            } catch (error) {
+                console.error('Failed to initialize quiz:', error);
+                container.innerHTML = '<p class="text-center" style="color: red; padding: 2rem;">Quiz unavailable. Error: ' + error.message + '</p>';
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initQuiz);
+        } else {
+            initQuiz();
         }
     </script>
 </body>

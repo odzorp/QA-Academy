@@ -9,59 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
-    <style>
-        .quiz-container {
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-            border: 1px solid var(--gray-200);
-        }
-        .quiz-question {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-        .quiz-option {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem;
-            background: var(--bg-primary);
-            border: 2px solid var(--gray-200);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: var(--text-primary);
-        }
-        .quiz-option:hover {
-            border-color: var(--accent);
-        }
-        .quiz-option.correct {
-            border-color: var(--success);
-            background: rgba(16, 185, 129, 0.1);
-        }
-        .quiz-option.incorrect {
-            border-color: var(--error);
-            background: rgba(239, 68, 68, 0.1);
-        }
-        .quiz-result {
-            display: none;
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 8px;
-            font-weight: 500;
-        }
-        .quiz-result.show {
-            display: block;
-        }
-    </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
@@ -80,6 +27,7 @@
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="about.html" class="nav-link">About</a>
                     <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
                     <a href="resources.html" class="nav-link">Resources</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
@@ -215,37 +163,14 @@ regex = r'id="__EVENTVALIDATION"\s+value="([^"]+)"'</code></pre>
 # /api/items/12345/details -> /api/items/67890/details
 regex = r'/api/items/(\d+)/details'</code></pre>
                 
-                <!-- Quiz -->
-                <h2>Knowledge Check</h2>
-                
-                <div class="quiz-container">
-                    <div class="quiz-question">1. What is the main purpose of the Correlation Engine?</div>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">To increase test speed</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">To automatically extract and reuse dynamic values</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">To generate test data</div>
-                    </div>
-                    <div class="quiz-result" id="result1"></div>
-                </div>
-                
-                <div class="quiz-container">
-                    <div class="quiz-question">2. What is self-healing in LoadMagic.AI?</div>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">Automatic test execution</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">Self-generating test scripts</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">Automatically fixing scripts when the app changes</div>
-                    </div>
-                    <div class="quiz-result" id="result2"></div>
-                </div>
-                
-                <div class="quiz-container">
-                    <div class="quiz-question">3. Which of these is a dynamic value that needs correlation?</div>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">Static API endpoint URL</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">Session token from login response</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">Fixed username in test data</div>
-                    </div>
-                    <div class="quiz-result" id="result3"></div>
+    <!-- Quiz Section -->
+    <section class="quiz-section">
+        <div class="container">
+            <h2>Knowledge Check</h2>
+            <p>Test your understanding of the Correlation Engine</p>
+            <div id="quiz-container" class="quiz-container"></div>
+        </div>
+    </section>
                 </div>
                 
                 <!-- Navigation -->
@@ -304,25 +229,303 @@ regex = r'/api/items/(\d+)/details'</code></pre>
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/quiz-engine.js"></script>
     <script>
-        function checkAnswer(element, isCorrect) {
-            const parent = element.parentElement;
-            const result = parent.nextElementSibling;
-            
-            parent.querySelectorAll('.quiz-option').forEach(opt => {
-                opt.classList.remove('correct', 'incorrect');
-            });
-            
-            if (isCorrect) {
-                element.classList.add('correct');
-                result.className = 'quiz-result show';
-                result.innerHTML = '✓ Correct! Well done!';
-            } else {
-                element.classList.add('incorrect');
-                result.className = 'quiz-result show';
-                result.innerHTML = '✗ Not quite. Try again!';
+        const correlationQuizData = {
+            tutorialTitle: "Correlation Engine",
+            questions: [
+                {
+                    id: 1,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "What is the primary purpose of the Correlation Engine in LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "To increase test execution speed"},
+                        {id: "b", text: "To automatically extract and reuse dynamic values between requests"},
+                        {id: "c", text: "To generate synthetic test data"},
+                        {id: "d", text: "To encrypt sensitive test credentials"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The Correlation Engine automatically identifies and extracts dynamic values (like session tokens, CSRF tokens) from responses and uses them in subsequent requests."
+                },
+                {
+                    id: 2,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "Which of the following is a common example of a dynamic value that requires correlation?",
+                    options: [
+                        {id: "a", text: "Static API endpoint URL"},
+                        {id: "b", text: "Session token from login response"},
+                        {id: "c", text: "Hardcoded username in test data"},
+                        {id: "d", text: "Fixed product ID in test scenarios"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Session tokens are generated dynamically by the server for each login and must be correlated to maintain authenticated state."
+                },
+                {
+                    id: 3,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "What is self-healing in the context of LoadMagic.AI?",
+                    options: [
+                        {id: "a", text: "Automatic test execution scheduling"},
+                        {id: "b", text: "Automatically fixing test scripts when the application UI changes"},
+                        {id: "c", text: "Self-generating test cases from requirements"},
+                        {id: "d", text: "Self-diagnosing network issues"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Self-healing automatically updates locators and test scripts when the application under test changes, reducing maintenance overhead."
+                },
+                {
+                    id: 4,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What type of regex pattern would you use to extract a JWT token from a response header?",
+                    options: [
+                        {id: "a", text: "r'Bearer\\s+([A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+)'"},
+                        {id: "b", text: "r'<input.*name=\"token\".*value=\"([^\"]+)\"'" },
+                        {id: "c", text: "r'token=([^&]+)'"},
+                        {id: "d", text: "r'sessionId=(\\d+)'"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "JWT tokens follow the pattern 'Bearer [token]' and contain three Base64URL-encoded parts separated by dots."
+                },
+                {
+                    id: 5,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "In .NET applications, which hidden field value often requires correlation?",
+                    options: [
+                        {id: "a", text: "__EVENTVALIDATION only"},
+                        {id: "b", text: "__VIEWSTATE only"},
+                        {id: "c", text: "__VIEWSTATE and __EVENTVALIDATION"},
+                        {id: "d", text: "__VIEWSTATE and __LASTFOCUS"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: ".NET applications use __VIEWSTATE and __EVENTVALIDATION for view state management and event validation, both requiring correlation."
+                },
+                {
+                    id: 6,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is boundary correlation?",
+                    options: [
+                        {id: "a", text: "Extracting values between two fixed delimiters"},
+                        {id: "b", text: "Correlating values across test environments"},
+                        {id: "c", text: "Setting correlation limits in load tests"},
+                        {id: "d", text: "Mapping dependencies between test cases"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Boundary correlation extracts values located between two known fixed delimiters or strings in the response."
+                },
+                {
+                    id: 7,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "When would you use CSS selector correlation over regex?",
+                    options: [
+                        {id: "a", text: "When extracting from plain text responses"},
+                        {id: "b", text: "When working with JSON APIs"},
+                        {id: "c", text: "When the value is in an HTML attribute or element"},
+                        {id: "d", text: "When the response is XML"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "CSS selector correlation is ideal when the dynamic value is embedded in HTML attributes or elements that can be targeted with CSS selectors."
+                },
+                {
+                    id: 8,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is dynamic URL correlation?",
+                    options: [
+                        {id: "a", text: "Correlating values from HTTP headers"},
+                        {id: "b", text: "Extracting IDs from URLs like /api/items/12345"},
+                        {id: "c", text: "Changing base URLs between environments"},
+                        {id: "d", text: "Mapping API endpoints to test cases"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Dynamic URL correlation extracts IDs or parameters from URLs that change with each request, like /api/items/12345."
+                },
+                {
+                    id: 9,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "How does the Correlation Engine handle JSON path extraction?",
+                    options: [
+                        {id: "a", text: "By converting JSON to XML first"},
+                        {id: "b", text: "By using JSONPath expressions to navigate JSON structure"},
+                        {id: "c", text: "By parsing JSON as plain text"},
+                        {id: "d", text: "By using XPath on JSON objects"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "JSONPath expressions allow precise navigation through JSON structures to extract nested values."
+                },
+                {
+                    id: 10,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "What happens if dynamic values are not properly correlated?",
+                    options: [
+                        {id: "a", text: "Tests run faster"},
+                        {id: "b", text: "Tests fail with authentication or validation errors"},
+                        {id: "c", text: "Tests pass but don't validate anything"},
+                        {id: "d", text: "Tests are skipped automatically"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Without proper correlation, subsequent requests fail because they lack valid dynamic values like session tokens."
+                },
+                {
+                    id: 11,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the difference between automatic and manual correlation?",
+                    options: [
+                        {id: "a", text: "Automatic requires more configuration"},
+                        {id: "b", text: "Manual correlation is done by the tool without user input"},
+                        {id: "c", text: "Automatic is AI-driven detection, manual requires user-defined rules"},
+                        {id: "d", text: "There is no difference"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "Automatic correlation uses AI/patterns to detect dynamic values, while manual requires explicit user-defined extraction rules."
+                },
+                {
+                    id: 12,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "Which correlation method is best for extracting values from SOAP XML responses?",
+                    options: [
+                        {id: "a", text: "JSONPath"},
+                        {id: "b", text: "CSS Selector"},
+                        {id: "c", text: "XPath"},
+                        {id: "d", text: "Regex only"}
+                    ],
+                    correctAnswer: "c",
+                    explanation: "XPath is the standard for navigating and extracting values from XML/SOAP responses."
+                },
+                {
+                    id: 13,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is a correlation rule?",
+                    options: [
+                        {id: "a", text: "A security policy for API access"},
+                        {id: "b", text: "A user-defined pattern for extracting specific dynamic values"},
+                        {id: "c", text: "A test execution order dependency"},
+                        {id: "d", text: "A performance benchmark"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "A correlation rule defines how to extract a specific type of dynamic value across multiple requests."
+                },
+                {
+                    id: 14,
+                    type: "multiple-choice",
+                    difficulty: "easy",
+                    question: "Which HTTP header commonly requires correlation in authenticated tests?",
+                    options: [
+                        {id: "a", text: "Content-Type"},
+                        {id: "b", text: "Authorization"},
+                        {id: "c", text: "Accept"},
+                        {id: "d", text: "Cache-Control"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The Authorization header typically contains dynamically generated tokens that need correlation."
+                },
+                {
+                    id: 15,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "What is variable chaining in correlation?",
+                    options: [
+                        {id: "a", text: "Linking multiple test variables together"},
+                        {id: "b", text: "Using the output of one correlation as input to another"},
+                        {id: "c", text: "Running correlations in sequence"},
+                        {id: "d", text: "Sharing correlated values across test cases"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Variable chaining uses a correlated value from one extraction as a variable in another correlation rule."
+                },
+                {
+                    id: 16,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is the purpose of the 'Left Boundary' and 'Right Boundary' in correlation?",
+                    options: [
+                        {id: "a", text: "To define where the correlation engine starts searching"},
+                        {id: "b", text: "To mark the exact start and end points for value extraction"},
+                        {id: "c", text: "To limit correlation to specific test scenarios"},
+                        {id: "d", text: "To set minimum and maximum extraction lengths"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Boundaries define the exact text before and after the value to extract, ensuring precise extraction."
+                },
+                {
+                    id: 17,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "When should you use Base64 decoding in correlation?",
+                    options: [
+                        {id: "a", text: "When the value is encrypted"},
+                        {id: "b", text: "When the value is encoded in Base64 format"},
+                        {id: "c", text: "When extracting from headers"},
+                        {id: "d", text: "When the API uses JSON"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Base64 decoding is needed when the dynamic value is transmitted in Base64-encoded format."
+                },
+                {
+                    id: 18,
+                    type: "multiple-choice",
+                    difficulty: "hard",
+                    question: "How does the Correlation Engine handle cross-request dependencies?",
+                    options: [
+                        {id: "a", text: "By executing tests sequentially only"},
+                        {id: "b", text: "By automatically identifying which values need to be passed to which requests"},
+                        {id: "c", text: "By disabling parallel execution"},
+                        {id: "d", text: "By requiring manual setup of all dependencies"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "The engine analyzes the request sequence and automatically passes correlated values to dependent requests."
+                },
+                {
+                    id: 19,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is extract always vs extract on first occurrence?",
+                    options: [
+                        {id: "a", text: "Two different extraction methods with no practical difference"},
+                        {id: "b", text: "Extract always gets value every request; extract on first gets it only initially"},
+                        {id: "c", text: "They are the same option with different names"},
+                        {id: "d", text: "First occurrence is faster but less reliable"}
+                    ],
+                    correctAnswer: "b",
+                    explanation: "Extract always gets fresh values each iteration; extract on first caches the initial value for reuse."
+                },
+                {
+                    id: 20,
+                    type: "multiple-choice",
+                    difficulty: "medium",
+                    question: "What is tokenization in the context of correlation?",
+                    options: [
+                        {id: "a", text: "Replacing sensitive data with test tokens"},
+                        {id: "b", text: "Breaking down correlation rules into smaller steps"},
+                        {id: "c", text: "Generating unique identifiers for test data"},
+                        {id: "d", text: "Encrypting correlation output"}
+                    ],
+                    correctAnswer: "a",
+                    explanation: "Tokenization replaces sensitive values like real credit cards with safe test tokens during correlation."
+                }
+            ]
+        };
+
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (container && typeof QuizEngine !== 'undefined') {
+                new QuizEngine('quiz-container', correlationQuizData);
             }
         }
+
+        document.addEventListener('DOMContentLoaded', initQuiz);
+        initQuiz();
     </script>
 </body>
 </html>

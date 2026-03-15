@@ -3,16 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Locust Basics Tutorial - Coming Soon | Philip Odzor">
-    <title>Locust Basics | Philip Odzor</title>
+    <meta name="description" content="Locust Basics Tutorial - Master scalable load testing with Python's most popular open-source tool">
+    <title>Locust Basics | QA Academy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .tutorial-content { max-width: 900px; margin: 0 auto; }
+        .tutorial-content h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content h2 { font-size: 1.875rem; font-weight: 700; margin-top: var(--space-2xl); margin-bottom: var(--space-lg); color: var(--text-primary); border-bottom: 3px solid #10b981; padding-bottom: var(--space-sm); display: inline-block; }
+        .tutorial-content h3 { font-size: 1.375rem; font-weight: 600; margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content p { font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+        .tutorial-content ul, .tutorial-content ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: var(--space-lg); padding-left: var(--space-xl); }
+        .tutorial-content li { margin-bottom: var(--space-sm); color: var(--text-secondary); }
+        .tutorial-content strong { color: var(--text-primary); font-weight: 600; }
+        .tutorial-meta { display: flex; gap: var(--space-lg); flex-wrap: wrap; margin-bottom: var(--space-xl); padding: var(--space-md) var(--space-lg); background: var(--bg-secondary); border-radius: var(--radius-lg); }
+        .tutorial-meta-item { display: flex; align-items: center; gap: var(--space-sm); font-size: 1rem; color: var(--text-secondary); }
+        .concept-card { background: var(--bg-primary); border-radius: 12px; padding: 2rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--gray-200); }
+        .concept-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .key-points { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: var(--space-xl); border-radius: var(--radius-xl); margin: var(--space-xl) 0; }
+        .key-points h3 { color: white; margin-bottom: var(--space-md); }
+        .key-points ul { margin-bottom: 0; }
+        .key-points li { color: white; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .feature-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--gray-200); }
+        .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .feature-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .feature-desc { font-size: 0.9rem; color: var(--text-secondary); }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 1rem; }
+        .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--gray-200); }
+        .comparison-table th { background: var(--bg-secondary); font-weight: 600; color: var(--text-primary); }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1.5rem; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95rem; overflow-x: auto; margin: 1.5rem 0; line-height: 1.6; }
+        .code-block .comment { color: #64748b; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #34d399; }
+        .code-block .method { color: #60a5fa; }
+        .code-block .function { color: #fbbf24; }
+        .quiz-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+        .quiz-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); }
+        .info-box { background: #ecfdf5; border-left: 4px solid #10b981; padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .info-box p { margin: 0; color: #065f46; font-size: 1rem; }
+        .warning-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+        .warning-box p { margin: 0; color: #92400e; font-size: 1rem; }
+    </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
-    <!-- Header -->
     <header class="header" id="header">
         <div class="container">
             <nav class="nav">
@@ -27,67 +64,453 @@
                     <a href="index.html" class="nav-link">Home</a>
                     <a href="about.html" class="nav-link">About</a>
                     <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
                     <a href="resources.html" class="nav-link">Resources</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
-                <div class="nav-toggle" id="navToggle">
-                    <span></span><span></span><span></span>
-                </div>
-                
+                <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
                 <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
             </nav>
         </div>
     </header>
 
-    <!-- Page Header -->
     <section class="page-header">
         <div class="container">
-            <h1>Locust Basics Tutorial</h1>
+            <h1>Locust Basics</h1>
             <p>Master Scalable Load Testing with Python</p>
         </div>
     </section>
 
-    <!-- Coming Soon Section -->
-    <section class="section">
+    <main class="section">
         <div class="container">
-            <div class="coming-soon-container">
-                <div class="text-center">
-                    <div class="coming-soon-icon">🔧</div>
-                    <h2>Tutorial Coming Soon</h2>
-                    <p class="text-gray mb-3">I'm currently developing comprehensive Locust tutorials. This content will cover:</p>
-                    
-                    <div style="max-width: 600px; margin: 0 auto;">
-                        <div class="card mb-3">
-                            <h3>What You'll Learn</h3>
-                            <ul>
-                                <li>Getting Started with Locust Framework</li>
-                                <li>Writing Your First Load Test Script</li>
-                                <li>HTTP User Design Patterns</li>
-                                <li>Custom Metrics and Assertions</li>
-                                <li>Distributed Testing Setup</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="card">
-                            <h3>Prerequisites</h3>
-                            <ul>
-                                <li>Basic Python knowledge</li>
-                                <li>Understanding of HTTP protocols</li>
-                                <li>Experience with performance testing concepts</li>
-                            </ul>
-                        </div>
+            <div class="tutorial-content">
+                
+                <div class="tutorial-meta">
+                    <div class="tutorial-meta-item">
+                        <span>⏱️</span>
+                        <span>Reading Time: 45 min</span>
                     </div>
-                    
-                    <div style="margin-top: var(--space-2xl);">
-                        <p class="text-gray mb-2">Expected availability: Q1 2026</p>
-                        <a href="tutorials.html" class="btn btn-primary">Back to Tutorials</a>
+                    <div class="tutorial-meta-item">
+                        <span>📊</span>
+                        <span>Difficulty: Beginner</span>
+                    </div>
+                    <div class="tutorial-meta-item">
+                        <span>🔧</span>
+                        <span>Language: Python</span>
+                    </div>
+                    <div class="tutorial-meta-item">
+                        <span>📅</span>
+                        <span>Updated: March 2026</span>
                     </div>
                 </div>
+
+                <p>Welcome to the Locust Basics tutorial! In this comprehensive guide, you'll learn how to use Locust, a powerful open-source load testing tool written in Python. Locust allows you to define user behavior with Python code, making it incredibly flexible and extensible for testing modern web applications.</p>
+
+                <h2 id="introduction">What is Locust?</h2>
+                <p>Locust is an open-source load testing tool that helps you identify performance bottlenecks in your applications before they impact real users. Unlike traditional point-and-click load testing tools, Locust uses a code-first approach that gives you complete control over your test scenarios.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🐍</div>
+                        <div class="feature-title">Python-Based</div>
+                        <div class="feature-desc">Write tests in Python, one of the most popular programming languages</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <div class="feature-title">Distributed Testing</div>
+                        <div class="feature-desc">Scale to millions of concurrent users across multiple machines</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Real-Time Stats</div>
+                        <div class="feature-desc">Monitor performance metrics live during test execution</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔌</div>
+                        <div class="feature-title">Extensible</div>
+                        <div class="feature-desc">Extend with custom clients, protocols, and reporting</div>
+                    </div>
+                </div>
+
+                <h2 id="installation">Installation</h2>
+                <p>Installing Locust is straightforward using pip. Make sure you have Python 3.7 or higher installed before proceeding.</p>
+
+                <h3>Prerequisites</h3>
+                <ul>
+                    <li>Python 3.7 or higher</li>
+                    <li>pip package manager</li>
+                    <li>Basic understanding of HTTP protocols</li>
+                    <li>A web application to test (we'll use a demo API)</li>
+                </ul>
+
+                <h3>Install Locust</h3>
+                <p>Use pip to install Locust:</p>
+
+                <div class="code-block">pip install locust</div>
+
+                <p>Verify the installation:</p>
+
+                <div class="code-block">locust --version</div>
+
+                <div class="info-box">
+                    <p><strong>Pro Tip:</strong> It's recommended to use a virtual environment to avoid dependency conflicts. Create one with <code>python -m venv venv</code> and activate it with <code>source venv/bin/activate</code> (Linux/Mac) or <code>venv\Scripts\activate</code> (Windows).</p>
+                </div>
+
+                <h2 id="first-test">Your First Locust Test</h2>
+                <p>Let's create a simple load test to understand the basic Locust concepts. We'll test a sample API endpoint.</p>
+
+                <h3>Create the Test File</h3>
+                <p>Create a new file named <code>basic_test.py</code>:</p>
+
+                <div class="code-block"><span class="keyword">from</span> locust <span class="keyword">import</span> HttpUser, task, between
+
+<span class="keyword">class</span> <span class="function">QuickstartUser</span>(HttpUser):
+    wait_time = between(<span class="string">1</span>, <span class="string">3</span>)
+    
+    <span class="keyword">@task</span>
+    <span class="keyword">def</span> <span class="function">hello_world</span>(self):
+        self.client.get(<span class="string">"/hello"</span>)
+    
+    <span class="keyword">@task</span>
+    <span class="keyword">def</span> <span class="function">view_items</span>(self):
+        <span class="keyword">for</span> item_id <span class="keyword">in</span> range(<span class="string">1</span>, <span class="string">6</span>):
+            self.client.get(<span class="string">f"/item/<span class="method">{item_id}</span>"</span>, name=<span class="string">"/item/[id]"</span>)</div>
+
+                <h3>Understanding the Code</h3>
+                <p>Let's break down each component:</p>
+
+                <ul>
+                    <li><strong>HttpUser</strong> - Base class that provides an HTTP client for making requests</li>
+                    <li><strong>wait_time</strong> - Time in seconds between consecutive task executions (random between 1-3 seconds)</li>
+                    <li><strong>@task decorator</strong> - Marks a method as a load testing task</li>
+                    <li><strong>self.client</strong> - The HTTP client used to make requests</li>
+                    <li><strong>name parameter</strong> - Groups similar requests together in statistics</li>
+                </ul>
+
+                <h3>Run the Test</h3>
+                <p>Start Locust with your test file:</p>
+
+                <div class="code-block">locust -f basic_test.py</div>
+
+                <div class="info-box">
+                    <p><strong>Note:</strong> By default, Locost starts a web interface on <code>http://localhost:8089</code>. You can also run in headless mode with <code>--headless</code> flag.</p>
+                </div>
+
+                <h2 id="http-user">HTTP User Tasks</h2>
+                <p>Tasks are the core of your load test. They define what actions your virtual users will perform. Let's explore more advanced task patterns.</p>
+
+                <h3>Multiple Tasks with Weights</h3>
+                <p>You can control how often each task runs using weights:</p>
+
+                <div class="code-block"><span class="keyword">from</span> locust <span class="keyword">import</span> HttpUser, task, between, events
+
+<span class="keyword">class</span> <span class="function">WeightedUser</span>(HttpUser):
+    wait_time = between(<span class="string">1</span>, <span class="string">3</span>)
+    
+    <span class="comment"># This task runs 3 times more often than view_homepage</span>
+    <span class="keyword">@task</span>(<span class="string">3</span>)
+    <span class="keyword">def</span> <span class="function">search_products</span>(self):
+        query = [<span class="string">"laptop"</span>, <span class="string">"phone"</span>, <span class="string">"tablet"</span>]
+        <span class="keyword">for</span> q <span class="keyword">in</span> query:
+            self.client.get(<span class="string">f"/search?q=<span class="method">{q}</span>"</span>)
+    
+    <span class="keyword">@task</span>(<span class="string">1</span>)
+    <span class="keyword">def</span> <span class="function">view_homepage</span>(self):
+        self.client.get(<span class="string">"/"</span>)
+    
+    <span class="keyword">@task</span>(<span class="string">2</span>)
+    <span class="keyword">def</span> <span class="function">view_product</span>(self):
+        self.client.get(<span class="string">"/products/123"</span>)</div>
+
+                <h3>Sequential Tasks</h3>
+                <p>For scenarios requiring a specific order of operations:</p>
+
+                <div class="code-block"><span class="keyword">from</span> locust <span class="keyword">import</span> HttpUser, task, between, SequentialTaskSet
+
+<span class="keyword">class</span> <span class="function">UserBehavior</span>(SequentialTaskSet):
+    <span class="comment"># Tasks run in order - login first, then browse, then logout</span>
+    
+    <span class="keyword">def</span> <span class="function">on_start</span>(self):
+        <span class="comment"># Called when user starts - like setup</span>
+        response = self.client.post(<span class="string">"/login"</span>, json={
+            <span class="string">"username"</span>: <span class="string">"testuser"</span>,
+            <span class="string">"password"</span>: <span class="string">"testpass"</span>
+        })
+        <span class="keyword">if</span> response.status_code == <span class="string">200</span>:
+            self.token = response.json()[<span class="string">"token"</span>]
+    
+    <span class="keyword">@task</span>
+    <span class="keyword">def</span> <span class="function">browse_catalog</span>(self):
+        self.client.get(<span class="string">"/catalog"</span>)
+    
+    <span class="keyword">@task</span>
+    <span class="keyword">def</span> <span class="function">add_to_cart</span>(self):
+        self.client.post(<span class="string">"/cart"</span>, json={
+            <span class="string">"product_id"</span>: <span class="string">"123"</span>,
+            <span class="string">"quantity"</span>: <span class="string">1</span>
+        }, headers={<span class="string">"Authorization"</span>: <span class="string">f"Bearer <span class="method">{self.token}</span>"</span>})
+    
+    <span class="keyword">@task</span>
+    <span class="keyword">def</span> <span class="function">on_stop</span>(self):
+        <span class="comment"># Called when user stops - like teardown</span>
+        self.client.post(<span class="string">"/logout"</span>)
+
+<span class="keyword">class</span> <span class="function">AuthenticatedUser</span>(HttpUser):
+    tasks = [UserBehavior]
+    wait_time = between(<span class="string">2</span>, <span class="string">5</span>)</div>
+
+                <h2 id="advanced-features">Advanced Features</h2>
+                
+                <h3>Custom Headers and Authentication</h3>
+                <p>Many APIs require authentication tokens or custom headers:</p>
+
+                <div class="code-block"><span class="keyword">from</span> locust <span class="keyword">import</span> HttpUser, task, between
+
+<span class="keyword">class</span> <span class="function">AuthenticatedAPIUser</span>(HttpUser):
+    wait_time = between(<span class="string">1</span>, <span class="string">2</span>)
+    
+    <span class="keyword">def</span> <span class="function">on_start</span>(self):
+        <span class="comment"># Perform login and store token</span>
+        response = self.client.post(<span class="string">"/api/v1/auth/login"</span>, json={
+            <span class="string">"email"</span>: <span class="string">"user@example.com"</span>,
+            <span class="string">"password"</span>: <span class="string">"password123"</span>
+        })
+        self.token = response.json()[<span class="string">"access_token"</span>]
+    
+    <span class="keyword">@property</span>
+    <span class="keyword">def</span> <span class="function">headers</span>(self):
+        <span class="keyword">return</span> {
+            <span class="string">"Authorization"</span>: <span class="string">f"Bearer <span class="method">{self.token}</span>"</span>,
+            <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>
+        }
+    
+    <span class="keyword">@task</span>
+    <span class="keyword">def</span> <span class="function">get_user_profile</span>(self):
+        self.client.get(<span class="string">"/api/v1/user/profile"</span>, headers=self.headers)
+    
+    <span class="keyword">@task</span>
+    <span class="keyword">def</span> <span class="function">create_order</span>(self):
+        self.client.post(<span class="string">"/api/v1/orders"</span>, json={
+            <span class="string">"items"</span>: [<span class="string">{"product_id"</span>: <span class="string">"1"</span>, <span class="string">"qty"</span>: <span class="string">2</span>}]
+        }, headers=self.headers)</div>
+
+                <h3>Request Chaining and Data Sharing</h3>
+                <p>Extract data from one request and use it in subsequent requests:</p>
+
+                <div class="code-block"><span class="keyword">from</span> locust <span class="keyword">import</span> HttpUser, task, between
+
+<span class="keyword">class</span> <span class="function">EcommerceUser</span>(HttpUser):
+    wait_time = between(<span class="string">2</span>, <span class="string">4</span>)
+    
+    <span class="keyword">@task</span>
+    <span class="keyword">def</span> <span class="function">browse_and_purchase</span>(self):
+        <span class="comment"># Step 1: Get product list</span>
+        response = self.client.get(<span class="string">"/api/products"</span>)
+        products = response.json()
+        
+        <span class="comment"># Step 2: Select a random product</span>
+        <span class="keyword">import</span> random
+        product = random.choice(products)
+        
+        <span class="comment"># Step 3: Get product details</span>
+        detail_response = self.client.get(
+            <span class="string">f"/api/products/<span class="method">{product['id']}</span>"</span>
+        )
+        product_detail = detail_response.json()
+        
+        <span class="comment"># Step 4: Add to cart</span>
+        self.client.post(<span class="string">"/api/cart"</span>, json={
+            <span class="string">"product_id"</span>: product[<span class="string">'id'</span>],
+            <span class="string">"price"</span>: product_detail[<span class="string">'price'</span>],
+            <span class="string">"quantity"</span>: <span class="string">1</span>
+        })
+        
+        <span class="comment"># Step 5: Checkout</span>
+        self.client.post(<span class="string">"/api/checkout"</span>, json={
+            <span class="string">"payment_method"</span>: <span class="string">"card"</span>
+        })</div>
+
+                <h2 id="running-tests">Running Load Tests</h2>
+                
+                <h3>Command Line Options</h3>
+                <p>Locust provides numerous command-line options for different scenarios:</p>
+
+                <div class="code-block"><span class="comment"># Basic usage with headless mode</span>
+locust -f my_test.py --headless -u 100 -r 10 -t 60s
+
+<span class="comment"># Options explained:</span>
+<span class="comment"># -u, --users: Number of concurrent users</span>
+<span class="comment"># -r, --spawn-rate: Users to spawn per second</span>
+<span class="comment"># -t, --run-time: How long to run (e.g., 60s, 5m, 1h)</span>
+<span class="comment"># --host: Target host URL</span>
+<span class="comment"># --csv: Save results to CSV files</span></div>
+
+                <h3>Common Test Scenarios</h3>
+
+                <div class="code-block"><span class="comment"># Ramp up test - gradually increase users</span>
+locust -f test.py --headless -u 500 -r 5 -t 5m --host https://api.example.com
+
+<span class="comment"># Spike test - sudden increase in users</span>
+locust -f test.py --headless -u 1000 -r 100 -t 30s --host https://api.example.com
+
+<span class="comment"># Stress test - find breaking point</span>
+locust -f test.py --headless -u 5000 -r 50 -t 10m --host https://api.example.com
+
+<span class="comment"># Endurance test - sustained load</span>
+locust -f test.py --headless -u 200 -r 2 -t 1h --host https://api.example.com</div>
+
+                <h2 id="results-analysis">Understanding Results</h2>
+                <p>Locust provides real-time statistics during test execution and summary results at the end.</p>
+
+                <h3>Key Metrics</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Description</th>
+                            <th>Good Threshold</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Request Count</td>
+                            <td>Total number of requests</td>
+                            <td>Higher is better</td>
+                        </tr>
+                        <tr>
+                            <td>Failures</td>
+                            <td>Number of failed requests</td>
+                            <td>0% ideal</td>
+                        </tr>
+                        <tr>
+                            <td>Median Response Time</td>
+                            <td>50th percentile</td>
+                            <td>&lt; 200ms</td>
+                        </tr>
+                        <tr>
+                            <td>Average Response Time</td>
+                            <td>Mean response time</td>
+                            <td>&lt; 500ms</td>
+                        </tr>
+                        <tr>
+                            <td>95th Percentile</td>
+                            <td>95% of requests faster than</td>
+                            <td>&lt; 1s</td>
+                        </tr>
+                        <tr>
+                            <td>Requests/s</td>
+                            <td>Throughput</td>
+                            <td>Higher is better</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Sample Output</h3>
+                <div class="code-block">Aggregated Reports:
+Total Requests:     15,234
+Total Failures:     45 (0.30%)
+Median Response Time:    125ms
+Average Response Time:   245ms
+Min Response Time:       12ms
+Max Response Time:    3,450ms
+Average Content Size:   1,234 bytes
+Requests/s:            254.23
+Failures/s:              0.75
+
+Percentile Response Times:
+50% (Median):      125ms
+66% (1 Sec):       156ms
+75% (1.5 Sec):     189ms
+80% (2 Sec):        234ms
+90% (3 Sec):        456ms
+95% (5 Sec):        789ms
+98% (8 Sec):      1,234ms
+99% (10 Sec):     1,567ms
+100% (Max):       3,450ms</div>
+
+                <h2 id="best-practices">Best Practices</h2>
+                
+                <div class="concept-card">
+                    <h3 style="margin-top: 0;">1. Test Data Management</h3>
+                    <p>Use unique test data for each virtual user to avoid false positives from caching:</p>
+                    <div class="code-block"><span class="keyword">import</span> uuid
+
+<span class="keyword">@task</span>
+<span class="keyword">def</span> <span class="function">create_user</span>(self):
+    unique_email = <span class="string">f"user-<span class="method">{uuid.uuid4()}</span>@test.com"</span>
+    self.client.post(<span class="string">"/users"</span>, json={
+        <span class="string">"email"</span>: unique_email,
+        <span class="string">"name"</span>: <span class="string">"Test User"</span>
+    })</div>
+                </div>
+
+                <div class="concept-card">
+                    <h3 style="margin-top: 0;">2. Proper Wait Times</h3>
+                    <p>Simulate realistic user behavior with appropriate wait times:</p>
+                    <div class="code-block"><span class="comment"># Good: Random wait between realistic user actions</span>
+wait_time = between(<span class="string">2</span>, <span class="string">5</span>)  <span class="comment"># 2-5 seconds between actions</span>
+
+<span class="comment"># Bad: No wait or too short</span>
+wait_time = between(<span class="string">0</span>, <span class="string">0</span>)  <span class="comment"># Will overload the server</span></div>
+                </div>
+
+                <div class="concept-card">
+                    <h3 style="margin-top: 0;">3. Group Similar Requests</h3>
+                    <p>Use the name parameter to group dynamic URLs:</p>
+                    <div class="code-block"><span class="comment"># Without grouping - creates separate entries for each item_id</span>
+self.client.get(<span class="string">f"/items/<span class="method">{item_id}</span>"</span>)
+
+<span class="comment"># With grouping - aggregates under /items/[id]</span>
+self.client.get(
+    <span class="string">f"/items/<span class="method">{item_id}</span>"</span>,
+    name=<span class="string">"/items/[id]"</span>
+)</div>
+                </div>
+
+                <div class="concept-card">
+                    <h3 style="margin-top: 0;">4. Error Handling</h3>
+                    <p>Handle failures gracefully and log important information:</p>
+                    <div class="code-block"><span class="keyword">from</span> locust <span class="keyword">import</span> events
+
+<span class="keyword">@events</span>.request.add_listener
+<span class="keyword">def</span> <span class="function">on_request</span>(request_type, name, response_time, response_length, exception, **kwargs):
+    <span class="keyword">if</span> exception:
+        print(f<span class="string">"Request failed: {name} - {exception}"</span>)</div>
+                </div>
+
+                <div class="key-points">
+                    <h3>Key Points Summary</h3>
+                    <ul>
+                        <li>Locust is a Python-based load testing tool with distributed testing capabilities</li>
+                        <li>Define user behavior with @task decorated methods in Python</li>
+                        <li>Use HttpUser class for HTTP-based testing</li>
+                        <li>Control task frequency with weights on @task decorators</li>
+                        <li>Use SequentialTaskSet for ordered task execution</li>
+                        <li>Implement on_start() for setup and on_stop() for teardown</li>
+                        <li>Use the name parameter to group dynamic URLs in statistics</li>
+                        <li>Always use unique test data to avoid false positives</li>
+                        <li>Ramp up users gradually to observe system behavior under load</li>
+                    </ul>
+                </div>
+
+                <h2 id="next-steps">Next Steps</h2>
+                <p>Now that you've mastered the basics, continue with:</p>
+                <ul>
+                    <li><strong>Locust Advanced</strong> - Custom clients, distributed testing, advanced patterns</li>
+                    <li><strong>Locust CI/CD</strong> - Integrating Locust into your deployment pipeline</li>
+                    <li><strong>Performance Testing</strong> - Combine with JMeter for comprehensive testing</li>
+                </ul>
+
+                <div style="text-align: center; margin: 3rem 0;">
+                    <a href="tutorials.html" class="quiz-btn">
+                        <span>📝</span> Test Your Knowledge
+                    </a>
+                </div>
+
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -113,25 +536,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Modal -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-container modal-info" id="modalContainer">
-            <div class="modal-header">
-                <h3 id="modalTitle">Notification</h3>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p id="modalMessage">Message goes here</p>
-                <div class="modal-timer">
-                    <div class="modal-timer-bar" id="modalTimerBar"></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" onclick="closeModal()">Got it</button>
-            </div>
-        </div>
-    </div>
 
     <script src="js/main.js"></script>
 </body>

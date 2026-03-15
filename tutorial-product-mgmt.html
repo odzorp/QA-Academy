@@ -3,18 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Product Management Tutorial - Learn product roadmapping and stakeholder management">
+    <meta name="description" content="Product Management Tutorial - Learn product roadmapping, user stories, prioritization, and stakeholder management">
     <title>Product Management | QA Academy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        .coming-soon-container { max-width: 800px; margin: 0 auto; text-align: center; padding: 4rem 2rem; }
-        .coming-soon-icon { font-size: 6rem; margin-bottom: 2rem; }
-        .coming-soon-container h1 { margin-bottom: 1rem; }
-        .coming-soon-container p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem; }
-        .timeline-badge { display: inline-block; background: #ec4899; color: white; padding: 0.5rem 1rem; border-radius: 50px; font-weight: 600; margin-top: 1rem; }
+        .tutorial-content { max-width: 900px; margin: 0 auto; }
+        .tutorial-content h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content h2 { font-size: 1.875rem; font-weight: 700; margin-top: var(--space-2xl); margin-bottom: var(--space-lg); color: var(--text-primary); border-bottom: 3px solid #ec4899; padding-bottom: var(--space-sm); display: inline-block; }
+        .tutorial-content h3 { font-size: 1.375rem; font-weight: 600; margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content p { font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+        .tutorial-content ul, .tutorial-content ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: var(--space-lg); padding-left: var(--space-xl); }
+        .tutorial-content li { margin-bottom: var(--space-sm); color: var(--text-secondary); }
+        .tutorial-content strong { color: var(--text-primary); font-weight: 600; }
+        
+        .tutorial-meta { display: flex; gap: var(--space-lg); flex-wrap: wrap; margin-bottom: var(--space-xl); padding: var(--space-md) var(--space-lg); background: var(--bg-secondary); border-radius: var(--radius-lg); }
+        .tutorial-meta-item { display: flex; align-items: center; gap: var(--space-sm); font-size: 1rem; color: var(--text-secondary); }
+        
+        .concept-card { background: var(--bg-primary); border-radius: 12px; padding: 2rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--gray-200); }
+        .concept-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        
+        .key-points { background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%); color: white; padding: var(--space-xl); border-radius: var(--radius-xl); margin: var(--space-xl) 0; }
+        .key-points h3 { color: white; margin-bottom: var(--space-md); }
+        .key-points ul { margin-bottom: 0; }
+        .key-points li { color: white; }
+        
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .feature-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--gray-200); }
+        .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .feature-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .feature-desc { font-size: 0.9rem; color: var(--text-secondary); }
+        
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 1rem; }
+        .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--gray-200); }
+        .comparison-table th { background: var(--bg-tertiary); font-weight: 600; color: var(--text-primary); }
+        .comparison-table tr:hover { background: var(--bg-secondary); }
+        
+        .code-block { background: #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto; }
+        .code-block code { font-family: 'Fira Code', monospace; font-size: 0.9rem; color: #e2e8f0; white-space: pre; }
+        .code-block .comment { color: #64748b; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #34d399; }
+        .code-block .number { color: #f472b6; }
+        
+        .next-steps { background: var(--bg-secondary); border-radius: var(--radius-xl); padding: var(--space-2xl); margin-top: var(--space-2xl); border: 1px solid var(--gray-200); }
+        .next-steps h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; }
+        .next-steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
+        .next-step-card { display: flex; align-items: center; justify-content: space-between; padding: var(--space-lg); background: var(--bg-primary); border-radius: var(--radius-lg); text-decoration: none; color: var(--text-primary); font-weight: 500; border: 1px solid var(--gray-200); transition: all var(--transition-fast); }
+        .next-step-card:hover { border-color: #ec4899; transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .next-step-card span { display: flex; align-items: center; gap: var(--space-sm); }
+        
+        .breadcrumb { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-lg); font-size: 0.9rem; }
+        .breadcrumb a { color: #ec4899; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { color: var(--text-muted); }
+        
+        .quiz-section { background: var(--bg-secondary); border-radius: var(--radius-xl); padding: var(--space-2xl); margin-top: var(--space-2xl); border: 2px solid #ec4899; }
+        .quiz-section h2 { margin-top: 0; border-bottom: none; }
+        .quiz-cta { display: inline-flex; align-items: center; gap: var(--space-sm); margin-top: var(--space-lg); padding: var(--space-md) var(--space-xl); background: #ec4899; color: white; font-weight: 600; border-radius: var(--radius-lg); text-decoration: none; transition: transform var(--transition-fast), box-shadow var(--transition-fast); }
+        .quiz-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+        .framework-badge { display: inline-block; padding: 0.25rem 0.75rem; background: #ec4899; color: white; font-size: 0.75rem; font-weight: 600; border-radius: 50px; margin-right: 0.5rem; }
+        .methodology-tag { display: inline-block; padding: 0.25rem 0.5rem; background: var(--bg-tertiary); color: var(--text-secondary); font-size: 0.8rem; border-radius: 4px; margin: 0.25rem; }
     </style>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
@@ -24,41 +76,534 @@
             <nav class="nav">
                 <a href="index.html" class="nav-brand">
                     <img src="assets/images/profile.jpg" alt="Philip Odzor">
-                    <span class="nav-brand-text">QA Academy</span>
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
                 </a>
-                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-                    <span></span><span></span><span></span>
-                </button>
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="tutorials.html">Tutorials</a></li>
-                    <li><a href="resources.html">Resources</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="ai-agents.html" class="nav-link">AI Agents</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
             </nav>
         </div>
     </header>
 
-    <main>
-        <div class="coming-soon-container">
-            <div class="coming-soon-icon">🎯</div>
+    <section class="page-header">
+        <div class="container">
             <h1>Product Management</h1>
-            <p>Master product roadmapping, user stories, prioritization, and stakeholder management</p>
-            <div class="timeline-badge">Coming Soon - Q2 2026</div>
-            <div style="margin-top: 3rem;">
-                <a href="tutorials.html" class="btn btn-primary">Browse All Tutorials</a>
+            <p>Master Product Strategy, Roadmapping, and Stakeholder Management</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="tutorial-content">
+                <div class="breadcrumb">
+                    <a href="tutorials.html">Tutorials</a>
+                    <span>/</span>
+                    <span>Product Management</span>
+                </div>
+
+                <div class="tutorial-meta">
+                    <div class="tutorial-meta-item">⏱️ 50 minutes</div>
+                    <div class="tutorial-meta-item">📚 Intermediate</div>
+                    <div class="tutorial-meta-item">🔄 Last updated: March 2026</div>
+                </div>
+
+                <h2>What is Product Management?</h2>
+                <p>
+                    Product Management is the strategic function responsible for guiding the development, launch, and continuous improvement of a product. It bridges the gap between business objectives, user needs, and technical implementation. As a QA Engineer, understanding product management principles helps you align your testing strategy with product goals and communicate effectively with stakeholders.
+                </p>
+
+                <div class="key-points">
+                    <h3>Why Product Management Matters for QA Engineers?</h3>
+                    <ul>
+                        <li><strong>Strategic Alignment:</strong> Understand why features are prioritized and how to test them effectively</li>
+                        <li><strong>Better Communication:</strong> Speak the language of product managers and stakeholders</li>
+                        <li><strong>Risk-Based Testing:</strong> Prioritize testing based on business impact and user value</li>
+                        <li><strong>Acceptance Criteria:</strong> Write better test cases aligned with product requirements</li>
+                        <li><strong>Career Growth:</strong> Open doors to Product Owner or Technical Product Manager roles</li>
+                    </ul>
+                </div>
+
+                <h2>Core Product Management Concepts</h2>
+                <p>Before diving into practical application, let's understand the fundamental concepts that drive product decisions:</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-title">Product Vision</div>
+                        <div class="feature-desc">The long-term goal and purpose of your product. Where you want to be in 3-5 years.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📋</div>
+                        <div class="feature-title">Product Strategy</div>
+                        <div class="feature-desc">The approach to achieve your vision. Market analysis, competitive positioning, and growth plans.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🗺️</div>
+                        <div class="feature-title">Product Roadmap</div>
+                        <div class="feature-desc">A timeline of planned features and initiatives. Visualizes the product journey.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <div class="feature-title">User Stories</div>
+                        <div class="feature-desc">Short descriptions of features from the user's perspective with clear acceptance criteria.</div>
+                    </div>
+                </div>
+
+                <h2>The Product Manager Role</h2>
+                <p>
+                    Product Managers (PMs) are responsible for the "what, why, and when" of a product. They work cross-functionally with engineering, design, marketing, and QA teams. Here's what a PM does:
+                </p>
+
+                <div class="concept-card">
+                    <h3>Key Responsibilities of a Product Manager</h3>
+                    <ul>
+                        <li><strong>Discovery:</strong> Conduct user research, analyze market trends, and identify customer needs</li>
+                        <li><strong>Strategy:</strong> Define product vision, strategy, and roadmap alignment with business goals</li>
+                        <li><strong>Execution:</strong> Prioritize features, write requirements, and work with teams on delivery</li>
+                        <li><strong>Analysis:</strong> Track metrics, analyze feedback, and make data-driven decisions</li>
+                        <li><strong>Communication:</strong> Align stakeholders, manage expectations, and communicate product updates</li>
+                    </ul>
+                </div>
+
+                <h2>Product Discovery Techniques</h2>
+                <p>
+                    Before building anything, product teams conduct discovery to validate ideas and ensure they're solving real problems:
+                </p>
+
+                <h3>User Research Methods</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Description</th>
+                            <th>When to Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>User Interviews</td>
+                            <td>One-on-one conversations with potential users</td>
+                            <td>Early discovery, understanding pain points</td>
+                        </tr>
+                        <tr>
+                            <td>Surveys</td>
+                            <td>Quantitative data collection from large groups</td>
+                            <td>Validating assumptions at scale</td>
+                        </tr>
+                        <tr>
+                            <td>Usability Testing</td>
+                            <td>Observing users interact with prototypes</td>
+                            <td>Validating designs before development</td>
+                        </tr>
+                        <tr>
+                            <td>Competitive Analysis</td>
+                            <td>Analyzing competitor products and strategies</td>
+                            <td>Market positioning, differentiation</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>The Lean Startup Approach</h3>
+                <p>
+                    The Lean Startup methodology emphasizes building, measuring, and learning through rapid experimentation:
+                </p>
+
+                <div class="code-block">
+                    <code><span class="comment"># The Build-Measure-Learn Loop</span>
+
+<span class="keyword">1. IDEA</span>: Identify a problem worth solving
+  ↓
+<span class="keyword">2. BUILD</span>: Create Minimum Viable Product (MVP)
+  ↓
+<span class="keyword">3. MEASURE</span>: Collect feedback and metrics
+  ↓
+<span class="keyword">4. LEARN</span>: Validate or pivot based on data
+  ↓
+<span class="keyword">Pivot or Persevere?</span></code>
+                </div>
+
+                <h2>User Stories and Acceptance Criteria</h2>
+                <p>
+                    User stories are the foundation of agile product development. They capture what users need in a simple, user-focused format:
+                </p>
+
+                <div class="code-block">
+                    <code><span class="comment"># User Story Template</span>
+<span class="keyword">As a</span> [type of user],
+<span class="keyword">I want to</span> [goal/action],
+<span class="keyword">so that</span> [benefit/value].
+
+<span class="comment"># Example</span>
+<span class="keyword">As a</span> registered user,
+<span class="keyword">I want to</span> reset my password via email,
+<span class="keyword">so that</span> I can regain access to my account if I forget my password.</code>
+                </div>
+
+                <h3>Writing Effective Acceptance Criteria</h3>
+                <p>
+                    Acceptance criteria (AC) define when a user story is complete. They should be clear, testable, and comprehensive:
+                </p>
+
+                <div class="code-block">
+                    <code><span class="comment"># Acceptance Criteria Example - Password Reset</span>
+
+<span class="keyword">Scenario:</span> Successful password reset
+<span class="keyword">Given</span> the user is on the login page
+<span class="keyword">When</span> they click "Forgot Password"
+<span class="keyword">And</span> enter a valid email address
+<span class="keyword">Then</span> they should receive a reset email within 5 minutes
+<span class="keyword">And</span> the email should contain a valid reset link
+<span class="keyword">And</span> the link should expire after 24 hours
+
+<span class="keyword">Scenario:</span> Invalid email address
+<span class="keyword">Given</span> the user is on the forgot password page
+<span class="keyword">When</span> they enter an email not in our system
+<span class="keyword">Then</span> they should see "Email not found" error
+<span class="keyword">And</span> the form should remain editable</code>
+                </div>
+
+                <h2>Prioritization Frameworks</h2>
+                <p>
+                    With limited resources, product teams must prioritize what to build next. Here are the most effective frameworks:
+                </p>
+
+                <h3>MoSCoW Method</h3>
+                <p>Categorize features into four groups based on importance:</p>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Must Have</strong></td>
+                            <td>Critical features without which the product fails</td>
+                            <td>60%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Should Have</strong></td>
+                            <td>Important features that add significant value</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Could Have</strong></td>
+                            <td>Nice-to-have features if time permits</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Won't Have</strong></td>
+                            <td>Explicitly out of scope for this release</td>
+                            <td>0%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>RICE Scoring</h3>
+                <p>RICE helps quantify priority by scoring each feature across four dimensions:</p>
+
+                <div class="code-block">
+                    <code><span class="comment"># RICE Score Formula</span>
+
+<span class="keyword">RICE Score</span> = (Reach × Impact × Confidence) / Effort
+
+<span class="comment"># Components:</span>
+<span class="keyword">Reach</span>: How many users will benefit per quarter?
+<span class="keyword">Impact</span>: How much will this help users? (3=massive, 2=high, 1=medium, 0.5=low)
+<span class="keyword">Confidence</span>: How sure are we? (100%=high, 80%=medium, 50%=low)
+<span class="keyword">Effort</span>: Person-weeks required to build
+
+<span class="comment"># Example Calculation</span>
+Feature: User Dashboard
+- Reach: 10,000 users/quarter = 10
+- Impact: High = 2
+- Confidence: 80% = 0.8
+- Effort: 3 weeks = 3
+
+<span class="keyword">Score</span> = (10 × 2 × 0.8) / 3 = <span class="number">5.33</span></code>
+                </div>
+
+                <h3>Kano Model</h3>
+                <p>
+                    The Kano model categorizes features based on how they satisfy customer needs:
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-title" style="color: #dc2626;">Must-Be (Basic Needs)</div>
+                        <div class="feature-desc">Features users expect. If missing, they're dissatisfied. If present, they're not particularly satisfied.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" style="color: #2563eb;">Performance (Satisfiers)</div>
+                        <div class="feature-desc">More is better. More of these features increases satisfaction linearly.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title" style="color: #16a34a;">Delighters (Exciter)</div>
+                        <div class="feature-desc">Unexpected features that delight users. Absence doesn't cause dissatisfaction.</div>
+                    </div>
+                </div>
+
+                <h2>Building a Product Roadmap</h2>
+                <p>
+                    A product roadmap communicates the product strategy and timeline to stakeholders. It should be flexible yet aligned with business goals:
+                </p>
+
+                <h3>Roadmap Components</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Element</th>
+                            <th>Description</th>
+                            <th>Timeframe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Vision</td>
+                            <td>Long-term product direction</td>
+                            <td>1-3 years</td>
+                        </tr>
+                        <tr>
+                            <td>Strategy</td>
+                            <td>How to achieve the vision</td>
+                            <td>6-12 months</td>
+                        </tr>
+                        <tr>
+                            <td>Themes</td>
+                            <td>Focus areas or big initiatives</td>
+                            <td>3-6 months</td>
+                        </tr>
+                        <tr>
+                            <td>Features</td>
+                            <td>Specific capabilities to build</td>
+                            <td>1-3 months</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="key-points">
+                    <h3>Roadmap Best Practices</h3>
+                    <ul>
+                        <li><strong>Communicate Uncertainty:</strong> Use timeboxes rather than specific dates</li>
+                        <li><strong>Prioritize Outcomes:</strong> Focus on business results, not just output</li>
+                        <li><strong>Stay Flexible:</strong> Revisit and adjust based on feedback</li>
+                        <li><strong>Align Stakeholders:</strong> Get buy-in from engineering, design, and leadership</li>
+                        <li><strong>Show Dependencies:</strong> Highlight technical and business dependencies</li>
+                    </ul>
+                </div>
+
+                <h2>Metrics and Product Analytics</h2>
+                <p>
+                    Data-driven product management requires tracking the right metrics to measure success:
+                </p>
+
+                <h3>Key Product Metrics</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Formula</th>
+                            <th>What It Measures</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Monthly Active Users (MAU)</td>
+                            <td>Count of unique users in 30 days</td>
+                            <td>Product reach</td>
+                        </tr>
+                        <tr>
+                            <td>Customer Acquisition Cost (CAC)</td>
+                            <td>Total acquisition cost / New customers</td>
+                            <td>Marketing efficiency</td>
+                        </tr>
+                        <tr>
+                            <td>Lifetime Value (LTV)</td>
+                            <td>Avg revenue per customer × Lifespan</td>
+                            <td>Customer worth</td>
+                        </tr>
+                        <tr>
+                            <td>Churn Rate</td>
+                            <td>Lost customers / Total customers</td>
+                            <td>Retention health</td>
+                        </tr>
+                        <tr>
+                            <td>Net Promoter Score (NPS)</td>
+                            <td>% Promoters - % Detractors</td>
+                            <td>User satisfaction</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Funnel Analysis</h3>
+                <p>
+                    Understanding where users drop off in your product helps identify improvement opportunities:
+                </p>
+
+                <div class="code-block">
+                    <code><span class="comment"># E-commerce Conversion Funnel Example</span>
+
+<span class="keyword">Step 1:</span> Homepage visitors - 100%
+<span class="keyword">Step 2:</span> Product page views - 45% ↓
+<span class="keyword">Step 3:</span> Add to cart - 15% ↓
+<span class="keyword">Step 4:</span> Begin checkout - 8% ↓
+<span class="keyword">Step 5:</span> Complete purchase - 3%
+
+<span class="comment"># Analysis Questions:</span>
+- Where is the biggest drop-off?
+- Why do users leave at each step?
+- What can we test to improve conversion?</code>
+                </div>
+
+                <h2>Stakeholder Management</h2>
+                <p>
+                    Product managers work with diverse stakeholders. Effective communication and alignment are critical:
+                </p>
+
+                <h3>Common Stakeholder Groups</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">👔</div>
+                        <div class="feature-title">Executive Leadership</div>
+                        <div class="feature-desc">Focus on business outcomes, ROI, and strategic alignment. Need high-level updates.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚙️</div>
+                        <div class="feature-title">Engineering</div>
+                        <div class="feature-desc">Need technical requirements, priorities, and clear acceptance criteria. Value realistic timelines.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <div class="feature-title">Design</div>
+                        <div class="feature-desc">Collaborate on user experience, design systems, and visual consistency.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📣</div>
+                        <div class="feature-title">Marketing/Sales</div>
+                        <div class="feature-desc">Need product knowledge for positioning and selling. Early access to features.</div>
+                    </div>
+                </div>
+
+                <h3>Managing Competing Priorities</h3>
+                <div class="code-block">
+                    <code><span class="comment"># Stakeholder Alignment Framework</span>
+
+<span class="keyword">1. Understand</span>: Listen to each stakeholder's needs and concerns
+<span class="keyword">2. Translate</span>: Connect their goals to product strategy
+<span class="keyword">3. Prioritize</span>: Use data and frameworks to make decisions
+<span class="keyword">4. Communicate</span>: Be transparent about trade-offs
+<span class="keyword">5. Deliver</span>: Ship value and demonstrate progress
+
+<span class="comment"># Conflict Resolution</span>
+- Find common ground
+- Focus on user outcomes
+- Escalate only when necessary
+- Document decisions</code>
+                </div>
+
+                <h2>Working with QA as a Product Manager</h2>
+                <p>
+                    Product Managers and QA Engineers have a natural synergy. Here's how to collaborate effectively:
+                </p>
+
+                <h3>Collaboration Points</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>QA Contribution</th>
+                            <th>PM Responsibility</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Discovery</td>
+                            <td>Test prototypes, identify edge cases</td>
+                            <td>Define requirements, user research</td>
+                        </tr>
+                        <tr>
+                            <td>Planning</td>
+                            <td>Estimate test effort, identify risks</td>
+                            <td>Prioritize features, write stories</td>
+                        </tr>
+                        <tr>
+                            <td>Development</td>
+                            <td>Execute tests, report bugs</td>
+                            <td>Clarify requirements, manage scope</td>
+                        </tr>
+                        <tr>
+                            <td>Release</td>
+                            <td>Verify release criteria, sign-off</td>
+                            <td>Coordinate timing, communicate changes</td>
+                        </tr>
+                        <tr>
+                            <td>Post-Release</td>
+                            <td>Monitor production, analyze issues</td>
+                            <td>Collect feedback, plan iterations</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="key-points">
+                    <h3>Key Takeaways for QA Engineers</h3>
+                    <ul>
+                        <li><strong>Think Like a PM:</strong> Understand the "why" behind features</li>
+                        <li><strong>Test Strategically:</strong> Prioritize based on user impact and business value</li>
+                        <li><strong>Communicate Clearly:</strong> Report bugs in terms stakeholders understand</li>
+                        <li><strong>Advocate for Quality:</strong> Be the voice of the user in product discussions</li>
+                        <li><strong>Learn Continuously:</strong> Understand product metrics and user behavior</li>
+                    </ul>
+                </div>
+
+                <div class="quiz-section">
+                    <h2>Test Your Knowledge</h2>
+                    <p>Ready to test what you've learned? Take the Product Management quiz to reinforce your understanding of product strategy and stakeholder management.</p>
+                    <a href="tutorials.html" class="quiz-cta">
+                        Take Quiz →
+                    </a>
+                </div>
+
+                <div class="next-steps">
+                    <h2>Continue Learning</h2>
+                    <div class="next-steps-grid">
+                        <a href="tutorial-agile-scrum.html" class="next-step-card">
+                            <span>📚 Agile & Scrum</span>
+                            →
+                        </a>
+                        <a href="tutorial-cicd.html" class="next-step-card">
+                            <span>🔄 CI/CD Concepts</span>
+                            →
+                        </a>
+                        <a href="tutorial-playwright-intro.html" class="next-step-card">
+                            <span>🎭 Playwright Testing</span>
+                            →
+                        </a>
+                        <a href="tutorials.html" class="next-step-card">
+                            <span>📋 All Tutorials</span>
+                            →
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
 
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">
-                    <h3>QA Academy</h3>
-                    <p>Expert-led QA testing education</p>
-                </div>
+                <div class="footer-brand">QA Academy</div>
                 <div class="footer-links">
                     <a href="index.html">Home</a>
                     <a href="about.html">About</a>
@@ -67,15 +612,20 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 QA Academy. All rights reserved.</p>
+                <p>&copy; 2026 Philip Odzor. All rights reserved.</p>
             </div>
-            <div style="text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                <p style="font-size: 0.85rem; opacity: 0.7;">🤖 AI-Powered Development<br>Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5</p>
+            <div class="ai-credits" style="text-align: center; padding: 1rem; margin-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <span style="margin-right: 0.5rem;">🤖</span>
+                    <strong>AI-Powered Development</strong>
+                </p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">
+                    Built with AI: OpenCode Big Pickle • GLM-5 • Kimi 2.5 • MiniMax 2.5
+                </p>
             </div>
         </div>
     </footer>
 
-    <!-- Modal -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-container modal-info" id="modalContainer">
             <div class="modal-header">
