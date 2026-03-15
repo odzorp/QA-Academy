@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jenkins CI/CD Tutorial - Learn to automate your testing workflows with Jenkins">
+    <title>Jenkins CI/CD | QA Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        :root {
+            --theme-color: #d33833;
+            --theme-gradient: linear-gradient(135deg, #d33833 0%, #b91c1c 100%);
+        }
+        .tutorial-content { max-width: 900px; margin: 0 auto; }
+        .tutorial-content h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content h2 { font-size: 1.875rem; font-weight: 700; margin-top: var(--space-2xl); margin-bottom: var(--space-lg); color: var(--text-primary); border-bottom: 3px solid var(--theme-color); padding-bottom: var(--space-sm); display: inline-block; }
+        .tutorial-content h3 { font-size: 1.375rem; font-weight: 600; margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content p { font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+        .tutorial-content ul, .tutorial-content ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: var(--space-lg); padding-left: var(--space-xl); }
+        .tutorial-content li { margin-bottom: var(--space-sm); color: var(--text-secondary); }
+        .tutorial-content strong { color: var(--text-primary); font-weight: 600; }
+        
+        .tutorial-meta { display: flex; gap: var(--space-lg); flex-wrap: wrap; margin-bottom: var(--space-xl); padding: var(--space-md) var(--space-lg); background: var(--bg-secondary); border-radius: var(--radius-lg); }
+        .tutorial-meta-item { display: flex; align-items: center; gap: var(--space-sm); font-size: 1rem; color: var(--text-secondary); }
+        
+        .concept-card { background: var(--bg-primary); border-radius: 12px; padding: 2rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--gray-200); }
+        .concept-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        
+        .key-points { background: var(--theme-gradient); color: white; padding: var(--space-xl); border-radius: var(--radius-xl); margin: var(--space-xl) 0; }
+        .key-points h3 { color: white; margin-bottom: var(--space-md); }
+        .key-points ul { margin-bottom: 0; }
+        .key-points li { color: white; }
+        
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .feature-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--gray-200); }
+        .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .feature-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .feature-desc { font-size: 0.9rem; color: var(--text-secondary); }
+        
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 1rem; }
+        .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--gray-200); }
+        .comparison-table th { background: var(--bg-tertiary); font-weight: 600; color: var(--text-primary); }
+        .comparison-table tr:hover { background: var(--bg-secondary); }
+        
+        .code-block { background: #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto; }
+        .code-block code { font-family: 'Fira Code', monospace; font-size: 0.9rem; color: #e2e8f0; white-space: pre; }
+        .code-block .comment { color: #64748b; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #34d399; }
+        .code-block .number { color: #f472b6; }
+        
+        .next-steps { background: var(--bg-secondary); border-radius: var(--radius-xl); padding: var(--space-2xl); margin-top: var(--space-2xl); border: 1px solid var(--gray-200); }
+        .next-steps h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; color: var(--text-primary); }
+        .next-steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
+        .next-step-card { display: flex; align-items: center; justify-content: space-between; padding: var(--space-lg); background: var(--bg-primary); border-radius: var(--radius-lg); text-decoration: none; color: var(--text-primary); font-weight: 500; border: 1px solid var(--gray-200); transition: all var(--transition-fast); }
+        .next-step-card:hover { border-color: var(--theme-color); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .next-step-card span { display: flex; align-items: center; gap: var(--space-sm); }
+        
+        .breadcrumb { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-lg); font-size: 0.9rem; }
+        .breadcrumb a { color: var(--theme-color); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { color: var(--text-muted); }
+        
+        .quiz-section { background: var(--bg-secondary); border-radius: var(--radius-xl); padding: var(--space-2xl); margin-top: var(--space-2xl); border: 2px solid var(--theme-color); }
+        .quiz-section h2 { margin-top: 0; border-bottom: none; color: var(--text-primary); }
+        .quiz-cta { display: inline-flex; align-items: center; gap: var(--space-sm); margin-top: var(--space-lg); padding: var(--space-md) var(--space-xl); background: var(--theme-color); color: white; font-weight: 600; border-radius: var(--radius-lg); text-decoration: none; transition: transform var(--transition-fast), box-shadow var(--transition-fast); }
+        .quiz-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        
+        .page-header { background: var(--theme-gradient); padding: var(--space-2xl) 0; }
+        .page-header h1 { color: white; }
+        .page-header p { color: rgba(255,255,255,0.9); font-size: 1.25rem; }
+    </style>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav-brand">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor">
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Jenkins</h1>
+            <p>Master CI/CD with the Industry's Most Popular Automation Server</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="tutorial-content">
+                <div class="breadcrumb">
+                    <a href="tutorials.html">Tutorials</a>
+                    <span>/</span>
+                    <span>Jenkins</span>
+                </div>
+
+                <div class="tutorial-meta">
+                    <div class="tutorial-meta-item">⏱️ 40 minutes</div>
+                    <div class="tutorial-meta-item">📚 Intermediate</div>
+                    <div class="tutorial-meta-item">🔄 Last updated: March 2026</div>
+                </div>
+
+                <h2>What is Jenkins?</h2>
+                <p>
+                    Jenkins is an open-source automation server that enables developers to build, test, and deploy software reliably. It has been the cornerstone of CI/CD for over 15 years, with thousands of plugins and a massive community. Jenkins allows you to automate the entire software delivery pipeline, from code commit to production deployment.
+                </p>
+
+                <div class="key-points">
+                    <h3>Why Jenkins for QA Engineers?</h3>
+                    <ul>
+                        <li><strong>Extensive Plugin Ecosystem:</strong> 1,800+ plugins for integration with virtually any tool</li>
+                        <li><strong>Distributed Builds:</strong> Master-agent architecture for scalable testing</li>
+                        <li><strong>Pipeline as Code:</strong> Define workflows in Jenkinsfile using Groovy</li>
+                        <li><strong>Free & Open Source:</strong> No licensing costs, huge community support</li>
+                        <li><strong>Enterprise Ready:</strong> Used by thousands of enterprises worldwide</li>
+                    </ul>
+                </div>
+
+                <h2>Core Concepts</h2>
+                <p>Before diving into pipelines, let's understand the fundamental building blocks of Jenkins:</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔨</div>
+                        <div class="feature-title">Jobs</div>
+                        <div class="feature-desc">The fundamental unit of work. A job can build, test, or deploy your application.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-title">Pipelines</div>
+                        <div class="feature-desc">A suite of plugins for modeling complex delivery pipelines as code.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <div class="feature-title">Agents</div>
+                        <div class="feature-desc">Worker nodes that execute jobs. Can be distributed across multiple machines.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📦</div>
+                        <div class="feature-title">Plugins</div>
+                        <div class="feature-desc">Extensions that add functionality for SCM, build tools, testing, and deployment.</div>
+                    </div>
+                </div>
+
+                <h2>Installing Jenkins</h2>
+                <p>Jenkins can be installed on various platforms. The most common methods are:</p>
+
+                <h3>Docker Installation</h3>
+                <div class="code-block">
+<code>docker run -d -p 8080:8080 -p 50000:50000 \
+  -v jenkins_home:/var/jenkins_home \
+  jenkins/jenkins:lts</code>
+                </div>
+
+                <h3>Windows Installation</h3>
+                <ol>
+                    <li>Download the Windows installer from <a href="https://www.jenkins.io/download/">jenkins.io</a></li>
+                    <li>Run the installer and follow the wizard</li>
+                    <li>Access Jenkins at <code>http://localhost:8080</code></li>
+                    <li>Enter the initial admin password from the installation log</li>
+                </ol>
+
+                <h3>Linux Installation</h3>
+                <div class="code-block">
+<code># Add Jenkins repository
+sudo wget -O /etc/yum.repos.d/jenkins.repo \
+  https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+# Install Jenkins
+sudo yum install jenkins
+
+# Start Jenkins
+sudo systemctl start jenkins</code>
+                </div>
+
+                <h2>Understanding Jenkinsfile</h2>
+                <p>
+                    A Jenkinsfile is a text file that contains the definition of a Jenkins Pipeline and is checked into source control. This approach provides several benefits:
+                </p>
+                <ul>
+                    <li>Code review for your pipeline</li>
+                    <li>Audit trail of changes</li>
+                    <li>Single source of truth</li>
+                    <li>Pipeline reproducibility</li>
+                </ul>
+
+                <h3>Declarative Pipeline Example</h3>
+                <div class="code-block">
+<code><span class="comment">// Jenkinsfile - Declarative Pipeline</span>
+<span class="keyword">pipeline</span> {
+    <span class="keyword">agent</span> any
+    
+    <span class="keyword">environment</span> {
+        <span class="string">APP_NAME</span> = <span class="string">'my-app'</span>
+        <span class="string">DEPLOY_ENV</span> = <span class="string">'staging'</span>
+    }
+    
+    <span class="keyword">options</span> {
+        <span class="string">timeout</span>(<span class="string">time: 30</span>, <span class="string">unit: 'MINUTES'</span>)
+        <span class="string">disableConcurrentBuilds</span>()
+    }
+    
+    <span class="string">stages</span> {
+        <span class="string">stage</span>(<span class="string">'Build'</span>) {
+            <span class="string">steps</span> {
+                <span class="string">echo</span> <span class="string">'Building application...'</span>
+                <span class="string">sh</span> <span class="string">'npm install'</span>
+                <span class="string">sh</span> <span class="string">'npm run build'</span>
+            }
+        }
+        
+        <span class="string">stage</span>(<span class="string">'Test'</span>) {
+            <span class="string">steps</span> {
+                <span class="string">echo</span> <span class="string">'Running tests...'</span>
+                <span class="string">sh</span> <span class="string">'npm test'</span>
+                <span class="string">junit</span> <span class="string">'test-results/*.xml'</span>
+                <span class="string">publishHTML</span>([
+                    <span class="string">reportDir</span>: <span class="string">'coverage'</span>,
+                    <span class="string">reportFiles</span>: <span class="string">'index.html'</span>,
+                    <span class="string">reportName</span>: <span class="string">'Coverage Report'</span>
+                ])
+            }
+        }
+        
+        <span class="string">stage</span>(<span class="string">'Deploy Staging'</span>) {
+            <span class="string">when</span> {
+                <span class="string">branch</span> <span class="string">'develop'</span>
+            }
+            <span class="string">steps</span> {
+                <span class="string">echo</span> <span class="string">'Deploying to staging...'</span>
+                <span class="string">sh</span> <span class="string">'./deploy.sh staging'</span>
+            }
+        }
+        
+        <span class="string">stage</span>(<span class="string">'Deploy Production'</span>) {
+            <span class="string">when</span> {
+                <span class="string">branch</span> <span class="string">'main'</span>
+            }
+            <span class="string">steps</span> {
+                <span class="string">echo</span> <span class="string">'Deploying to production...'</span>
+                <span class="string">input</span> <span class="string">message: 'Deploy to production?'</span>
+                <span class="string">sh</span> <span class="string">'./deploy.sh production'</span>
+            }
+        }
+    }
+    
+    <span class="string">post</span> {
+        <span class="string">always</span> {
+            <span class="string">echo</span> <span class="string">'Cleaning up...'</span>
+            <span class="string">cleanWs</span>()
+        }
+        <span class="string">success</span> {
+            <span class="string">emailext</span> (
+                <span class="string">subject</span>: <span class="string">"Build Success: ${env.JOB_NAME}"</span>,
+                <span class="string">body</span>: <span class="string">"Build ${env.BUILD_NUMBER} succeeded!"</span>,
+                <span class="string">to</span>: <span class="string">'team@example.com'</span>
+            )
+        }
+        <span class="string">failure</span> {
+            <span class="string">emailext</span> (
+                <span class="string">subject</span>: <span class="string">"Build Failed: ${env.JOB_NAME}"</span>,
+                <span class="string">body</span>: <span class="string">"Build ${env.BUILD_NUMBER} failed. Check logs."</span>,
+                <span class="string">to</span>: <span class="string">'team@example.com'</span>
+            )
+        }
+    }
+}</code>
+                </div>
+
+                <h2>Running Tests in Jenkins</h2>
+                <p>
+                    For QA engineers, running automated tests is a core responsibility. Jenkins provides excellent integration with various testing frameworks:
+                </p>
+
+                <h3>JUnit Test Integration</h3>
+                <div class="code-block">
+<code><span class="comment">// Running JUnit tests and publishing results</span>
+<span class="string">stage</span>(<span class="string">'Test'</span>) {
+    <span class="string">steps</span> {
+        <span class="comment">// Run tests</span>
+        <span class="string">sh</span> <span class="string">'mvn test'</span>
+        
+        <span class="comment">// Publish JUnit results</span>
+        <span class="string">junit</span> <span class="string">'target/surefire-reports/*.xml'</span>
+        
+        <span class="comment">// Publish code coverage</span>
+        <span class="string">publishHTML</span>([
+            <span class="string">target</span>: [
+                <span class="string">reportDir</span>: <span class="string">'target/site/jacoco'</span>,
+                <span class="string">reportFiles</span>: <span class="string">'index.html'</span>,
+                <span class="string">reportName</span>: <span class="string">'Code Coverage Report'</span>
+            ]
+        ])
+    }
+}</code>
+                </div>
+
+                <h3>Playwright/Cypress Integration</h3>
+                <div class="code-block">
+<code><span class="comment">// Running E2E tests with Playwright</span>
+<span class="string">stage</span>(<span class="string">'E2E Tests'</span>) {
+    <span class="string">steps</span> {
+        <span class="string">script</span> {
+            <span class="comment">// Install dependencies</span>
+            <span class="string">sh</span> <span class="string">'npm ci'</span>
+            
+            <span class="comment">// Run Playwright tests</span>
+            <span class="string">sh</span> <span class="string">'npx playwright test --reporter=html'</span>
+            
+            <span class="comment">// Publish HTML report</span>
+            <span class="string">publishHTML</span>([
+                <span class="string">target</span>: [
+                    <span class="string">reportDir</span>: <span class="string">'playwright-report'</span>,
+                    <span class="string">reportFiles</span>: <span class="string">'index.html'</span>,
+                    <span class="string">reportName</span>: <span class="string">'Playwright Test Report'</span>
+                ]
+            ])
+            
+            <span class="comment">// Archive test videos/screenshots</span>
+            <span class="string">archiveArtifacts</span> <span class="string">'playwright-report/**/*'</span>
+        }
+    }
+}</code>
+                </div>
+
+                <h3>API Testing with Newman</h3>
+                <div class="code-block">
+<code><span class="comment">// Running Postman API tests</span>
+<span class="string">stage</span>(<span class="string">'API Tests'</span>) {
+    <span class="string">steps</span> {
+        <span class="string">sh</span> <span class="string">'''
+            # Install Newman
+            npm install -g newman
+            
+            # Run Postman collection
+            newman run collection.json \
+                --environment env.json \
+                --reporters cli,junit \
+                --reporter-junit-export results.xml \
+                --reporter-html-export report.html
+        '''</span>
+        
+        <span class="string">junit</span> <span class="string">'results.xml'</span>
+        <span class="string">publishHTML</span>([<span class="string">target</span>: [<span class="string">reportDir</span>: <span class="string">'.'</span>, <span class="string">reportFiles</span>: <span class="string">'report.html'</span>]])
+    }
+}</code>
+                </div>
+
+                <h2>Jenkins Agents & Distributed Builds</h2>
+                <p>
+                    Jenkins supports distributed builds through agents. This allows you to scale your CI/CD infrastructure and run tests in parallel across multiple machines:
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🖥️</div>
+                        <div class="feature-title">Permanent Agents</div>
+                        <div class="feature-desc">Dedicated machines that are always available for building.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">☁️</div>
+                        <div class="feature-title">Cloud Agents</div>
+                        <div class="feature-desc">Dynamically provision agents in AWS, Azure, GCP, or Kubernetes.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🐳</div>
+                        <div class="feature-title">Docker Agents</div>
+                        <div class="feature-desc">Spin up ephemeral containers for each build.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Kubernetes Agents</div>
+                        <div class="feature-desc">Use Kubernetes pods as build agents for auto-scaling.</div>
+                    </div>
+                </div>
+
+                <h3>Configuring a Jenkins Agent</h3>
+                <div class="code-block">
+<code><span class="comment"># Launch agent via JNLP</span>
+java -jar agent.jar \
+  -url http://jenkins:8080/ \
+  -secret agent-secret-token \
+  -name agent-node-1 \
+  -workDir "/home/jenkins/agent"</code>
+                </div>
+
+                <h2>Security Best Practices</h2>
+                <p>
+                    Securing your Jenkins instance is critical. Here are essential security practices:
+                </p>
+
+                <div class="concept-card">
+                    <h3>🔐 Jenkins Security Essentials</h3>
+                    <ul>
+                        <li><strong>Enable Security:</strong> Always enable Jenkins security matrix</li>
+                        <li><strong>Use Matrix Authorization:</strong> Fine-grained permissions for users</li>
+                        <li><strong>Credential Management:</strong> Use Jenkins Credentials API for secrets</li>
+                        <li><strong>Audit Logging:</strong> Enable audit trail for compliance</li>
+                        <li><strong>Secret Scanning:</strong> Scan pipelines for hardcoded secrets</li>
+                        <li><strong>Plugin Security:</strong> Keep plugins updated</li>
+                    </ul>
+                </div>
+
+                <h2>Jenkinsfile Best Practices</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Practice</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Use Declarative Syntax</td>
+                            <td>Easier to read and maintain than Scripted Pipeline</td>
+                        </tr>
+                        <tr>
+                            <td>Environment Variables</td>
+                            <td>Use environment{} for configuration, not hardcoded values</td>
+                        </tr>
+                        <tr>
+                            <td>Timeouts</td>
+                            <td>Always set timeouts to prevent stuck builds</td>
+                        </tr>
+                        <tr>
+                            <td>Post Build Cleanup</td>
+                            <td>Always clean workspace to save disk space</td>
+                        </tr>
+                        <tr>
+                            <td>Agent Labels</td>
+                            <td>Use labels to route jobs to appropriate agents</td>
+                        </tr>
+                        <tr>
+                            <td>Parallel Execution</td>
+                            <td>Use parallel stages for faster builds</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Jenkins vs GitHub Actions</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Jenkins</th>
+                            <th>GitHub Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cost</td>
+                            <td>Free (self-hosted)</td>
+                            <td>Free tier available</td>
+                        </tr>
+                        <tr>
+                            <td>Setup</td>
+                            <td>Requires server setup</td>
+                            <td>Fully managed</td>
+                        </tr>
+                        <tr>
+                            <td>Plugins</td>
+                            <td>1,800+ plugins</td>
+                            <td>Marketplace actions</td>
+                        </tr>
+                        <tr>
+                            <td>Scaling</td>
+                            <td>Manual configuration</td>
+                            <td>Auto-scaling</td>
+                        </tr>
+                        <tr>
+                            <td>Learning Curve</td>
+                            <td>Steeper</td>
+                            <td>Easier</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="next-steps">
+                    <h2>Continue Learning</h2>
+                    <div class="next-steps-grid">
+                        <a href="tutorial-cicd-gitlab.html" class="next-step-card">
+                            <span>🦊 GitLab CI</span>
+                            <span>→</span>
+                        </a>
+                        <a href="tutorial-githubactions-intro.html" class="next-step-card">
+                            <span>🐙 GitHub Actions</span>
+                            <span>→</span>
+                        </a>
+                        <a href="tutorial-cicd.html" class="next-step-card">
+                            <span>⚙️ CI/CD Fundamentals</span>
+                            <span>→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2>Test Your Knowledge</h2>
+                    <p>Ready to challenge yourself? Take the Jenkins quiz to validate your understanding.</p>
+                    <a href="tutorials.html?quiz=jenkins" class="quiz-cta">
+                        <span>📝 Take Jenkins Quiz</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 QA Academy by Philip Odzor. Empowering QA Engineers worldwide.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

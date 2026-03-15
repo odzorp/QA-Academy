@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GitLab CI/CD Tutorial - Learn continuous integration and deployment with GitLab">
+    <title>GitLab CI/CD | QA Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        :root {
+            --theme-color: #fc6d26;
+            --theme-gradient: linear-gradient(135deg, #fc6d26 0%, #e24329 100%);
+        }
+        .tutorial-content { max-width: 900px; margin: 0 auto; }
+        .tutorial-content h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content h2 { font-size: 1.875rem; font-weight: 700; margin-top: var(--space-2xl); margin-bottom: var(--space-lg); color: var(--text-primary); border-bottom: 3px solid var(--theme-color); padding-bottom: var(--space-sm); display: inline-block; }
+        .tutorial-content h3 { font-size: 1.375rem; font-weight: 600; margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--text-primary); }
+        .tutorial-content p { font-size: 1.125rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+        .tutorial-content ul, .tutorial-content ol { font-size: 1.125rem; line-height: 1.8; margin-bottom: var(--space-lg); padding-left: var(--space-xl); }
+        .tutorial-content li { margin-bottom: var(--space-sm); color: var(--text-secondary); }
+        .tutorial-content strong { color: var(--text-primary); font-weight: 600; }
+        
+        .tutorial-meta { display: flex; gap: var(--space-lg); flex-wrap: wrap; margin-bottom: var(--space-xl); padding: var(--space-md) var(--space-lg); background: var(--bg-secondary); border-radius: var(--radius-lg); }
+        .tutorial-meta-item { display: flex; align-items: center; gap: var(--space-sm); font-size: 1rem; color: var(--text-secondary); }
+        
+        .concept-card { background: var(--bg-primary); border-radius: 12px; padding: 2rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--gray-200); }
+        .concept-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        
+        .key-points { background: var(--theme-gradient); color: white; padding: var(--space-xl); border-radius: var(--radius-xl); margin: var(--space-xl) 0; }
+        .key-points h3 { color: white; margin-bottom: var(--space-md); }
+        .key-points ul { margin-bottom: 0; }
+        .key-points li { color: white; }
+        
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .feature-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--gray-200); }
+        .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .feature-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .feature-desc { font-size: 0.9rem; color: var(--text-secondary); }
+        
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 1rem; }
+        .comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--gray-200); }
+        .comparison-table th { background: var(--bg-tertiary); font-weight: 600; color: var(--text-primary); }
+        .comparison-table tr:hover { background: var(--bg-secondary); }
+        
+        .code-block { background: #1e293b; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; overflow-x: auto; }
+        .code-block code { font-family: 'Fira Code', monospace; font-size: 0.9rem; color: #e2e8f0; white-space: pre; }
+        .code-block .comment { color: #64748b; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #34d399; }
+        .code-block .number { color: #f472b6; }
+        
+        .next-steps { background: var(--bg-secondary); border-radius: var(--radius-xl); padding: var(--space-2xl); margin-top: var(--space-2xl); border: 1px solid var(--gray-200); }
+        .next-steps h2 { margin-top: 0; border-bottom: none; padding-bottom: 0; color: var(--text-primary); }
+        .next-steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
+        .next-step-card { display: flex; align-items: center; justify-content: space-between; padding: var(--space-lg); background: var(--bg-primary); border-radius: var(--radius-lg); text-decoration: none; color: var(--text-primary); font-weight: 500; border: 1px solid var(--gray-200); transition: all var(--transition-fast); }
+        .next-step-card:hover { border-color: var(--theme-color); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .next-step-card span { display: flex; align-items: center; gap: var(--space-sm); }
+        
+        .breadcrumb { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-lg); font-size: 0.9rem; }
+        .breadcrumb a { color: var(--theme-color); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { color: var(--text-muted); }
+        
+        .quiz-section { background: var(--bg-secondary); border-radius: var(--radius-xl); padding: var(--space-2xl); margin-top: var(--space-2xl); border: 2px solid var(--theme-color); }
+        .quiz-section h2 { margin-top: 0; border-bottom: none; color: var(--text-primary); }
+        .quiz-cta { display: inline-flex; align-items: center; gap: var(--space-sm); margin-top: var(--space-lg); padding: var(--space-md) var(--space-xl); background: var(--theme-color); color: white; font-weight: 600; border-radius: var(--radius-lg); text-decoration: none; transition: transform var(--transition-fast), box-shadow var(--transition-fast); }
+        .quiz-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        
+        .page-header { background: var(--theme-gradient); padding: var(--space-2xl) 0; }
+        .page-header h1 { color: white; }
+        .page-header p { color: rgba(255,255,255,0.9); font-size: 1.25rem; }
+    </style>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav-brand">
+                    <img src="assets/images/profile.jpg" alt="Philip Odzor">
+                    <div class="nav-brand-text">
+                        <span>Philip Odzor</span>
+                        <small>QA Academy</small>
+                    </div>
+                </a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="tutorials.html" class="nav-link active">Tutorials</a>
+                    <a href="resources.html" class="nav-link">Resources</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+                <button class="theme-toggle" id="themeToggle" title="Switch to dark mode">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>GitLab CI/CD</h1>
+            <p>Master Continuous Integration with GitLab's Built-in DevOps Platform</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="tutorial-content">
+                <div class="breadcrumb">
+                    <a href="tutorials.html">Tutorials</a>
+                    <span>/</span>
+                    <span>GitLab CI</span>
+                </div>
+
+                <div class="tutorial-meta">
+                    <div class="tutorial-meta-item">⏱️ 40 minutes</div>
+                    <div class="tutorial-meta-item">📚 Intermediate</div>
+                    <div class="tutorial-meta-item">🔄 Last updated: March 2026</div>
+                </div>
+
+                <h2>What is GitLab CI/CD?</h2>
+                <p>
+                    GitLab CI/CD is a powerful built-in continuous integration, delivery, and deployment platform that's integrated directly into GitLab. Unlike other CI/CD tools that require separate installation, GitLab CI/CD comes bundled with GitLab, making it seamless to set up and use. It allows you to build, test, and deploy your applications with minimal configuration.
+                </p>
+
+                <div class="key-points">
+                    <h3>Why GitLab CI for QA Engineers?</h3>
+                    <ul>
+                        <li><strong>All-in-One Platform:</strong> GitLab combines SCM, CI/CD, and DevOps in one application</li>
+                        <li><strong>Auto DevOps:</strong> Automatically detect, build, test, and deploy applications</li>
+                        <li><strong>Docker Integration:</strong> Native Docker support for containerized pipelines</li>
+                        <li><strong>GitLab Runners:</strong> Scalable, distributed build infrastructure</li>
+                        <li><strong>Free Tier:</strong> 2,000 CI/CD minutes/month for free accounts</li>
+                    </ul>
+                </div>
+
+                <h2>Core Concepts</h2>
+                <p>Let's explore the fundamental building blocks of GitLab CI/CD:</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📄</div>
+                        <div class="feature-title">.gitlab-ci.yml</div>
+                        <div class="feature-desc">The configuration file that defines your CI/CD pipeline. Placed in the repository root.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏃</div>
+                        <div class="feature-title">Runners</div>
+                        <div class="feature-desc">Agents that execute CI/CD jobs. Can be shared or specific to projects.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔲</div>
+                        <div class="feature-title">Pipelines</div>
+                        <div class="feature-desc">The top-level component containing stages and jobs that run in sequence or parallel.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📦</div>
+                        <div class="feature-title">Jobs</div>
+                        <div class="feature-desc">Individual units of work defined in .gitlab-ci.yml. Each job runs in a runner.</div>
+                    </div>
+                </div>
+
+                <h2>Your First GitLab CI Pipeline</h2>
+                <p>Let's create a basic pipeline to understand the structure:</p>
+
+                <div class="code-block">
+<code><span class="comment"># .gitlab-ci.yml - Your first pipeline</span>
+<span class="comment"># This file defines your CI/CD pipeline</span>
+
+<span class="comment"># Define stages - jobs run in these stages in order</span>
+<span class="keyword">stages</span>:
+  - build
+  - test
+  - deploy
+
+<span class="comment"># Variables - reusable values across jobs</span>
+<span class="keyword">variables</span>:
+  <span class="string">NODE_VERSION</span>: <span class="string">"18"</span>
+  <span class="string">APP_NAME</span>: <span class="string">"my-app"</span>
+
+<span class="comment"># Build job</span>
+<span class="string">build</span>:
+  <span class="string">stage</span>: build
+  <span class="string">image</span>: node:<span class="string">${NODE_VERSION}</span>
+  <span class="string">script</span>:
+    - <span class="string">echo "Building ${APP_NAME}..."</span>
+    - <span class="string">npm install</span>
+    - <span class="string">npm run build</span>
+  <span class="string">artifacts</span>:
+    <span class="string">paths</span>:
+      - build/
+    <span class="string">expire_in</span>: <span class="string">1 week</span>
+
+<span class="comment"># Test job - runs in parallel with unit and integration</span>
+<span class="string">test:unit</span>:
+  <span class="string">stage</span>: test
+  <span class="string">image</span>: node:<span class="string">${NODE_VERSION}</span>
+  <span class="string">script</span>:
+    - <span class="string">npm install</span>
+    - <span class="string">npm run test:unit</span>
+  <span class="string">coverage</span>: <span class="string">/Coverage: \d+\.\d+%/</span>
+
+<span class="comment"># Integration tests</span>
+<span class="string">test:integration</span>:
+  <span class="string">stage</span>: test
+  <span class="string">image</span>: node:<span class="string">${NODE_VERSION}</span>
+  <span class="string">script</span>:
+    - <span class="string">npm install</span>
+    - <span class="string">npm run test:integration</span>
+  <span class="string">services</span>:
+    - postgres:<span class="string">15</span>
+  <span class="string">variables</span>:
+    <span class="string">POSTGRES_DB</span>: <span class="string">test_db</span>
+    <span class="string">POSTGRES_USER</span>: <span class="string">test</span>
+    <span class="string">POSTGRES_PASSWORD</span>: <span class="string">test</span>
+
+<span class="comment"># Deploy job - only runs if test stage succeeds</span>
+<span class="string">deploy</span>:
+  <span class="string">stage</span>: deploy
+  <span class="string">script</span>:
+    - <span class="string">echo "Deploying ${APP_NAME}..."</span>
+    - <span class="string">./deploy.sh production</span>
+  <span class="string">environment</span>:
+    <span class="string">name</span>: production
+    <span class="string">url</span>: https://example.com
+  <span class="string">only</span>:
+    - main</code>
+                </div>
+
+                <h2>Advanced Pipeline Features</h2>
+
+                <h3>Matrix Jobs</h3>
+                <p>Run jobs across multiple versions and configurations:</p>
+                <div class="code-block">
+<code><span class="comment"># Matrix strategy - test across multiple configurations</span>
+<span class="string">test:matrix</span>:
+  <span class="string">stage</span>: test
+  <span class="string">image</span>: node:<span class="string">${NODE_VERSION}</span>
+  <span class="string">script</span>:
+    - <span class="string">npm install</span>
+    - <span class="string">npm test</span>
+  <span class="string">matrix</span>:
+    <span class="string">include</span>:
+      - <span class="string">NODE_VERSION</span>: <span class="string">"16"</span>
+        <span class="string">OS</span>: <span class="string">"ubuntu"</span>
+      - <span class="string">NODE_VERSION</span>: <span class="string">"18"</span>
+        <span class="string">OS</span>: <span class="string">"ubuntu"</span>
+      - <span class="string">NODE_VERSION</span>: <span class="string">"20"</span>
+        <span class="string">OS</span>: <span class="string">"ubuntu"</span>
+      - <span class="string">NODE_VERSION</span>: <span class="string">"18"</span>
+        <span class="string">OS</span>: <span class="string">"windows"</span></code>
+                </div>
+
+                <h3>Dependencies & Artifacts</h3>
+                <p>Share build outputs between jobs:</p>
+                <div class="code-block">
+<code><span class="comment"># Build stage creates artifacts</span>
+<span class="string">build:app</span>:
+  <span class="string">stage</span>: build
+  <span class="string">script</span>:
+    - <span class="string">npm run build</span>
+  <span class="string">artifacts</span>:
+    <span class="string">paths</span>:
+      - dist/
+    <span class="string">expire_in</span>: <span class="string">1 day</span>
+    <span class="string">exclude</span>:
+      - dist/node_modules/
+
+<span class="comment"># Test stage downloads build artifacts</span>
+<span class="string">test:e2e</span>:
+  <span class="string">stage</span>: test
+  <span class="string">script</span>:
+    - <span class="string">npm run test:e2e</span>
+  <span class="string">dependencies</span>:
+    - build:app
+
+<span class="comment"># Deploy stage also gets artifacts</span>
+<span class="string">deploy</span>:
+  <span class="string">stage</span>: deploy
+  <span class="string">script</span>:
+    - <span class="string">./deploy.sh</span>
+  <span class="string">dependencies</span>:
+    - build:app</code>
+                </div>
+
+                <h3>Docker & Services</h3>
+                <p>Use Docker containers for your jobs:</p>
+                <div class="code-block">
+<code><span class="comment"># Using Docker for database testing</span>
+<span class="string">test:db</span>:
+  <span class="string">image</span>: node:<span class="string">18</span>
+  <span class="string">services</span>:
+    - <span class="string">name</span>: postgres:<span class="string">15</span>
+      <span class="string">alias</span>: postgres
+    - <span class="string">name</span>: redis:<span class="string">7</span>
+      <span class="string">alias</span>: redis
+  <span class="string">variables</span>:
+    <span class="string">POSTGRES_DB</span>: <span class="string">app_test</span>
+    <span class="string">POSTGRES_USER</span>: app
+    <span class="string">POSTGRES_PASSWORD</span>: <span class="string">secret</span>
+    <span class="string">REDIS_URL</span>: <span class="string">redis://redis:6379</span>
+  <span class="string">script</span>:
+    - <span class="string">npm install</span>
+    - <span class="string">npm run test:db</span></code>
+                </div>
+
+                <h2>Running Automated Tests</h2>
+                <p>GitLab CI integrates seamlessly with various testing frameworks:</p>
+
+                <h3>JUnit Test Reports</h3>
+                <div class="code-block">
+<code><span class="comment"># Publishing JUnit test reports</span>
+<span class="string">test:unit</span>:
+  <span class="string">stage</span>: test
+  <span class="string">image</span>: node:<span class="string">18</span>
+  <span class="string">script</span>:
+    - <span class="string">npm install</span>
+    - <span class="string">npm test -- --coverage --json --outputFile=report.json</span>
+  <span class="string">artifacts</span>:
+    <span class="string">reports</span>:
+      <span class="string">junit</span>: report.json
+    <span class="string">paths</span>:
+      - report.json
+    <span class="string">expire_in</span>: <span class="string">1 week</span></code>
+                </div>
+
+                <h3>Playwright/Cypress E2E Tests</h3>
+                <div class="code-block">
+<code><span class="comment"># Running Playwright E2E tests</span>
+<span class="string">test:e2e</span>:
+  <span class="string">image</span>: mcr.microsoft.com/playwright:v<span class="number">1.40</span>
+  <span class="string">stage</span>: test
+  <span class="string">script</span>:
+    - <span class="string">npm ci</span>
+    - <span class="string">npx playwright install --with-deps</span>
+    - <span class="string">npx playwright test</span>
+  <span class="string">artifacts</span>:
+    <span class="string">when</span>: always
+    <span class="string">paths</span>:
+      - playwright-report/
+      - test-results/
+    <span class="string">reports</span>:
+      <span class="string">junit</span>: test-results/junit.xml
+  <span class="string">tags</span>:
+    - docker</code>
+                </div>
+
+                <h3>API Testing with Newman</h3>
+                <div class="code-block">
+<code><span class="comment"># Running Postman API tests</span>
+<span class="string">test:api</span>:
+  <span class="string">image</span>: node:<span class="number">18</span>
+  <span class="string">stage</span>: test
+  <span class="string">before_script</span>:
+    - <span class="string">npm install -g newman</span>
+  <span class="string">script</span>:
+    - <span class="string">newman run collection.json</span>
+      <span class="string">--environment environment.json</span>
+      <span class="string">--reporters cli,junit</span>
+      <span class="string">--reporter-junit-export newman.xml</span>
+  <span class="string">artifacts</span>:
+    <span class="string">reports</span>:
+      <span class="string">junit</span>: newman.xml
+    <span class="string">when</span>: always</code>
+                </div>
+
+                <h2>GitLab Runners</h2>
+                <p>Runners execute your CI/CD jobs. They can be hosted by GitLab or self-managed:</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">☁️</div>
+                        <div class="feature-title">GitLab.com Runners</div>
+                        <div class="feature-desc">Hosted runners provided by GitLab. Quick setup, limited minutes.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🖥️</div>
+                        <div class="feature-title">Self-Hosted Runners</div>
+                        <div class="feature-desc">Runners on your own infrastructure. Full control, unlimited minutes.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🐳</div>
+                        <div class="feature-title">Container Runners</div>
+                        <div class="feature-desc">Run jobs in Docker containers. Great for isolated testing.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">☸️</div>
+                        <div class="feature-title">Kubernetes Runners</div>
+                        <div class="feature-desc">Auto-scaling runners in Kubernetes clusters.</div>
+                    </div>
+                </div>
+
+                <h3>Registering a Runner</h3>
+                <div class="code-block">
+<code><span class="comment"># Install GitLab Runner</span>
+<span class="string">curl</span> -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/ | <span class="string">sudo bash</span>
+<span class="string">sudo</span> yum install -y gitlab-runner
+
+<span class="comment"># Register a runner</span>
+<span class="string">sudo</span> gitlab-runner register
+  --url https://gitlab.com
+  --token <span class="string">REGISTRATION_TOKEN</span>
+  --description <span class="string">"my-runner"</span>
+  --tag-list <span class="string">"docker"</span>
+  --executor docker
+  --docker-image <span class="string">"docker:latest"</span>
+  --docker-privileged
+  --docker-volumes <span class="string">"/cache"</span></code>
+                </div>
+
+                <h2>Auto DevOps</h2>
+                <p>GitLab Auto DevOps automatically builds, tests, and deploys your application:</p>
+                <div class="code-block">
+<code><span class="comment"># Enable Auto DevOps</span>
+<span class="comment"># Just set this variable in your project settings</span>
+<span class="string">CI_COMMIT_BRANCH</span>=main
+
+<span class="comment"># Or in .gitlab-ci.yml</span>
+<span class="string">variables</span>:
+  <span class="string">DEVOPS_AUTO_DEVOPS_ENABLED</span>: <span class="string">"true"</span>
+
+<span class="comment"># Auto DevOps will:</span>
+<span class="comment"># 1. Auto Build - Detect language and build</span>
+<span class="comment"># 2. Auto Test - Run appropriate tests</span>
+<span class="comment"># 3. Auto Code Quality - Analyze code</span>
+<span class="comment"># 4. Auto Security - Scan for vulnerabilities</span>
+<span class="comment"># 5. Auto Deploy - Deploy to Kubernetes</span></code>
+                </div>
+
+                <h2>Environment Management</h2>
+                <p>Define environments for different deployment stages:</p>
+                <div class="code-block">
+<code><span class="comment"># Deploy to staging</span>
+<span class="string">deploy:staging</span>:
+  <span class="string">stage</span>: deploy
+  <span class="string">script</span>:
+    - <span class="string">./deploy.sh staging</span>
+  <span class="string">environment</span>:
+    <span class="string">name</span>: staging
+    <span class="string">url</span>: https://staging.example.com
+    <span class="string">on_stop</span>: stop:staging
+  <span class="string">only</span>:
+    - develop
+
+<span class="comment"># Deploy to production</span>
+<span class="string">deploy:production</span>:
+  <span class="string">stage</span>: deploy
+  <span class="string">script</span>:
+    - <span class="string">./deploy.sh production</span>
+  <span class="string">environment</span>:
+    <span class="string">name</span>: production
+    <span class="string">url</span>: https://example.com
+    <span class="string">on_stop</span>: stop:production
+  <span class="string">when</span>: manual
+  <span class="string">only</span>:
+    - main
+
+<span class="comment"># Stop environment</span>
+<span class="string">stop:staging</span>:
+  <span class="string">stage</span>: deploy
+  <span class="string">script</span>:
+    - <span class="string">./destroy.sh staging</span>
+  <span class="string">environment</span>:
+    <span class="string">name</span>: staging
+    <span class="string">action</span>: stop
+  <span class="string">when</span>: manual</code>
+                </div>
+
+                <h2>GitLab CI vs Jenkins</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>GitLab CI</th>
+                            <th>Jenkins</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Setup</td>
+                            <td>Built into GitLab</td>
+                            <td>Requires separate installation</td>
+                        </tr>
+                        <tr>
+                            <td>Configuration</td>
+                            <td>YAML-based</td>
+                            <td>Groovy or YAML</td>
+                        </tr>
+                        <tr>
+                            <td>Docker Support</td>
+                            <td>Native</td>
+                            <td>Plugin-based</td>
+                        </tr>
+                        <tr>
+                            <td>UI/UX</td>
+                            <td>Modern, integrated</td>
+                            <td>Classic, plugin-dependent</td>
+                        </tr>
+                        <tr>
+                            <td>Scaling</td>
+                            <td>Auto-scaling available</td>
+                            <td>Manual configuration</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="next-steps">
+                    <h2>Continue Learning</h2>
+                    <div class="next-steps-grid">
+                        <a href="tutorial-cicd-jenkins.html" class="next-step-card">
+                            <span>🔧 Jenkins</span>
+                            <span>→</span>
+                        </a>
+                        <a href="tutorial-githubactions-intro.html" class="next-step-card">
+                            <span>🐙 GitHub Actions</span>
+                            <span>→</span>
+                        </a>
+                        <a href="tutorial-cicd.html" class="next-step-card">
+                            <span>⚙️ CI/CD Fundamentals</span>
+                            <span>→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="quiz-section">
+                    <h2>Test Your Knowledge</h2>
+                    <p>Ready to challenge yourself? Take the GitLab CI quiz to validate your understanding.</p>
+                    <a href="tutorials.html?quiz=gitlab" class="quiz-cta">
+                        <span>📝 Take GitLab CI Quiz</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 QA Academy by Philip Odzor. Empowering QA Engineers worldwide.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
